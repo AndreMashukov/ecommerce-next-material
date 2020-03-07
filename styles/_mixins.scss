@@ -1,6 +1,29 @@
-$layout-min-width: 800px;
+$layout-min-width-medium: 990px;
+$layout-min-width-small: 500px;
+$desktop-width: 1024px;
+$tablet-width: 768px;
+
+@mixin desktop {
+  @media (min-width: #{$desktop-width}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px}) {
+    @content;
+  }
+}
 
 @mixin layout {
-  width: $layout-min-width;
+  @include desktop() { 
+    width: $layout-min-width-medium;
+  }
+
+  @include tablet() { 
+    width: $layout-min-width-small;
+  }
+
   margin: 0 auto;  
+  overflow: hidden;
 }
