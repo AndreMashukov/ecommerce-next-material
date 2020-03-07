@@ -1,0 +1,6 @@
+$layout-min-width: 800px;
+
+@mixin layout {
+  width: $layout-min-width;
+  margin: 0 auto;  
+}

@@ -1,0 +1,7 @@
+@import '../../styles/mixins';
+
+.root-layout {
+  @include layout;
+  padding: 20px 0 10px 0;
+  height: calc(100vh - 120px);
+}
