@@ -12,7 +12,6 @@
     "no-var-requires": false,
     "comment-format": false,
     "no-bitwise": false,
-    "no-console": [true, "log"],
     "no-unused-expression": [true, "allow-fast-null-checks"],
     "object-literal-key-quotes": [true, "as-needed"],
     "space-before-function-paren": [true, { "anonymous": "always" }],
