@@ -1,19 +1,19 @@
-import axios from 'axios';
+import fetch from 'isomorphic-unfetch';
+import { API_BASE } from '../constants';
 
-// const API_BASE = process.env.API_BASE;
-// const API_BASE = 'https://api.github.com/repos/zeit/next.js';
+// tslint:disable-next-line: no-any
+function SectionApi (this: any) {
+    async function request (url: string) {
+        return fetch(API_BASE + '/' + url);
+    };
 
-export default () => {
-    return new Promise((resolve, reject) => {
-      axios
-        .get('http://localhost:3000/api/sections/block?blockId=4')
-        .then(resp => {
-          // tslint:disable-next-line: no-console
-          console.log(resp);
-          resolve(resp);
-        })
-        .catch(err => {
-          reject(err);
-        });
-    });
-};
+    this.getAll = async (blockId: number) => {
+        const res = request('sections/block?blockId=' + blockId);
+        const json = (await res).json();
+        return json;
+    }
+
+    return this;
+}
+
+export default SectionApi;
