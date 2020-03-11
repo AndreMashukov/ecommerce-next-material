@@ -10,7 +10,7 @@ interface Props {
 
 export default class extends React.Component<Props> {
   static async getInitialProps() {
-    const res = await fetch(`${API_BASE}sections/block?blockId=4`);
+    const res = await fetch(`${API_BASE}/sections/block?blockId=4`);
     const resp: Section[] = await res.json();
     return { sections: resp };
   }
