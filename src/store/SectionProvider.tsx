@@ -1,9 +1,7 @@
 import React from 'react';
 
 const { createContext, useContext } = React;
-
 const SectionContext = createContext(null);
-
 const SECTIONS = [
   {
     id: 30,
@@ -18,7 +16,7 @@ const SECTIONS = [
 // tslint:disable-next-line: no-any
 export const SectionProvider = (props: any) => {
   const value = {
-    sections: SECTIONS
+    getAll: getAllSections()
   };
 
   return (
@@ -32,3 +30,6 @@ export const useSection = () => {
   return useContext(SectionContext);
 };
 
+const getAllSections = () => {
+  return SECTIONS;
+}
