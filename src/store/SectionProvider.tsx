@@ -1,7 +1,7 @@
 import React from 'react';
 
 const { createContext, useContext } = React;
-const SectionContext = createContext(null);
+
 const SECTIONS = [
   {
     id: 30,
@@ -12,6 +12,15 @@ const SECTIONS = [
     code: 'purification'
   }
 ];
+
+const getAllSections = () => {
+  return { sections: SECTIONS };
+};
+
+export const SectionContext = createContext({
+  getAll: getAllSections()
+});
+
 
 // tslint:disable-next-line: no-any
 export const SectionProvider = (props: any) => {
@@ -26,10 +35,6 @@ export const SectionProvider = (props: any) => {
   );
 };
 
-export const useSection = () => {
+export const useSections = () => {
   return useContext(SectionContext);
 };
-
-const getAllSections = () => {
-  return SECTIONS;
-}

@@ -1,25 +1,19 @@
 import React from 'react';
 import { Home } from '../components';
-import fetch from 'isomorphic-unfetch';
-import { API_BASE } from '../constants';
 import { Section } from '../models';
+import { useSections } from '../store/SectionProvider';
 
 interface Props {
   sections: Section[];
 }
 
-export default class extends React.Component<Props> {
-  static async getInitialProps() {
-    const res = await fetch(`${API_BASE}/sections/block?blockId=4`);
-    const resp: Section[] = await res.json();
-    return { sections: resp };
-  }
+export default () => {
+  const sectionContext = useSections();
+  const sections: Props = sectionContext.getAll;
 
-  render() {
-    return (
-      <div>
-        <Home {...this.props}/>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <Home {...sections} />
+    </div>
+  );
+};
