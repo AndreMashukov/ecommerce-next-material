@@ -1,5 +1,6 @@
 import './Home.scss';
 import { Section } from '../../models';
+import Link from 'next/link';
 
 interface HomeProps {
   sections: Section[];
@@ -11,7 +12,9 @@ export const Home = (props: HomeProps) => {
       <div>
         {props.sections.map(category => (
           <div key={category.code}>
-            {category.name}
+            <Link href={'/catalog/mirra-test/' + category.code} prefetch={false}>
+              {category.name}
+            </Link>
           </div>
         ))}
       </div>
