@@ -1,7 +1,8 @@
 import React from 'react';
 import { Home } from '../components';
 import { Section } from '../models';
-import Api from '../services/Api';
+import SectionApi from '../services/Api';
+import { PRODUCT_CATALOG } from '../constants';
 
 interface Props {
   sections: Section[];
@@ -9,8 +10,8 @@ interface Props {
 
 export default class extends React.Component<Props> {
   static async getInitialProps() {
-    const api = Api();
-    const resp: Section[] = await api();
+    const sectionApi = SectionApi();
+    const resp: Section[] = await sectionApi(PRODUCT_CATALOG);
     return { sections: resp };
   }
 

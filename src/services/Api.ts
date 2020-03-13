@@ -1,15 +1,14 @@
 import fetch from 'isomorphic-unfetch';
 import { API_BASE } from '../constants';
 
-// tslint:disable-next-line: no-any
-function Api() {
-  const decode = async () => {
-    const res = await fetch(`${API_BASE}/sections/block?blockId=4`);
+const SectionApi = () => {
+  const getSections = async (blockId: number) => {
+    const res = await fetch(`${API_BASE}/sections/block?blockId=${blockId}`);
     const json = await res.json();
     return json;
   };
 
-  return decode;
+  return getSections;
 }
 
-export default Api;
+export default SectionApi;
