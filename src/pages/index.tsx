@@ -1,22 +1,24 @@
 import React from 'react';
 import { Home } from '../components';
 import { Section } from '../models';
-import { useSections } from '../store/SectionProvider';
-import ApiProvider from '../services/Provider';
+import Api from '../services/Api';
 
 interface Props {
   sections: Section[];
 }
 
-export default () => {
-  const sectionContext = useSections();
-  const sections: Props = sectionContext.getAll;
+export default class extends React.Component<Props> {
+  static async getInitialProps() {
+    const api = Api();
+    const resp: Section[] = await api();
+    return { sections: resp };
+  }
 
-  return (
-    <div>
-      <ApiProvider>
-        <Home {...sections} />
-      </ApiProvider>
-    </div>
-  );
-};
+  render() {
+    return (
+      <div>
+        <Home {...this.props} />
+      </div>
+    );
+  }
+}
