@@ -2,6 +2,7 @@ import React from 'react';
 import { Home } from '../components';
 import { Section } from '../models';
 import { useSections } from '../store/SectionProvider';
+import ApiProvider from '../services/Provider';
 
 interface Props {
   sections: Section[];
@@ -13,7 +14,9 @@ export default () => {
 
   return (
     <div>
-      <Home {...sections} />
+      <ApiProvider>
+        <Home {...sections} />
+      </ApiProvider>
     </div>
   );
 };
