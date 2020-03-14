@@ -3,6 +3,7 @@ import { Home } from '../components';
 import { Section } from '../models';
 import { SectionApi } from '../services/CatalogApi';
 import { PRODUCT_CATALOG } from '../constants';
+import { ApiConsumer } from '../store/ApiProvider';
 
 interface Props {
   sections: Section[];
