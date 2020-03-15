@@ -7,8 +7,8 @@ export const getSections = async (blockId: number) => {
   return json;
 };
 
-export const getProducts = async (params: { blockId: number; sectionId: number }) => {
-  const res = await fetch(`${API_BASE}/products?blockId=${params.blockId}&sectionId=${params.sectionId}`);
+export const getProducts = async (params: { blockId: number; sectionCode: number }) => {
+  const res = await fetch(`${API_BASE}/products?blockId=${params.blockId}&sectionCode=${params.sectionCode}`);
   const json = await res.json();
   return json;
 };

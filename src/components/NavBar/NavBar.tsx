@@ -6,6 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import HomeIcon from '@material-ui/icons/Home';
 import './NavBar.scss';
+import Link from 'next/link';
 
 export const NavBar = class extends React.Component {
   render() {
@@ -16,7 +17,9 @@ export const NavBar = class extends React.Component {
             <Grid container direction="row" justify="space-between" alignItems="flex-start" spacing={2}>
               <Grid item>
                 <IconButton aria-label="home" color="inherit">
-                  <HomeIcon />
+                  <Link href={'/'} prefetch={false}>
+                    <HomeIcon />
+                  </Link>
                 </IconButton>
               </Grid>
               <Grid item>
