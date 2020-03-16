@@ -9,13 +9,13 @@ interface HomeProps {
 
 export const Home = (props: HomeProps) => {
   return (
-    <div className="card-root">
+    <div className="home-root">
       <div>
         {props.sections.map(category => (
           <div key={category.code}>
             <Link href={'/catalog/mirra-test/' + category.code} prefetch={false}>
               <Typography color="textSecondary">
-                {category.name}
+                <div className="item">{category.name}</div>
               </Typography>
             </Link>
           </div>

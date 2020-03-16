@@ -1,9 +1,13 @@
-.card-root {
+.home-root {
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
 
-.card {
-  width: 275px;
+.item {
+  cursor: pointer;
+
+  &:hover {
+    color: black;
+  }
 }
