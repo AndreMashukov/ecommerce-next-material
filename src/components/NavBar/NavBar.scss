@@ -3,3 +3,19 @@
 .navbar-layout {
   @include layout;
 }
+
+.bottom-section {
+  padding: 5px 0 15px 0;
+}
+
+.img-logo {
+  img {
+    height: 30px;
+  }
+}
+
+.img-molecule {
+  img {
+    height: 55px;
+  }
+}
