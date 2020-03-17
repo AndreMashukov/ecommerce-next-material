@@ -19,10 +19,10 @@ export const NavBar = class extends React.Component {
               <div className="navbar-layout">
                 <Grid container direction="row" justify="flex-start" spacing={2}>
                   <Grid item>
-                    <Typography>Доставка</Typography>
+                    <Typography variant="subtitle2">Доставка</Typography>
                   </Grid>
                   <Grid item>
-                    <Typography>Оплата</Typography>
+                    <Typography variant="subtitle2">Оплата</Typography>
                   </Grid>
                 </Grid>
               </div>
@@ -40,7 +40,7 @@ export const NavBar = class extends React.Component {
                         </Grid>
                         <Grid>
                           <div className="img-logo">
-                            <img src="/img/logo.svg" />
+                            <img src="/img/logo.svg" alt="Logo"/>
                           </div>
                         </Grid>
                       </Grid>
