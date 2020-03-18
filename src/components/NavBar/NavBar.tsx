@@ -1,62 +1,62 @@
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
 import Grid from '@material-ui/core/Grid';
-import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-// import HomeIcon from '@material-ui/icons/Home';
 import './NavBar.scss';
 // import Link from 'next/link';
 import { Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
+import theme from '../../theme/theme';
 
-export const NavBar = class extends React.Component {
-  render() {
-    return (
-      <AppBar position="static">
-        <Toolbar>
-          <Grid container direction="column" alignItems="center" spacing={1}>
+const useStyles = makeStyles({
+  upperSection: {
+    padding: '5px 0 5px 0',
+    'background-color': theme.palette.primary.main
+  }
+});
+
+export const NavBar = () => {
+  const classes = useStyles();
+
+  return (
+    <div>
+      <div className={classes.upperSection}>
+        <div className="navbar-layout">
+          <Grid container direction="row" justify="flex-start" spacing={2}>
             <Grid item>
-              <div className="navbar-layout">
-                <Grid container direction="row" justify="flex-start" spacing={2}>
-                  <Grid item>
-                    <Typography variant="subtitle2">Доставка</Typography>
-                  </Grid>
-                  <Grid item>
-                    <Typography variant="subtitle2">Оплата</Typography>
-                  </Grid>
-                </Grid>
-              </div>
+              <Typography variant="subtitle2">Доставка</Typography>
             </Grid>
             <Grid item>
-              <div className="bottom-section">
-                <div className="navbar-layout">
-                  <Grid container direction="row" justify="space-between" alignItems="flex-start" spacing={2}>
-                    <Grid item>
-                      <Grid container direction="row" justify="flex-start" alignItems="center" spacing={5}>
-                        <Grid item>
-                          <div className="img-molecule">
-                            <img src="/img/molecule.svg" />
-                          </div>
-                        </Grid>
-                        <Grid>
-                          <div className="img-logo">
-                            <img src="/img/logo.svg" alt="Logo"/>
-                          </div>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item>
-                      <IconButton aria-label="home" color="inherit">
-                        <ShoppingCartIcon />
-                      </IconButton>
-                    </Grid>
-                  </Grid>
-                </div>
-              </div>
+              <Typography variant="subtitle2">Оплата</Typography>
             </Grid>
           </Grid>
-        </Toolbar>
-      </AppBar>
-    );
-  }
+        </div>
+      </div>
+      <div className="bottom-section">
+        <div className="navbar-layout">
+          <Grid container direction="row" justify="space-between" alignItems="flex-start" spacing={2}>
+            <Grid item>
+              <Grid container direction="row" justify="flex-start" alignItems="center" spacing={5}>
+                <Grid item>
+                  <div className="img-molecule">
+                    <img src="/img/molecule.svg" />
+                  </div>
+                </Grid>
+                <Grid>
+                  <div className="img-logo">
+                    <img src="/img/logo.svg" alt="Logo" />
+                  </div>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item>
+              <IconButton aria-label="home" color="inherit">
+                <ShoppingCartIcon />
+              </IconButton>
+            </Grid>
+          </Grid>
+        </div>
+      </div>
+    </div>
+  );
 };
