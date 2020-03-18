@@ -12,7 +12,11 @@ const useStyles = makeStyles({
   upperSection: {
     padding: '5px 0 5px 0',
     'background-color': theme.palette.primary.main
-  }
+  },
+  bottomSection: {
+    padding: '15px 0 15px 0',
+    'border-bottom': `1px solid ${theme.palette.secondary.main}`
+  },
 });
 
 export const NavBar = () => {
@@ -32,8 +36,8 @@ export const NavBar = () => {
           </Grid>
         </div>
       </div>
-      <div className="bottom-section">
-        <div className="navbar-layout">
+      <div className="navbar-layout">
+        <div className={classes.bottomSection}>
           <Grid container direction="row" justify="space-between" alignItems="flex-start" spacing={2}>
             <Grid item>
               <Grid container direction="row" justify="flex-start" alignItems="center" spacing={5}>

@@ -1,5 +1,5 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-import purple from '@material-ui/core/colors/purple';
+import teal from '@material-ui/core/colors/teal';
 import grey from '@material-ui/core/colors/grey';
 
 // A theme with custom primary and secondary color.
@@ -12,9 +12,9 @@ export default createMuiTheme({
       dark: grey[900]
     },
     secondary: {
-      light: purple[300],
-      main: purple[500],
-      dark: purple[700]
+      light: teal[300],
+      main: teal[200],
+      dark: teal[700]
     }
   },
   typography: {
