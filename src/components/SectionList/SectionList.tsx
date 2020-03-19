@@ -1,5 +1,5 @@
 import { Section } from '../../models';
-import Link from 'next/link';
+// import Link from 'next/link';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../theme/theme';
@@ -11,24 +11,23 @@ interface SectionListProps {
 const useStyles = makeStyles({
   item: {
     cursor: 'pointer',
+    color: theme.palette.primary.main,
     '&:hover': {
-      color: theme.palette.primary.dark
-    }
-  }
+      color: theme.palette.primary.dark,
+    },
+  },
 });
 
 export const SectionList = (props: SectionListProps) => {
   const classes = useStyles();
 
   return (
-    <div>
+    <div className={classes.item}>
       {props.sections.map(category => (
         <div key={category.code}>
-          <Link href={'/catalog/mirra-test/' + category.code} prefetch={false}>
-            <Typography color="textSecondary">
-              <div className={classes.item}>{category.name}</div>
-            </Typography>
-          </Link>
+          <a href={'/catalog/mirra-test/' + category.code} className={classes.item}>
+            <Typography variant="body1">{category.name}</Typography>
+          </a>
         </div>
       ))}
     </div>

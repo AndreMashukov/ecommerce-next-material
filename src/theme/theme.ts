@@ -13,7 +13,7 @@ export default createMuiTheme({
     },
     secondary: {
       light: teal[300],
-      main: teal[200],
+      main: teal[500],
       dark: teal[700]
     }
   },
