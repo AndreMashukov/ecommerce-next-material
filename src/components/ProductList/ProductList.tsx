@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/styles';
 import theme from '../../theme/theme';
 import grey from '@material-ui/core/colors/grey';
 
-interface ProductistProps {
+interface ProductListProps {
   products: Product[];
   sections: Section[];
   currentSection: string;
@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const ProductList = (props: ProductistProps) => {
+export const ProductList = (props: ProductListProps) => {
   const classes = useStyles();
 
   return (
