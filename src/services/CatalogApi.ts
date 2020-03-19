@@ -7,7 +7,8 @@ export const getSections = async (blockId: number) => {
   return json;
 };
 
-export const getProducts = async (params: { blockId: number; sectionCode: number }) => {
+export const getProducts = async (params: { blockId: number;
+    sectionCode: string | string[] }) => {
   const res = await fetch(`${API_BASE}/products?blockId=${params.blockId}&sectionCode=${params.sectionCode}`);
   const json = await res.json();
   return json;
