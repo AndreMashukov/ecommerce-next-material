@@ -1,11 +1,13 @@
-import { Section } from '../../models';
+import { Product, Section } from '../../models';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../theme/theme';
 import grey from '@material-ui/core/colors/grey';
 
-interface SectionListProps {
+interface ProductistProps {
+  products: Product[];
   sections: Section[];
+  currentSection: string;
 }
 
 const useStyles = makeStyles({
@@ -18,15 +20,15 @@ const useStyles = makeStyles({
   },
 });
 
-export const SectionList = (props: SectionListProps) => {
+export const ProductList = (props: ProductistProps) => {
   const classes = useStyles();
 
   return (
     <div className={classes.item}>
-      {props.sections.map(category => (
-        <div key={category.code}>
-          <a href={'/catalog/mirra-test/' + category.code} className={classes.item}>
-            <Typography variant="body1">{category.name}</Typography>
+      {props.products.map(product => (
+        <div key={product.code}>
+          <a href={`/catalog/mirra-test/${props.currentSection}/${product.code}`} className={classes.item}>
+            <Typography variant="body1">{product.name}</Typography>
           </a>
         </div>
       ))}

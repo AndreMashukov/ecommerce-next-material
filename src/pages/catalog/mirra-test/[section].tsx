@@ -6,10 +6,12 @@ import { Section } from '../../../models';
 import { Grid } from '@material-ui/core';
 import { SectionList } from '../../../components/SectionList/SectionList';
 import { NextPageContext } from 'next';
+import { ProductList } from '../../../components/ProductList/ProductList';
 
 interface Props {
   products: Product[];
   sections: Section[];
+  currentSection: string;
 }
 
 export default class extends React.Component<Props> {
@@ -19,7 +21,8 @@ export default class extends React.Component<Props> {
     const sectionList = await getSections(PRODUCT_CATALOG_ID);
     return {
       products: [].concat.apply([], productList),
-      sections: sectionList
+      sections: sectionList,
+      currentSection: ctx.query.section
     };
   }
 
@@ -29,6 +32,9 @@ export default class extends React.Component<Props> {
         <Grid container direction="row" justify="flex-start" spacing={2}>
           <Grid item>
             <SectionList {...this.props} />
+          </Grid>
+          <Grid item>
+            <ProductList {...this.props} />
           </Grid>
         </Grid>
       </div>
