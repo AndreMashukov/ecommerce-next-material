@@ -1,0 +1,9 @@
+@import '../../styles/mixins';
+
+.footer-layout {
+  @include layout;
+}
+
+.footer-block {
+  padding-top: 20px;
+}
