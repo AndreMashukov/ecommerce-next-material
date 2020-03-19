@@ -1,5 +1,5 @@
 import { Product, Section } from '../../models';
-import { Typography } from '@material-ui/core';
+import { Typography, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../theme/theme';
 import grey from '@material-ui/core/colors/grey';
@@ -24,14 +24,18 @@ export const ProductList = (props: ProductListProps) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.item}>
+    <Grid container direction="column" justify="flex-start">
       {props.products.map(product => (
-        <div key={product.code}>
-          <a href={`/catalog/mirra-test/${props.currentSection}/${product.code}`} className={classes.item}>
-            <Typography variant="body1">{product.name}</Typography>
-          </a>
-        </div>
+        <Grid item>
+          <div className={classes.item}>
+            <div key={product.code}>
+              <a href={`/catalog/mirra-test/${props.currentSection}/${product.code}`} className={classes.item}>
+                <Typography variant="body1">{product.name}</Typography>
+              </a>
+            </div>
+          </div>
+        </Grid>
       ))}
-    </div>
+    </Grid>
   );
 };
