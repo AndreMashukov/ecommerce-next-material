@@ -1,5 +1,5 @@
 import { Product, Section } from '../../models';
-import { Typography, Grid } from '@material-ui/core';
+import { Typography, Grid, Button } from '@material-ui/core';
 import { ElementProperty } from '../../models/ElementProperty';
 import { PROPERTY_PRICE_ID } from '../../constants';
 import { makeStyles } from '@material-ui/styles';
@@ -17,6 +17,9 @@ const useStyles = makeStyles({
     'background-color': grey[100],
     padding: '10px',
     margin: '10px',
+    display: 'flex',
+    'flex-direction': 'column',
+    'justify-content': 'space-between',
     height: '200px',
     overflow: 'hidden',
     '&:hover': {
@@ -46,20 +49,21 @@ export const ProductList = (props: ProductListProps) => {
           {props.products.map(product => (
             <Grid key={product.code} item xs={4}>
               <div className={classes.box}>
-                <Grid container direction="column" justify="space-between" spacing={3}>
-                  <Grid item>
+                  <div>
                     <Typography variant="h6" color="textSecondary">
                       {getPriceProperty(product).value} руб
                     </Typography>
-                  </Grid>
-                  <Grid item>
+                  </div>
+                  <div>
                     <a href={`/catalog/mirra-test/${props.currentSection}/${product.code}`} className={classes.item}>
                       <Typography variant="subtitle2">{product.name}</Typography>
                     </a>
-                  </Grid>
-                  <Grid item>
-                  </Grid>
-                </Grid>
+                    </div>
+                  <div>
+                    <Button variant="outlined" color="secondary">
+                      В КОРЗИНУ
+                    </Button>
+                  </div>
               </div>
             </Grid>
           ))}
