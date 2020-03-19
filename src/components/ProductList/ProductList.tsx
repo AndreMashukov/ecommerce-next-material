@@ -25,17 +25,21 @@ export const ProductList = (props: ProductListProps) => {
 
   return (
     <Grid container direction="column" justify="flex-start">
-      {props.products.map(product => (
-        <Grid item>
-          <div className={classes.item}>
-            <div key={product.code}>
-              <a href={`/catalog/mirra-test/${props.currentSection}/${product.code}`} className={classes.item}>
-                <Typography variant="body1">{product.name}</Typography>
-              </a>
-            </div>
-          </div>
+      <Grid item>
+        <Grid container direction="row" justify="flex-start" wrap="wrap">
+          {props.products.map(product => (
+            <Grid item xs={4}>
+              <div className={classes.item}>
+                <div key={product.code}>
+                  <a href={`/catalog/mirra-test/${props.currentSection}/${product.code}`} className={classes.item}>
+                    <Typography variant="body1">{product.name}</Typography>
+                  </a>
+                </div>
+              </div>
+            </Grid>
+          ))}
         </Grid>
-      ))}
+      </Grid>
     </Grid>
   );
 };

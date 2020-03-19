@@ -29,11 +29,11 @@ export default class extends React.Component<Props> {
   render() {
     return (
       <div>
-        <Grid container direction="row" justify="flex-start" spacing={2}>
-          <Grid item>
+        <Grid container direction="row" justify="space-between" alignItems="baseline" spacing={2}>
+          <Grid item xs={3}>
             <SectionList {...this.props} />
           </Grid>
-          <Grid item>
+          <Grid item xs={9}>
             <ProductList {...this.props} />
           </Grid>
         </Grid>
