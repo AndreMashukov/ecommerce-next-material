@@ -1,7 +1,7 @@
 import { Product, Section } from '../../models';
 import { Typography, Grid } from '@material-ui/core';
 import { ElementProperty } from '../../models/ElementProperty';
-// import { PROPERTY_PRICE_ID } from '../../constants';
+import { PROPERTY_PRICE_ID } from '../../constants';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../theme/theme';
 import grey from '@material-ui/core/colors/grey';
@@ -18,6 +18,7 @@ const useStyles = makeStyles({
     padding: '10px',
     margin: '10px',
     height: '200px',
+    overflow: 'hidden',
     '&:hover': {
       'background-color': theme.palette.primary.main,
     },
@@ -32,15 +33,11 @@ const useStyles = makeStyles({
 });
 
 const getPriceProperty = (product: Product): ElementProperty => {
-  // tslint:disable-next-line: no-console
-  console.log(product.properties.find(item => item.propertyId === '22'));
-  return product.properties.find(property => property.propertyId === '22');
+  return product.properties.find(property => parseInt(property.propertyId, 0) === PROPERTY_PRICE_ID);
 };
 
 export const ProductList = (props: ProductListProps) => {
   const classes = useStyles();
-  // tslint:disable-next-line: no-console
-  console.log(getPriceProperty(props.products[1]));
 
   return (
     <Grid container direction="column" justify="flex-start">
@@ -49,9 +46,20 @@ export const ProductList = (props: ProductListProps) => {
           {props.products.map(product => (
             <Grid key={product.code} item xs={4}>
               <div className={classes.box}>
-                <a href={`/catalog/mirra-test/${props.currentSection}/${product.code}`} className={classes.item}>
-                  <Typography variant="subtitle2">{product.name}</Typography>
-                </a>
+                <Grid container direction="column" justify="space-between" spacing={3}>
+                  <Grid item>
+                    <Typography variant="h6" color="textSecondary">
+                      {getPriceProperty(product).value} руб
+                    </Typography>
+                  </Grid>
+                  <Grid item>
+                    <a href={`/catalog/mirra-test/${props.currentSection}/${product.code}`} className={classes.item}>
+                      <Typography variant="subtitle2">{product.name}</Typography>
+                    </a>
+                  </Grid>
+                  <Grid item>
+                  </Grid>
+                </Grid>
               </div>
             </Grid>
           ))}
