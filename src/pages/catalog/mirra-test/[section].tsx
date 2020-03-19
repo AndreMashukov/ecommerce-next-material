@@ -8,7 +8,7 @@ import { SectionList } from '../../../components/SectionList/SectionList';
 import { NextPageContext } from 'next';
 
 interface Props {
-  products?: Product[];
+  products: Product[];
   sections: Section[];
 }
 
@@ -17,9 +17,8 @@ export default class extends React.Component<Props> {
     const productList = await getProducts({blockId: PRODUCT_CATALOG_ID,
       sectionCode: ctx.query.section});
     const sectionList = await getSections(PRODUCT_CATALOG_ID);
-    // tslint:disable-next-line: no-console
-    console.log(productList);
     return {
+      products: [].concat.apply([], productList),
       sections: sectionList
     };
   }
