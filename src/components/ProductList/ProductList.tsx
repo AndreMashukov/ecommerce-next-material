@@ -23,20 +23,21 @@ const useStyles = makeStyles({
     height: '200px',
     overflow: 'hidden',
     '&:hover': {
-      'background-color': theme.palette.primary.main,
-    },
+      'background-color': theme.palette.primary.main
+    }
   },
-  item: {
+  link: {
     cursor: 'pointer',
     color: grey[700],
     '&:hover': {
-      color: theme.palette.primary.dark,
-    },
-  },
+      color: theme.palette.primary.dark
+    }
+  }
 });
 
 const getPriceProperty = (product: Product): ElementProperty => {
-  return product.properties.find(property => parseInt(property.propertyId, 0) === PROPERTY_PRICE_ID);
+  return product.properties.find(property => 
+    parseInt(property.propertyId, 0) === PROPERTY_PRICE_ID);
 };
 
 export const ProductList = (props: ProductListProps) => {
@@ -55,7 +56,8 @@ export const ProductList = (props: ProductListProps) => {
                     </Typography>
                   </div>
                   <div>
-                    <a href={`/catalog/mirra-test/${props.currentSection}/${product.code}`} className={classes.item}>
+                    <a href={`/catalog/mirra-test/${props.currentSection}/${product.code}`} 
+                      className={classes.link}>
                       <Typography variant="subtitle2">{product.name}</Typography>
                     </a>
                     </div>
