@@ -4,7 +4,6 @@ import IconButton from '@material-ui/core/IconButton';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Popover from '@material-ui/core/Popover';
 import './NavBar.scss';
-// import Link from 'next/link';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../theme/theme';
@@ -24,6 +23,8 @@ const useStyles = makeStyles({
   },
   paper: {
     padding: theme.spacing(1),
+    'max-width': '400px',
+    overflow: 'hidden'
   },
 });
 
@@ -78,8 +79,7 @@ export const NavBar = () => {
                 <ShoppingCartIcon
                   aria-owns={open ? 'mouse-over-popover' : undefined}
                   aria-haspopup="true"
-                  onMouseEnter={handlePopoverOpen}
-                  onMouseLeave={handlePopoverClose}
+                  onClick={handlePopoverOpen}
                 />
               </IconButton>
               <div>
@@ -102,7 +102,6 @@ export const NavBar = () => {
                   onClose={handlePopoverClose}
                   disableRestoreFocus
                 >
-                  <Typography>Your Cart</Typography>
                   <ListProductsCart />
                 </Popover>
               </div>
