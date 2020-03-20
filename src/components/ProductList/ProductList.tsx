@@ -1,7 +1,10 @@
+import { useContext } from 'react';
 import { Product, Section } from '../../models';
 import { Typography, Grid, Button } from '@material-ui/core';
 import { ElementProperty } from '../../models/ElementProperty';
 import { PROPERTY_PRICE_ID } from '../../constants';
+import CartContext from '../../store/CartContext';
+import CartContextManager from '../../store/CartContextManager';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../theme/theme';
 import grey from '@material-ui/core/colors/grey';
@@ -36,12 +39,14 @@ const useStyles = makeStyles({
 });
 
 const getPriceProperty = (product: Product): ElementProperty => {
-  return product.properties.find(property => 
+  return product.properties.find(property =>
     parseInt(property.propertyId, 0) === PROPERTY_PRICE_ID);
 };
 
+
 export const ProductList = (props: ProductListProps) => {
   const classes = useStyles();
+  const { addItem } = useContext<CartContextManager>(CartContext);
 
   return (
     <Grid container direction="column" justify="flex-start">
@@ -56,13 +61,14 @@ export const ProductList = (props: ProductListProps) => {
                     </Typography>
                   </div>
                   <div>
-                    <a href={`/catalog/mirra-test/${props.currentSection}/${product.code}`} 
+                    <a href={`/catalog/mirra-test/${props.currentSection}/${product.code}`}
                       className={classes.link}>
                       <Typography variant="subtitle2">{product.name}</Typography>
                     </a>
                     </div>
                   <div>
-                    <Button variant="outlined" color="secondary">
+                    <Button variant="outlined" color="secondary"
+                      onClick={() => {addItem(product);}}>
                       В КОРЗИНУ
                     </Button>
                   </div>
