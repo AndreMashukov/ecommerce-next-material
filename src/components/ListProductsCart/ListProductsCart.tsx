@@ -6,11 +6,12 @@ const ListProductsCart: React.FC = () => {
   const { products } = useContext(CartContext);
   return (
     <div>
-      {products.map((product: Product, index: number) => (
+      {products && products.map((product: Product, index: number) => (
         <div key={`${index}-ListProductsCart-${product.id}`}>
           {product.name}
         </div>
       ))}
+      {products || <div> Cart is empty </div> }
     </div>
   );
 };

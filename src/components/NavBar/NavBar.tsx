@@ -8,6 +8,7 @@ import './NavBar.scss';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../theme/theme';
+import ListProductsCart from '../ListProductsCart/ListProductsCart';
 
 const useStyles = makeStyles({
   upperSection: {
@@ -101,7 +102,8 @@ export const NavBar = () => {
                   onClose={handlePopoverClose}
                   disableRestoreFocus
                 >
-                  <Typography>I use Popover.</Typography>
+                  <Typography>Your Cart</Typography>
+                  <ListProductsCart />
                 </Popover>
               </div>
             </Grid>
