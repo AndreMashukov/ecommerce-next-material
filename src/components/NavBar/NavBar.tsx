@@ -2,6 +2,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import Popover from '@material-ui/core/Popover';
 import './NavBar.scss';
 // import Link from 'next/link';
 import { Typography } from '@material-ui/core';
@@ -11,16 +12,34 @@ import theme from '../../theme/theme';
 const useStyles = makeStyles({
   upperSection: {
     padding: '5px 0 5px 0',
-    'background-color': theme.palette.primary.main
+    'background-color': theme.palette.primary.main,
   },
   bottomSection: {
     padding: '15px 0 15px 0',
-    'border-bottom': `1px solid ${theme.palette.secondary.main}`
+    'border-bottom': `1px solid ${theme.palette.secondary.main}`,
+  },
+  popover: {
+    pointerEvents: 'none',
+  },
+  paper: {
+    padding: theme.spacing(1),
   },
 });
 
 export const NavBar = () => {
   const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  // tslint:disable-next-line: no-any
+  const handlePopoverOpen = (event: any) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
 
   return (
     <div>
@@ -55,8 +74,36 @@ export const NavBar = () => {
             </Grid>
             <Grid item>
               <IconButton aria-label="home" color="inherit">
-                <ShoppingCartIcon />
+                <ShoppingCartIcon
+                  aria-owns={open ? 'mouse-over-popover' : undefined}
+                  aria-haspopup="true"
+                  onMouseEnter={handlePopoverOpen}
+                  onMouseLeave={handlePopoverClose}
+                />
               </IconButton>
+              <div>
+                <Popover
+                  id="mouse-over-popover"
+                  className={classes.popover}
+                  classes={{
+                    paper: classes.paper,
+                  }}
+                  open={open}
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left',
+                  }}
+                  onClose={handlePopoverClose}
+                  disableRestoreFocus
+                >
+                  <Typography>I use Popover.</Typography>
+                </Popover>
+              </div>
             </Grid>
           </Grid>
         </div>
