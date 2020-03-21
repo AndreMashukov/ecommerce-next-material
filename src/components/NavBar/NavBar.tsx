@@ -8,6 +8,7 @@ import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../theme/theme';
 import ListProductsCart from '../ListProductsCart/ListProductsCart';
+import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 
 const useStyles = makeStyles({
   upperSection: {
@@ -19,12 +20,12 @@ const useStyles = makeStyles({
     'border-bottom': `1px solid ${theme.palette.secondary.main}`,
   },
   popover: {
-    pointerEvents: 'none',
+    // pointerEvents: 'none',
   },
   paper: {
     padding: theme.spacing(1),
     'max-width': '400px',
-    overflow: 'hidden'
+    'overflow-y': 'scroll'
   },
 });
 
@@ -102,6 +103,10 @@ export const NavBar = () => {
                   onClose={handlePopoverClose}
                   disableRestoreFocus
                 >
+                  <IconButton aria-label="remove" color="inherit"
+                    onClick={handlePopoverClose}>
+                    <ArrowRightAltIcon/>
+                  </IconButton>
                   <ListProductsCart />
                 </Popover>
               </div>

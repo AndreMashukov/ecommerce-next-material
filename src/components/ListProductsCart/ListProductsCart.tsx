@@ -5,7 +5,9 @@ import { Product } from '../../models';
 import './ListProductsCart';
 import { makeStyles, Grid, Typography } from '@material-ui/core';
 import theme from '../../theme/theme';
+import { IconButton } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
+
 
 const useStyles = makeStyles({
   box: {
@@ -20,7 +22,7 @@ const useStyles = makeStyles({
 
 
 const ListProductsCart = () => {
-  const { products } = useContext<CartContextManager>(CartContext);
+  const { products, removeItem } = useContext<CartContextManager>(CartContext);
   const classes = useStyles();
 
   return (
@@ -30,17 +32,21 @@ const ListProductsCart = () => {
           <Grid item>
             Всего товаров: {products.length} / 2 496
           </Grid>
-          <Grid item>
-            <img src="/img/arrow-small.svg" />
-          </Grid>
         </Grid>
       </div>
       <Grid container direction="column" justify="flex-start">
         {products.map((product: Product) => (
-          <Grid item>
-            <div key={product.code} className={classes.box}>
-              <Typography>{product.name}</Typography>
-              <ClearIcon/>
+          <Grid item key={product.code}>
+            <div className={classes.box}>
+              <div>
+                <Typography>{product.name}</Typography>
+              </div>
+              <div>
+                <IconButton aria-label="remove" color="inherit"
+                  onClick={() => {removeItem(`${product.id}`);}}>
+                  <ClearIcon />
+                </IconButton>
+              </div>
             </div>
           </Grid>
         ))}
