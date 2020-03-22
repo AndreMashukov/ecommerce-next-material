@@ -9,11 +9,8 @@ const initialValues = {
   products: CartStorage.getProductsCart(),
 };
 
-// const MyStatelessComponent : React.StatelessComponent<{}> = props =>
-//     <div>{props.children}</div>
-
 // tslint:disable-next-line: no-any
-const Store: React.StatelessComponent<{}> = (props: any) => {
+const Store: React.FunctionComponent<{}> = (props: any) => {
   const [state, dispatch] = useReducer(cartReducer, initialValues);
 
   function clearCart() {
