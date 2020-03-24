@@ -8,7 +8,6 @@ import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../theme/theme';
 import ListProductsCart from '../ListProductsCart/ListProductsCart';
-import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 
 const useStyles = makeStyles({
   upperSection: {
@@ -103,11 +102,7 @@ export const NavBar = () => {
                   onClose={handlePopoverClose}
                   disableRestoreFocus
                 >
-                  <IconButton aria-label="close" color="inherit"
-                    onClick={handlePopoverClose}>
-                      <ArrowRightAltIcon/>
-                  </IconButton>
-                  <ListProductsCart />
+                  <ListProductsCart onClose={handlePopoverClose}/>
                 </Popover>
               </div>
             </Grid>

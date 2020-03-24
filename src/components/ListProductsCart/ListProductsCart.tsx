@@ -7,7 +7,11 @@ import { makeStyles, Grid, Typography } from '@material-ui/core';
 import theme from '../../theme/theme';
 import { IconButton } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
+import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 
+interface Props {
+  onClose: () => void;
+}
 
 const useStyles = makeStyles({
   box: {
@@ -21,18 +25,24 @@ const useStyles = makeStyles({
 });
 
 
-const ListProductsCart = () => {
+const ListProductsCart = (props: Props) => {
   const { products, removeItem } = useContext<CartContextManager>(CartContext);
   const classes = useStyles();
 
   return (
     <div>
       <div>
-        <Grid container direction="row" justify="space-between" alignItems="flex-start">
+        <Grid container direction="row" justify="space-between" alignItems="baseline">
           <Grid item>
             <Typography variant="body1">
               Всего товаров: {products.length} / 2 496
             </Typography>
+          </Grid>
+          <Grid item>
+          <IconButton aria-label="close" color="inherit"
+            onClick={props.onClose}>
+              <ArrowRightAltIcon/>
+          </IconButton>
           </Grid>
         </Grid>
       </div>
