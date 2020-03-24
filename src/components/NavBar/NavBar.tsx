@@ -24,7 +24,8 @@ const useStyles = makeStyles({
   },
   paper: {
     padding: theme.spacing(1),
-    'max-width': '400px',
+    'min-width': '400px',
+    'max-width': '500px',
     'overflow-y': 'scroll'
   },
 });
@@ -43,7 +44,7 @@ export const NavBar = () => {
     setAnchorEl(null);
   };
 
-  let open = Boolean(anchorEl);
+  const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
   return (
@@ -77,8 +78,8 @@ export const NavBar = () => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item>
-              <IconButton onClick={handlePopoverOpen} aria-label="home" color="inherit" ref={divRef}>
+            <Grid item ref={divRef}>
+              <IconButton onClick={handlePopoverOpen} aria-label="home" color="inherit">
                 <ShoppingCartIcon
                   aria-haspopup="true"
                 />
@@ -94,11 +95,11 @@ export const NavBar = () => {
                   anchorEl={anchorEl}
                   anchorOrigin={{
                     vertical: 'bottom',
-                    horizontal: 'right',
+                    horizontal: 'left',
                   }}
                   transformOrigin={{
                     vertical: 'top',
-                    horizontal: 'right',
+                    horizontal: 'left',
                   }}
                   onClose={handlePopoverClose}
                   disableRestoreFocus
