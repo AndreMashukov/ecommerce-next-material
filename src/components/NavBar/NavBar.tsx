@@ -31,18 +31,20 @@ const useStyles = makeStyles({
 
 export const NavBar = () => {
   const classes = useStyles();
+  const divRef = React.useRef();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   // tslint:disable-next-line: no-any
-  const handlePopoverOpen = (event: any) => {
-    setAnchorEl(event.currentTarget);
+  const handlePopoverOpen = () => {
+    setAnchorEl(divRef.current);
   };
 
   const handlePopoverClose = () => {
     setAnchorEl(null);
   };
 
-  const open = Boolean(anchorEl);
+  let open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
 
   return (
     <div>
@@ -76,29 +78,27 @@ export const NavBar = () => {
               </Grid>
             </Grid>
             <Grid item>
-              <IconButton aria-label="home" color="inherit">
+              <IconButton onClick={handlePopoverOpen} aria-label="home" color="inherit" ref={divRef}>
                 <ShoppingCartIcon
-                  aria-owns={open ? 'mouse-over-popover' : undefined}
                   aria-haspopup="true"
-                  onClick={handlePopoverOpen}
                 />
               </IconButton>
               <div>
                 <Popover
-                  id="mouse-over-popover"
+                  id={id}
+                  open={open}
                   className={classes.popover}
                   classes={{
                     paper: classes.paper,
                   }}
-                  open={open}
                   anchorEl={anchorEl}
                   anchorOrigin={{
                     vertical: 'bottom',
-                    horizontal: 'left',
+                    horizontal: 'right',
                   }}
                   transformOrigin={{
                     vertical: 'top',
-                    horizontal: 'left',
+                    horizontal: 'right',
                   }}
                   onClose={handlePopoverClose}
                   disableRestoreFocus
