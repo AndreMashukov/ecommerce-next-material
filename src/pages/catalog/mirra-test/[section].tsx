@@ -19,6 +19,8 @@ export default class extends React.Component<Props> {
     const productList = await getProducts({blockId: PRODUCT_CATALOG_ID,
       sectionCode: ctx.query.section});
     const sectionList = await getSections(PRODUCT_CATALOG_ID);
+    // tslint:disable-next-line: no-console
+    console.log(ctx.req.headers.cookie);
     return {
       products: [].concat.apply([], productList),
       sections: sectionList,
