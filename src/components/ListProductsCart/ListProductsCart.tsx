@@ -28,9 +28,11 @@ const ListProductsCart = () => {
   return (
     <div>
       <div>
-        <Grid container direction="row" justify="space-between">
+        <Grid container direction="row" justify="space-between" alignItems="flex-start">
           <Grid item>
-            Всего товаров: {products.length} / 2 496
+            <Typography variant="body1">
+              Всего товаров: {products.length} / 2 496
+            </Typography>
           </Grid>
         </Grid>
       </div>

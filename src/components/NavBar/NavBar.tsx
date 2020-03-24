@@ -35,7 +35,6 @@ export const NavBar = () => {
   const divRef = React.useRef();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
-  // tslint:disable-next-line: no-any
   const handlePopoverOpen = () => {
     setAnchorEl(divRef.current);
   };
@@ -79,7 +78,7 @@ export const NavBar = () => {
               </Grid>
             </Grid>
             <Grid item ref={divRef}>
-              <IconButton onClick={handlePopoverOpen} aria-label="home" color="inherit">
+              <IconButton onClick={handlePopoverOpen} aria-label="cart" color="inherit">
                 <ShoppingCartIcon
                   aria-haspopup="true"
                 />
@@ -104,9 +103,9 @@ export const NavBar = () => {
                   onClose={handlePopoverClose}
                   disableRestoreFocus
                 >
-                  <IconButton aria-label="remove" color="inherit"
+                  <IconButton aria-label="close" color="inherit"
                     onClick={handlePopoverClose}>
-                    <ArrowRightAltIcon/>
+                      <ArrowRightAltIcon/>
                   </IconButton>
                   <ListProductsCart />
                 </Popover>
