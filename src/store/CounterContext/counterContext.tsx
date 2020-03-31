@@ -5,6 +5,8 @@ import useAsyncReducer from './useAsyncReducer';
 import reducer, { initialState } from './reducer';
 
 export const CounterContext = React.createContext([
+  0,
+  'reset'
 ]);
 
 // tslint:disable-next-line: no-any

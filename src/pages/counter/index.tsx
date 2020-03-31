@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 
 import { CounterContext } from '../../store/CounterContext';
 
 const Counter = () => {
-  // const [counter, actions] = useContext(CounterContext);
+  const [counter, actions] = useContext(CounterContext);
   // tslint:disable-next-line: no-console
-  console.log(CounterContext);
+  console.log(`${counter} ${actions}`);
 
   return (
     <React.Fragment>
