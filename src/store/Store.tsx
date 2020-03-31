@@ -1,9 +1,10 @@
-import React, { useReducer } from 'react';
+import React from 'react';
 import CartContext from './CartContext';
 import { Product } from '../models';
 import cartReducer from './reducers/cartReducer';
 import TYPES from './reducers/types';
 import CartStorage from './reducers/selectors/CardStorage';
+import useAsyncReducer from './CounterContext/useAsyncReducer';
 
 const initialValues = {
   products: CartStorage.getProductsCart(),
@@ -11,7 +12,7 @@ const initialValues = {
 
 // tslint:disable-next-line: no-any
 const Store: React.FunctionComponent<{}> = (props: any) => {
-  const [state, dispatch] = useReducer(cartReducer, initialValues);
+  const [state, dispatch] = useAsyncReducer(cartReducer, initialValues);
 
   function clearCart() {
     dispatch({ type: TYPES.CART_CLEAR });
@@ -24,7 +25,8 @@ const Store: React.FunctionComponent<{}> = (props: any) => {
   }
 
   function hasInTheCart(product: Product): boolean {
-    return state.products.filter(p => p.id === product.id).length > 0;
+    // tslint:disable-next-line: no-any
+    return state.products.filter((p: any) => p.id === product.id).length > 0;
   }
 
   return (

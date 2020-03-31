@@ -9,7 +9,7 @@ const Counter = () => {
 
   return (
     <React.Fragment>
-      <h3>Count:</h3>
+      <h3>Count: {counter}</h3>
     </React.Fragment>
   );
 };

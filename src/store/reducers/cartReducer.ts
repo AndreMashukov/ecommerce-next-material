@@ -12,19 +12,19 @@ interface CartState {
   products: Product[];
 }
 
-export default function cartReducer(state: CartState, action: CartAction): CartState {
+export default async function cartReducer(state: CartState, action: CartAction): Promise<CartState> {
   switch (action.type) {
     case TYPES.CART_CLEAR:
-      return { products: clearSelect() };
+      return new Promise( (_resolve) => _resolve( { products: clearSelect() }));
     case TYPES.CART_REMOVE:
-      return {
+      return new Promise( (_resolve) => _resolve( {
         products: removeSelect(state.products, action.id),
-      };
+      }));
     case TYPES.CART_ADD:
-      return {
+      return new Promise( (_resolve) => _resolve( {
         products: addSelect(state.products, action.product),
-      };
+      }));
     default:
-      return state;
+      return new Promise( (_resolve) => _resolve( state));
   }
 }
