@@ -7,3 +7,13 @@ export const getCart = async (fuserId: number): Promise<CartItem[]> => {
   const json = await res.json();
   return json;
 };
+
+export const addToCart = async (item: CartItem): Promise<void> => {
+  fetch(`${API_BASE}/cart`, {
+    method: 'POST',
+    body: JSON.stringify(item),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+};
