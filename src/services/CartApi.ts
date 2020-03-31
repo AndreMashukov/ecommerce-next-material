@@ -17,3 +17,18 @@ export const addToCart = async (item: CartItem): Promise<void> => {
     }
   });
 };
+
+export const removeFromCart = async (_fuserId: number, _productId: number): Promise<void> => {
+  const body = {
+    fuserId: _fuserId,
+    productId: _productId
+  };
+
+  fetch(`${API_BASE}/cart`, {
+    method: 'DELETE',
+    body: JSON.stringify(body),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+};
