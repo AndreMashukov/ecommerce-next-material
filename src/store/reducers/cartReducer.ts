@@ -1,15 +1,18 @@
-import { Product } from '../../models';
+import { Product, CartItem } from '../../models';
 import TYPES from './types';
 import { clearSelect, removeSelect, addSelect } from './selectors/cartSelectors';
+import { addToCart } from '../../services/CartApi';
 
 interface CartAction {
   type: TYPES;
   id?: string;
   product?: Product;
+  item?: CartItem;
 }
 
 interface CartState {
-  products: Product[];
+  products?: Product[];
+  items?: CartItem[];
 }
 
 export default async function cartReducer(state: CartState, action: CartAction): Promise<CartState> {
@@ -21,6 +24,7 @@ export default async function cartReducer(state: CartState, action: CartAction):
         products: removeSelect(state.products, action.id),
       }));
     case TYPES.CART_ADD:
+      await addToCart(action.item);
       return new Promise( (_resolve) => _resolve( {
         products: addSelect(state.products, action.product),
       }));
