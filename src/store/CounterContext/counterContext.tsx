@@ -4,7 +4,8 @@ import createActions from './createActions';
 import useAsyncReducer from './useAsyncReducer';
 import reducer, { initialState } from './reducer';
 
-export const CounterContext = React.createContext(null);
+export const CounterContext = React.createContext([
+]);
 
 // tslint:disable-next-line: no-any
 export const CounterProvider = ({ children }: any) => {
