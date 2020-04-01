@@ -68,7 +68,13 @@ export const ProductList = (props: ProductListProps) => {
                     </div>
                   <div>
                     <Button variant="outlined" color="secondary"
-                      onClick={() => {addItem(product);}}>
+                      onClick={() => {addItem({
+                        fuserId: 1,
+                        productId: product.id,
+                        price: 10,
+                        quantity: 1,
+                        currency: 'RUB'
+                      });}}>
                       В КОРЗИНУ
                     </Button>
                   </div>

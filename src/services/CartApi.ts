@@ -9,7 +9,7 @@ export const getCart = async (fuserId: number): Promise<CartItem[]> => {
 };
 
 export const addToCart = async (item: CartItem): Promise<void> => {
-  fetch(`${API_BASE}/cart`, {
+  fetch(`${API_BASE}/cart/product`, {
     method: 'POST',
     body: JSON.stringify(item),
     headers: {
@@ -24,7 +24,7 @@ export const removeFromCart = async (_fuserId: number, _productId: number): Prom
     productId: _productId
   };
 
-  fetch(`${API_BASE}/cart`, {
+  fetch(`${API_BASE}/cart/product`, {
     method: 'DELETE',
     body: JSON.stringify(body),
     headers: {

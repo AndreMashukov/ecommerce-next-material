@@ -1,6 +1,6 @@
 import React from 'react';
 import CartContext from './CartContext';
-import { Product } from '../models';
+import { Product, CartItem } from '../models';
 import cartReducer from './reducers/cartReducer';
 import TYPES from './reducers/types';
 import CartStorage from './reducers/selectors/CardStorage';
@@ -20,8 +20,8 @@ const Store: React.FunctionComponent<{}> = (props: any) => {
   function removeItem(id: string = '0'): void {
     dispatch({ type: TYPES.CART_REMOVE, id });
   }
-  function addItem(product: Product): void {
-    dispatch({ type: TYPES.CART_ADD, product });
+  function addItem(item: CartItem): void {
+    dispatch({ type: TYPES.CART_ADD, item });
   }
 
   function hasInTheCart(product: Product): boolean {
