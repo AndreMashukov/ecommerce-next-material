@@ -70,6 +70,7 @@ export const ProductList = (props: ProductListProps) => {
                     <Button variant="outlined" color="secondary"
                       onClick={() => {addItem({
                         fuserId: 1,
+                        blockId: product.blockId,
                         productId: product.id,
                         price: 10,
                         quantity: 1,
