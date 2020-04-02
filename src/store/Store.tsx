@@ -3,11 +3,16 @@ import CartContext from './CartContext';
 import { Product, CartItem } from '../models';
 import cartReducer from './reducers/cartReducer';
 import TYPES from './reducers/types';
-import CartStorage from './reducers/selectors/CardStorage';
+// import CartStorage from './reducers/selectors/CardStorage';
 import useAsyncReducer from './CounterContext/useAsyncReducer';
 
-const initialValues = {
-  products: CartStorage.getProductsCart(),
+interface Cart {
+  products: CartItem[];
+}
+
+const initialValues: Cart = {
+  products: []
+  //products: CartStorage.getProductsCart(),
 };
 
 // tslint:disable-next-line: no-any
