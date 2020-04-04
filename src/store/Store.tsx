@@ -7,11 +7,11 @@ import TYPES from './reducers/types';
 import useAsyncReducer from './CounterContext/useAsyncReducer';
 
 interface Cart {
-  products: CartItem[];
+  items: CartItem[];
 }
 
 const initialValues: Cart = {
-  products: []
+  items: []
   //products: CartStorage.getProductsCart(),
 };
 
@@ -39,6 +39,7 @@ const Store: React.FunctionComponent<{}> = (props: any) => {
       value={{
         clearCart,
         products: state.products,
+        items: state.items,
         removeItem,
         addItem,
         hasInTheCart,

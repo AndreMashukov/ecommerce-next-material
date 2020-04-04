@@ -7,4 +7,5 @@ export default interface CartContextManager {
   addItem: (item: CartItem) => void;
   hasInTheCart: (product: Product) => boolean;
   products: Product[];
+  items: CartItem[];
 }

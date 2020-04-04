@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import CartContext from '../../store/CartContext';
 import CartContextManager from '../../store/CartContextManager';
-import { Product } from '../../models';
+import { CartItem } from '../../models';
 import './ListProductsCart';
 import { makeStyles, Grid, Typography } from '@material-ui/core';
 import theme from '../../theme/theme';
@@ -26,7 +26,7 @@ const useStyles = makeStyles({
 
 
 const ListProductsCart = (props: Props) => {
-  const { products, removeItem } = useContext<CartContextManager>(CartContext);
+  const { items, removeItem } = useContext<CartContextManager>(CartContext);
   const classes = useStyles();
 
   return (
@@ -35,7 +35,7 @@ const ListProductsCart = (props: Props) => {
         <Grid container direction="row" justify="space-between" alignItems="baseline">
           <Grid item>
             <Typography variant="body1">
-              Всего товаров: {products.length} / 2 496
+              Всего товаров: {items ? items.length : 0} / 2 496
             </Typography>
           </Grid>
           <Grid item>
@@ -47,15 +47,15 @@ const ListProductsCart = (props: Props) => {
         </Grid>
       </div>
       <Grid container direction="column" justify="flex-start">
-        {products.map((product: Product) => (
-          <Grid item key={product.code}>
+        {items && items.map((item: CartItem) => (
+          <Grid item key={item.productId}>
             <div className={classes.box}>
               <div>
-                <Typography>{product.name}</Typography>
+                <Typography>{item.name}</Typography>
               </div>
               <div>
                 <IconButton aria-label="remove" color="inherit"
-                  onClick={() => {removeItem(`${product.id}`);}}>
+                  onClick={() => {removeItem(`${item.productId}`);}}>
                   <ClearIcon />
                 </IconButton>
               </div>

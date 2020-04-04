@@ -9,7 +9,8 @@ const CartContext = React.createContext<CartContextManager>({
   addItem: (item: CartItem) => console.log(item),
   clearCart: () => null,
   hasInTheCart: () => false,
-  products: []
+  products: [],
+  items: []
 });
 
 export default CartContext;

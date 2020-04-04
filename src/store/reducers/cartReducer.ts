@@ -18,7 +18,7 @@ interface CartState {
 export default async function cartReducer(state: CartState, action: CartAction): Promise<CartState> {
   switch (action.type) {
     case TYPES.CART_GET:
-      return new Promise(async _resolve => {
+      return new Promise(_resolve => {
         getCart(1).then(resp => {
           _resolve({
             items: resp
