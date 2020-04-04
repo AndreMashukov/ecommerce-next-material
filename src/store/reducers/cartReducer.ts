@@ -1,6 +1,6 @@
 import { Product, CartItem } from '../../models';
 import TYPES from './types';
-import { addToCart, getCart } from '../../services/CartApi';
+import { addToCart, getCart, removeFromCart } from '../../services/CartApi';
 
 interface CartAction {
   type: TYPES;
@@ -16,13 +16,17 @@ interface CartState {
 
 export default async function cartReducer(state: CartState, action: CartAction): Promise<CartState> {
   return new Promise(async _resolve => {
-    const cart: CartItem[] = await getCart(1);
+    let cart: CartItem[] = await getCart(1);
     switch (action.type) {
       case TYPES.CART_GET:
         _resolve({ items: cart });
       case TYPES.CART_CLEAR:
         _resolve({ items: cart });
       case TYPES.CART_REMOVE:
+        await removeFromCart(1, parseInt(action.id, 0));
+        // tslint:disable-next-line: no-console
+        console.log(action);
+        cart = await getCart(1);
         _resolve({ items: cart });
       case TYPES.CART_ADD:
         await addToCart(action.item);
