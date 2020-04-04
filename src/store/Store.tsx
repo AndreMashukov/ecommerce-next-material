@@ -22,6 +22,11 @@ const Store: React.FunctionComponent<{}> = (props: any) => {
   function clearCart() {
     dispatch({ type: TYPES.CART_CLEAR });
   }
+
+  function syncCart() {
+    dispatch({ type: TYPES.CART_GET });
+  }
+
   function removeItem(id: string = '0'): void {
     dispatch({ type: TYPES.CART_REMOVE, id });
   }
@@ -38,6 +43,7 @@ const Store: React.FunctionComponent<{}> = (props: any) => {
     <CartContext.Provider
       value={{
         clearCart,
+        syncCart,
         products: state.products,
         items: state.items,
         removeItem,

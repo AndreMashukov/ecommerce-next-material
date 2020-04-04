@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import CartContext from '../../store/CartContext';
 import CartContextManager from '../../store/CartContextManager';
 import { CartItem } from '../../models';
@@ -26,8 +26,12 @@ const useStyles = makeStyles({
 
 
 const ListProductsCart = (props: Props) => {
-  const { items, removeItem } = useContext<CartContextManager>(CartContext);
+  const { items, removeItem, syncCart } = useContext<CartContextManager>(CartContext);
   const classes = useStyles();
+
+  useEffect(() => {
+    syncCart();
+  }, []);
 
   return (
     <div>
