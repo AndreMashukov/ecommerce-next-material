@@ -20,19 +20,22 @@ export default async function cartReducer(state: CartState, action: CartAction):
     switch (action.type) {
       case TYPES.CART_GET:
         _resolve({ items: cart });
+        break;
       case TYPES.CART_CLEAR:
         _resolve({ items: cart });
+        break;
       case TYPES.CART_REMOVE:
         await removeFromCart(1, parseInt(action.id, 0));
-        // tslint:disable-next-line: no-console
-        console.log(action);
         cart = await getCart(1);
         _resolve({ items: cart });
+        break;
       case TYPES.CART_ADD:
         await addToCart(action.item);
         _resolve({ items: cart });
+        break;
       default:
         _resolve(state);
+        break;
     }
   });
 }
