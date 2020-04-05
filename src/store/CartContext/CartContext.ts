@@ -1,5 +1,5 @@
 import React from 'react';
-import { CartItem } from '../models';
+import { CartItem } from '../../models';
 import CartContextManager from './CartContextManager';
 
 const CartContext = React.createContext<CartContextManager>({

@@ -1,6 +1,6 @@
 import React from 'react';
 import CartContext from './CartContext';
-import { Product, CartItem } from '../models';
+import { Product, CartItem } from '../../models';
 import cartReducer from './reducers/cartReducer';
 import TYPES from './reducers/types';
 import useAsyncReducer from './reducers/useAsyncReducer';

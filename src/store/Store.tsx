@@ -1,5 +1,5 @@
 import React from 'react';
-import CartProvider from './CartProvider';
+import CartProvider from './CartContext/CartProvider';
 
 // tslint:disable-next-line: no-any
 const Store: React.FunctionComponent<{}> = (props: any) => {

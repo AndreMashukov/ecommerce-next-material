@@ -1,4 +1,4 @@
-import { Product, CartItem } from '../models';
+import { Product, CartItem } from '../../models';
 
 export default interface CartContextManager {
   // clearCart: Function;

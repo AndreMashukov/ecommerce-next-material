@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
-import CartContext from '../../store/CartContext';
-import CartContextManager from '../../store/CartContextManager';
+import CartContext from '../../store/CartContext/CartContext';
+import CartContextManager from '../../store/CartContext/CartContextManager';
 import { CartItem } from '../../models';
 import './ListProductsCart';
 import { makeStyles, Grid, Typography } from '@material-ui/core';

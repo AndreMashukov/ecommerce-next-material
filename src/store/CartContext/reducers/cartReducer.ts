@@ -1,6 +1,6 @@
-import { Product, CartItem } from '../../models';
+import { Product, CartItem } from '../../../models';
 import TYPES from './types';
-import { addToCart, getCart, removeFromCart } from '../../services/CartApi';
+import { addToCart, getCart, removeFromCart } from '../../../services/CartApi';
 
 interface CartAction {
   type: TYPES;
