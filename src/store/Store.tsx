@@ -4,7 +4,7 @@ import { Product, CartItem } from '../models';
 import cartReducer from './reducers/cartReducer';
 import TYPES from './reducers/types';
 // import CartStorage from './reducers/selectors/CardStorage';
-import useAsyncReducer from './CounterContext/useAsyncReducer';
+import useAsyncReducer from './reducers/useAsyncReducer';
 
 interface Cart {
   items: CartItem[];
