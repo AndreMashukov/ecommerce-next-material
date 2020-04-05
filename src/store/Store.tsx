@@ -3,7 +3,6 @@ import CartContext from './CartContext';
 import { Product, CartItem } from '../models';
 import cartReducer from './reducers/cartReducer';
 import TYPES from './reducers/types';
-// import CartStorage from './reducers/selectors/CardStorage';
 import useAsyncReducer from './reducers/useAsyncReducer';
 
 interface Cart {
@@ -12,7 +11,6 @@ interface Cart {
 
 const initialValues: Cart = {
   items: []
-  //products: CartStorage.getProductsCart(),
 };
 
 // tslint:disable-next-line: no-any

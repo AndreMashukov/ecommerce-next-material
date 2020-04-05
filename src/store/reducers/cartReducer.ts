@@ -16,9 +16,10 @@ interface CartState {
 
 export default async function cartReducer(state: CartState, action: CartAction): Promise<CartState> {
   return new Promise(async _resolve => {
-    let cart: CartItem[] = await getCart(1);
+    let cart: CartItem[] = [];
     switch (action.type) {
       case TYPES.CART_GET:
+        cart = await getCart(1);
         _resolve({ items: cart });
         break;
       case TYPES.CART_CLEAR:
@@ -26,12 +27,11 @@ export default async function cartReducer(state: CartState, action: CartAction):
         break;
       case TYPES.CART_REMOVE:
         await removeFromCart(1, parseInt(action.id, 0));
-        cart = await getCart(1);
-        _resolve({ items: cart });
+        _resolve({ items: await getCart(1) });
         break;
       case TYPES.CART_ADD:
         await addToCart(action.item);
-        _resolve({ items: cart });
+        _resolve({ items: await getCart(1) });
         break;
       default:
         _resolve(state);
