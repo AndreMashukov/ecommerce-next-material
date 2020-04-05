@@ -28,13 +28,13 @@ export default async function cartReducer(state: CartState, action: CartAction):
       case TYPES.CART_REMOVE:
         await removeFromCart(1, parseInt(action.id, 0));
         cart = await getCart(1);
-        const newState: CartItem[] = [];
+        const updatedCart: CartItem[] = [];
         cart.forEach(item => {
           if(item.productId !== parseInt(action.id, 0)) {
-            newState.push(item);
+            updatedCart.push(item);
           }
         });
-        _resolve({ items: newState});
+        _resolve({ items: updatedCart});
         break;
       case TYPES.CART_ADD:
         await addToCart(action.item);
