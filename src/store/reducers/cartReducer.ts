@@ -30,7 +30,7 @@ export default async function cartReducer(state: CartState, action: CartAction):
         cart = await getCart(1);
         const updatedCart: CartItem[] = [];
         cart.forEach(item => {
-          if(item.productId !== parseInt(action.id, 0)) {
+          if (item.productId !== parseInt(action.id, 0)) {
             updatedCart.push(item);
           }
         });
