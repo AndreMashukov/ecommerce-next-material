@@ -59,7 +59,7 @@ const ListProductsCart = (props: Props) => {
               </div>
               <div>
                 <IconButton aria-label="remove" color="inherit"
-                  onClick={() => {removeItem(`${item.productId}`);}}>
+                  onClick={() => {removeItem(item.productId);}}>
                   <ClearIcon />
                 </IconButton>
               </div>

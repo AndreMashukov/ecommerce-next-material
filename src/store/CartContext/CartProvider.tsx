@@ -21,7 +21,7 @@ const CartProvider: React.FunctionComponent<{}> = (props: any) => {
     dispatch({ type: TYPES.CART_GET });
   }
 
-  function removeItem(id: string = '0'): void {
+  function removeItem(id: number = 0): void {
     dispatch({ type: TYPES.CART_REMOVE, id });
   }
 

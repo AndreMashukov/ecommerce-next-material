@@ -4,7 +4,7 @@ import CartContextManager from './CartContextManager';
 
 const CartContext = React.createContext<CartContextManager>({
   // tslint:disable-next-line: no-console
-  removeItem: (id?: string) => console.log(id),
+  removeItem: (id: number) => console.log(id),
   // tslint:disable-next-line: no-console
   addItem: (item: CartItem) => console.log(item),
   syncCart: () => null,
