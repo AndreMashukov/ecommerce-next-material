@@ -26,64 +26,72 @@ const useStyles = makeStyles({
     height: '200px',
     overflow: 'hidden',
     '&:hover': {
-      'background-color': theme.palette.primary.dark
-    }
+      'background-color': theme.palette.primary.dark,
+    },
   },
   link: {
     cursor: 'pointer',
     color: grey[700],
     '&:hover': {
-      color: theme.palette.primary.light
-    }
-  }
+      color: theme.palette.primary.light,
+    },
+  },
 });
 
 const getPriceProperty = (product: Product): ElementProperty => {
-  return product.properties.find(property =>
-    parseInt(property.propertyId, 0) === PROPERTY_PRICE_ID);
+  return product.properties.find(property => parseInt(property.propertyId, 0) === PROPERTY_PRICE_ID);
 };
 
-
 export const ProductList = (props: ProductListProps) => {
-  const classes = useStyles();
-  const { addItem } = useContext<CartContextManager>(CartContext);
-
   return (
     <Grid container direction="column" justify="flex-start">
       <Grid item>
         <Grid container direction="row" justify="flex-start" wrap="wrap">
           {props.products.map(product => (
             <Grid key={product.code} item xs={4}>
-              <div className={classes.box}>
-                  <div>
-                    <Typography variant="h6" color="textSecondary">
-                      {getPriceProperty(product).value} руб
-                    </Typography>
-                  </div>
-                  <div>
-                    <a href={`/catalog/mirra-test/${props.currentSection}/${product.code}`}
-                      className={classes.link}>
-                      <Typography variant="subtitle2">{product.name}</Typography>
-                    </a>
-                    </div>
-                  <div>
-                    <Button variant="outlined" color="secondary"
-                      onClick={() => {addItem({
-                        fuserId: 1,
-                        blockId: product.blockId,
-                        productId: product.id,
-                        price: parseInt(getPriceProperty(product).value, 0),
-                        quantity: 1,
-                        currency: 'RUB'
-                      });}}>
-                      В КОРЗИНУ
-                    </Button>
-                  </div>
-              </div>
+              <ProductListItem {...product} />
             </Grid>
           ))}
         </Grid>
       </Grid>
     </Grid>
+  );
+};
+
+const ProductListItem = (props: Product) => {
+  const classes = useStyles();
+  const { addItem } = useContext<CartContextManager>(CartContext);
+
+  return (
+    <div className={classes.box}>
+      <div>
+        <Typography variant="h6" color="textSecondary">
+          {getPriceProperty(props).value} руб
+        </Typography>
+      </div>
+      <div>
+        <a href={`/catalog/mirra-test/${'currentSection'}/${props.code}`} className={classes.link}>
+          <Typography variant="subtitle2">{props.name}</Typography>
+        </a>
+      </div>
+      <div>
+        <Button
+          variant="outlined"
+          color="secondary"
+          onClick={() => {
+            addItem({
+              fuserId: 1,
+              blockId: props.blockId,
+              productId: props.id,
+              price: parseInt(getPriceProperty(props).value, 0),
+              quantity: 1,
+              currency: 'RUB',
+            });
+          }}
+        >
+          В КОРЗИНУ
+        </Button>
+      </div>
+    </div>
   );
 };
