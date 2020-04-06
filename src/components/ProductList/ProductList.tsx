@@ -17,6 +17,7 @@ interface ProductListProps {
 
 const useStyles = makeStyles({
   box: {
+    position: 'relative',
     'background-color': grey[100],
     padding: '10px',
     margin: '10px',
@@ -28,6 +29,19 @@ const useStyles = makeStyles({
     '&:hover': {
       'background-color': theme.palette.primary.dark,
     },
+  },
+  overlay: {
+    transition: '.5s ease',
+    opacity: '1',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    '-ms-transform': 'translate(-50%, -50%)',
+    color: theme.palette.secondary.dark,
+  },
+  addToCart: {
+    display: 'none'
   },
   a: {
     cursor: 'pointer',
@@ -86,10 +100,10 @@ const ProductListItem = (props: Product) => {
           <Typography variant="subtitle2">{props.name}</Typography>
         </a>
       </div>
-      <div>
+      <div className={selected ? classes.overlay : classes.addToCart }>
         <Button
           variant="outlined"
-          color="secondary"
+          color="primary"
           onClick={() => {
             addItem({
               fuserId: 1,
