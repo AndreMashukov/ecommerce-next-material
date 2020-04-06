@@ -23,7 +23,7 @@ const useStyles = makeStyles({
     display: 'flex',
     'flex-direction': 'column',
     'justify-content': 'space-between',
-    height: '200px',
+    height: '300px',
     overflow: 'hidden',
     '&:hover': {
       'background-color': theme.palette.primary.dark,
@@ -72,7 +72,7 @@ const ProductListItem = (props: Product) => {
       onMouseLeave={() => { setSelected(false); }}
       >
       <div>
-        <Typography 
+        <Typography
           variant="h6"
           color="textSecondary"
           className={selected ? classes.selected : classes.unselected}>
