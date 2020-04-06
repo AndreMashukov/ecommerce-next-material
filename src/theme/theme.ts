@@ -15,7 +15,7 @@ export default createMuiTheme({
     secondary: {
       light: teal[200],
       main: teal[300],
-      dark: pink[700]
+      dark: pink[600]
     }
   },
   typography: {

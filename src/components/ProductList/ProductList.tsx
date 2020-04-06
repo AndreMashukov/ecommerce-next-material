@@ -37,8 +37,7 @@ const useStyles = makeStyles({
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    '-ms-transform': 'translate(-50%, -50%)',
-    color: theme.palette.secondary.dark,
+    '-ms-transform': 'translate(-50%, -50%)'
   },
   addToCart: {
     display: 'none'
@@ -51,7 +50,7 @@ const useStyles = makeStyles({
   },
   unselected: {
     color: grey[700],
-  },
+  }
 });
 
 const getPriceProperty = (product: Product): ElementProperty => {
@@ -104,6 +103,9 @@ const ProductListItem = (props: Product) => {
         <Button
           variant="outlined"
           color="primary"
+          style={{
+            backgroundColor: theme.palette.secondary.dark
+          }}
           onClick={() => {
             addItem({
               fuserId: 1,
