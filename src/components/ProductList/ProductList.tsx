@@ -26,14 +26,14 @@ const useStyles = makeStyles({
     height: '200px',
     overflow: 'hidden',
     '&:hover': {
-      'background-color': theme.palette.primary.main
+      'background-color': theme.palette.primary.dark
     }
   },
   link: {
     cursor: 'pointer',
     color: grey[700],
     '&:hover': {
-      color: theme.palette.primary.dark
+      color: theme.palette.primary.light
     }
   }
 });
@@ -72,7 +72,7 @@ export const ProductList = (props: ProductListProps) => {
                         fuserId: 1,
                         blockId: product.blockId,
                         productId: product.id,
-                        price: 10,
+                        price: parseInt(getPriceProperty(product).value, 0),
                         quantity: 1,
                         currency: 'RUB'
                       });}}>

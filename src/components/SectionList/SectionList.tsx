@@ -13,7 +13,7 @@ const useStyles = makeStyles({
     cursor: 'pointer',
     color: grey[700],
     '&:hover': {
-      color: theme.palette.primary.dark,
+      color: theme.palette.secondary.main,
     },
   },
 });
