@@ -31,7 +31,6 @@ const useStyles = makeStyles({
     },
   },
   overlay: {
-    transition: '.5s ease',
     opacity: '1',
     position: 'absolute',
     top: '50%',
