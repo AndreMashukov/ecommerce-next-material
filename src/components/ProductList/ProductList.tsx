@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Product, Section } from '../../models';
 import { Typography, Grid, Button } from '@material-ui/core';
 import { ElementProperty } from '../../models/ElementProperty';
@@ -29,12 +29,14 @@ const useStyles = makeStyles({
       'background-color': theme.palette.primary.dark,
     },
   },
-  link: {
+  a: {
     cursor: 'pointer',
+  },
+  selected: {
+    color: theme.palette.primary.light,
+  },
+  unselected: {
     color: grey[700],
-    '&:hover': {
-      color: theme.palette.primary.light,
-    },
   },
 });
 
@@ -61,16 +63,26 @@ export const ProductList = (props: ProductListProps) => {
 const ProductListItem = (props: Product) => {
   const classes = useStyles();
   const { addItem } = useContext<CartContextManager>(CartContext);
+  const [ selected, setSelected ] = useState(false);
 
   return (
-    <div className={classes.box}>
+    <div
+      className={classes.box}
+      onMouseEnter={() => { setSelected(true); }}
+      onMouseLeave={() => { setSelected(false); }}
+      >
       <div>
-        <Typography variant="h6" color="textSecondary">
+        <Typography 
+          variant="h6"
+          color="textSecondary"
+          className={selected ? classes.selected : classes.unselected}>
           {getPriceProperty(props).value} руб
         </Typography>
       </div>
       <div>
-        <a href={`/catalog/mirra-test/${'currentSection'}/${props.code}`} className={classes.link}>
+        <a
+          href={`/catalog/mirra-test/${'currentSection'}/${props.code}`}
+          className={selected ? classes.selected : classes.unselected}>
           <Typography variant="subtitle2">{props.name}</Typography>
         </a>
       </div>
