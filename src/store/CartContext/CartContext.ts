@@ -7,10 +7,7 @@ const CartContext = React.createContext<CartContextManager>({
   removeItem: (id?: string) => console.log(id),
   // tslint:disable-next-line: no-console
   addItem: (item: CartItem) => console.log(item),
-  // tslint:disable-next-line: no-console
-  syncCart: () => console.log('sync cart'),
-  clearCart: () => null,
-  hasInTheCart: () => false,
+  syncCart: () => null,
   products: [],
   items: []
 });
