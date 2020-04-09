@@ -45,7 +45,7 @@ export const NavBar = () => {
       </div>
       <div className="navbar-layout">
         <div className={classes.bottomSection}>
-          <Grid container direction="row" justify="space-between" alignItems="flex-start" spacing={2}>
+          <Grid container direction="row" justify="space-between" alignItems="center" spacing={2}>
             <Grid item>
               <Grid container direction="row" justify="flex-start" alignItems="center" spacing={5}>
                 <Grid item>

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Popover from '@material-ui/core/Popover';
@@ -28,11 +28,7 @@ export const NavBarCart = () => {
   const classes = useStyles();
   const divRef = React.useRef();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const { items, syncCart } = useContext<CartContextManager>(CartContext);
-
-  useEffect(() => {
-    syncCart();
-  }, []);
+  const { items } = useContext<CartContextManager>(CartContext);
 
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
@@ -47,7 +43,7 @@ export const NavBarCart = () => {
 
   return (
     <div ref={divRef}>
-      <Grid container direction="row" justify="space-between" alignItems="baseline" spacing={2}>
+      <Grid container direction="row" justify="space-between" alignItems="center" spacing={2}>
         <Grid item>
           {items.length === 0 ? cartIsEmpty : `${cartIsNotEmpty}: ${items.length}`}
         </Grid>
