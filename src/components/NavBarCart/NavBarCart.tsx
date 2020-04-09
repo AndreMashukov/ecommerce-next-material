@@ -1,9 +1,16 @@
-import React from 'react';
-import { IconButton, Popover } from '@material-ui/core';
+import React, { useContext, useEffect } from 'react';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import Popover from '@material-ui/core/Popover';
 import ListProductsCart from '../ListProductsCart/ListProductsCart';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../theme/theme';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import CartContextManager from '../../store/CartContext/CartContextManager';
+import CartContext from '../../store/CartContext/CartContext';
+
+const cartIsEmpty = 'корзина пуста';
+const cartIsNotEmpty = 'всего товаров';
 
 const useStyles = makeStyles({
   popover: {
@@ -21,6 +28,11 @@ export const NavBarCart = () => {
   const classes = useStyles();
   const divRef = React.useRef();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const { items, syncCart } = useContext<CartContextManager>(CartContext);
+
+  useEffect(() => {
+    syncCart();
+  }, []);
 
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
@@ -35,9 +47,16 @@ export const NavBarCart = () => {
 
   return (
     <div ref={divRef}>
-      <IconButton onClick={handlePopoverOpen} aria-label="cart" color="inherit">
-        <ShoppingCartIcon aria-haspopup="true" />
-      </IconButton>
+      <Grid container direction="row" justify="space-between" alignItems="baseline" spacing={2}>
+        <Grid item>
+          {items.length === 0 ? cartIsEmpty : `${cartIsNotEmpty}: ${items.length}`}
+        </Grid>
+        <Grid item>
+          <IconButton onClick={handlePopoverOpen} aria-label="cart" color="inherit">
+            <ShoppingCartIcon aria-haspopup="true" />
+          </IconButton>
+        </Grid>
+      </Grid>
       <div>
         <Popover
           id={id}
