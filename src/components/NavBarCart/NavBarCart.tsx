@@ -13,8 +13,8 @@ const cartIsEmpty = 'корзина пуста';
 const cartIsNotEmpty = 'всего товаров';
 
 const useStyles = makeStyles({
-  popover: {
-    // pointerEvents: 'none',
+  cartInfo: {
+    cursor: 'pointer'
   },
   paper: {
     padding: theme.spacing(1),
@@ -45,7 +45,9 @@ export const NavBarCart = () => {
     <div ref={divRef}>
       <Grid container direction="row" justify="space-between" alignItems="center" spacing={2}>
         <Grid item>
-          {items.length === 0 ? cartIsEmpty : `${cartIsNotEmpty}: ${items.length}`}
+          <div onClick={handlePopoverOpen} className={classes.cartInfo} >
+            {items.length === 0 ? cartIsEmpty : `${cartIsNotEmpty}: ${items.length}`}
+          </div>
         </Grid>
         <Grid item>
           <IconButton onClick={handlePopoverOpen} aria-label="cart" color="inherit">
@@ -57,7 +59,6 @@ export const NavBarCart = () => {
         <Popover
           id={id}
           open={open}
-          className={classes.popover}
           classes={{
             paper: classes.paper,
           }}
