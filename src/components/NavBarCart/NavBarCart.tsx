@@ -1,11 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
 import Popover from '@material-ui/core/Popover';
 import ListProductsCart from '../ListProductsCart/ListProductsCart';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../theme/theme';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import CartContextManager from '../../store/CartContext/CartContextManager';
 import CartContext from '../../store/CartContext/CartContext';
 
@@ -48,16 +46,17 @@ export const NavBarCart = () => {
 
   return (
     <div ref={divRef}>
-      <Grid container direction="row" justify="space-between" alignItems="center" spacing={2}>
+      <Grid container 
+        onClick={handlePopoverOpen} className={classes.cartInfo}
+        direction="row"
+        justify="space-between"
+        alignItems="center"
+        spacing={2}>
         <Grid item>
-          <div onClick={handlePopoverOpen} className={classes.cartInfo} >
-            {items.length === 0 ? cartIsEmpty : `${cartIsNotEmpty}: ${items.length}`}
-          </div>
+          {items.length === 0 ? cartIsEmpty : `${cartIsNotEmpty}: ${items.length}`}
         </Grid>
         <Grid item>
-          <IconButton onClick={handlePopoverOpen} aria-label="cart" color="inherit">
-            <ShoppingCartIcon aria-haspopup="true" />
-          </IconButton>
+          <img src="/img/bag_full.png" />
         </Grid>
       </Grid>
       <div>
