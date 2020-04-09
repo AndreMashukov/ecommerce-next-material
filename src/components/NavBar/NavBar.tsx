@@ -15,9 +15,6 @@ const useStyles = makeStyles({
     padding: '15px 0 15px 0',
     'border-bottom': `1px solid ${theme.palette.secondary.main}`,
   },
-  popover: {
-    // pointerEvents: 'none',
-  },
   paper: {
     padding: theme.spacing(1),
     'min-width': '400px',
@@ -47,18 +44,20 @@ export const NavBar = () => {
         <div className={classes.bottomSection}>
           <Grid container direction="row" justify="space-between" alignItems="center" spacing={2}>
             <Grid item>
-              <Grid container direction="row" justify="flex-start" alignItems="center" spacing={5}>
-                <Grid item>
-                  <div className="img-molecule">
-                    <img src="/img/molecule.svg" />
-                  </div>
+              <a href="\">
+                <Grid container direction="row" justify="flex-start" alignItems="center" spacing={5}>
+                  <Grid item>
+                    <div className="img-molecule">
+                      <img src="/img/molecule.svg" />
+                    </div>
+                  </Grid>
+                  <Grid>
+                    <div className="img-logo">
+                      <img src="/img/logo.svg" alt="Logo" />
+                    </div>
+                  </Grid>
                 </Grid>
-                <Grid>
-                  <div className="img-logo">
-                    <img src="/img/logo.svg" alt="Logo" />
-                  </div>
-                </Grid>
-              </Grid>
+              </a>
             </Grid>
             <Grid item>
               <NavBarCart />
