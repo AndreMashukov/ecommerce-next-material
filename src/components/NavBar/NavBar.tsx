@@ -1,13 +1,10 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import Popover from '@material-ui/core/Popover';
 import './NavBar.scss';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../theme/theme';
-import ListProductsCart from '../ListProductsCart/ListProductsCart';
+import { NavBarCart } from '../NavBarCart/NavBarCart';
 
 const useStyles = makeStyles({
   upperSection: {
@@ -31,19 +28,6 @@ const useStyles = makeStyles({
 
 export const NavBar = () => {
   const classes = useStyles();
-  const divRef = React.useRef();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handlePopoverOpen = () => {
-    setAnchorEl(divRef.current);
-  };
-
-  const handlePopoverClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
 
   return (
     <div>
@@ -76,35 +60,8 @@ export const NavBar = () => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item ref={divRef}>
-              <IconButton onClick={handlePopoverOpen} aria-label="cart" color="inherit">
-                <ShoppingCartIcon
-                  aria-haspopup="true"
-                />
-              </IconButton>
-              <div>
-                <Popover
-                  id={id}
-                  open={open}
-                  className={classes.popover}
-                  classes={{
-                    paper: classes.paper,
-                  }}
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                  }}
-                  onClose={handlePopoverClose}
-                  disableRestoreFocus
-                >
-                  <ListProductsCart onClose={handlePopoverClose}/>
-                </Popover>
-              </div>
+            <Grid item>
+              <NavBarCart />
             </Grid>
           </Grid>
         </div>
