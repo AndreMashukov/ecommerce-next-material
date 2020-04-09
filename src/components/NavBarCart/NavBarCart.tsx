@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Popover from '@material-ui/core/Popover';
@@ -14,7 +14,8 @@ const cartIsNotEmpty = 'всего товаров';
 
 const useStyles = makeStyles({
   cartInfo: {
-    cursor: 'pointer'
+    cursor: 'pointer',
+    color: theme.palette.primary.dark
   },
   paper: {
     padding: theme.spacing(1),
@@ -28,7 +29,7 @@ export const NavBarCart = () => {
   const classes = useStyles();
   const divRef = React.useRef();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const { items } = useContext<CartContextManager>(CartContext);
+  const { items, syncCart } = useContext<CartContextManager>(CartContext);
 
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
@@ -40,6 +41,10 @@ export const NavBarCart = () => {
   const handlePopoverClose = () => {
     setAnchorEl(null);
   };
+
+  useEffect(() => {
+    syncCart();
+  }, []);
 
   return (
     <div ref={divRef}>

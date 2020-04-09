@@ -9,8 +9,8 @@ export default createMuiTheme({
   palette: {
     primary: {
       light: grey[50],
-      main: grey[200],
-      dark: grey[500]
+      main: grey[300],
+      dark: grey[600]
     },
     secondary: {
       light: teal[200],
