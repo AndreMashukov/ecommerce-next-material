@@ -1,16 +1,7 @@
 import { CartItem } from '../../../models';
+import { CartAction, CartState } from './models';
 import TYPES from './types';
 import { addToCart, getCart, removeFromCart } from '../../../services/CartApi';
-
-interface CartAction {
-  type: TYPES;
-  id?: string;
-  item?: CartItem;
-}
-
-interface CartState {
-  items: CartItem[];
-}
 
 export default async function cartReducer(state: CartState, action: CartAction): Promise<CartState> {
   return new Promise(async _resolve => {
