@@ -17,6 +17,9 @@ const useStyles = makeStyles({
     cursor: 'pointer',
     color: theme.palette.primary.dark
   },
+  cartInactive: {
+    'pointer-events': 'none'
+  },
   paper: {
     padding: theme.spacing(1),
     'min-width': '400px',
@@ -47,6 +50,9 @@ export const NavBarCart = () => {
   useEffect(() => {
     const getCartItems = async () => {
       const cartItems: CartItem[] = await getCart(1);
+      if (cartItems.length === 0) {
+        handlePopoverClose();
+      }
       setCart({items: cartItems});
     };
 
@@ -54,7 +60,7 @@ export const NavBarCart = () => {
   }, [items]);
 
   return (
-    <div ref={divRef}>
+    <div ref={divRef} className={cart.items.length === 0 ? classes.cartInactive: ''}>
       <Grid container
         onClick={handlePopoverOpen} className={classes.cartInfo}
         direction="row"
@@ -68,28 +74,30 @@ export const NavBarCart = () => {
           <img src="/img/bag_full.png" />
         </Grid>
       </Grid>
-      <div>
-        <Popover
-          id={id}
-          open={open}
-          classes={{
-            paper: classes.paper,
-          }}
-          anchorEl={anchorEl}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'left'
-          }}
-          onClose={handlePopoverClose}
-          disableRestoreFocus
-        >
-          <ListProductsCart onClose={handlePopoverClose} />
-        </Popover>
-      </div>
+      {cart.items.length > 0 &&
+        <div>
+          <Popover
+            id={id}
+            open={open}
+            classes={{
+              paper: classes.paper,
+            }}
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'left',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'left'
+            }}
+            onClose={handlePopoverClose}
+            disableRestoreFocus
+          >
+            <ListProductsCart onClose={handlePopoverClose} />
+          </Popover>
+        </div>
+      }
     </div>
   );
 };
