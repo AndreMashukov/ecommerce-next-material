@@ -24,7 +24,8 @@ const useStyles = makeStyles({
     padding: theme.spacing(1),
     'min-width': '400px',
     'max-width': '500px',
-    'overflow-y': 'scroll'
+    'overflow-y': 'scroll',
+
   },
 });
 
@@ -84,8 +85,8 @@ export const NavBarCart = () => {
             }}
             anchorEl={anchorEl}
             anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left',
+              vertical: 'top',
+              horizontal: 'right',
             }}
             transformOrigin={{
               vertical: 'top',
