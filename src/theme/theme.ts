@@ -10,7 +10,7 @@ export default createMuiTheme({
     primary: {
       light: grey[50],
       main: grey[300],
-      dark: grey[600]
+      dark: grey[800]
     },
     secondary: {
       light: teal[200],

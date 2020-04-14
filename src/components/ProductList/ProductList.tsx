@@ -27,7 +27,7 @@ const useStyles = makeStyles({
     height: '300px',
     overflow: 'hidden',
     '&:hover': {
-      'background-color': theme.palette.primary.dark,
+      'background-color': grey[500],
     },
   },
   overlay: {
