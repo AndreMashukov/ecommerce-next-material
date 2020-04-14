@@ -11,9 +11,12 @@ const useStyles = makeStyles({
     padding: '5px 0 5px 0',
     'background-color': theme.palette.primary.main,
   },
-  bottomSection: {
+  middleSection: {
     padding: '15px 0 15px 0',
     'border-bottom': `1px solid ${theme.palette.secondary.main}`,
+  },
+  bottomSection: {
+    padding: '15px 0 15px 0',
   },
   paper: {
     padding: theme.spacing(1),
@@ -21,6 +24,14 @@ const useStyles = makeStyles({
     'max-width': '500px',
     'overflow-y': 'scroll'
   },
+  topCategory: {
+    color: theme.palette.primary.dark,
+    cursor: 'pointer',
+    'font-size': '1.05rem',
+    '&:hover': {
+      color: theme.palette.secondary.main,
+    }
+  }
 });
 
 export const NavBar = () => {
@@ -41,7 +52,7 @@ export const NavBar = () => {
         </div>
       </div>
       <div className="navbar-layout">
-        <div className={classes.bottomSection}>
+        <div className={classes.middleSection}>
           <Grid container direction="row" justify="space-between" alignItems="center" spacing={2}>
             <Grid item>
               <a href="\">
@@ -61,6 +72,23 @@ export const NavBar = () => {
             </Grid>
             <Grid item>
               <NavBarCart />
+            </Grid>
+          </Grid>
+        </div>
+      </div>
+      <div className="navbar-layout">
+        <div className={classes.bottomSection}>
+          <Grid container direction="row" justify="space-between" alignItems="center" spacing={2}>
+            <Grid item>
+              <Grid container direction="row" justify="flex-start" alignItems="center" spacing={2}>
+                <Grid className={classes.topCategory} item>КРАСОТА</Grid>
+                <Grid className={classes.topCategory} item>ЗДОРОВЬЕ</Grid>
+                <Grid className={classes.topCategory} item>ДЕКОР</Grid>
+                <Grid className={classes.topCategory} item>АКСЕССУАРЫ</Grid>
+                <Grid className={classes.topCategory} item>PROFESSIONAL</Grid>
+              </Grid>
+            </Grid>
+            <Grid item>
             </Grid>
           </Grid>
         </div>
