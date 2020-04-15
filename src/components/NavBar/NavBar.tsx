@@ -101,7 +101,7 @@ export const NavBar = (props: NavBarProps) => {
         </div>
       </div>
       <div className="navbar-layout">
-        <div className={classes.bottomSection}>
+        <div className={classes.bottomSection} onMouseLeave={() => { setOpen(false); }}>
           <Grid container direction="row" justify="space-between" alignItems="center" spacing={2}>
             <Grid item>
               <Grid container direction="row" justify="flex-start" alignItems="center" spacing={2}>
@@ -127,9 +127,8 @@ export const NavBar = (props: NavBarProps) => {
       <div
         style={{ display: open ? 'block' : 'none' }}
         className={classes.sectionsPopup}
-        onMouseLeave={() => {
-          setOpen(false);
-        }}
+        onMouseEnter={() => { setOpen(true); }}
+        onMouseLeave={() => { setOpen(false);}}
       >
         <div className="navbar-layout">
           <SectionList {...{ sections: filterSections(sections, selection) }} />
