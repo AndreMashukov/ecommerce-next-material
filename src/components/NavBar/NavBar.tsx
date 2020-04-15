@@ -45,7 +45,9 @@ const useStyles = makeStyles({
     width: '100%',
     'z-index': '10',
     overflow: 'hidden',
-    backgroundColor: theme.palette.primary.light
+    backgroundColor: theme.palette.primary.light,
+    padding: '10px 0 0 5px',
+    borderBottom: `1px solid ${theme.palette.primary.main}`
   },
 });
 
@@ -120,15 +122,17 @@ export const NavBar = (props: NavBarProps) => {
             </Grid>
             <Grid item></Grid>
           </Grid>
-          <div
-            style={{ display: open ? 'block' : 'none' }}
-            className={classes.sectionsPopup}
-            onMouseLeave={() => {
-              setOpen(false);
-            }}
-          >
-            <SectionList {...{ sections: filterSections(sections, selection) }} />
-          </div>
+        </div>
+      </div>
+      <div
+        style={{ display: open ? 'block' : 'none' }}
+        className={classes.sectionsPopup}
+        onMouseLeave={() => {
+          setOpen(false);
+        }}
+      >
+        <div className="navbar-layout">
+          <SectionList {...{ sections: filterSections(sections, selection) }} />
         </div>
       </div>
     </div>
