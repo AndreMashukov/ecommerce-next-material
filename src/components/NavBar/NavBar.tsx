@@ -9,6 +9,11 @@ import { Section } from '../../models/Section';
 import { getSections } from '../../services/CatalogApi';
 import { PRODUCT_CATALOG_ID } from '../../constants';
 
+interface NavBarProps {
+  sections: Section[];
+  categories: Category[];
+}
+
 interface Category {
   categoryId: number;
   categoryName: string;
@@ -59,9 +64,9 @@ const getCategories = (sections: Section[]): Category[] => {
   return categories;
 };
 
-export const NavBar = () => {
+export const NavBar = (props: NavBarProps) => {
   const classes = useStyles();
-  const [ sections, setSections ] = useState(null);
+  const [ sections, setSections ] = useState(props.sections);
   const [ categories, setCategories ] = useState(null);
 
   useEffect(() => {
