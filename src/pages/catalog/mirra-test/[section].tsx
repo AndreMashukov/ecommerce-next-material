@@ -4,7 +4,6 @@ import { getProducts, getSections } from '../../../services/CatalogApi';
 import { PRODUCT_CATALOG_ID } from '../../../constants';
 import { Section } from '../../../models';
 import { Grid } from '@material-ui/core';
-import { SectionList } from '../../../components/SectionList/SectionList';
 import { NextPageContext } from 'next';
 import { ProductList } from '../../../components/ProductList/ProductList';
 
@@ -32,10 +31,7 @@ export default class extends React.Component<Props> {
     return (
       <div>
         <Grid container direction="row" justify="space-between" alignItems="flex-start" spacing={2}>
-          <Grid item xs={3}>
-            <SectionList {...this.props} />
-          </Grid>
-          <Grid item xs={9}>
+          <Grid item xs={12}>
             <ProductList {...this.props} />
           </Grid>
         </Grid>

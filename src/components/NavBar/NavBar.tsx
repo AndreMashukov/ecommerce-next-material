@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import './NavBar.scss';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../theme/theme';
 import { NavBarCart } from '../NavBarCart/NavBarCart';
+import { SectionList } from '../SectionList/SectionList';
 import { Section, Category } from '../../models/Section';
 
 interface NavBarProps {
@@ -28,7 +29,7 @@ const useStyles = makeStyles({
     padding: theme.spacing(1),
     'min-width': '400px',
     'max-width': '500px',
-    'overflow-y': 'scroll'
+    'overflow-y': 'scroll',
   },
   topCategory: {
     color: theme.palette.primary.dark,
@@ -36,16 +37,27 @@ const useStyles = makeStyles({
     'font-size': '1.05rem',
     '&:hover': {
       color: theme.palette.secondary.main,
-    }
-  }
+    },
+  },
+  sectionsPopup: {
+    position: 'absolute',
+    height: '300px',
+    width: '100%',
+    'z-index': '10',
+    overflow: 'hidden',
+    backgroundColor: theme.palette.primary.light
+  },
 });
+
+const filterSections = (sections: Section[], categoryId: number): Section[] => {
+  return sections.filter(item => item.categoryId === categoryId);
+};
 
 export const NavBar = (props: NavBarProps) => {
   const classes = useStyles();
-  const { categories } = props;
-
-  // tslint:disable-next-line: no-console
-  // console.log(sections);
+  const { categories, sections } = props;
+  const [open, setOpen] = useState(false);
+  const [selection, setSelection] = useState(0);
 
   return (
     <div>
@@ -91,21 +103,32 @@ export const NavBar = (props: NavBarProps) => {
           <Grid container direction="row" justify="space-between" alignItems="center" spacing={2}>
             <Grid item>
               <Grid container direction="row" justify="flex-start" alignItems="center" spacing={2}>
-                {
-                  !!categories && categories.map((category: Category) => (
-                    <Grid
-                      key={`topCategory${category.categoryId}`}
-                      className={classes.topCategory}
-                      item>
-                      {category.categoryName}
-                    </Grid>
-                  ))
-                }
+                {categories.map((category: Category) => (
+                  <Grid
+                    onMouseEnter={() => {
+                      setOpen(true);
+                      setSelection(category.categoryId);
+                    }}
+                    key={`topCategory${category.categoryId}`}
+                    className={classes.topCategory}
+                    item
+                  >
+                    {category.categoryName}
+                  </Grid>
+                ))}
               </Grid>
             </Grid>
-            <Grid item>
-            </Grid>
+            <Grid item></Grid>
           </Grid>
+          <div
+            style={{ display: open ? 'block' : 'none' }}
+            className={classes.sectionsPopup}
+            onMouseLeave={() => {
+              setOpen(false);
+            }}
+          >
+            <SectionList {...{ sections: filterSections(sections, selection) }} />
+          </div>
         </div>
       </div>
     </div>

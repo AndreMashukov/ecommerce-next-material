@@ -62,7 +62,7 @@ export const ProductList = (props: ProductListProps) => {
       <Grid item>
         <Grid container direction="row" justify="flex-start" wrap="wrap">
           {props.products.map(product => (
-            <Grid key={product.code} item xs={4}>
+            <Grid key={product.code} item xs={3}>
               <ProductListItem {...product} />
             </Grid>
           ))}
