@@ -1,22 +1,15 @@
-import React , { useState, useEffect } from 'react';
+import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import './NavBar.scss';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../theme/theme';
 import { NavBarCart } from '../NavBarCart/NavBarCart';
-import { Section } from '../../models/Section';
-import { getSections } from '../../services/CatalogApi';
-import { PRODUCT_CATALOG_ID } from '../../constants';
+import { Section, Category } from '../../models/Section';
 
 interface NavBarProps {
   sections: Section[];
   categories: Category[];
-}
-
-interface Category {
-  categoryId: number;
-  categoryName: string;
 }
 
 const useStyles = makeStyles({
@@ -47,40 +40,12 @@ const useStyles = makeStyles({
   }
 });
 
-const getCategories = (sections: Section[]): Category[] => {
-  const categories: Category[] = [];
-  !!sections && sections.forEach(item => {
-    const category: Category = {
-      categoryId: item.categoryId,
-      categoryName: item.categoryName
-    };
-
-    // tslint:disable-next-line: no-shadowed-variable
-    if (item.categoryId > 0 && !categories.find(_item => _item.categoryId === category.categoryId)) {
-      categories.push(category);
-    }
-  });
-
-  return categories;
-};
-
 export const NavBar = (props: NavBarProps) => {
   const classes = useStyles();
-  const [ sections, setSections ] = useState(props.sections);
-  const [ categories, setCategories ] = useState(null);
-
-  useEffect(() => {
-    const loadSections = async () => {
-      const sectionList: Section[] = await getSections(PRODUCT_CATALOG_ID);
-      setSections(sectionList);
-      setCategories(getCategories(sectionList));
-    };
-
-    loadSections();
-  }, [0]);
+  const { categories } = props;
 
   // tslint:disable-next-line: no-console
-  console.log(sections);
+  // console.log(sections);
 
   return (
     <div>

@@ -4,24 +4,16 @@ import AppComponentProps from 'next/app';
 import withMaterial, { MaterialAppComponentProps } from '../theme/withMaterial';
 import Store from '../store/Store';
 import { NavBar, Footer, Layout } from '../components';
-import { Section } from '../models/Section';
+import { Section, Category } from '../models/Section';
 import { getSections } from '../services/CatalogApi';
 import { PRODUCT_CATALOG_ID } from '../constants';
 
-interface NavBarProps {
-  sections: Section[];
-  categories: Category[];
-}
-
-interface Category {
-  categoryId: number;
-  categoryName: string;
-}
-
-interface Props extends AppComponentProps, MaterialAppComponentProps {
+interface AppState {
   sectionList: Section[];
   categoryList: Category[];
 }
+
+interface Props extends AppComponentProps, MaterialAppComponentProps {}
 
 const getCategories = (sections: Section[]): Category[] => {
   const categories: Category[] = [];
@@ -31,8 +23,8 @@ const getCategories = (sections: Section[]): Category[] => {
       categoryName: item.categoryName
     };
 
-    // tslint:disable-next-line: no-shadowed-variable
-    if (item.categoryId > 0 && !categories.find(_item => _item.categoryId === category.categoryId)) {
+    if (item.categoryId > 0 && !categories.find(_item =>
+        _item.categoryId === category.categoryId)) {
       categories.push(category);
     }
   });
@@ -41,12 +33,26 @@ const getCategories = (sections: Section[]): Category[] => {
 };
 
 class MyApp extends App<Props> {
+  state: AppState = {
+    sectionList: [],
+    categoryList: []
+  };
+
+  componentDidMount() {
+    getSections(PRODUCT_CATALOG_ID).then(resp => {
+      this.setState({
+        sectionList: resp,
+        categoryList: getCategories(resp)
+      });
+    });
+  }
+
   render() {
     // pageContext is from withMaterial
-    const { Component, pageProps, pageContext, sectionList, categoryList } = this.props;
-    const navBarProps: NavBarProps = {
-      sections: sectionList,
-      categories: categoryList
+    const { Component, pageProps, pageContext } = this.props;
+    const navBarProps = {
+      sections: this.state.sectionList,
+      categories: this.state.categoryList
     };
 
     return (
@@ -60,15 +66,5 @@ class MyApp extends App<Props> {
     );
   }
 }
-
-MyApp.getInitialProps = async () => {
-  const sections: Section[] = await getSections(PRODUCT_CATALOG_ID);
-
-  return {
-    pageProps: {},
-    sectionList: sections,
-    categoryList: getCategories(sections)
-  };
-};
 
 export default withMaterial(MyApp);
