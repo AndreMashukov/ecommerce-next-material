@@ -1,10 +1,18 @@
-import React from 'react';
+import React , { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import './NavBar.scss';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../theme/theme';
 import { NavBarCart } from '../NavBarCart/NavBarCart';
+import { Section } from '../../models/Section';
+import { getSections } from '../../services/CatalogApi';
+import { PRODUCT_CATALOG_ID } from '../../constants';
+
+interface Category {
+  categoryId: number;
+  categoryName: string;
+}
 
 const useStyles = makeStyles({
   upperSection: {
@@ -34,8 +42,40 @@ const useStyles = makeStyles({
   }
 });
 
+const getCategories = (sections: Section[]): Category[] => {
+  const categories: Category[] = [];
+  !!sections && sections.forEach(item => {
+    const category: Category = {
+      categoryId: item.categoryId,
+      categoryName: item.categoryName
+    };
+
+    // tslint:disable-next-line: no-shadowed-variable
+    if (item.categoryId > 0 && !categories.find(_item => _item.categoryId === category.categoryId)) {
+      categories.push(category);
+    }
+  });
+
+  return categories;
+};
+
 export const NavBar = () => {
   const classes = useStyles();
+  const [ sections, setSections ] = useState(null);
+  const [ categories, setCategories ] = useState(null);
+
+  useEffect(() => {
+    const loadSections = async () => {
+      const sectionList: Section[] = await getSections(PRODUCT_CATALOG_ID);
+      setSections(sectionList);
+      setCategories(getCategories(sectionList));
+    };
+
+    loadSections();
+  }, [0]);
+
+  // tslint:disable-next-line: no-console
+  console.log(sections);
 
   return (
     <div>
@@ -81,11 +121,16 @@ export const NavBar = () => {
           <Grid container direction="row" justify="space-between" alignItems="center" spacing={2}>
             <Grid item>
               <Grid container direction="row" justify="flex-start" alignItems="center" spacing={2}>
-                <Grid className={classes.topCategory} item>КРАСОТА</Grid>
-                <Grid className={classes.topCategory} item>ЗДОРОВЬЕ</Grid>
-                <Grid className={classes.topCategory} item>ДЕКОР</Grid>
-                <Grid className={classes.topCategory} item>АКСЕССУАРЫ</Grid>
-                <Grid className={classes.topCategory} item>PROFESSIONAL</Grid>
+                {
+                  !!categories && categories.map((category: Category) => (
+                    <Grid
+                      key={`topCategory${category.categoryId}`}
+                      className={classes.topCategory}
+                      item>
+                      {category.categoryName}
+                    </Grid>
+                  ))
+                }
               </Grid>
             </Grid>
             <Grid item>

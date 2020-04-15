@@ -5,7 +5,10 @@ export interface Section {
   name: string;
   description: string;
   code: string;
+  active: string;
   sort: number;
   parentCode: string;
   depthLevel: number;
+  categoryId: number;
+  categoryName: string;
 }
