@@ -3,7 +3,7 @@
 .root-layout {
   @include layout;
   padding: 20px 0 10px 0;
-  height: auto;
+  min-height: calc(100vh - 60px);
 }
 
 a {

@@ -14,7 +14,7 @@ interface Props {
 const styles = ({ palette }: Theme) => createStyles({
   root: {
     backgroundColor: palette.background.default,
-    color: palette.primary.main
+    color: palette.primary.main,
   }
 });
 
