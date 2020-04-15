@@ -33,7 +33,7 @@ const useStyles = makeStyles({
   },
   topCategory: {
     color: theme.palette.primary.dark,
-    cursor: 'pointer',
+    cursor: 'default',
     'font-size': '1.05rem',
     '&:hover': {
       color: theme.palette.secondary.main,
