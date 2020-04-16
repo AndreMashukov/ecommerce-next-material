@@ -1,33 +1,28 @@
 import React from 'react';
-import { Theme } from '@material-ui/core';
-import { withStyles, createStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import './Layout.scss';
+import theme from '../../theme/theme';
 
 interface Props {
   // tslint:disable-next-line: no-any
   children: any;
-  classes: {
-    root: string;
-  };
 }
 
-const styles = ({ palette }: Theme) => createStyles({
+const useStyles = makeStyles({
   root: {
-    backgroundColor: palette.background.default,
-    color: palette.primary.main,
+    backgroundColor: theme.palette.background.default,
+    color: theme.palette.primary.main,
   }
 });
 
-export const PageLayout = class extends React.Component<Props> {
-  render() {
-    return (
-      <div className={this.props.classes.root}>
-        <div className="root-layout">
-          {this.props.children}
-        </div>
-      </div>
-    );
-  }
-};
+export const Layout = (props: Props) => {
+  const classes = useStyles();
 
-export const Layout = withStyles(styles) (PageLayout);
+  return (
+    <div className={classes.root}>
+      <div className="root-layout">
+        {props.children}
+      </div>
+    </div>
+  );
+};
