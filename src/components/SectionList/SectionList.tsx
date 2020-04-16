@@ -1,5 +1,5 @@
 import { Section } from '../../models';
-import { Typography } from '@material-ui/core';
+import { Typography, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../theme/theme';
 
@@ -21,14 +21,19 @@ export const SectionList = (props: SectionListProps) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.item}>
+    <Grid
+      container
+      direction="row"
+      justify="flex-start"
+      alignItems="center"
+      spacing={2}>
       {props.sections.map(category => (
-        <div key={category.code}>
+        <Grid item key={category.code} xs={2}>
           <a href={'/catalog/mirra-test/' + category.code} className={classes.item}>
-            <Typography variant="body1">{category.name}</Typography>
+            <Typography variant="body2">{category.name}</Typography>
           </a>
-        </div>
+        </Grid>
       ))}
-    </div>
+    </Grid>
   );
 };
