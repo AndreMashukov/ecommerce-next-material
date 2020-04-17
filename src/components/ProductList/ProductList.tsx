@@ -88,7 +88,7 @@ const ProductListItem = (props: Product) => {
           variant="h6"
           color="textSecondary"
           className={selected ? classes.selected : classes.unselected}>
-          {getPriceProperty(props).value} руб
+          {getPriceProperty(props).value} ₽
         </Typography>
       </div>
       <div>
