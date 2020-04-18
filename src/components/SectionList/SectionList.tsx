@@ -79,8 +79,8 @@ export const SectionList = (props: SectionListProps) => {
               ЛИНИИ
             </Typography>
             <Grid container direction="row" justify="flex-start" alignItems="flex-start" spacing={2}>
-              {sectionColumn.map(column => (
-                <Grid item>
+              {sectionColumn.map((column, _index) => (
+                <Grid key={_index} item>
                   {column}
                 </Grid>
               ))
@@ -93,7 +93,10 @@ export const SectionList = (props: SectionListProps) => {
         <>
           <Grid item>
             {sections.map(category => (
-              <a href={'/catalog/mirra-test/' + category.code} className={classes.item}>
+              <a
+                key={category.code}
+                href={'/catalog/mirra-test/' + category.code} 
+                className={classes.item}>
                 <Typography variant="body2">{category.name}</Typography>
               </a>
             ))}
