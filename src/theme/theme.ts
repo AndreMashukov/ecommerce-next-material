@@ -20,17 +20,16 @@ export default createMuiTheme({
   },
   typography: {
     fontFamily: [
-      '-apple-system',
+      'Open Sans',
       'BlinkMacSystemFont',
       '"Segoe UI"',
-      'Roboto',
       '"Helvetica Neue"',
       'Arial',
       'sans-serif',
       '"Apple Color Emoji"',
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"'
-    ].join(','),
+    ].join(','), 
     useNextVariants: true
   // tslint:disable-next-line: no-any
   } as any
