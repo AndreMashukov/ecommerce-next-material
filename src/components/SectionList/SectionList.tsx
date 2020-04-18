@@ -32,6 +32,7 @@ export const SectionList = (props: SectionListProps) => {
           sections.map(item => item.categoryId),
         )
       : 0;
+
   const sectionNum = sections
     .filter(item => item.depthLevel === SECTION_LEVEL)
     .length;

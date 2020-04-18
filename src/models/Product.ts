@@ -6,5 +6,6 @@ export interface Product {
   sectionId: number;
   name: string;
   code: string;
+  active: string;
   properties: ElementProperty[];
 }
