@@ -14,7 +14,7 @@ export const Home = (props: HomeProps) => {
 
 const HomeMemo = (props: HomeProps) => {
   // tslint:disable-next-line: no-console
-  console.log(props);
+  console.log(props.sections.length);
   return (
       <div className="home-root">
       </div>

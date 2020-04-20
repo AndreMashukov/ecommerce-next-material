@@ -2,7 +2,19 @@ import React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/core/styles';
 import theme from '../theme/theme';
-import { setCookie } from 'nookies';
+import { parseCookies, setCookie } from 'nookies';
+import { NextPageContext } from 'next';
+
+const handleSession = (ctx: NextPageContext): void => {
+  const cookies = parseCookies(ctx);
+  const { fuserId } = cookies;
+  if (fuserId === undefined) {
+    setCookie(ctx, 'fuserId', '1', {
+      maxAge: 30 * 24 * 60 * 60,
+      path: '/'
+    });
+  }
+};
 
 export default class MyDocument extends Document {
   render() {
@@ -52,15 +64,12 @@ MyDocument.getInitialProps = async ctx => {
   const sheets = new ServerStyleSheets();
   const originalRenderPage = ctx.renderPage;
 
+  handleSession(ctx);
+
   ctx.renderPage = () =>
     originalRenderPage({
       enhanceApp: App => props => sheets.collect(<App {...props} />),
     });
-
-  setCookie(ctx, 'fuserId', '1', {
-    maxAge: 30 * 24 * 60 * 60,
-    path: '/'
-  });
 
   const initialProps = await Document.getInitialProps(ctx);
 
