@@ -4,12 +4,14 @@ import { ServerStyleSheets } from '@material-ui/core/styles';
 import theme from '../theme/theme';
 import { parseCookies, setCookie } from 'nookies';
 import { NextPageContext } from 'next';
+import { Session } from '../models'
+import { createNewSession } from '../services/SessionApi';
 
-const handleSession = (ctx: NextPageContext): void => {
-  const cookies = parseCookies(ctx);
-  const { fuserId } = cookies;
+const handleSession = async (ctx: NextPageContext): Promise<void> => {
+  const { fuserId } = parseCookies(ctx);
   if (fuserId === undefined) {
-    setCookie(ctx, 'fuserId', '1', {
+    const session: Session = await createNewSession();
+    setCookie(ctx, 'fuserId', session.id.toString(), {
       maxAge: 30 * 24 * 60 * 60,
       path: '/'
     });
@@ -64,7 +66,7 @@ MyDocument.getInitialProps = async ctx => {
   const sheets = new ServerStyleSheets();
   const originalRenderPage = ctx.renderPage;
 
-  handleSession(ctx);
+  await handleSession(ctx);
 
   ctx.renderPage = () =>
     originalRenderPage({
