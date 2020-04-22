@@ -8,17 +8,18 @@ interface Props {
   sections: Section[];
 }
 
-export default class extends React.Component<Props> {
-  static async getInitialProps() {
-    const sectionList: Section[] = await getSections(PRODUCT_CATALOG_ID);
-    return { sections: sectionList };
-  }
+const Index = (props: Props) => {
+  return (
+    <div>
+      <Home {...props} />
+    </div>
+  );
+};
 
-  render() {
-    return (
-      <div>
-        <Home {...this.props} />
-      </div>
-    );
-  }
-}
+export default Index;
+
+Index.getInitialProps = async () => {
+  const sectionList: Section[] = await getSections(PRODUCT_CATALOG_ID);
+  return { sections: sectionList };
+};
+
