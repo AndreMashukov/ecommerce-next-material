@@ -17,16 +17,16 @@ const initialValues: Cart = {
 const CartProvider: React.FunctionComponent<{}> = (props: any) => {
   const [state, dispatch] = useAsyncReducer(cartReducer, initialValues);
 
-  function syncCart() {
-    dispatch({ type: TYPES.CART_GET });
+  function syncCart(sessionId: number) {
+    dispatch({ type: TYPES.CART_GET, sessionId});
   }
 
-  function removeItem(id: number = 0): void {
-    dispatch({ type: TYPES.CART_REMOVE, id });
+  function removeItem(sessionId: number, id: number = 0): void {
+    dispatch({ type: TYPES.CART_REMOVE, id, sessionId });
   }
 
-  function addItem(item: CartItem): void {
-    dispatch({ type: TYPES.CART_ADD, item });
+  function addItem(sessionId: number, item: CartItem): void {
+    dispatch({ type: TYPES.CART_ADD, item, sessionId});
   }
 
   return (

@@ -8,6 +8,7 @@ import theme from '../../theme/theme';
 import { IconButton } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
+import SessionContext from '../../store/SessionContext/SessionContext';
 
 interface Props {
   onClose: () => void;
@@ -27,10 +28,11 @@ const useStyles = makeStyles({
 
 const ListProductsCart = (props: Props) => {
   const { items, removeItem, syncCart } = useContext<CartContextManager>(CartContext);
+  const { sessionId } = useContext(SessionContext);
   const classes = useStyles();
 
   useEffect(() => {
-    syncCart();
+    syncCart(sessionId);
   }, []);
 
   return (
@@ -59,7 +61,7 @@ const ListProductsCart = (props: Props) => {
               </div>
               <div>
                 <IconButton aria-label="remove" color="inherit"
-                  onClick={() => {removeItem(item.productId);}}>
+                  onClick={() => {removeItem(sessionId, item.productId);}}>
                   <ClearIcon />
                 </IconButton>
               </div>

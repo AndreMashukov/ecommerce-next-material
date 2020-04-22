@@ -8,15 +8,15 @@ export default async function cartReducer(state: CartState, action: CartAction):
     let cart: CartItem[] = [];
     switch (action.type) {
       case TYPES.CART_GET:
-        cart = await getCart(1);
+        cart = await getCart(action.sessionId);
         _resolve({ items: cart });
         break;
       case TYPES.CART_CLEAR:
         _resolve({ items: cart });
         break;
       case TYPES.CART_REMOVE:
-        await removeFromCart(1, parseInt(action.id, 0));
-        cart = await getCart(1);
+        await removeFromCart(action.sessionId, parseInt(action.id, 0));
+        cart = await getCart(action.sessionId);
         const updatedCart: CartItem[] = [];
         cart.forEach(item => {
           if (item.productId !== parseInt(action.id, 0)) {
@@ -27,7 +27,7 @@ export default async function cartReducer(state: CartState, action: CartAction):
         break;
       case TYPES.CART_ADD:
         await addToCart(action.item);
-        _resolve({ items: await getCart(1) });
+        _resolve({ items: await getCart(action.sessionId) });
         break;
       default:
         _resolve(state);

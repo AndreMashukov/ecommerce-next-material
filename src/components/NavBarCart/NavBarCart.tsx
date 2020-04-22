@@ -8,6 +8,7 @@ import CartContextManager from '../../store/CartContext/CartContextManager';
 import CartContext from '../../store/CartContext/CartContext';
 import { getCart } from '../../services/CartApi';
 import { CartItem } from '../../models';
+import SessionContext from '../../store/SessionContext/SessionContext';
 
 const cartIsEmpty = 'корзина пуста';
 const cartIsNotEmpty = 'всего товаров';
@@ -34,6 +35,7 @@ export const NavBarCart = () => {
   const divRef = React.useRef();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { items } = useContext<CartContextManager>(CartContext);
+  const { sessionId } = useContext(SessionContext);
 
   const open = Boolean(anchorEl);
   const id = open ? 'cart-popover' : undefined;
@@ -50,7 +52,7 @@ export const NavBarCart = () => {
 
   useEffect(() => {
     const getCartItems = async () => {
-      const cartItems: CartItem[] = await getCart(1);
+      const cartItems: CartItem[] = await getCart(sessionId);
       if (cartItems.length === 0) {
         handlePopoverClose();
       }

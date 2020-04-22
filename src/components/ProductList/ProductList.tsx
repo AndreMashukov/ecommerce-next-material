@@ -3,6 +3,7 @@ import { Product, Section } from '../../models';
 import { Typography, Grid, Button } from '@material-ui/core';
 import { ElementProperty } from '../../models/ElementProperty';
 import { PROPERTY_PRICE_ID } from '../../constants';
+import SessionContext from '../../store/SessionContext/SessionContext';
 import CartContext from '../../store/CartContext/CartContext';
 import CartContextManager from '../../store/CartContext/CartContextManager';
 import { makeStyles } from '@material-ui/styles';
@@ -77,6 +78,7 @@ export const ProductList = (props: ProductListProps) => {
 const ProductListItem = (props: Product) => {
   const classes = useStyles();
   const { addItem } = useContext<CartContextManager>(CartContext);
+  const { sessionId } = useContext(SessionContext);
   const [ selected, setSelected ] = useState(false);
 
   return (
@@ -108,8 +110,8 @@ const ProductListItem = (props: Product) => {
             backgroundColor: theme.palette.secondary.dark
           }}
           onClick={() => {
-            addItem({
-              fuserId: 1,
+            addItem(sessionId, {
+              fuserId: sessionId,
               blockId: props.blockId,
               productId: props.id,
               price: parseInt(getPriceProperty(props).value, 0),

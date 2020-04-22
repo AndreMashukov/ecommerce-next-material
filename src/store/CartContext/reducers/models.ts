@@ -9,4 +9,5 @@ export interface CartAction {
   type: TYPES;
   id?: string;
   item?: CartItem;
+  sessionId: number;
 }

@@ -8,15 +8,15 @@ import SessionContext from '../store/SessionContext/SessionContext';
 import SessionContextManager from '../store/SessionContext/SessionContextManager';
 
 interface Props {
-  sessionId: number;
+  _sessionId: number;
 }
 
 const Index = (props: Props) => {
-  const { sessionId } = props;
-  const { setSessionId } = useContext<SessionContextManager>(SessionContext);
+  const { _sessionId } = props;
+  const { sessionId, setSessionId } = useContext<SessionContextManager>(SessionContext);
   useEffect(() => {
-    setSessionId(sessionId);
-  }, []);
+    setSessionId(_sessionId);
+  }, [sessionId]);
 
   return (
     <div>
@@ -35,8 +35,8 @@ Index.getInitialProps = async (ctx: NextPageContext) => {
       maxAge: 30 * 24 * 60 * 60,
       path: '/'
     });
-    return { sessionId: session.id };
+    return { _sessionId: session.id };
   } else {
-    return { sessionId: parseInt(fuserId, 0) };
+    return { _sessionId: parseInt(fuserId, 0) };
   }
 };
