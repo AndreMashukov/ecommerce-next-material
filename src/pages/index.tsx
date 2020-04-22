@@ -22,4 +22,3 @@ Index.getInitialProps = async () => {
   const sectionList: Section[] = await getSections(PRODUCT_CATALOG_ID);
   return { sections: sectionList };
 };
-

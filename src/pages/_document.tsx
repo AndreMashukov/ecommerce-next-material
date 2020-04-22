@@ -1,22 +1,13 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/core/styles';
 import theme from '../theme/theme';
 import { parseCookies, setCookie } from 'nookies';
-import { NextPageContext } from 'next';
+// import { NextPageContext } from 'next';
 import { Session } from '../models';
 import { createNewSession } from '../services/SessionApi';
-
-const handleSession = async (ctx: NextPageContext): Promise<void> => {
-  const { fuserId } = parseCookies(ctx);
-  if (fuserId === undefined) {
-    const session: Session = await createNewSession();
-    setCookie(ctx, 'fuserId', session.id.toString(), {
-      maxAge: 30 * 24 * 60 * 60,
-      path: '/'
-    });
-  }
-};
+import SessionContext from '../store/SessionContext/SessionContext';
+import SessionContextManager from '../store/SessionContext/SessionContextManager';
 
 export default class MyDocument extends Document {
   render() {
@@ -33,6 +24,7 @@ export default class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
+          <ContextComponent {...this.props}/>
         </body>
       </html>
     );
@@ -66,8 +58,6 @@ MyDocument.getInitialProps = async ctx => {
   const sheets = new ServerStyleSheets();
   const originalRenderPage = ctx.renderPage;
 
-  await handleSession(ctx);
-
   ctx.renderPage = () =>
     originalRenderPage({
       enhanceApp: App => props => sheets.collect(<App {...props} />)
@@ -78,6 +68,31 @@ MyDocument.getInitialProps = async ctx => {
   return {
     ...initialProps,
     // Styles fragment is rendered after the app and page rendering finish.
-    styles: [...React.Children.toArray(initialProps.styles), sheets.getStyleElement()]
+    styles: [...React.Children.toArray(initialProps.styles), sheets.getStyleElement()],
+    context: ctx
   };
+};
+
+// tslint:disable-next-line: no-any
+const ContextComponent = (props: any) => {
+  const { setSessionId } = useContext<SessionContextManager>(SessionContext);
+  const { context } = props;
+  const { fuserId } = parseCookies(context);
+
+  if (fuserId !== undefined) {
+    setSessionId(parseInt(fuserId, 0));
+  } else {
+    createNewSession().then((session: Session) => {
+      setCookie(context, 'fuserId', session.id.toString(), {
+        maxAge: 30 * 24 * 60 * 60,
+        path: '/'
+      });
+      setSessionId(session.id);
+    });
+  }
+
+  return (
+    <>
+    </>
+  );
 };

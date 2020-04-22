@@ -7,7 +7,9 @@ import TYPES from './reducers/types';
 const SessionProvider: React.FunctionComponent<{}> = (props: any) => {
   const [state, dispatch] = useReducer(sessionReducer, {sessionId: 0});
 
-  function setSessionId(sessionId: number = 0): void {
+  function setSessionId(sessionId: number): void {
+    // tslint:disable-next-line: no-console
+    console.log('setSessionId');
     dispatch({ type: TYPES.SESSION_SET, sessionId });
   }
 
