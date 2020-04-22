@@ -1,24 +1,42 @@
-import React from 'react';
+import React, {useContext, useEffect } from 'react';
 import { Home } from '../components';
-import { Section } from '../models';
-import { getSections } from '../services/CatalogApi';
-import { PRODUCT_CATALOG_ID } from '../constants';
+import { parseCookies, setCookie } from 'nookies';
+import { NextPageContext } from 'next';
+import { Session } from '../models';
+import { createNewSession } from '../services/SessionApi';
+import SessionContext from '../store/SessionContext/SessionContext';
+import SessionContextManager from '../store/SessionContext/SessionContextManager';
 
 interface Props {
-  sections: Section[];
+  sessionId: number;
 }
 
 const Index = (props: Props) => {
+  const { sessionId } = props;
+  const { setSessionId } = useContext<SessionContextManager>(SessionContext);
+  useEffect(() => {
+    setSessionId(sessionId);
+  }, []);
+
   return (
     <div>
-      <Home {...props} />
+      <Home />
     </div>
   );
 };
 
 export default Index;
 
-Index.getInitialProps = async () => {
-  const sectionList: Section[] = await getSections(PRODUCT_CATALOG_ID);
-  return { sections: sectionList };
+Index.getInitialProps = async (ctx: NextPageContext) => {
+  const { fuserId } = parseCookies(ctx);
+  if (fuserId === undefined) {
+    const session: Session = await createNewSession();
+    setCookie(ctx, 'fuserId', session.id.toString(), {
+      maxAge: 30 * 24 * 60 * 60,
+      path: '/'
+    });
+    return { sessionId: session.id };
+  } else {
+    return { sessionId: parseInt(fuserId, 0) };
+  }
 };

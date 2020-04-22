@@ -1,20 +1,13 @@
 import React from 'react';
 import './Home.scss';
-import { Section } from '../../models';
 
-interface HomeProps {
-  sections: Section[];
-}
-
-export const Home = (props: HomeProps) => {
+export const Home = () => {
   return (
-    React.useMemo(() => HomeMemo(props), [])
+    React.useMemo(() => HomeMemo(), [])
   );
 };
 
-const HomeMemo = (props: HomeProps) => {
-  // tslint:disable-next-line: no-console
-  console.log(props.sections.length);
+const HomeMemo = () => {
   return (
       <div className="home-root">
       </div>

@@ -9,7 +9,7 @@ const SessionProvider: React.FunctionComponent<{}> = (props: any) => {
 
   function setSessionId(sessionId: number): void {
     // tslint:disable-next-line: no-console
-    console.log('setSessionId');
+    console.log('setSessionId', sessionId);
     dispatch({ type: TYPES.SESSION_SET, sessionId });
   }
 
