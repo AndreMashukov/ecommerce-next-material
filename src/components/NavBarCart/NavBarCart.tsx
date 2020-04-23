@@ -60,7 +60,7 @@ export const NavBarCart = () => {
     };
 
     getCartItems();
-  }, [items]);
+  }, [items, sessionId]);
 
   return (
     <div ref={divRef} className={cart.items.length === 0 ? classes.cartInactive: ''}>
