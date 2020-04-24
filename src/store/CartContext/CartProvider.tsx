@@ -33,7 +33,6 @@ const CartProvider: React.FunctionComponent<{}> = (props: any) => {
     <CartContext.Provider
       value={{
         syncCart,
-        products: state.products,
         items: state.items,
         removeItem,
         addItem
