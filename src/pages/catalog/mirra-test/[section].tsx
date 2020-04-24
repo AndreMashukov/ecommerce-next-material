@@ -19,10 +19,10 @@ interface Props {
 
 const SectionPage = (props: Props) => {
   const { _sessionId } = props;
-  const { sessionId, setSessionId } = useContext(SessionContext);
+  const { setSessionId } = useContext(SessionContext);
   useEffect(() => {
     setSessionId(_sessionId);
-  }, [sessionId]);
+  }, [_sessionId]);
 
   return (
     <div>
