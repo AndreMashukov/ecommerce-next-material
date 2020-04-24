@@ -1,4 +1,4 @@
-import { Product, CartItem } from '../../models';
+import { CartItem } from '../../models';
 
 export default interface CartContextManager {
   syncCart: (sessionId: number) => void;
