@@ -35,7 +35,7 @@ export const NavBarCart = () => {
   const divRef = React.useRef();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { items } = useContext<CartContextManager>(CartContext);
-  const { sessionId } = useContext(SessionContext);
+  const { sessionId, setSessionId } = useContext(SessionContext);
 
   const open = Boolean(anchorEl);
   const id = open ? 'cart-popover' : undefined;
@@ -60,7 +60,7 @@ export const NavBarCart = () => {
     };
 
     getCartItems();
-  }, [items, sessionId]);
+  }, [items, setSessionId]);
 
   return (
     <div ref={divRef} className={cart.items.length === 0 ? classes.cartInactive: ''}>
