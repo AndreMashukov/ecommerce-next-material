@@ -28,8 +28,8 @@ const useStyles = makeStyles({
     height: '300px',
     overflow: 'hidden',
     '&:hover': {
-      backgroundColor: grey[500],
-    },
+      backgroundColor: grey[500]
+    }
   },
   addToCartShow: {
     display: 'block',
@@ -44,13 +44,13 @@ const useStyles = makeStyles({
     display: 'none'
   },
   a: {
-    cursor: 'pointer',
+    cursor: 'pointer'
   },
   selected: {
-    color: theme.palette.primary.light,
+    color: theme.palette.primary.light
   },
   unselected: {
-    color: grey[700],
+    color: grey[700]
   }
 });
 
@@ -84,7 +84,7 @@ const ProductListItem = (props: Product) => {
   const [snackState, setSnackState] = useState({
     open: false,
     vertical: 'top',
-    horizontal: 'left',
+    horizontal: 'left'
   });
   const { open } = snackState;
   const handleClose = () => {
@@ -127,7 +127,7 @@ const ProductListItem = (props: Product) => {
               productId: props.id,
               price: parseInt(getPriceProperty(props).value, 0),
               quantity: 1,
-              currency: 'RUB',
+              currency: 'RUB'
             }, () => {
               setSnackState({...snackState, open: true});
             });

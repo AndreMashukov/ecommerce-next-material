@@ -25,9 +25,8 @@ const useStyles = makeStyles({
     padding: theme.spacing(1),
     'min-width': '400px',
     'max-width': '500px',
-    'overflow-y': 'scroll',
-
-  },
+    'overflow-y': 'scroll'
+  }
 });
 
 export const NavBarCart = () => {
@@ -83,12 +82,12 @@ export const NavBarCart = () => {
             id={id}
             open={open}
             classes={{
-              paper: classes.paper,
+              paper: classes.paper
             }}
             anchorEl={anchorEl}
             anchorOrigin={{
               vertical: 'top',
-              horizontal: 'right',
+              horizontal: 'right'
             }}
             transformOrigin={{
               vertical: 'top',
