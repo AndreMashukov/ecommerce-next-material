@@ -28,10 +28,11 @@ const useStyles = makeStyles({
     height: '300px',
     overflow: 'hidden',
     '&:hover': {
-      'background-color': grey[500],
+      backgroundColor: grey[500],
     },
   },
-  overlay: {
+  addToCartShow: {
+    display: 'block',
     opacity: '1',
     position: 'absolute',
     top: '50%',
@@ -39,7 +40,7 @@ const useStyles = makeStyles({
     transform: 'translate(-50%, -50%)',
     '-ms-transform': 'translate(-50%, -50%)'
   },
-  addToCart: {
+  addToCartHide: {
     display: 'none'
   },
   a: {
@@ -86,6 +87,7 @@ const ProductListItem = (props: Product) => {
       className={classes.box}
       onMouseEnter={() => { setSelected(true); }}
       onMouseLeave={() => { setSelected(false); }}
+      onMouseOver= {() => { setSelected(true); }}
       >
       <div>
         <Typography
@@ -102,7 +104,7 @@ const ProductListItem = (props: Product) => {
           <Typography variant="subtitle2">{props.name}</Typography>
         </a>
       </div>
-      <div className={selected ? classes.overlay : classes.addToCart }>
+      <div className={selected ? classes.addToCartShow : classes.addToCartHide }>
         <Button
           variant="outlined"
           color="primary"
