@@ -2,6 +2,7 @@ import { Section } from '../../models';
 import { Typography, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../theme/theme';
+import grey from '@material-ui/core/colors/grey';
 
 const CATEGORY_BEAUTY = 1;
 const ROW_ITEMS_NUM = 12;
@@ -15,7 +16,7 @@ interface SectionListProps {
 const useStyles = makeStyles({
   item: {
     cursor: 'pointer',
-    color: theme.palette.primary.dark,
+    color: grey[900],
     '&:hover': {
       color: theme.palette.secondary.main,
     },
