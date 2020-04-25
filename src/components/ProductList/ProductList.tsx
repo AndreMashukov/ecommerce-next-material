@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { Product, Section } from '../../models';
-import { Typography, Grid, Button } from '@material-ui/core';
+import { Typography, Grid, Button, Snackbar } from '@material-ui/core';
 import { ElementProperty } from '../../models/ElementProperty';
 import { PROPERTY_PRICE_ID } from '../../constants';
 import SessionContext from '../../store/SessionContext/SessionContext';
@@ -81,6 +81,15 @@ const ProductListItem = (props: Product) => {
   const { addItem } = useContext<CartContextManager>(CartContext);
   const { sessionId } = useContext(SessionContext);
   const [ selected, setSelected ] = useState(false);
+  const [snackState, setSnackState] = useState({
+    open: false,
+    vertical: 'top',
+    horizontal: 'left',
+  });
+  const { open } = snackState;
+  const handleClose = () => {
+    setSnackState({ ...snackState, open: false });
+  };
 
   return (
     <div
@@ -112,19 +121,27 @@ const ProductListItem = (props: Product) => {
             backgroundColor: theme.palette.secondary.dark
           }}
           onClick={() => {
-            addItem(sessionId, {
+            addItem(1, {
               fuserId: sessionId,
               blockId: props.blockId,
               productId: props.id,
               price: parseInt(getPriceProperty(props).value, 0),
               quantity: 1,
               currency: 'RUB',
+            }, () => {
+              setSnackState({...snackState, open: true});
             });
           }}
         >
           В КОРЗИНУ
         </Button>
       </div>
+      <Snackbar
+        key={`cartSnackBar`}
+        open={open}
+        onClose={handleClose}
+        message="Товар был успешно добавлен"
+      />
     </div>
   );
 };

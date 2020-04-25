@@ -25,8 +25,8 @@ const CartProvider: React.FunctionComponent<{}> = (props: any) => {
     dispatch({ type: TYPES.CART_REMOVE, id, sessionId });
   }
 
-  function addItem(sessionId: number, item: CartItem): void {
-    dispatch({ type: TYPES.CART_ADD, item, sessionId});
+  function addItem(sessionId: number, item: CartItem, callback: () => void): void {
+    dispatch({ type: TYPES.CART_ADD, item, sessionId}, callback);
   }
 
   return (
