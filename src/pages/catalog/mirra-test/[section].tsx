@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import { Product } from '../../../models/Product';
 import { getProducts, getSections } from '../../../services/CatalogApi';
 import { PRODUCT_CATALOG_ID } from '../../../constants';
@@ -7,8 +7,6 @@ import { Grid } from '@material-ui/core';
 import { NextPageContext } from 'next';
 import { ProductList } from '../../../components/ProductList/ProductList';
 import { handleSession } from '../../../utils/handleSession';
-import SessionContext from '../../../store/SessionContext/SessionContext';
-
 
 interface Props {
   products: Product[];
@@ -18,12 +16,6 @@ interface Props {
 }
 
 const SectionPage = (props: Props) => {
-  const { _sessionId } = props;
-  const { setSessionId } = useContext(SessionContext);
-  useEffect(() => {
-    setSessionId(_sessionId);
-  }, [_sessionId]);
-
   return (
     <div>
       <Grid container direction="row" justify="space-between" alignItems="flex-start" spacing={2}>
