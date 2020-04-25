@@ -5,7 +5,7 @@ import SessionProvider from './SessionContext/SessionProvider';
 // tslint:disable-next-line: no-any
 const Store: React.FunctionComponent<{}> = (props: any) => {
   return (
-    <SessionProvider>
+    <SessionProvider {...props}>
       <CartProvider>
         {props.children}
       </CartProvider>

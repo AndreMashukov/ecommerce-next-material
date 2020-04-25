@@ -7,13 +7,16 @@ import { NavBar, Footer, Layout } from '../components';
 import { Section, Category } from '../models/Section';
 import { getSections } from '../services/CatalogApi';
 import { PRODUCT_CATALOG_ID } from '../constants';
+import { handleSession } from '../utils/handleSession';
 
 interface AppState {
   sectionList: Section[];
   categoryList: Category[];
 }
 
-interface Props extends AppComponentProps, MaterialAppComponentProps {}
+interface Props extends AppComponentProps, MaterialAppComponentProps {
+  _sessionId: number;
+}
 
 const getCategories = (sections: Section[]): Category[] => {
   const categories: Category[] = [];
@@ -33,6 +36,16 @@ const getCategories = (sections: Section[]): Category[] => {
 };
 
 class MyApp extends App<Props> {
+  // tslint:disable-next-line: no-any
+  static async getInitialProps({Component, ctx}: any) {
+    let pageProps = {_sessionId: 0};
+    if (Component.getInitialProps) {
+      pageProps = await Component.getInitialProps(ctx);
+    }
+    pageProps._sessionId =  (await handleSession(ctx))._sessionId;
+    return {pageProps};
+  }
+
   state: AppState = {
     sectionList: [],
     categoryList: []
@@ -56,7 +69,7 @@ class MyApp extends App<Props> {
     };
 
     return (
-      <Store>
+      <Store {...pageProps}>
         <NavBar {...navBarProps}/>
         <Layout>
           <Component pageContext={pageContext} {...pageProps} />
