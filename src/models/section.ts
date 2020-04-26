@@ -11,6 +11,7 @@ export interface Section {
   depthLevel: number;
   categoryId: number;
   categoryName: string;
+  descriptionType: string;
 }
 
 export interface Category {
