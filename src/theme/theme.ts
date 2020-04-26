@@ -19,6 +19,9 @@ export default createMuiTheme({
     }
   },
   typography: {
+    h4: {
+      fontFamily: 'Comfortaa, Arial, sans-serif'
+    },
     fontFamily: [
       'Open Sans',
       'BlinkMacSystemFont',
@@ -29,7 +32,7 @@ export default createMuiTheme({
       '"Apple Color Emoji"',
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"'
-    ].join(','), 
+    ].join(','),
     useNextVariants: true
   // tslint:disable-next-line: no-any
   } as any

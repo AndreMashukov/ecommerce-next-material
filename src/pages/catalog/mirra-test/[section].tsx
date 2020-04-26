@@ -23,7 +23,7 @@ const SectionPage = (props: Props) => {
   const { sections, currentSection } = props;
   return (
     <div>
-      <Grid direction="row" justify="space-around" alignItems="flex-start"
+      <Grid direction="row" justify="space-around" alignItems="center"
         spacing={2} container style={{marginBottom: '20px'}}>
         <Grid item xs={4}>
           <Typography variant="h4" color="textPrimary">
