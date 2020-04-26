@@ -47,7 +47,7 @@ const useStyles = makeStyles({
     cursor: 'pointer'
   },
   selected: {
-    color: theme.palette.primary.light
+    color: theme.palette.primary.light,
   },
   unselected: {
     color: grey[700]

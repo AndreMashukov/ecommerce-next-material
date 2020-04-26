@@ -18,6 +18,13 @@ export default createMuiTheme({
       dark: pink[600]
     }
   },
+  overrides: {
+    MuiButton: {
+      outlined: {
+        color: grey[50]
+      }
+    }
+  },
   typography: {
     h4: {
       fontFamily: 'Comfortaa, Arial, sans-serif'
