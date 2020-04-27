@@ -7,6 +7,7 @@ import { Grid, Typography } from '@material-ui/core';
 import { NextPageContext } from 'next';
 import { ProductList } from '../../../components/ProductList/ProductList';
 import { handleSession } from '../../../utils/handleSession';
+import ShopBreadcrumbs from '../../../components/ShopBreadcrumbs/ShopBreadcrumbs';
 
 interface Props {
   products: Product[];
@@ -23,8 +24,11 @@ const SectionPage = (props: Props) => {
   const { sections, currentSection } = props;
   return (
     <div>
+      <div style={{ marginBottom: '30px' }}>
+        <ShopBreadcrumbs  {...{sectionName: getSectionByCode(sections, currentSection).name}}/>
+      </div>
       <Grid direction="row" justify="space-around" alignItems="center"
-        spacing={2} container style={{marginBottom: '20px'}}>
+        spacing={2} container style={{marginBottom: '20px', minHeight: '100px'}}>
         <Grid item xs={4}>
           <Typography variant="h4" color="textPrimary">
             {getSectionByCode(sections, currentSection).name}
