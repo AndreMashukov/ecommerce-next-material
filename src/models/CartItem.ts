@@ -1,5 +1,5 @@
 export interface CartItem {
-  fuserId: number;
+  sessionId: string;
   blockId: number;
   productId: number;
   name?: string;

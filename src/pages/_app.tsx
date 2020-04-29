@@ -15,7 +15,7 @@ interface AppState {
 }
 
 interface Props extends AppComponentProps, MaterialAppComponentProps {
-  _sessionId: number;
+  _sessionId: string;
 }
 
 const getCategories = (sections: Section[]): Category[] => {
@@ -38,7 +38,7 @@ const getCategories = (sections: Section[]): Category[] => {
 class MyApp extends App<Props> {
   // tslint:disable-next-line: no-any
   static async getInitialProps({Component, ctx}: any) {
-    let pageProps = {_sessionId: 0};
+    let pageProps = {_sessionId: ''};
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx);
     }

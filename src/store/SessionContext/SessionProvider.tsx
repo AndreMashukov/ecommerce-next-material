@@ -8,7 +8,7 @@ const SessionProvider: React.FunctionComponent<{}> = (props: any) => {
   const {_sessionId} = props;
   const [state, dispatch] = useReducer(sessionReducer, {sessionId: _sessionId});
 
-  function setSessionId(sessionId: number): void {
+  function setSessionId(sessionId: string): void {
     dispatch({ type: TYPES.SESSION_SET, sessionId });
   }
 

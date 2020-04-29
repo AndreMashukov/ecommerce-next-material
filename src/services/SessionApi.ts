@@ -9,6 +9,6 @@ export const createNewSession = async () => {
     }
   });
 
-  const sessionId = await res.json();
-  return sessionId;
+  const session = await res.json();
+  return session;
 };

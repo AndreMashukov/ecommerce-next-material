@@ -1,4 +1,4 @@
 export default interface CartContextManager {
-  setSessionId: (sessionId: number) => void;
-  sessionId: number;
+  setSessionId: (sessionId: string) => void;
+  sessionId: string;
 }

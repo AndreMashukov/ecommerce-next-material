@@ -80,6 +80,7 @@ const ProductListItem = (props: Product) => {
   const classes = useStyles();
   const { addItem } = useContext<CartContextManager>(CartContext);
   const { sessionId } = useContext(SessionContext);
+  const _sessionId = sessionId;
   const [ selected, setSelected ] = useState(false);
   const [snackState, setSnackState] = useState({
     open: false,
@@ -98,14 +99,14 @@ const ProductListItem = (props: Product) => {
       onMouseLeave={() => { setSelected(false); }}
       onMouseOver= {() => { setSelected(true); }}
       >
-      <div>
+
         <Typography
           variant="h6"
           color="textSecondary"
           className={selected ? classes.selected : classes.unselected}>
           {getPriceProperty(props).value} ₽
         </Typography>
-      </div>
+
       <div>
         <a
           href={`/catalog/mirra-test/${'currentSection'}/${props.code}`}
@@ -121,8 +122,8 @@ const ProductListItem = (props: Product) => {
             backgroundColor: theme.palette.secondary.dark
           }}
           onClick={() => {
-            addItem(1, {
-              fuserId: sessionId,
+            addItem(_sessionId, {
+              sessionId: _sessionId,
               blockId: props.blockId,
               productId: props.id,
               price: parseInt(getPriceProperty(props).value, 0),

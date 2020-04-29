@@ -1,10 +1,10 @@
 import TYPES from './types';
 
 export interface SessionState {
-  sessionId: number;
+  sessionId: string;
 }
 
 export interface SessionAction {
   type: TYPES;
-  sessionId?: number;
+  sessionId?: string;
 }
