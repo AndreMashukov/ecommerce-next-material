@@ -13,8 +13,11 @@ const initialValues: Cart = {
   items: []
 };
 
-// tslint:disable-next-line: no-any
-const CartProvider: React.FunctionComponent<{}> = (props: any) => {
+interface CartProviderProps  {
+  children?: React.ReactNode;
+}
+
+const CartProvider: React.FunctionComponent<{}> = (props: CartProviderProps) => {
   const [state, dispatch] = useAsyncReducer(cartReducer, initialValues);
 
   function syncCart(sessionId: string) {
