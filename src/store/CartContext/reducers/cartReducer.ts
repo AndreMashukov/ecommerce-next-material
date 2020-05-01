@@ -11,9 +11,6 @@ export default async function cartReducer(state: CartState, action: CartAction):
         cart = await getCart(action.sessionId);
         _resolve({ items: cart });
         break;
-      case TYPES.CART_CLEAR:
-        _resolve({ items: cart });
-        break;
       case TYPES.CART_REMOVE:
         await removeFromCart(action.sessionId, parseInt(action.id, 0));
         cart = await getCart(action.sessionId);
