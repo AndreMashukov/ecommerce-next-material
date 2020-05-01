@@ -131,7 +131,7 @@ export const NavBar = (props: NavBarProps) => {
         onMouseLeave={() => { setOpen(false);}}
       >
         <div className="navbar-layout">
-          <SectionList {...{ sections: filterSections(sections, selection) }} />
+          <SectionList sections={filterSections(sections, selection)} />
         </div>
       </div>
     </div>

@@ -25,7 +25,7 @@ const SectionPage = (props: Props) => {
   return (
     <div>
       <div style={{ marginBottom: '30px' }}>
-        <ShopBreadcrumbs  {...{sectionName: getSectionByCode(sections, currentSection).name}}/>
+        <ShopBreadcrumbs  sectionName={getSectionByCode(sections, currentSection).name}/>
       </div>
       <Grid direction="row" justify="space-around" alignItems="center"
         spacing={2} container style={{marginBottom: '20px', minHeight: '100px'}}>
