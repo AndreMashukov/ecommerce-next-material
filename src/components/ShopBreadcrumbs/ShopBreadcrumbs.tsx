@@ -7,7 +7,7 @@ type Props = {
   sectionName: string;
 }
 
-export default function SimpleBreadcrumbs(props: Props) {
+export default function ShopBreadcrumbs(props: Props) {
   return (
     <Breadcrumbs aria-label="breadcrumb">
       <Link color="inherit" href="/">

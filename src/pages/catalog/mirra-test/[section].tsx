@@ -36,7 +36,7 @@ const SectionPage = (props: Props) => {
         </Grid>
         <Grid item xs={4}>
           <Typography variant="body2" color="textPrimary">
-            <div dangerouslySetInnerHTML={{__html:
+            <span dangerouslySetInnerHTML={{__html:
               `${getSectionByCode(sections, currentSection).description}`}} />
           </Typography>
         </Grid>
