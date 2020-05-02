@@ -58,6 +58,13 @@ const getPriceProperty = (product: Product): ElementProperty => {
   return product.properties.find(property => parseInt(property.propertyId, 0) === PROPERTY_PRICE_ID);
 };
 
+const getPrice = (product: Product): number => {
+  const priceProperty: ElementProperty =
+    product.properties.find(property =>
+      parseInt(property.propertyId, 0) === PROPERTY_PRICE_ID);
+  return parseInt(priceProperty.value, 0);
+}
+
 export const ProductList = (props: ProductListProps) => {
   return (
     <Grid container direction="column" justify="flex-start">
@@ -104,7 +111,7 @@ const ProductListItem = (props: Product) => {
           variant="h6"
           color="textSecondary"
           className={selected ? classes.selected : classes.unselected}>
-          {getPriceProperty(props).value} ₽
+          {getPrice(props)} ₽
         </Typography>
 
       <div>
