@@ -5,7 +5,6 @@ import { ElementProperty } from '../../models/ElementProperty';
 import { PROPERTY_PRICE_ID } from '../../constants';
 import SessionContext from '../../store/SessionContext/SessionContext';
 import CartContext from '../../store/CartContext/CartContext';
-import CartContextManager from '../../store/CartContext/CartContextManager';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../theme/theme';
 import grey from '@material-ui/core/colors/grey';
@@ -47,7 +46,7 @@ const useStyles = makeStyles({
     cursor: 'pointer'
   },
   selected: {
-    color: theme.palette.primary.light,
+    color: theme.palette.primary.light
   },
   unselected: {
     color: grey[700]
@@ -55,15 +54,17 @@ const useStyles = makeStyles({
 });
 
 const getPriceProperty = (product: Product): ElementProperty => {
-  return product.properties.find(property => parseInt(property.propertyId, 0) === PROPERTY_PRICE_ID);
+  return product.properties.find(
+    (property) => parseInt(property.propertyId, 0) === PROPERTY_PRICE_ID
+  );
 };
 
 const getPrice = (product: Product): number => {
-  const priceProperty: ElementProperty =
-    product.properties.find(property =>
-      parseInt(property.propertyId, 0) === PROPERTY_PRICE_ID);
+  const priceProperty: ElementProperty = product.properties.find(
+    (property) => parseInt(property.propertyId, 0) === PROPERTY_PRICE_ID
+  );
   return parseInt(priceProperty.value, 0);
-}
+};
 
 export const ProductList = (props: ProductListProps) => {
   return (
@@ -71,12 +72,12 @@ export const ProductList = (props: ProductListProps) => {
       <Grid item>
         <Grid container direction="row" justify="flex-start" wrap="wrap">
           {props.products
-            .filter(product => product.active === 'Y')
-            .map(product => (
-            <Grid key={product.code} item xs={3}>
-              <ProductListItem {...product} />
-            </Grid>
-          ))}
+            .filter((product) => product.active === 'Y')
+            .map((product) => (
+              <Grid key={product.code} item xs={3}>
+                <ProductListItem {...product} />
+              </Grid>
+            ))}
         </Grid>
       </Grid>
     </Grid>
@@ -85,10 +86,10 @@ export const ProductList = (props: ProductListProps) => {
 
 const ProductListItem = (props: Product) => {
   const classes = useStyles();
-  const { addItem } = useContext<CartContextManager>(CartContext);
+  const { addItem } = useContext(CartContext);
   const { sessionId } = useContext(SessionContext);
   const _sessionId = sessionId;
-  const [ selected, setSelected ] = useState(false);
+  const [selected, setSelected] = useState(false);
   const [snackState, setSnackState] = useState({
     open: false,
     vertical: 'top',
@@ -102,26 +103,33 @@ const ProductListItem = (props: Product) => {
   return (
     <div
       className={classes.box}
-      onMouseEnter={() => { setSelected(true); }}
-      onMouseLeave={() => { setSelected(false); }}
-      onMouseOver= {() => { setSelected(true); }}
+      onMouseEnter={() => {
+        setSelected(true);
+      }}
+      onMouseLeave={() => {
+        setSelected(false);
+      }}
+      onMouseOver={() => {
+        setSelected(true);
+      }}
+    >
+      <Typography
+        variant="h6"
+        color="textSecondary"
+        className={selected ? classes.selected : classes.unselected}
       >
-
-        <Typography
-          variant="h6"
-          color="textSecondary"
-          className={selected ? classes.selected : classes.unselected}>
-          {getPrice(props)} ₽
-        </Typography>
+        {getPrice(props)} ₽
+      </Typography>
 
       <div>
         <a
           href={`/catalog/mirra-test/${'currentSection'}/${props.code}`}
-          className={selected ? classes.selected : classes.unselected}>
+          className={selected ? classes.selected : classes.unselected}
+        >
           <Typography variant="subtitle2">{props.name}</Typography>
         </a>
       </div>
-      <div className={selected ? classes.addToCartShow : classes.addToCartHide }>
+      <div className={selected ? classes.addToCartShow : classes.addToCartHide}>
         <Button
           variant="outlined"
           color="primary"
@@ -129,16 +137,20 @@ const ProductListItem = (props: Product) => {
             backgroundColor: theme.palette.secondary.dark
           }}
           onClick={() => {
-            addItem(_sessionId, {
-              sessionId: _sessionId,
-              blockId: props.blockId,
-              productId: props.id,
-              price: parseInt(getPriceProperty(props).value, 0),
-              quantity: 1,
-              currency: 'RUB'
-            }, () => {
-              setSnackState({...snackState, open: true});
-            });
+            addItem(
+              _sessionId,
+              {
+                sessionId: _sessionId,
+                blockId: props.blockId,
+                productId: props.id,
+                price: parseInt(getPriceProperty(props).value, 0),
+                quantity: 1,
+                currency: 'RUB'
+              },
+              () => {
+                setSnackState({ ...snackState, open: true });
+              }
+            );
           }}
         >
           В КОРЗИНУ

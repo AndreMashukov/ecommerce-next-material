@@ -16,28 +16,28 @@ interface NavBarProps {
 const useStyles = makeStyles({
   upperSection: {
     padding: '5px 0 5px 0',
-    'background-color': theme.palette.primary.main,
+    'background-color': theme.palette.primary.main
   },
   middleSection: {
     padding: '15px 0 15px 0',
-    'border-bottom': `1px solid ${theme.palette.secondary.main}`,
+    'border-bottom': `1px solid ${theme.palette.secondary.main}`
   },
   bottomSection: {
-    padding: '15px 0 15px 0',
+    padding: '15px 0 15px 0'
   },
   paper: {
     padding: theme.spacing(1),
     'min-width': '400px',
     'max-width': '500px',
-    'overflow-y': 'scroll',
+    'overflow-y': 'scroll'
   },
   topCategory: {
     color: theme.palette.primary.dark,
     cursor: 'default',
     'font-size': '1.05rem',
     '&:hover': {
-      color: theme.palette.secondary.main,
-    },
+      color: theme.palette.secondary.main
+    }
   },
   sectionsPopup: {
     position: 'absolute',
@@ -48,11 +48,11 @@ const useStyles = makeStyles({
     backgroundColor: theme.palette.primary.light,
     padding: '10px 0 0 5px',
     borderBottom: `1px solid ${theme.palette.primary.main}`
-  },
+  }
 });
 
 const filterSections = (sections: Section[], categoryId: number): Section[] => {
-  return sections.filter(item => item.categoryId === categoryId);
+  return sections.filter((item) => item.categoryId === categoryId);
 };
 
 export const NavBar = (props: NavBarProps) => {
@@ -77,10 +77,22 @@ export const NavBar = (props: NavBarProps) => {
       </div>
       <div className="navbar-layout">
         <div className={classes.middleSection}>
-          <Grid container direction="row" justify="space-between" alignItems="center" spacing={2}>
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="center"
+            spacing={2}
+          >
             <Grid item>
               <a href="\">
-                <Grid container direction="row" justify="flex-start" alignItems="center" spacing={5}>
+                <Grid
+                  container
+                  direction="row"
+                  justify="flex-start"
+                  alignItems="center"
+                  spacing={5}
+                >
                   <Grid item>
                     <div className="img-molecule">
                       <img src="/img/molecule.svg" />
@@ -101,10 +113,27 @@ export const NavBar = (props: NavBarProps) => {
         </div>
       </div>
       <div className="navbar-layout">
-        <div className={classes.bottomSection} onMouseLeave={() => { setOpen(false); }}>
-          <Grid container direction="row" justify="space-between" alignItems="center" spacing={2}>
+        <div
+          className={classes.bottomSection}
+          onMouseLeave={() => {
+            setOpen(false);
+          }}
+        >
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="center"
+            spacing={2}
+          >
             <Grid item>
-              <Grid container direction="row" justify="flex-start" alignItems="center" spacing={2}>
+              <Grid
+                container
+                direction="row"
+                justify="flex-start"
+                alignItems="center"
+                spacing={2}
+              >
                 {categories.map((category: Category) => (
                   <Grid
                     onMouseEnter={() => {
@@ -127,8 +156,12 @@ export const NavBar = (props: NavBarProps) => {
       <div
         style={{ display: open ? 'block' : 'none' }}
         className={classes.sectionsPopup}
-        onMouseEnter={() => { setOpen(true); }}
-        onMouseLeave={() => { setOpen(false);}}
+        onMouseEnter={() => {
+          setOpen(true);
+        }}
+        onMouseLeave={() => {
+          setOpen(false);
+        }}
       >
         <div className="navbar-layout">
           <SectionList sections={filterSections(sections, selection)} />
