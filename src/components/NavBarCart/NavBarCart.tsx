@@ -23,9 +23,7 @@ const useStyles = makeStyles({
   },
   paper: {
     padding: theme.spacing(1),
-    'min-width': '400px',
-    'max-width': '500px',
-    'overflow-y': 'scroll'
+    width: '450px'
   }
 });
 
