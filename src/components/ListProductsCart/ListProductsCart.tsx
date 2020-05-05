@@ -23,15 +23,6 @@ const useStyles = makeStyles({
     padding: '15px 0 15px 0',
     borderTop: `1px solid ${theme.palette.primary.main}`
   },
-  total: {
-    borderTop: `1px solid ${theme.palette.primary.main}`,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    height: '60px',
-    paddingRight: '5px'
-  },
   fontWeigthBold: {
     fontWeight: 'bold'
   }
