@@ -43,13 +43,13 @@ const useStyles = makeStyles({
     display: 'none'
   },
   a: {
-    cursor: 'pointer'
+    cursor: 'pointer',
   },
   selected: {
-    color: theme.palette.primary.light,
+    color: theme.palette.primary.light
   },
   unselected: {
-    color: grey[700]
+    color: theme.palette.primary.dark
   }
 });
 
