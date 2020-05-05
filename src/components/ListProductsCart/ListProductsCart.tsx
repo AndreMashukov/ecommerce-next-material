@@ -17,17 +17,30 @@ interface Props {
 const useStyles = makeStyles({
   box: {
     display: 'flex',
-    'flex-direction': 'row',
-    'justify-content': 'space-between',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     height: '100px',
     padding: '15px 0 15px 0',
-    'border-top': `1px solid ${theme.palette.primary.main}`
-  }
+    borderTop: `1px solid ${theme.palette.primary.main}`
+  },
+  total: {
+    borderTop: `1px solid ${theme.palette.primary.main}`,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    height: '60px',
+    paddingRight: '5px'
+  },
+  fontWeigthBold: {
+    fontWeight: 'bold'
+  },
 });
 
-
 const ListProductsCart = (props: Props) => {
-  const { items, removeItem, syncCart } = useContext<CartContextManager>(CartContext);
+  const { items, removeItem, syncCart } = useContext<CartContextManager>(
+    CartContext
+  );
   const { sessionId } = useContext(SessionContext);
   const classes = useStyles();
 
@@ -38,37 +51,58 @@ const ListProductsCart = (props: Props) => {
   return (
     <div>
       <div>
-        <Grid container direction="row" justify="space-between" alignItems="baseline">
+        <Grid
+          container
+          direction="row"
+          justify="space-between"
+          alignItems="baseline"
+        >
           <Grid item>
-            <Typography variant="body1">
-              Всего товаров: {items ? items.length : 0} / 2 496
+            <Typography variant="body1" className={classes.fontWeigthBold}>
+              Всего товаров: {items ? items.length : 0} / 2 496 ₽
             </Typography>
           </Grid>
           <Grid item>
-          <IconButton aria-label="close" color="inherit"
-            onClick={props.onClose}>
-              <ArrowRightAltIcon/>
-          </IconButton>
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              onClick={props.onClose}
+            >
+              <ArrowRightAltIcon />
+            </IconButton>
           </Grid>
         </Grid>
       </div>
       <Grid container direction="column" justify="flex-start">
-        {items && items.map((item: CartItem) => (
-          <Grid item key={item.productId}>
-            <div className={classes.box}>
-              <div>
-                <Typography>{item.name}</Typography>
+        {items &&
+          items.map((item: CartItem) => (
+            <Grid item key={item.productId}>
+              <div className={classes.box}>
+                <div>
+                  <Typography>{item.name}</Typography>
+                </div>
+                <div>
+                  <IconButton
+                    aria-label="remove"
+                    color="inherit"
+                    onClick={() => {
+                      removeItem(sessionId, item.productId);
+                    }}
+                  >
+                    <ClearIcon />
+                  </IconButton>
+                </div>
               </div>
-              <div>
-                <IconButton aria-label="remove" color="inherit"
-                  onClick={() => {removeItem(sessionId, item.productId);}}>
-                  <ClearIcon />
-                </IconButton>
-              </div>
-            </div>
-          </Grid>
-        ))}
+            </Grid>
+          ))}
       </Grid>
+      <div>
+        <div className={classes.total}>
+          <Typography variant="body1" className={classes.fontWeigthBold}>
+            Итого: 479 ₽
+          </Typography>
+        </div>
+      </div>
     </div>
   );
 };
