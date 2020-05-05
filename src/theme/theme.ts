@@ -5,23 +5,52 @@ import pink from '@material-ui/core/colors/pink';
 
 // A theme with custom primary and secondary color.
 // It's optional.
+
+const colors = {
+  primaryLight: grey[50],
+  primaryMain: grey[300],
+  primaryDark: grey[800],
+  secondaryLight: teal[200],
+  secondaryMain: teal[300],
+  secondaryDark: pink[600]
+};
+
 export default createMuiTheme({
   palette: {
     primary: {
-      light: grey[50],
-      main: grey[300],
-      dark: grey[800]
+      light: colors.primaryLight,
+      main: colors.primaryMain,
+      dark: colors.primaryDark
     },
     secondary: {
-      light: teal[200],
-      main: teal[300],
-      dark: pink[600]
+      light: colors.secondaryLight,
+      main: colors.secondaryMain,
+      dark: colors.secondaryDark
     }
   },
   overrides: {
     MuiButton: {
       outlined: {
-        color: grey[50]
+        fontWeight: 'bold',
+        color: colors.secondaryDark,
+        borderColor: colors.secondaryDark,
+        background: `linear-gradient(45deg, ${colors.primaryLight} 30%, ${colors.primaryLight} 90%)`,
+
+        '&:hover': {
+          color: colors.primaryLight,
+          borderColor: colors.primaryLight,
+          background: `linear-gradient(45deg, ${colors.secondaryDark} 30%, ${colors.secondaryDark} 90%)`,
+        }
+      },
+      contained: {
+        fontWeight: 'bold',
+        color: colors.secondaryDark,
+        background: `linear-gradient(45deg, ${colors.primaryLight} 30%, ${colors.primaryLight} 90%)`,
+
+        '&:hover': {
+          color: colors.primaryLight,
+          background: `linear-gradient(45deg, ${colors.secondaryDark} 30%, ${colors.secondaryDark} 90%)`
+        }
       }
     }
   },

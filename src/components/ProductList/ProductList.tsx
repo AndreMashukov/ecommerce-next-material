@@ -46,7 +46,7 @@ const useStyles = makeStyles({
     cursor: 'pointer'
   },
   selected: {
-    color: theme.palette.primary.light
+    color: theme.palette.primary.light,
   },
   unselected: {
     color: grey[700]
@@ -120,7 +120,6 @@ const ProductListItem = (props: Product) => {
       >
         {getPrice(props)} ₽
       </Typography>
-
       <div>
         <a
           href={`/catalog/mirra-test/${'currentSection'}/${props.code}`}
@@ -130,12 +129,7 @@ const ProductListItem = (props: Product) => {
         </a>
       </div>
       <div className={selected ? classes.addToCartShow : classes.addToCartHide}>
-        <Button
-          variant="outlined"
-          color="primary"
-          style={{
-            backgroundColor: theme.palette.secondary.dark
-          }}
+        <Button variant="contained" disableElevation
           onClick={() => {
             addItem(
               _sessionId,

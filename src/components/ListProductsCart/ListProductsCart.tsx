@@ -3,7 +3,7 @@ import CartContext from '../../store/CartContext/CartContext';
 import CartContextManager from '../../store/CartContext/CartContextManager';
 import { CartItem } from '../../models';
 import './ListProductsCart';
-import { makeStyles, Grid, Typography } from '@material-ui/core';
+import { makeStyles, Grid, Typography, Button } from '@material-ui/core';
 import theme from '../../theme/theme';
 import { IconButton } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
@@ -34,7 +34,7 @@ const useStyles = makeStyles({
   },
   fontWeigthBold: {
     fontWeight: 'bold'
-  },
+  }
 });
 
 const ListProductsCart = (props: Props) => {
@@ -73,6 +73,11 @@ const ListProductsCart = (props: Props) => {
           </Grid>
         </Grid>
       </div>
+      <div>
+        <Button variant="outlined" style={{marginBottom: '15px'}}>
+          ОФОРМИТЬ ЗАКАЗ
+        </Button>
+      </div>
       <Grid container direction="column" justify="flex-start">
         {items &&
           items.map((item: CartItem) => (
@@ -96,13 +101,6 @@ const ListProductsCart = (props: Props) => {
             </Grid>
           ))}
       </Grid>
-      <div>
-        <div className={classes.total}>
-          <Typography variant="body1" className={classes.fontWeigthBold}>
-            Итого: 479 ₽
-          </Typography>
-        </div>
-      </div>
     </div>
   );
 };
