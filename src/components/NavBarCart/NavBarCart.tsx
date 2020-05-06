@@ -4,7 +4,6 @@ import Popover from '@material-ui/core/Popover';
 import ListProductsCart from '../ListProductsCart/ListProductsCart';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../theme/theme';
-import CartContextManager from '../../store/CartContext/CartContextManager';
 import CartContext from '../../store/CartContext/CartContext';
 import { getCart } from '../../services/CartApi';
 import { CartItem } from '../../models';
@@ -19,7 +18,7 @@ const useStyles = makeStyles({
     color: theme.palette.primary.dark
   },
   cartInactive: {
-    'pointer-events': 'none'
+    pointerEvents: 'none'
   },
   paper: {
     padding: theme.spacing(1),
@@ -31,7 +30,7 @@ export const NavBarCart = () => {
   const classes = useStyles();
   const divRef = React.useRef();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const { items } = useContext<CartContextManager>(CartContext);
+  const { items } = useContext(CartContext);
   const { sessionId, setSessionId } = useContext(SessionContext);
 
   const open = Boolean(anchorEl);
