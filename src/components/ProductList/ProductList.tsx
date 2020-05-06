@@ -43,13 +43,16 @@ const useStyles = makeStyles({
     display: 'none'
   },
   a: {
-    cursor: 'pointer',
+    cursor: 'pointer'
   },
   selected: {
     color: theme.palette.primary.light
   },
   unselected: {
     color: theme.palette.primary.dark
+  },
+  fontWeightBold: {
+    fontWeight: 'bold'
   }
 });
 
@@ -125,7 +128,9 @@ const ProductListItem = (props: Product) => {
           href={`/catalog/mirra-test/${'currentSection'}/${props.code}`}
           className={selected ? classes.selected : classes.unselected}
         >
-          <Typography variant="subtitle2">{props.name}</Typography>
+          <Typography variant="subtitle2" className={classes.fontWeightBold}>
+            {props.name}
+          </Typography>
         </a>
       </div>
       <div className={selected ? classes.addToCartShow : classes.addToCartHide}>
