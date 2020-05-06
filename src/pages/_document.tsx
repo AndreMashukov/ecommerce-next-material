@@ -12,11 +12,11 @@ export default class MyDocument extends Document {
           <meta name="theme-color" content={theme.palette.primary.main} />
           <link
             rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,700&display=swap"
+            href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600&display=swap"
           />
           <link
             rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Comfortaa:300,400,500,700&display=swap"
+            href="https://fonts.googleapis.com/css?family=Comfortaa:300,400,500,600&display=swap"
           />
         </Head>
         <body>

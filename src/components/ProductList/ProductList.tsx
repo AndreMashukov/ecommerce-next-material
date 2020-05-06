@@ -129,7 +129,7 @@ const ProductListItem = (props: Product) => {
         </a>
       </div>
       <div className={selected ? classes.addToCartShow : classes.addToCartHide}>
-        <Button variant="contained" disableElevation
+        <Button variant="outlined"
           onClick={() => {
             addItem(
               _sessionId,
