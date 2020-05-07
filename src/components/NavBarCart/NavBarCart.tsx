@@ -74,7 +74,7 @@ export const NavBarCart = () => {
         </Grid>
       </Grid>
       {cart.items.length > 0 &&
-        <div>
+        <div style={{overflowY: 'scroll'}}>
           <Popover
             id={id}
             open={open}
