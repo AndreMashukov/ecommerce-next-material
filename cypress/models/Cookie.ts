@@ -1,1 +1,1 @@
-export type Cookie = Partial<Cypress.Cookie>;
+export type Cookie = Cypress.Cookie;
