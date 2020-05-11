@@ -8,6 +8,7 @@ import CartContext from '../../store/CartContext/CartContext';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../theme/theme';
 import grey from '@material-ui/core/colors/grey';
+import Alert from '@material-ui/lab/Alert';
 
 interface ProductListProps {
   products: Product[];
@@ -96,7 +97,8 @@ const ProductListItem = (props: Product) => {
   const [snackState, setSnackState] = useState({
     open: false,
     vertical: 'top',
-    horizontal: 'left'
+    horizontal: 'left',
+    success: false
   });
   const { open } = snackState;
   const handleClose = () => {
@@ -134,7 +136,8 @@ const ProductListItem = (props: Product) => {
         </a>
       </div>
       <div className={selected ? classes.addToCartShow : classes.addToCartHide}>
-        <Button variant="outlined"
+        <Button
+          variant="outlined"
           onClick={() => {
             addItem(
               _sessionId,
@@ -147,7 +150,7 @@ const ProductListItem = (props: Product) => {
                 currency: 'RUB'
               },
               () => {
-                setSnackState({ ...snackState, open: true });
+                setSnackState({ ...snackState, open: true, success: true });
               }
             );
           }}
@@ -158,9 +161,13 @@ const ProductListItem = (props: Product) => {
       <Snackbar
         key={`cartSnackBar`}
         open={open}
+        autoHideDuration={3000}
         onClose={handleClose}
-        message="Товар был успешно добавлен"
-      />
+      >
+        <Alert onClose={handleClose} severity="success">
+          Товар был успешно добавлен
+        </Alert>
+      </Snackbar>
     </div>
   );
 };

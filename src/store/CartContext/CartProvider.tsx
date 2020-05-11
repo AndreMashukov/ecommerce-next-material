@@ -35,8 +35,8 @@ const CartProvider: React.FunctionComponent<{}> = (props: CartProviderProps) => 
   return (
     <CartContext.Provider
       value={{
-        syncCart,
         items: state.items,
+        syncCart,
         removeItem,
         addItem
       }}
