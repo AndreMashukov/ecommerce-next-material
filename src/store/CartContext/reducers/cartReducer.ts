@@ -3,7 +3,10 @@ import { CartAction, CartState } from './models';
 import TYPES from './types';
 import { addToCart, getCart, removeFromCart } from '../../../services/CartApi';
 
-export default async function cartReducer(state: CartState, action: CartAction): Promise<CartState> {
+export default async function cartReducer(
+  state: CartState,
+  action: CartAction
+): Promise<CartState> {
   return new Promise(async _resolve => {
     let cart: CartItem[] = [];
     switch (action.type) {
@@ -23,8 +26,14 @@ export default async function cartReducer(state: CartState, action: CartAction):
         _resolve({ items: updatedCart});
         break;
       case TYPES.CART_ADD:
-        await addToCart(action.item);
-        _resolve({ items: await getCart(action.sessionId) });
+        const result = await addToCart(action.item);
+        // tslint:disable-next-line: no-console
+        console.log('add cart result', result);
+        if (result.ok) {
+          _resolve({ items: await getCart(action.sessionId) });
+        } else {
+          _resolve(state);
+        }
         break;
       default:
         _resolve(state);

@@ -8,8 +8,8 @@ export const getCart = async (sessionId: string): Promise<CartItem[]> => {
   return json;
 };
 
-export const addToCart = async (item: CartItem): Promise<void> => {
-  fetch(`${API_BASE}/cart/product`, {
+export const addToCart = async (item: CartItem): Promise<Response> => {
+  return fetch(`${API_BASE}/cart/product`, {
     method: 'POST',
     body: JSON.stringify(item),
     headers: {
