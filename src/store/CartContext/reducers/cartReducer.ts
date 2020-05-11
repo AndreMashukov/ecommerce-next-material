@@ -27,12 +27,10 @@ export default async function cartReducer(
         break;
       case TYPES.CART_ADD:
         const result = await addToCart(action.item);
-        // tslint:disable-next-line: no-console
-        console.log('add cart result', result);
         if (result.ok) {
-          _resolve({ items: await getCart(action.sessionId) });
+          _resolve({...state, items: await getCart(action.sessionId), httpStatus: result });
         } else {
-          _resolve(state);
+          _resolve({...state, httpStatus: result});
         }
         break;
       default:

@@ -4,6 +4,7 @@ import { CartItem } from '../../models';
 import cartReducer from './reducers/cartReducer';
 import TYPES from './reducers/types';
 import useAsyncReducer from './reducers/useAsyncReducer';
+import { CartState } from './reducers/models';
 
 interface Cart {
   items: CartItem[];
@@ -13,23 +14,29 @@ const initialValues: Cart = {
   items: []
 };
 
-interface CartProviderProps  {
+interface CartProviderProps {
   children?: React.ReactNode;
 }
 
-const CartProvider: React.FunctionComponent<{}> = (props: CartProviderProps) => {
+const CartProvider: React.FunctionComponent<{}> = (
+  props: CartProviderProps
+) => {
   const [state, dispatch] = useAsyncReducer(cartReducer, initialValues);
 
   function syncCart(sessionId: string) {
-    dispatch({ type: TYPES.CART_GET, sessionId});
+    dispatch({ type: TYPES.CART_GET, sessionId });
   }
 
   function removeItem(sessionId: string, id: number = 0): void {
     dispatch({ type: TYPES.CART_REMOVE, id, sessionId });
   }
 
-  function addItem(sessionId: string, item: CartItem, callback: () => void): void {
-    dispatch({ type: TYPES.CART_ADD, item, sessionId}, callback);
+  function addItem(
+    sessionId: string,
+    item: CartItem,
+    callback: (state: CartState) => void
+  ): void {
+    dispatch({ type: TYPES.CART_ADD, item, sessionId }, callback);
   }
 
   return (
@@ -41,7 +48,7 @@ const CartProvider: React.FunctionComponent<{}> = (props: CartProviderProps) => 
         addItem
       }}
     >
-       {props.children}
+      {props.children}
     </CartContext.Provider>
   );
 };

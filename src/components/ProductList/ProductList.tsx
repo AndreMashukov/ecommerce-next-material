@@ -100,7 +100,7 @@ const ProductListItem = (props: Product) => {
     horizontal: 'left',
     success: false
   });
-  const { open } = snackState;
+  const { open, success } = snackState;
   const handleClose = () => {
     setSnackState({ ...snackState, open: false });
   };
@@ -149,8 +149,12 @@ const ProductListItem = (props: Product) => {
                 quantity: 1,
                 currency: 'RUB'
               },
-              () => {
-                setSnackState({ ...snackState, open: true, success: true });
+              (newState) => {
+                setSnackState({
+                  ...snackState,
+                  open: true,
+                  success: newState.httpStatus.ok
+                });
               }
             );
           }}
@@ -164,9 +168,15 @@ const ProductListItem = (props: Product) => {
         autoHideDuration={3000}
         onClose={handleClose}
       >
-        <Alert onClose={handleClose} severity="success">
-          Товар был успешно добавлен
-        </Alert>
+        {success ? (
+          <Alert onClose={handleClose} severity="success">
+            Товар был успешно добавлен
+          </Alert>
+        ) : (
+          <Alert onClose={handleClose} severity="error">
+            Ошибка добавления товара в корзину
+          </Alert>
+        )}
       </Snackbar>
     </div>
   );

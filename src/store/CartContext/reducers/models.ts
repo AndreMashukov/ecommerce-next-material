@@ -3,6 +3,7 @@ import TYPES from './types';
 
 export interface CartState {
   items: CartItem[];
+  httpStatus?: Response;
 }
 
 export interface CartAction {
