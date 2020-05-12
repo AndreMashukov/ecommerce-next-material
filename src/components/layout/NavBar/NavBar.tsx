@@ -3,10 +3,10 @@ import Grid from '@material-ui/core/Grid';
 import './NavBar.scss';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import theme from '../../theme/theme';
-import { NavBarCart } from '../NavBarCart/NavBarCart';
-import { SectionList } from '../SectionList/SectionList';
-import { Section, Category } from '../../models/Section';
+import theme from '../../../theme/theme';
+import { NavBarCart } from '../../NavBarCart/NavBarCart';
+import { SectionList } from '../../SectionList/SectionList';
+import { Section, Category } from '../../../models/Section';
 
 interface NavBarProps {
   sections: Section[];

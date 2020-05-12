@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/styles';
-import theme from '../../theme/theme';
+import theme from '../../../theme/theme';
 import './Footer.scss';
 import { Grid, Typography } from '@material-ui/core';
 

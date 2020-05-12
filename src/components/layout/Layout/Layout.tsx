@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import './Layout.scss';
-import theme from '../../theme/theme';
+import theme from '../../../theme/theme';
 
 interface Props {
   // tslint:disable-next-line: no-any
