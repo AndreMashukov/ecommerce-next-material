@@ -8,6 +8,7 @@ import CartContext from '../../store/CartContext/CartContext';
 import { getCart } from '../../services/CartApi';
 import { CartItem } from '../../models';
 import SessionContext from '../../store/SessionContext/SessionContext';
+import { getCartItemsNumber } from '../../utils/Cart';
 
 const cartIsEmpty = 'корзина пуста';
 const cartIsNotEmpty = 'всего товаров';
@@ -44,7 +45,7 @@ export const NavBarCart = () => {
     setAnchorEl(null);
   };
 
-  const [ cart, setCart ] = useState({ items: [] });
+  const [cart, setCart] = useState({ items: [] });
 
   useEffect(() => {
     const getCartItems = async () => {
@@ -52,29 +53,37 @@ export const NavBarCart = () => {
       if (cartItems.length === 0) {
         handlePopoverClose();
       }
-      setCart({items: cartItems});
+      setCart({ items: cartItems });
     };
 
     getCartItems();
   }, [items, setSessionId]);
 
   return (
-    <div ref={divRef} className={cart.items.length === 0 ? classes.cartInactive: ''}>
-      <Grid container
-        onClick={handlePopoverOpen} className={classes.cartInfo}
+    <div
+      ref={divRef}
+      className={cart.items.length === 0 ? classes.cartInactive : ''}
+    >
+      <Grid
+        container
+        onClick={handlePopoverOpen}
+        className={classes.cartInfo}
         direction="row"
         justify="space-between"
         alignItems="center"
-        spacing={2}>
+        spacing={2}
+      >
         <Grid item>
-          {cart.items.length === 0 ? cartIsEmpty : `${cartIsNotEmpty}: ${cart.items.length}`}
+          {cart.items.length === 0
+            ? cartIsEmpty
+            : `${cartIsNotEmpty}: ${getCartItemsNumber(cart.items)}`}
         </Grid>
         <Grid item>
           <img src="/img/bag_full.png" />
         </Grid>
       </Grid>
-      {cart.items.length > 0 &&
-        <div style={{overflowY: 'scroll'}}>
+      {cart.items.length > 0 && (
+        <div style={{ overflowY: 'scroll' }}>
           <Popover
             id={id}
             open={open}
@@ -96,7 +105,7 @@ export const NavBarCart = () => {
             <ListProductsCart onClose={handlePopoverClose} />
           </Popover>
         </div>
-      }
+      )}
     </div>
   );
 };

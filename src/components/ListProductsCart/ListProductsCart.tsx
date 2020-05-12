@@ -9,6 +9,7 @@ import { IconButton } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import SessionContext from '../../store/SessionContext/SessionContext';
+import { getCartItemsNumber, getCartTotal } from '../../utils/Cart';
 
 interface Props {
   onClose: () => void;
@@ -50,7 +51,8 @@ const ListProductsCart = (props: Props) => {
         >
           <Grid item>
             <Typography variant="body1" className={classes.fontWeigthBold}>
-              Всего товаров: {items ? items.length : 0} / 2 496 ₽
+              Всего товаров: {items ? getCartItemsNumber(items) : 0} /{' '}
+              {items ? getCartTotal(items) : 0} ₽
             </Typography>
           </Grid>
           <Grid item>
@@ -65,7 +67,7 @@ const ListProductsCart = (props: Props) => {
         </Grid>
       </div>
       <div>
-        <Button variant="outlined" style={{marginBottom: '15px'}}>
+        <Button variant="outlined" style={{ marginBottom: '15px' }}>
           ОФОРМИТЬ ЗАКАЗ
         </Button>
       </div>
