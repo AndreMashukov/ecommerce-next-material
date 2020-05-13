@@ -19,7 +19,7 @@ const useStyles = makeStyles({
   }
 });
 
-const ListProductsCart = (props: Props) => {
+export const ListProductsCart = (props: Props) => {
   const { items, removeItem, syncCart } = useContext<CartContextManager>(
     CartContext
   );
@@ -77,4 +77,3 @@ const ListProductsCart = (props: Props) => {
   );
 };
 
-export default ListProductsCart;

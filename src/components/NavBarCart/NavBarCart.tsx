@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Popover from '@material-ui/core/Popover';
-import ListProductsCart from '../ListProductsCart/ListProductsCart';
+import { ListProductsCart } from '../shared';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../theme/theme';
 import CartContext from '../../store/CartContext/CartContext';
