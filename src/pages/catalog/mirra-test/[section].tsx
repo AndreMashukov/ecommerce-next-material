@@ -5,9 +5,8 @@ import { PRODUCT_CATALOG_ID } from '../../../constants';
 import { Section } from '../../../models';
 import { Grid, Typography } from '@material-ui/core';
 import { NextPageContext } from 'next';
-import { ProductList } from '../../../components/ProductList/ProductList';
+import { ProductList, ShopBreadcrumbs } from '../../../components/shared';
 import { handleSession } from '../../../utils/handleSession';
-import ShopBreadcrumbs from '../../../components/ShopBreadcrumbs/ShopBreadcrumbs';
 import Page404 from '../../404';
 
 interface Props {

@@ -5,9 +5,9 @@ import Link from '@material-ui/core/Link';
 
 type Props = {
   sectionName: string;
-}
+};
 
-export default function ShopBreadcrumbs(props: Props) {
+export const ShopBreadcrumbs = (props: Props) => {
   return (
     <Breadcrumbs aria-label="breadcrumb">
       <Link color="inherit" href="/">
@@ -19,4 +19,4 @@ export default function ShopBreadcrumbs(props: Props) {
       <Typography color="textPrimary">{props.sectionName}</Typography>
     </Breadcrumbs>
   );
-}
+};

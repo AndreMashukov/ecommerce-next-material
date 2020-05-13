@@ -5,7 +5,7 @@ import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../../theme/theme';
 import { NavBarCart } from '../../NavBarCart/NavBarCart';
-import { SectionList } from '../../SectionList/SectionList';
+import { SectionList } from '../../shared';
 import { Section, Category } from '../../../models/Section';
 
 interface NavBarProps {
