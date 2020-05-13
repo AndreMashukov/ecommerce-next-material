@@ -7,7 +7,7 @@ import { IconButton } from '@material-ui/core';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import SessionContext from '../../store/SessionContext/SessionContext';
 import { getCartItemsNumber, getCartTotal } from '../../utils/Cart';
-import ListProductsCartItem from '../ListProductsCartItem/ListProductsCartItem';
+import { ListProductsCartItem } from './ListProductsCartItem';
 
 interface Props {
   onClose: () => void;

@@ -22,7 +22,7 @@ const useStyles = makeStyles({
   }
 });
 
-const ListProductsCartItem = (props: Props) => {
+export const ListProductsCartItem = (props: Props) => {
   const classes = useStyles();
   const { item, sessionId, removeItem } = props;
 
@@ -45,5 +45,3 @@ const ListProductsCartItem = (props: Props) => {
     </div>
   );
 };
-
-export default ListProductsCartItem;
