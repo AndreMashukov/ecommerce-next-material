@@ -1,14 +1,13 @@
 import { useContext, useState } from 'react';
 import { Product, Section } from '../../models';
 import { Typography, Grid, Button, Snackbar } from '@material-ui/core';
-import { ElementProperty } from '../../models/ElementProperty';
-import { PROPERTY_PRICE_ID } from '../../constants';
 import SessionContext from '../../store/SessionContext/SessionContext';
 import CartContext from '../../store/CartContext/CartContext';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../theme/theme';
 import grey from '@material-ui/core/colors/grey';
 import Alert from '@material-ui/lab/Alert';
+import { getPrice, getPriceProperty } from '../../utils/Product';
 
 interface ProductListProps {
   products: Product[];
@@ -19,12 +18,12 @@ interface ProductListProps {
 const useStyles = makeStyles({
   box: {
     position: 'relative',
-    'background-color': grey[100],
+    backgroundColor: grey[100],
     padding: '10px',
     margin: '10px',
     display: 'flex',
-    'flex-direction': 'column',
-    'justify-content': 'space-between',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
     height: '300px',
     overflow: 'hidden',
     '&:hover': {
@@ -56,19 +55,6 @@ const useStyles = makeStyles({
     fontWeight: 'bold'
   }
 });
-
-const getPriceProperty = (product: Product): ElementProperty => {
-  return product.properties.find(
-    (property) => parseInt(property.propertyId, 0) === PROPERTY_PRICE_ID
-  );
-};
-
-const getPrice = (product: Product): number => {
-  const priceProperty: ElementProperty = product.properties.find(
-    (property) => parseInt(property.propertyId, 0) === PROPERTY_PRICE_ID
-  );
-  return parseInt(priceProperty.value, 0);
-};
 
 export const ProductList = (props: ProductListProps) => {
   return (

@@ -16,9 +16,12 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    height: '100px',
+    height: '200px',
     padding: '15px 0 15px 0',
     borderTop: `1px solid ${theme.palette.primary.main}`
+  },
+  fontWeigthBold: {
+    fontWeight: 'bold'
   }
 });
 
@@ -29,7 +32,17 @@ export const ListProductsCartItem = (props: Props) => {
   return (
     <div className={classes.box}>
       <div>
-        <Typography>{item.name}</Typography>
+        <Typography variant="h6">
+          {item.name}{' '}
+          {item.packageType.trim().length > 2 &&
+            '(' + item.packageType.trim() + ')'}
+        </Typography>
+        <Typography variant="body2" color="textSecondary">
+          {item.skuCode}
+        </Typography>
+        <Typography variant="h5" className={classes.fontWeigthBold}>
+          {parseInt(item.price.toString(), 0)} ₽
+        </Typography>
       </div>
       <div>
         <IconButton
