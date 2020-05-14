@@ -48,7 +48,7 @@ export const ListProductsCartItem = (props: Props) => {
         <Typography variant="h5" className={classes.fontWeigthBold}>
           {parseInt(item.price.toString(), 0)} ₽
         </Typography>
-        <Stepper />
+        <Stepper item={item} />
       </div>
       <div>
         <IconButton
