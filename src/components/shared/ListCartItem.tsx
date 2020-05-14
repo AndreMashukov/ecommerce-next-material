@@ -30,9 +30,19 @@ const useStyles = makeStyles({
   }
 });
 
-export const ListProductsCartItem = (props: Props) => {
+export const ListCartItem = (props: Props) => {
   const classes = useStyles();
   const { item, sessionId, removeItem } = props;
+
+  const onHandleNext = (nextValue: number) => {
+    // tslint:disable-next-line: no-console
+    console.log(nextValue);
+  };
+
+  const onHandleBack = (nextValue: number) => {
+    // tslint:disable-next-line: no-console
+    console.log(nextValue);
+  };
 
   return (
     <div className={classes.box}>
@@ -48,7 +58,11 @@ export const ListProductsCartItem = (props: Props) => {
         <Typography variant="h5" className={classes.fontWeigthBold}>
           {parseInt(item.price.toString(), 0)} ₽
         </Typography>
-        <Stepper item={item} />
+        <Stepper
+          value={item.quantity}
+          onHandleNext={onHandleNext}
+          onHandleBack={onHandleBack}
+        />
       </div>
       <div>
         <IconButton

@@ -5,10 +5,11 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
 import { Paper, Typography } from '@material-ui/core';
 import theme from '../../theme/theme';
-import { CartItem } from '../../models';
 
 interface Props {
-  item: CartItem;
+  value: number;
+  onHandleBack: (nextValue: number) => void;
+  onHandleNext: (nextValue: number) => void;
 }
 
 const useStyles = makeStyles({
@@ -25,26 +26,34 @@ const useStyles = makeStyles({
 });
 
 export const Stepper = (props: Props) => {
-  const { item } = props;
+  const { value, onHandleNext, onHandleBack } = props;
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = React.useState(value);
 
   const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setActiveStep((prevActiveStep) =>  {
+      onHandleNext(activeStep + 1);
+
+      return prevActiveStep + 1;
+    });
   };
 
   const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    setActiveStep((prevActiveStep) => {
+      onHandleBack(activeStep-1);
+
+      return prevActiveStep - 1;
+    });
   };
 
   return (
     <Paper square elevation={0} className={classes.root}>
-      <Button size="small" onClick={handleBack} disabled={item.quantity + activeStep === 1}>
+      <Button size="small" onClick={handleBack} disabled={activeStep === 1}>
         <RemoveIcon />
       </Button>
       <React.Fragment>
         <Typography variant="body1" style={{fontWeight: 'bold'}}>
-          {item.quantity + activeStep}
+          {activeStep}
         </Typography>
       </React.Fragment>
       <Button size="small" onClick={handleNext} >

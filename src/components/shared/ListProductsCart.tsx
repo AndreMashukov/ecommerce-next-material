@@ -7,7 +7,7 @@ import { IconButton } from '@material-ui/core';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import SessionContext from '../../store/SessionContext/SessionContext';
 import { getCartItemsNumber, getCartTotal } from '../../utils/Cart';
-import { ListProductsCartItem } from './ListProductsCartItem';
+import { ListCartItem } from './ListCartItem';
 
 interface Props {
   onClose: () => void;
@@ -65,7 +65,7 @@ export const ListProductsCart = (props: Props) => {
         {items &&
           items.map((item: CartItem) => (
             <Grid item key={item.productId}>
-              <ListProductsCartItem
+              <ListCartItem
                 item={item}
                 sessionId={sessionId}
                 removeItem={removeItem}
