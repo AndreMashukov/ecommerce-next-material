@@ -19,7 +19,7 @@ const useStyles = makeStyles({
   }
 });
 
-export const ListProductsCart = (props: Props) => {
+export const ListCart = (props: Props) => {
   const { items, removeItem, syncCart } = useContext<CartContextManager>(
     CartContext
   );
