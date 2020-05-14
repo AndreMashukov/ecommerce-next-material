@@ -26,7 +26,11 @@ const useStyles = makeStyles({
   item: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
+
+    '& > *': {
+      marginBottom: '10px'
+    }
   }
 });
 

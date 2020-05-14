@@ -37,6 +37,8 @@ export default createMuiTheme({
       outlined: {
         fontWeight: 'bold',
         color: colors.secondary.dark,
+        borderRadius: '0',
+        padding: '10px 15px 10px 15px',
         borderColor: colors.secondary.dark,
         background: `linear-gradient(45deg, ${colors.primary.light} 30%, ${colors.primary.light} 90%)`,
 
