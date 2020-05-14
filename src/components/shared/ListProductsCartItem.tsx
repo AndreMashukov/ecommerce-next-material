@@ -17,7 +17,6 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    // maxHeight: '300px',
     padding: '15px 0 15px 0',
     borderTop: `1px solid ${theme.palette.primary.main}`
   },
@@ -27,7 +26,7 @@ const useStyles = makeStyles({
   item: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-around',
+    justifyContent: 'space-around'
   }
 });
 

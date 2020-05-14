@@ -4,8 +4,7 @@ import './Layout.scss';
 import theme from '../../../theme/theme';
 
 interface Props {
-  // tslint:disable-next-line: no-any
-  children: any;
+  children: React.ReactNode;
 }
 
 const useStyles = makeStyles({
