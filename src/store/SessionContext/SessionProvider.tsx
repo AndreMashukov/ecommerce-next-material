@@ -19,8 +19,7 @@ const SessionProvider: React.FunctionComponent<{}> = (props: any) => {
   return (
     <SessionContext.Provider value={{
       setSessionId,
-      getSessionId,
-      sessionId: state.sessionId
+      getSessionId
     }}>
       {props.children}
     </SessionContext.Provider>

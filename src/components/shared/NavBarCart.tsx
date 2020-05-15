@@ -32,7 +32,7 @@ export const NavBarCart = () => {
   const divRef = React.useRef();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { items } = useContext(CartContext);
-  const { sessionId, setSessionId } = useContext(SessionContext);
+  const { getSessionId, setSessionId } = useContext(SessionContext);
 
   const open = Boolean(anchorEl);
   const id = open ? 'cart-popover' : undefined;
@@ -49,7 +49,7 @@ export const NavBarCart = () => {
 
   useEffect(() => {
     const getCartItems = async () => {
-      const cartItems: CartItem[] = await getCart(sessionId);
+      const cartItems: CartItem[] = await getCart(getSessionId());
       if (cartItems.length === 0) {
         handlePopoverClose();
       }

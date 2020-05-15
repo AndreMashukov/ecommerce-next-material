@@ -78,7 +78,6 @@ const ProductListItem = (props: Product) => {
   const classes = useStyles();
   const { addItem } = useContext(CartContext);
   const { getSessionId } = useContext(SessionContext);
-  // const _sessionId = sessionId;
   const [selected, setSelected] = useState(false);
   const [snackState, setSnackState] = useState({
     open: false,

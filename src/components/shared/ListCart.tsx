@@ -23,11 +23,11 @@ export const ListCart = (props: Props) => {
   const { items, removeItem, syncCart } = useContext<CartContextManager>(
     CartContext
   );
-  const { sessionId } = useContext(SessionContext);
+  const { getSessionId } = useContext(SessionContext);
   const classes = useStyles();
 
   useEffect(() => {
-    syncCart(sessionId);
+    syncCart(getSessionId());
   }, []);
 
   return (
@@ -67,7 +67,7 @@ export const ListCart = (props: Props) => {
             <Grid item key={item.productId}>
               <ListCartItem
                 item={item}
-                sessionId={sessionId}
+                sessionId={getSessionId()}
                 removeItem={removeItem}
               />
             </Grid>

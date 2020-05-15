@@ -12,8 +12,8 @@ export interface CartItem {
   skuCode?: string;
 }
 
-export type CartActionParams = (
-  sId: string,
-  item: CartItem,
-  callback: (state: CartState) => void
-);
+export interface CartActionParams {
+  sId: string;
+  item: CartItem;
+  callback: (state: CartState) => void;
+}
