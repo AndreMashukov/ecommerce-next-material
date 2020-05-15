@@ -77,8 +77,8 @@ export const ProductList = (props: ProductListProps) => {
 const ProductListItem = (props: Product) => {
   const classes = useStyles();
   const { addItem } = useContext(CartContext);
-  const { sessionId } = useContext(SessionContext);
-  const _sessionId = sessionId;
+  const { getSessionId } = useContext(SessionContext);
+  // const _sessionId = sessionId;
   const [selected, setSelected] = useState(false);
   const [snackState, setSnackState] = useState({
     open: false,
@@ -126,9 +126,9 @@ const ProductListItem = (props: Product) => {
           variant="outlined"
           onClick={() => {
             addItem(
-              _sessionId,
+              getSessionId(),
               {
-                sessionId: _sessionId,
+                sessionId: getSessionId(),
                 blockId: props.blockId,
                 productId: props.id,
                 price: parseInt(getPriceProperty(props).value, 0),

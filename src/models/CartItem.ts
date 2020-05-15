@@ -1,3 +1,5 @@
+import { CartState } from '../store/CartContext/reducers/models';
+
 export interface CartItem {
   sessionId: string;
   blockId: number;
@@ -9,3 +11,9 @@ export interface CartItem {
   packageType?: string;
   skuCode?: string;
 }
+
+export type CartActionParams = (
+  sId: string,
+  item: CartItem,
+  callback: (state: CartState) => void
+);

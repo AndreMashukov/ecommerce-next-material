@@ -12,9 +12,14 @@ const SessionProvider: React.FunctionComponent<{}> = (props: any) => {
     dispatch({ type: TYPES.SESSION_SET, sessionId });
   }
 
+  function getSessionId(): string {
+    return state.sessionId;
+  }
+
   return (
     <SessionContext.Provider value={{
       setSessionId,
+      getSessionId,
       sessionId: state.sessionId
     }}>
       {props.children}
