@@ -10,6 +10,7 @@ interface Props {
   value: number;
   onHandleBack: () => void;
   onHandleNext: () => void;
+  isDisabled: boolean;
 }
 
 const useStyles = makeStyles({
@@ -26,7 +27,7 @@ const useStyles = makeStyles({
 });
 
 export const Stepper = (props: Props) => {
-  const { value, onHandleNext, onHandleBack } = props;
+  const { value, onHandleNext, onHandleBack, isDisabled } = props;
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(value);
 
@@ -48,15 +49,15 @@ export const Stepper = (props: Props) => {
 
   return (
     <Paper square elevation={0} className={classes.root}>
-      <Button size="small" onClick={handleBack} disabled={activeStep === 1}>
+      <Button size="small" onClick={handleBack} disabled={activeStep === 1 || isDisabled}>
         <RemoveIcon />
       </Button>
       <React.Fragment>
         <Typography variant="body1" style={{fontWeight: 'bold'}}>
-          {activeStep}
+          {isDisabled ?  ''  : activeStep}
         </Typography>
       </React.Fragment>
-      <Button size="small" onClick={handleNext} >
+      <Button size="small" onClick={handleNext} disabled={isDisabled} >
         <AddIcon />
       </Button>
     </Paper>
