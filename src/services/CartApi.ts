@@ -18,6 +18,17 @@ export const addToCart = async (item: CartItem): Promise<Response> => {
   });
 };
 
+export const decrementQty = async (item: CartItem): Promise<Response> => {
+  return fetch(`${API_BASE}/cart/product/decrement`, {
+    method: 'POST',
+    body: JSON.stringify(item),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+};
+
+
 export const removeFromCart = async (
   _sessionId: string,
   _productId: number

@@ -44,6 +44,13 @@ const CartProvider: React.FunctionComponent<{}> = (
     dispatch({ type: TYPES.CART_ADD, item, sessionId }, callback);
   }
 
+  function decrementQty(
+    sessionId: string,
+    item: CartItem,
+    callback: (state: CartState) => void
+  ): void {
+    dispatch({ type: TYPES.CART_DECREMENT, item, sessionId }, callback);
+  }
 
   return (
     <CartContext.Provider
@@ -52,6 +59,7 @@ const CartProvider: React.FunctionComponent<{}> = (
         items: state.items,
         syncCart,
         removeItem,
+        decrementQty,
         addItem
       }}
     >

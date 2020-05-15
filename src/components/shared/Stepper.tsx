@@ -8,8 +8,8 @@ import theme from '../../theme/theme';
 
 interface Props {
   value: number;
-  onHandleBack: (nextValue: number) => void;
-  onHandleNext: (nextValue: number) => void;
+  onHandleBack: () => void;
+  onHandleNext: () => void;
 }
 
 const useStyles = makeStyles({
@@ -32,7 +32,7 @@ export const Stepper = (props: Props) => {
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) =>  {
-      onHandleNext(activeStep + 1);
+      onHandleNext();
 
       return prevActiveStep + 1;
     });
@@ -40,7 +40,7 @@ export const Stepper = (props: Props) => {
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => {
-      onHandleBack(activeStep-1);
+      onHandleBack();
 
       return prevActiveStep - 1;
     });

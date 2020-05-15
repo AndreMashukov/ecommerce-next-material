@@ -6,6 +6,7 @@ const CartContext = React.createContext<CartContextManager>({
   removeItem: null,
   addItem: null,
   syncCart: null,
+  decrementQty: null,
   items: []
 });
 

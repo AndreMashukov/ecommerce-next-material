@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from 'react';
 import CartContext from '../../store/CartContext/CartContext';
-import CartContextManager from '../../store/CartContext/CartContextManager';
 import { CartItem } from '../../models';
 import { makeStyles, Grid, Typography, Button } from '@material-ui/core';
 import { IconButton } from '@material-ui/core';
@@ -20,9 +19,7 @@ const useStyles = makeStyles({
 });
 
 export const ListCart = (props: Props) => {
-  const { items, removeItem, syncCart } = useContext<CartContextManager>(
-    CartContext
-  );
+  const { items, syncCart } = useContext(CartContext);
   const { getSessionId } = useContext(SessionContext);
   const classes = useStyles();
 
@@ -68,7 +65,6 @@ export const ListCart = (props: Props) => {
               <ListCartItem
                 item={item}
                 sessionId={getSessionId()}
-                removeItem={removeItem}
               />
             </Grid>
           ))}
@@ -76,4 +72,3 @@ export const ListCart = (props: Props) => {
     </div>
   );
 };
-

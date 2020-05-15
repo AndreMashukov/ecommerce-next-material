@@ -1,15 +1,15 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
 import theme from '../../theme/theme';
 import { IconButton } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import { CartItem } from '../../models';
 import { Stepper } from './Stepper';
+import CartContext from '../../store/CartContext/CartContext';
 
 interface Props {
   item: CartItem;
   sessionId: string;
-  removeItem: (sessionId: string, productId: number) => void;
 }
 
 const useStyles = makeStyles({
@@ -36,16 +36,21 @@ const useStyles = makeStyles({
 
 export const ListCartItem = (props: Props) => {
   const classes = useStyles();
-  const { item, sessionId, removeItem } = props;
+  const { removeItem, decrementQty, addItem } = useContext(CartContext);
+  const { item, sessionId } = props;
 
-  const onHandleNext = (nextValue: number) => {
-    // tslint:disable-next-line: no-console
-    console.log(nextValue);
+  const onHandleNext = () => {
+    addItem(sessionId, item, (newState) => {
+      // tslint:disable-next-line: no-console
+      console.log(`${newState}`);
+    });
   };
 
-  const onHandleBack = (nextValue: number) => {
-    // tslint:disable-next-line: no-console
-    console.log(nextValue);
+  const onHandleBack = () => {
+    decrementQty(sessionId, item, (newState) => {
+      // tslint:disable-next-line: no-console
+      console.log(`${newState}`);
+    });
   };
 
   return (
