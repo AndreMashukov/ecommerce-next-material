@@ -28,9 +28,6 @@ const useStyles = makeStyles({
     right: '0',
     top: '0',
     'z-index': '10001'
-  },
-  paperHidden: {
-    display: 'none'
   }
 });
 
@@ -89,11 +86,13 @@ export const NavBarCart = () => {
         </Grid>
       </Grid>
       {cart.items.length > 0 && (
-        <div>
+        <div style={{
+          display: open ? '' : 'none'
+        }}>
           <Paper
             id={id}
             elevation={3}
-            className={open ? classes.paper : classes.paperHidden}
+            className={classes.paper}
           >
             <ListCart onClose={handlePaperClose} />
           </Paper>
