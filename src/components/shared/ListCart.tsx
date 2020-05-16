@@ -7,6 +7,7 @@ import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import SessionContext from '../../store/SessionContext/SessionContext';
 import { getCartItemsNumber, getCartTotal } from '../../utils/Cart';
 import { ListCartItem } from './ListCartItem';
+import theme from '../../theme/theme';
 
 interface Props {
   onClose: () => void;
@@ -15,6 +16,14 @@ interface Props {
 const useStyles = makeStyles({
   fontWeigthBold: {
     fontWeight: 'bold'
+  },
+  total: {
+    height: '80px',
+    borderTop: `1px solid ${theme.palette.primary.main}`,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center'
   }
 });
 
@@ -62,13 +71,15 @@ export const ListCart = (props: Props) => {
         {items &&
           items.map((item: CartItem) => (
             <Grid item key={item.productId}>
-              <ListCartItem
-                item={item}
-                sessionId={getSessionId()}
-              />
+              <ListCartItem item={item} sessionId={getSessionId()} />
             </Grid>
           ))}
       </Grid>
+      <div className={classes.total}>
+        <Typography variant="body1" className={classes.fontWeigthBold}>
+          Итого : {items ? getCartTotal(items) : 0} ₽
+        </Typography>
+      </div>
     </div>
   );
 };
