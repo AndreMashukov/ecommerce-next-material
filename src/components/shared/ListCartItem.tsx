@@ -113,7 +113,7 @@ export const ListCartItem = (props: Props) => {
         </div>
       </div>
       <Snackbar
-        key={`cartSnackBar`}
+        key={`cartListSnackBar`}
         open={open}
         autoHideDuration={1000}
         onClose={handleSnackBarClose}

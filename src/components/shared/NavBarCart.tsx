@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
-import Popover from '@material-ui/core/Popover';
 import { ListCart } from './ListCart';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../theme/theme';
@@ -9,6 +8,7 @@ import { getCart } from '../../services/CartApi';
 import { CartItem } from '../../models';
 import SessionContext from '../../store/SessionContext/SessionContext';
 import { getCartItemsNumber } from '../../utils/Cart';
+import Paper from '@material-ui/core/Paper';
 
 const cartIsEmpty = 'корзина пуста';
 const cartIsNotEmpty = 'всего товаров';
@@ -23,26 +23,32 @@ const useStyles = makeStyles({
   },
   paper: {
     padding: theme.spacing(1),
-    width: '450px'
+    width: '450px',
+    position: 'absolute',
+    right: '0',
+    top: '0',
+    'z-index': '10001'
+  },
+  paperHidden: {
+    display: 'none'
   }
 });
 
 export const NavBarCart = () => {
   const classes = useStyles();
   const divRef = React.useRef();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [open, setOpen] = React.useState(false);
   const { items } = useContext(CartContext);
   const { getSessionId, setSessionId } = useContext(SessionContext);
 
-  const open = Boolean(anchorEl);
-  const id = open ? 'cart-popover' : undefined;
+  const id = open ? 'cart-paper' : undefined;
 
-  const handlePopoverOpen = () => {
-    setAnchorEl(divRef.current);
+  const handlePaperOpen = () => {
+    setOpen(true);
   };
 
-  const handlePopoverClose = () => {
-    setAnchorEl(null);
+  const handlePaperClose = () => {
+    setOpen(false);
   };
 
   const [cart, setCart] = useState({ items: [] });
@@ -51,7 +57,7 @@ export const NavBarCart = () => {
     const getCartItems = async () => {
       const cartItems: CartItem[] = await getCart(getSessionId());
       if (cartItems.length === 0) {
-        handlePopoverClose();
+        handlePaperClose();
       }
       setCart({ items: cartItems });
     };
@@ -66,7 +72,7 @@ export const NavBarCart = () => {
     >
       <Grid
         container
-        onClick={handlePopoverOpen}
+        onClick={handlePaperOpen}
         className={classes.cartInfo}
         direction="row"
         justify="space-between"
@@ -83,27 +89,14 @@ export const NavBarCart = () => {
         </Grid>
       </Grid>
       {cart.items.length > 0 && (
-        <div style={{ overflowY: 'scroll' }}>
-          <Popover
+        <div>
+          <Paper
             id={id}
-            open={open}
-            classes={{
-              paper: classes.paper
-            }}
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right'
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'left'
-            }}
-            onClose={handlePopoverClose}
-            disableRestoreFocus
+            elevation={3}
+            className={open ? classes.paper : classes.paperHidden}
           >
-            <ListCart onClose={handlePopoverClose} />
-          </Popover>
+            <ListCart onClose={handlePaperClose} />
+          </Paper>
         </div>
       )}
     </div>
