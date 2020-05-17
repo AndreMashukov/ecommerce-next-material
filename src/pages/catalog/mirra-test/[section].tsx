@@ -25,7 +25,7 @@ const SectionPage = (props: Props) => {
   let sectionName;
   try {
     sectionName = getSectionByCode(sections, currentSection).name;
-  } catch(err) {
+  } catch (err) {
     sectionName = undefined;
   }
 
@@ -37,20 +37,24 @@ const SectionPage = (props: Props) => {
             <ShopBreadcrumbs sectionName={sectionName} />
           </div>
           <Grid
-            direction="row"
-            justify="space-around"
-            alignItems="center"
+            direction="column"
+            justify="flex-start"
+            alignItems="flex-start"
             spacing={2}
             container
-            style={{ marginBottom: '20px', minHeight: '100px' }}
+            style={{ marginBottom: '20px', padding: '30px' }}
           >
-            <Grid item xs={4}>
-              <Typography variant="h4" color="textPrimary">
+            <Grid item xs={6}>
+              <Typography
+                variant="h4"
+                color="textPrimary"
+                style={{ fontWeight: 'bold' }}
+              >
                 {sectionName}
               </Typography>
             </Grid>
-            <Grid item xs={4}>
-              <Typography variant="body2" color="textPrimary">
+            <Grid item xs={6}>
+              <Typography variant="h6" color="textPrimary">
                 <span
                   dangerouslySetInnerHTML={{
                     __html: `${
