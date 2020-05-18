@@ -2,9 +2,7 @@ import React from 'react';
 import { getSections, getProductByCode } from '../../../services';
 import { PRODUCT_CATALOG_ID } from '../../../constants';
 import { Section, Product } from '../../../models';
-// import { Grid, Typography } from '@material-ui/core';
 import { NextPageContext } from 'next';
-// import { ProductList, ShopBreadcrumbs } from '../components/shared';
 import { handleSession } from '../../../utils/handleSession';
 import Page404 from './../../404';
 import { ProductBreadcrumbs } from '../../../components';
@@ -41,12 +39,14 @@ ProductPage.getInitialProps = async (ctx: NextPageContext) => {
     code: query.product
   });
   const session = await handleSession(ctx);
-  const currentSection: Section = sectionList.find((item) =>
-    item.code === query.section);
+  const currentSection: Section = sectionList.find(
+    (item) => item.code === query.section
+  );
 
   return {
     _sessionId: session._sessionId,
-    _product: currentProduct,
+    _product:
+      currentProduct.name === 'NotFoundError' ? undefined : currentProduct,
     _section: currentSection
   };
 };
