@@ -8,5 +8,6 @@ export const PRODUCT_PROPERTIES = {
   SPECIAL_OFFER: 13,
   NEW: 14,
   TOP_SELL: 15,
+  RECOMMENDED: 19,
   PRICE: 22
 };

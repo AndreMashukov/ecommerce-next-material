@@ -5,7 +5,7 @@ import { PRODUCT_CATALOG_ID } from '../../constants';
 import { Section } from '../../models';
 import { Grid, Typography } from '@material-ui/core';
 import { NextPageContext } from 'next';
-import { ProductList, ShopBreadcrumbs } from '../../components/shared';
+import { ProductList, CatalogBreadcrumbs } from '../../components/shared';
 import { handleSession } from '../../utils/handleSession';
 import Page404 from '../404';
 
@@ -34,7 +34,7 @@ const SectionPage = (props: Props) => {
       {sectionName ? (
         <div>
           <div style={{ marginBottom: '30px' }}>
-            <ShopBreadcrumbs sectionName={sectionName} />
+            <CatalogBreadcrumbs sectionName={sectionName} />
           </div>
           <Grid
             direction="column"

@@ -8,7 +8,7 @@ type Props = {
   sectionName: string;
 };
 
-export const ShopBreadcrumbs = (props: Props) => {
+export const CatalogBreadcrumbs = (props: Props) => {
   const catalogPath = '/' + CATALOG_NAME;
   return (
     <Breadcrumbs aria-label="breadcrumb">

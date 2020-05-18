@@ -1,7 +1,7 @@
 import React from 'react';
-import { getSections } from '../../../services/CatalogApi';
+import { getSections, getProductByCode } from '../../../services';
 import { PRODUCT_CATALOG_ID } from '../../../constants';
-import { Section } from '../../../models';
+import { Section, Product } from '../../../models';
 // import { Grid, Typography } from '@material-ui/core';
 import { NextPageContext } from 'next';
 // import { ProductList, ShopBreadcrumbs } from '../components/shared';
@@ -9,34 +9,39 @@ import { handleSession } from '../../../utils/handleSession';
 // import Page404 from './404';
 
 interface Props {
-  sections: Section[];
   _sessionId: number;
+  _product: Product;
+  _section: Section;
+  _sectionList: Section[];
 }
 
-
-const SectionSlugPage = (props: Props) => {
-  const { sections } = props;
+const ProductPage = (props: Props) => {
+  const { _sectionList } = props;
 
   return (
     <div>
-      {sections.map(section => (
-        <div key={`catalog_${section.code}`}>
-          {section.name}
-        </div>
+      {_sectionList.map((section) => (
+        <div key={`catalog_${section.code}`}>{section.name}</div>
       ))}
     </div>
   );
 };
 
-SectionSlugPage.getInitialProps = async (ctx: NextPageContext) => {
+ProductPage.getInitialProps = async (ctx: NextPageContext) => {
+  const { query } = ctx;
   const sectionList = await getSections(PRODUCT_CATALOG_ID);
+  const currentProduct = await getProductByCode({
+    blockId: PRODUCT_CATALOG_ID,
+    code: query.product
+  });
   const session = await handleSession(ctx);
-  // tslint:disable-next-line: no-console
-  console.log(ctx.query);
+
   return {
-    sections: sectionList,
-    _sessionId: session._sessionId
+    _sessionId: session._sessionId,
+    _product: currentProduct,
+    _section: query.section,
+    _sectionList: sectionList
   };
 };
 
-export default SectionSlugPage;
+export default ProductPage;
