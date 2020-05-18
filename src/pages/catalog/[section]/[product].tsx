@@ -6,24 +6,30 @@ import { Section, Product } from '../../../models';
 import { NextPageContext } from 'next';
 // import { ProductList, ShopBreadcrumbs } from '../components/shared';
 import { handleSession } from '../../../utils/handleSession';
-// import Page404 from './404';
+import Page404 from './../../404';
+import { ProductBreadcrumbs } from '../../../components';
 
 interface Props {
   _sessionId: number;
   _product: Product;
   _section: Section;
-  _sectionList: Section[];
 }
 
 const ProductPage = (props: Props) => {
-  const { _sectionList } = props;
+  const { _product, _section } = props;
 
   return (
-    <div>
-      {_sectionList.map((section) => (
-        <div key={`catalog_${section.code}`}>{section.name}</div>
-      ))}
-    </div>
+    <>
+      {_product ? (
+        <div>
+          <div style={{ marginBottom: '30px' }}>
+            <ProductBreadcrumbs product={_product} section={_section} />
+          </div>
+        </div>
+      ) : (
+        <Page404 />
+      )}
+    </>
   );
 };
 
@@ -35,12 +41,13 @@ ProductPage.getInitialProps = async (ctx: NextPageContext) => {
     code: query.product
   });
   const session = await handleSession(ctx);
+  const currentSection: Section = sectionList.find((item) =>
+    item.code === query.section);
 
   return {
     _sessionId: session._sessionId,
     _product: currentProduct,
-    _section: query.section,
-    _sectionList: sectionList
+    _section: currentSection
   };
 };
 
