@@ -16,6 +16,11 @@ interface ProductListProps {
   currentSection: string;
 }
 
+interface ProductListItemProps {
+  product: Product;
+  currentSection: string;
+}
+
 const useStyles = makeStyles({
   box: {
     position: 'relative',
@@ -58,15 +63,18 @@ const useStyles = makeStyles({
 });
 
 export const ProductList = (props: ProductListProps) => {
+  const { products, currentSection } = props;
   return (
     <Grid container direction="column" justify="flex-start">
       <Grid item>
         <Grid container direction="row" justify="flex-start" wrap="wrap">
-          {props.products
+          {products
             .filter((product) => product.active === 'Y')
             .map((product) => (
               <Grid key={product.code} item xs={3}>
-                <ProductListItem {...product} />
+                <ProductListItem
+                  product={product}
+                  currentSection={currentSection} />
               </Grid>
             ))}
         </Grid>
@@ -75,7 +83,8 @@ export const ProductList = (props: ProductListProps) => {
   );
 };
 
-const ProductListItem = (props: Product) => {
+const ProductListItem = (props: ProductListItemProps) => {
+  const { product, currentSection } = props;
   const classes = useStyles();
   const { addItem } = useContext(CartContext);
   const { getSessionId } = useContext(SessionContext);
@@ -109,15 +118,15 @@ const ProductListItem = (props: Product) => {
         color="textSecondary"
         className={selected ? classes.selected : classes.unselected}
       >
-        {getPrice(props)} ₽
+        {getPrice(product)} ₽
       </Typography>
       <div>
         <a
-          href={`/${CATALOG_NAME}/${'currentSection'}/${props.code}`}
+          href={`/${CATALOG_NAME}/${currentSection}/${product.code}`}
           className={selected ? classes.selected : classes.unselected}
         >
           <Typography variant="subtitle2" className={classes.fontWeightBold}>
-            {props.name}
+            {product.name}
           </Typography>
         </a>
       </div>
@@ -129,9 +138,9 @@ const ProductListItem = (props: Product) => {
               getSessionId(),
               {
                 sessionId: getSessionId(),
-                blockId: props.blockId,
-                productId: props.id,
-                price: parseInt(getPriceProperty(props).value, 0),
+                blockId: product.blockId,
+                productId: product.id,
+                price: parseInt(getPriceProperty(product).value, 0),
                 quantity: 1,
                 currency: 'RUB'
               },
@@ -149,7 +158,7 @@ const ProductListItem = (props: Product) => {
         </Button>
       </div>
       <Snackbar
-        key={`cartSnackBar`}
+        key={'cartSnackBar'}
         open={open}
         autoHideDuration={3000}
         onClose={handleClose}
