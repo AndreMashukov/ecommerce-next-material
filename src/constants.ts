@@ -9,4 +9,4 @@ export const PRODUCT_PROPERTIES = {
   NEW: 14,
   TOP_SELL: 15,
   PRICE: 22
-}
+};

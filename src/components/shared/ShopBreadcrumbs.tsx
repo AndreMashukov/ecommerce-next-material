@@ -9,7 +9,7 @@ type Props = {
 };
 
 export const ShopBreadcrumbs = (props: Props) => {
-  const catalogPath = '/' + CATALOG_NAME + '/';
+  const catalogPath = '/' + CATALOG_NAME;
   return (
     <Breadcrumbs aria-label="breadcrumb">
       <Link color="inherit" href="/">
