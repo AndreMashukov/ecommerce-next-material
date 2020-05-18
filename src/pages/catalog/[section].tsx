@@ -1,13 +1,13 @@
 import React from 'react';
-import { Product } from '../../../models/Product';
-import { getProducts, getSections } from '../../../services/CatalogApi';
-import { PRODUCT_CATALOG_ID } from '../../../constants';
-import { Section } from '../../../models';
+import { Product } from '../../models/Product';
+import { getProducts, getSections } from '../../services/CatalogApi';
+import { PRODUCT_CATALOG_ID } from '../../constants';
+import { Section } from '../../models';
 import { Grid, Typography } from '@material-ui/core';
 import { NextPageContext } from 'next';
-import { ProductList, ShopBreadcrumbs } from '../../../components/shared';
-import { handleSession } from '../../../utils/handleSession';
-import Page404 from '../../404';
+import { ProductList, ShopBreadcrumbs } from '../../components/shared';
+import { handleSession } from '../../utils/handleSession';
+import Page404 from '../404';
 
 interface Props {
   products: Product[];

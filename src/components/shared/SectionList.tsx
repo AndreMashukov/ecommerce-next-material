@@ -3,6 +3,7 @@ import { Typography, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../theme/theme';
 import grey from '@material-ui/core/colors/grey';
+import { CATALOG_NAME } from '../../constants';
 
 const CATEGORY_BEAUTY = 1;
 const ROW_ITEMS_NUM = 12;
@@ -47,7 +48,7 @@ export const SectionList = (props: SectionListProps) => {
           .map((category) => (
             <div key={category.code}>
               <a key={category.code}
-                href={'/catalog/mirra-test/' + category.code}
+                href={'/'+ CATALOG_NAME +'/' + category.code}
                 className={classes.item}>
                 <Typography variant="body2">{category.name}</Typography>
               </a>
@@ -74,7 +75,7 @@ export const SectionList = (props: SectionListProps) => {
               .filter((category) => category.depthLevel === SUB_SECTION_LEVEL)
               .map((category) => (
                 <a key={category.code}
-                  href={'/catalog/mirra-test/' + category.code}
+                  href={'/' + CATALOG_NAME + '/' + category.code}
                   className={classes.item}>
                   <Typography variant="body2">{category.name}</Typography>
                 </a>
@@ -104,7 +105,7 @@ export const SectionList = (props: SectionListProps) => {
           <Grid item>
             {sections.map((category) => (
               <a key={category.code}
-                href={'/catalog/mirra-test/' + category.code}
+                href={'/' + CATALOG_NAME + '/' + category.code}
                 className={classes.item}>
                 <Typography variant="body2">{category.name}</Typography>
               </a>

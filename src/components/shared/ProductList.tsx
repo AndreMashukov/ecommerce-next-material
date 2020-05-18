@@ -8,6 +8,7 @@ import theme from '../../theme/theme';
 import grey from '@material-ui/core/colors/grey';
 import Alert from '@material-ui/lab/Alert';
 import { getPrice, getPriceProperty } from '../../utils/Product';
+import { CATALOG_NAME } from '../../constants';
 
 interface ProductListProps {
   products: Product[];
@@ -112,7 +113,7 @@ const ProductListItem = (props: Product) => {
       </Typography>
       <div>
         <a
-          href={`/catalog/mirra-test/${'currentSection'}/${props.code}`}
+          href={`/${CATALOG_NAME}/${'currentSection'}/${props.code}`}
           className={selected ? classes.selected : classes.unselected}
         >
           <Typography variant="subtitle2" className={classes.fontWeightBold}>
