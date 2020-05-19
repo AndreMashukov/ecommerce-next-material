@@ -7,3 +7,4 @@ export * from './ListCart';
 export * from './ListCartItem';
 export * from './NavBarCart';
 export * from './Stepper';
+export * from './ProductNotFound';

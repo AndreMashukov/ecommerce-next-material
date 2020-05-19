@@ -1,11 +1,11 @@
 import React from 'react';
 import { getSections, getProductByCode } from '../../../services';
-import { PRODUCT_CATALOG_ID } from '../../../constants';
+import { PRODUCT_CATALOG_ID, CATALOG_NAME } from '../../../constants';
 import { Section, Product } from '../../../models';
 import { NextPageContext } from 'next';
 import { handleSession } from '../../../utils/handleSession';
-import Page404 from './../../404';
-import { ProductBreadcrumbs } from '../../../components';
+import { ProductBreadcrumbs, ProductNotFound } from '../../../components';
+import Page404 from '../../404';
 
 interface Props {
   _sessionId: number;
@@ -24,9 +24,12 @@ const ProductPage = (props: Props) => {
             <ProductBreadcrumbs product={_product} section={_section} />
           </div>
         </div>
+      ) : _section ? (
+        <ProductNotFound url={`/${CATALOG_NAME}/${_section.code}`} />
       ) : (
         <Page404 />
       )}
+      }
     </>
   );
 };
