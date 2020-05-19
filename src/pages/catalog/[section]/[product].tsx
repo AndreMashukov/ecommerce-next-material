@@ -4,7 +4,11 @@ import { PRODUCT_CATALOG_ID, CATALOG_NAME } from '../../../constants';
 import { Section, Product } from '../../../models';
 import { NextPageContext } from 'next';
 import { handleSession } from '../../../utils/handleSession';
-import { ProductBreadcrumbs, ProductNotFound } from '../../../components';
+import {
+  ProductBreadcrumbs,
+  ProductNotFound,
+  ProductDetail
+} from '../../../components';
 import Page404 from '../../404';
 
 interface Props {
@@ -23,6 +27,7 @@ const ProductPage = (props: Props) => {
           <div style={{ marginBottom: '30px' }}>
             <ProductBreadcrumbs product={_product} section={_section} />
           </div>
+          <ProductDetail product={_product} section={_section} />
         </div>
       ) : _section ? (
         <ProductNotFound url={`/${CATALOG_NAME}/${_section.code}`} />
