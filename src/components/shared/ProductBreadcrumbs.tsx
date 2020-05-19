@@ -12,19 +12,22 @@ type Props = {
 
 export const ProductBreadcrumbs = (props: Props) => {
   const { product, section } = props;
+  const textVariant = 'body2';
 
   return (
     <Breadcrumbs aria-label="breadcrumb">
       <Link color="inherit" href="/">
-        Главная
+        <Typography variant={textVariant}>Главная</Typography>
       </Link>
       <Link color="inherit" href={'/' + CATALOG_NAME}>
-        Каталог
+        <Typography variant={textVariant}>Каталог</Typography>
       </Link>
       <Link color="inherit" href={'/' + CATALOG_NAME + '/' + section.code}>
-        {section.name}
+        <Typography variant={textVariant}>{section.name}</Typography>
       </Link>
-      <Typography color="textPrimary">{product.name}</Typography>
+      <Typography variant={textVariant} color="textPrimary">
+        {product.name}
+      </Typography>
     </Breadcrumbs>
   );
 };
