@@ -142,13 +142,18 @@ const SectionGrid = (props: SectionGridProps) => {
       {_sections.map((section) => (
         <Grid key={section.code} item xs={10} sm={6} md={3}>
           <Card variant="outlined">
-            <CardContent>
-              <Grid container justify="center">
-                <Typography color="textPrimary">
-                  {section.name}
-                </Typography>
+              <Grid
+                container
+                direction="column"
+                justify="flex-end"
+                alignItems="center"
+                >
+                <CardContent>
+                </CardContent>
+                <CardActions>
+                  <Typography color="textPrimary">{section.name}</Typography>
+                </CardActions>
               </Grid>
-            </CardContent>
             <CardActions></CardActions>
           </Card>
         </Grid>

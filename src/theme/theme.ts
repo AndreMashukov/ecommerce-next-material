@@ -40,8 +40,16 @@ export default createMuiTheme({
         maxWidth: '300px',
         margin: 'auto',
         '&:hover': {
-          backgroundColor: grey[500]
+          backgroundColor: grey[500],
+          '& *': {
+            color: 'white',
+            fontSize: 'bolder'
+          }
         }
+      }
+    },
+    MuiCardActions: {
+      root: {
       }
     },
     MuiButton: {
