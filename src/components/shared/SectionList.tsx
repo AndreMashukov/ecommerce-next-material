@@ -3,12 +3,10 @@ import { Typography, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../theme/theme';
 import grey from '@material-ui/core/colors/grey';
-import { CATALOG_NAME } from '../../constants';
+import { CATALOG_NAME, SECTION_LEVELS } from '../../constants';
 
 const CATEGORY_BEAUTY = 1;
 const ROW_ITEMS_NUM = 12;
-const SECTION_LEVEL = 1;
-const SUB_SECTION_LEVEL = 2;
 
 interface SectionListProps {
   sections: Section[];
@@ -35,7 +33,9 @@ export const SectionList = (props: SectionListProps) => {
         )
       : 0;
 
-  const sectionNum = sections.filter((item) => item.depthLevel === SECTION_LEVEL).length;
+  const sectionNum = sections.filter(
+    (item) => item.depthLevel === SECTION_LEVELS.TOP_LEVEL
+  ).length;
 
   const sectionColumn = new Array(Math.ceil(sectionNum / ROW_ITEMS_NUM));
   let index = 1;
@@ -43,13 +43,15 @@ export const SectionList = (props: SectionListProps) => {
     sectionColumn[i] = (
       <>
         {sections
-          .filter((item) => item.depthLevel === SECTION_LEVEL)
+          .filter((item) => item.depthLevel === SECTION_LEVELS.TOP_LEVEL)
           .slice(i * ROW_ITEMS_NUM, index * ROW_ITEMS_NUM)
           .map((category) => (
             <div key={category.code}>
-              <a key={category.code}
-                href={'/'+ CATALOG_NAME +'/' + category.code}
-                className={classes.item}>
+              <a
+                key={category.code}
+                href={'/' + CATALOG_NAME + '/' + category.code}
+                className={classes.item}
+              >
                 <Typography variant="body2">{category.name}</Typography>
               </a>
             </div>
@@ -60,11 +62,13 @@ export const SectionList = (props: SectionListProps) => {
   }
 
   return (
-    <Grid container
+    <Grid
+      container
       direction="row"
       justify="flex-start"
       alignItems="flex-start"
-      spacing={2}>
+      spacing={2}
+    >
       {categoryId === CATEGORY_BEAUTY && (
         <>
           <Grid item>
@@ -72,11 +76,13 @@ export const SectionList = (props: SectionListProps) => {
               НАЗНАЧЕНИЕ
             </Typography>
             {sections
-              .filter((category) => category.depthLevel === SUB_SECTION_LEVEL)
+              .filter((category) => category.depthLevel === SECTION_LEVELS.SUB_LEVEL)
               .map((category) => (
-                <a key={category.code}
+                <a
+                  key={category.code}
                   href={'/' + CATALOG_NAME + '/' + category.code}
-                  className={classes.item}>
+                  className={classes.item}
+                >
                   <Typography variant="body2">{category.name}</Typography>
                 </a>
               ))}
@@ -90,7 +96,8 @@ export const SectionList = (props: SectionListProps) => {
               direction="row"
               justify="flex-start"
               alignItems="flex-start"
-              spacing={2}>
+              spacing={2}
+            >
               {sectionColumn.map((column, _index) => (
                 <Grid key={_index} item>
                   {column}
@@ -104,9 +111,11 @@ export const SectionList = (props: SectionListProps) => {
         <>
           <Grid item>
             {sections.map((category) => (
-              <a key={category.code}
+              <a
+                key={category.code}
                 href={'/' + CATALOG_NAME + '/' + category.code}
-                className={classes.item}>
+                className={classes.item}
+              >
                 <Typography variant="body2">{category.name}</Typography>
               </a>
             ))}

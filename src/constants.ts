@@ -11,3 +11,8 @@ export const PRODUCT_PROPERTIES = {
   RECOMMENDED: 19,
   PRICE: 22
 };
+
+export const SECTION_LEVELS = {
+  TOP_LEVEL: 1,
+  SUB_LEVEL: 2
+};

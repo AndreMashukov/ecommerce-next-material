@@ -76,6 +76,6 @@ export default createMuiTheme({
       '"Segoe UI Symbol"'
     ].join(','),
     useNextVariants: true
-  // tslint:disable-next-line: no-any
+    // tslint:disable-next-line: no-any
   } as any
 });
