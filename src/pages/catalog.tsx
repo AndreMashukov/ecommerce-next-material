@@ -78,7 +78,7 @@ const CatalogPage = (props: Props) => {
 
   return (
     <div>
-      <Breadcrumbs aria-label="breadcrumb" style={{marginBottom: '30px'}}>
+      <Breadcrumbs aria-label="breadcrumb" style={{ marginBottom: '30px' }}>
         <Link color="inherit" href="/">
           Главная
         </Link>
@@ -134,12 +134,16 @@ const SectionGrid = (props: SectionGridProps) => {
       container
       direction="row"
       justify="flex-start"
+      alignItems="flex-end"
       wrap="wrap"
       spacing={3}
     >
       {_sections.map((section) => (
-        <Grid key={section.code} item xs={3}>
-          <Card variant="outlined" style={{ minHeight: '100px' }}>
+        <Grid key={section.code} item xs={10} sm={6} md={3}>
+          <Card
+            variant="outlined"
+            style={{ minHeight: '100px', maxWidth: '200px', margin: 'auto' }}
+          >
             <CardContent>
               <Typography color="textSecondary" gutterBottom>
                 {section.name}
