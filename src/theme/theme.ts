@@ -37,7 +37,7 @@ export default createMuiTheme({
       root: {
         backgroundColor: colors.primary.light,
         minHeight: '100px',
-        maxWidth: '200px',
+        maxWidth: '300px',
         margin: 'auto',
         '&:hover': {
           backgroundColor: grey[500]
