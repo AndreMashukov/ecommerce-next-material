@@ -24,9 +24,10 @@ interface ProductListItemProps {
 const useStyles = makeStyles({
   box: {
     position: 'relative',
+    margin: 'auto',
     backgroundColor: grey[100],
     padding: '10px',
-    margin: '10px',
+    // margin: '10px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -65,16 +66,23 @@ const useStyles = makeStyles({
 export const ProductList = (props: ProductListProps) => {
   const { products, currentSection } = props;
   return (
-    <Grid container direction="column" justify="flex-start">
+    <Grid container direction="column" justify="center">
       <Grid item>
-        <Grid container direction="row" justify="flex-start" wrap="wrap">
+        <Grid
+          container
+          direction="row"
+          justify="flex-start"
+          wrap="wrap"
+          spacing={2}
+        >
           {products
             .filter((product) => product.active === 'Y')
             .map((product) => (
-              <Grid key={product.code} item xs={3}>
+              <Grid key={product.code} item xs={10} sm={6} md={3}>
                 <ProductListItem
                   product={product}
-                  currentSection={currentSection} />
+                  currentSection={currentSection}
+                />
               </Grid>
             ))}
         </Grid>
