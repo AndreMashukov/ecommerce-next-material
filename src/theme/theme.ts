@@ -41,6 +41,7 @@ export default createMuiTheme({
         margin: 'auto',
         '&:hover': {
           backgroundColor: grey[500],
+          cursor: 'pointer',
           '& *': {
             color: 'white',
             fontSize: 'bolder'

@@ -1,6 +1,6 @@
 import React from 'react';
 import { getSections } from '../services/CatalogApi';
-import { PRODUCT_CATALOG_ID, SECTION_LEVELS } from '../constants';
+import { PRODUCT_CATALOG_ID, SECTION_LEVELS, CATALOG_NAME } from '../constants';
 import { Section } from '../models';
 import { NextPageContext } from 'next';
 import { handleSession } from '../utils/handleSession';
@@ -17,6 +17,7 @@ import { makeStyles } from '@material-ui/styles';
 import theme from '../theme/theme';
 import clsx from 'clsx';
 import Link from '@material-ui/core/Link';
+import { useRouter } from 'next/router';
 
 enum TABS {
   PUPOSE_TAB,
@@ -129,6 +130,13 @@ export default CatalogPage;
 
 const SectionGrid = (props: SectionGridProps) => {
   const { _sections } = props;
+  const router = useRouter();
+
+  const handleCardClick = (code: string) => {
+    if (process.browser) {
+      router.push('/' + CATALOG_NAME + '/' + code);
+    }
+  };
 
   return (
     <Grid
@@ -141,20 +149,23 @@ const SectionGrid = (props: SectionGridProps) => {
     >
       {_sections.map((section) => (
         <Grid key={section.code} item xs={10} sm={6} md={3}>
-          <Card variant="outlined">
-              <Grid
-                container
-                direction="column"
-                justify="flex-end"
-                alignItems="center"
-                >
-                <CardContent>
-                </CardContent>
-                <CardActions>
-                  <Typography color="textPrimary">{section.name}</Typography>
-                </CardActions>
-              </Grid>
-            <CardActions></CardActions>
+          <Card
+            variant="outlined"
+            onClick={() => {
+              handleCardClick(section.code);
+            }}
+          >
+            <Grid
+              container
+              direction="column"
+              justify="flex-end"
+              alignItems="center"
+            >
+              <CardContent></CardContent>
+              <CardActions>
+                <Typography color="textPrimary">{section.name}</Typography>
+              </CardActions>
+            </Grid>
           </Card>
         </Grid>
       ))}
