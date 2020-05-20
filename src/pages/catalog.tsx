@@ -129,6 +129,7 @@ export default CatalogPage;
 
 const SectionGrid = (props: SectionGridProps) => {
   const { _sections } = props;
+
   return (
     <Grid
       container
@@ -140,14 +141,13 @@ const SectionGrid = (props: SectionGridProps) => {
     >
       {_sections.map((section) => (
         <Grid key={section.code} item xs={10} sm={6} md={3}>
-          <Card
-            variant="outlined"
-            style={{ minHeight: '100px', maxWidth: '200px', margin: 'auto' }}
-          >
+          <Card variant="outlined">
             <CardContent>
-              <Typography color="textSecondary" gutterBottom>
-                {section.name}
-              </Typography>
+              <Grid container justify="center">
+                <Typography color="textPrimary">
+                  {section.name}
+                </Typography>
+              </Grid>
             </CardContent>
             <CardActions></CardActions>
           </Card>

@@ -33,6 +33,17 @@ export default createMuiTheme({
     }
   },
   overrides: {
+    MuiCard: {
+      root: {
+        backgroundColor: colors.primary.light,
+        minHeight: '100px',
+        maxWidth: '200px',
+        margin: 'auto',
+        '&:hover': {
+          backgroundColor: grey[500]
+        }
+      }
+    },
     MuiButton: {
       outlined: {
         fontWeight: 'bold',
