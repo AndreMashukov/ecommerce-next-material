@@ -5,10 +5,13 @@ import SessionContext from '../../store/SessionContext/SessionContext';
 import CartContext from '../../store/CartContext/CartContext';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../theme/theme';
-import grey from '@material-ui/core/colors/grey';
+import Link from '@material-ui/core/Link';
 import Alert from '@material-ui/lab/Alert';
 import { getPrice, getPriceProperty } from '../../utils/Product';
 import { CATALOG_NAME } from '../../constants';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
 
 interface ProductListProps {
   products: Product[];
@@ -23,19 +26,18 @@ interface ProductListItemProps {
 
 const useStyles = makeStyles({
   box: {
-    position: 'relative',
-    margin: 'auto',
-    backgroundColor: grey[100],
-    padding: '10px',
-    // margin: '10px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    height: '300px',
-    overflow: 'hidden',
-    '&:hover': {
-      backgroundColor: grey[500]
-    }
+    // margin: 'auto',
+    // backgroundColor: grey[100],
+    // padding: '10px',
+    // // margin: '10px',
+    // display: 'flex',
+    // flexDirection: 'column',
+    // justifyContent: 'space-between',
+    height: '300px'
+    // overflow: 'hidden',
+    // '&:hover': {
+    //   backgroundColor: grey[500]
+    // }
   },
   addToCartShow: {
     display: 'block',
@@ -110,7 +112,7 @@ const ProductListItem = (props: ProductListItemProps) => {
 
   return (
     <div
-      className={classes.box}
+      style={{ position: 'relative' }}
       onMouseEnter={() => {
         setSelected(true);
       }}
@@ -121,50 +123,60 @@ const ProductListItem = (props: ProductListItemProps) => {
         setSelected(true);
       }}
     >
-      <Typography
-        variant="h6"
-        color="textSecondary"
-        className={selected ? classes.selected : classes.unselected}
+      <Button
+        variant="outlined"
+        className={selected ? classes.addToCartShow : classes.addToCartHide}
+        onClick={() => {
+          addItem(
+            getSessionId(),
+            {
+              sessionId: getSessionId(),
+              blockId: product.blockId,
+              productId: product.id,
+              price: parseInt(getPriceProperty(product).value, 0),
+              quantity: 1,
+              currency: 'RUB'
+            },
+            (newState) => {
+              setSnackState({
+                ...snackState,
+                open: true,
+                success: newState.httpStatus.ok
+              });
+            }
+          );
+        }}
       >
-        {getPrice(product)} ₽
-      </Typography>
-      <div>
-        <a
-          href={`/${CATALOG_NAME}/${currentSection}/${product.code}`}
-          className={selected ? classes.selected : classes.unselected}
+        В КОРЗИНУ
+      </Button>
+      <Card variant="outlined" className={classes.box}>
+        <Grid
+          container
+          direction="column"
+          justify="space-between"
+          alignItems="flex-start"
         >
-          <Typography variant="subtitle2" className={classes.fontWeightBold}>
-            {product.name}
-          </Typography>
-        </a>
-      </div>
-      <div className={selected ? classes.addToCartShow : classes.addToCartHide}>
-        <Button
-          variant="outlined"
-          onClick={() => {
-            addItem(
-              getSessionId(),
-              {
-                sessionId: getSessionId(),
-                blockId: product.blockId,
-                productId: product.id,
-                price: parseInt(getPriceProperty(product).value, 0),
-                quantity: 1,
-                currency: 'RUB'
-              },
-              (newState) => {
-                setSnackState({
-                  ...snackState,
-                  open: true,
-                  success: newState.httpStatus.ok
-                });
-              }
-            );
-          }}
-        >
-          В КОРЗИНУ
-        </Button>
-      </div>
+          <CardContent>
+            <Typography variant="h5" className={classes.fontWeightBold}>
+              {getPrice(product)} ₽
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Link
+              color="inherit"
+              style={{textDecoration: 'none'}}
+              href={`/${CATALOG_NAME}/${currentSection}/${product.code}`}
+            >
+              <Typography
+                variant="body1"
+                className={classes.fontWeightBold}
+              >
+                {product.name}
+              </Typography>
+            </Link>
+          </CardActions>
+        </Grid>
+      </Card>
       <Snackbar
         key={'cartSnackBar'}
         open={open}
