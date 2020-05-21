@@ -9,3 +9,4 @@ export * from './NavBarCart';
 export * from './Stepper';
 export * from './ProductNotFound';
 export * from './ProductDetail';
+export * from './CustomTabs';

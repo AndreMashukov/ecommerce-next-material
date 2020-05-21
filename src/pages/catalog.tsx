@@ -4,20 +4,15 @@ import { PRODUCT_CATALOG_ID, SECTION_LEVELS, CATALOG_NAME } from '../constants';
 import { Section } from '../models';
 import { NextPageContext } from 'next';
 import { handleSession } from '../utils/handleSession';
-import Paper from '@material-ui/core/Paper';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/styles';
-import theme from '../theme/theme';
-import clsx from 'clsx';
 import Link from '@material-ui/core/Link';
 import { useRouter } from 'next/router';
+import { CustomTabs } from '../components/shared';
 
 enum TABS {
   PUPOSE_TAB,
@@ -33,37 +28,9 @@ interface SectionGridProps {
   _sections: Section[];
 }
 
-const useStyles = makeStyles({
-  paper: {
-    backgroundColor: theme.palette.primary.light,
-    marginBottom: '30px'
-  },
-  tab: {
-    fontWeight: 'bold',
-    'z-index': 2,
-    fontSize: 'smaller'
-  },
-  activeTab: {
-    color: 'white'
-  },
-  defaultTab: {
-    color: theme.palette.secondary.main
-  },
-  bigIndicator: {
-    height: '100%',
-    'z-index': 1
-  }
-});
-
 const CatalogPage = (props: Props) => {
-  const classes = useStyles();
   const [activeTab, setActiveTab] = React.useState(TABS.PUPOSE_TAB);
   const { _sections } = props;
-  const tabStyle = (tab: number) =>
-    clsx(
-      classes.tab,
-      activeTab === tab ? classes.activeTab : classes.defaultTab
-    );
 
   const lineSections = _sections.filter(
     (item) => item.depthLevel === SECTION_LEVELS.TOP_LEVEL
@@ -85,26 +52,10 @@ const CatalogPage = (props: Props) => {
         </Link>
         <Typography color="textPrimary">Каталог</Typography>
       </Breadcrumbs>
-      <Grid
-        container
-        direction="row"
-        justify="center"
-        alignItems="center"
-        spacing={2}
-      >
-        <Paper square elevation={0} className={classes.paper}>
-          <Tabs
-            value={activeTab}
-            classes={{ indicator: classes.bigIndicator }}
-            indicatorColor="secondary"
-            onChange={handleChange}
-            aria-label="catalog-tabs"
-          >
-            <Tab label="НАЗНАЧЕНИЕ" className={tabStyle(TABS.PUPOSE_TAB)} />
-            <Tab label="ЛИНИИ" className={tabStyle(TABS.LINE_TAB)} />
-          </Tabs>
-        </Paper>
-      </Grid>
+      <CustomTabs
+        tabs={['НАЗНАЧЕНИЕ','ЛИНИИ']}
+        activeTab={activeTab}
+        onTabChange={handleChange}/>
       <div>
         {activeTab === TABS.PUPOSE_TAB && (
           <SectionGrid _sections={purposeSections} />
