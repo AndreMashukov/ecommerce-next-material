@@ -4,14 +4,13 @@ import { Typography, Grid, Button, Snackbar } from '@material-ui/core';
 import SessionContext from '../../store/SessionContext/SessionContext';
 import CartContext from '../../store/CartContext/CartContext';
 import { makeStyles } from '@material-ui/styles';
-import theme from '../../theme/theme';
-import Link from '@material-ui/core/Link';
 import Alert from '@material-ui/lab/Alert';
 import { getPrice, getPriceProperty } from '../../utils/Product';
 import { CATALOG_NAME } from '../../constants';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
+import { useRouter } from 'next/router';
 
 interface ProductListProps {
   products: Product[];
@@ -25,7 +24,7 @@ interface ProductListItemProps {
 }
 
 const useStyles = makeStyles({
-  box: {
+  card: {
     position: 'relative',
     height: '300px'
   },
@@ -40,15 +39,6 @@ const useStyles = makeStyles({
   },
   addToCartHide: {
     display: 'none'
-  },
-  a: {
-    cursor: 'pointer'
-  },
-  selected: {
-    color: theme.palette.primary.light
-  },
-  unselected: {
-    color: theme.palette.primary.dark
   },
   fontWeightBold: {
     fontWeight: 'bold'
@@ -86,6 +76,7 @@ export const ProductList = (props: ProductListProps) => {
 const ProductListItem = (props: ProductListItemProps) => {
   const { product, currentSection } = props;
   const classes = useStyles();
+  const router = useRouter();
   const { addItem } = useContext(CartContext);
   const { getSessionId } = useContext(SessionContext);
   const [selected, setSelected] = useState(false);
@@ -100,6 +91,12 @@ const ProductListItem = (props: ProductListItemProps) => {
     setSnackState({ ...snackState, open: false });
   };
 
+  const handleCardClick = (code: string, section: string) => {
+    if (process.browser) {
+      router.push(`/${CATALOG_NAME}/${section}/${code}`);
+    }
+  };
+
   return (
     <div
       onMouseEnter={() => {
@@ -112,12 +109,19 @@ const ProductListItem = (props: ProductListItemProps) => {
         setSelected(true);
       }}
     >
-      <Card variant="outlined" className={classes.box}>
+      <Card
+        variant="outlined"
+        className={classes.card}
+      >
         <Grid
           container
           direction="column"
           justify="space-between"
           alignItems="flex-start"
+          onClick={() => {
+            handleCardClick(product.code, currentSection);
+          }}
+          style={{height: '100%'}}
         >
           <CardContent>
             <Typography variant="h5" className={classes.fontWeightBold}>
@@ -125,46 +129,37 @@ const ProductListItem = (props: ProductListItemProps) => {
             </Typography>
           </CardContent>
           <CardActions>
-            <Link
-              color="inherit"
-              style={{textDecoration: 'none'}}
-              href={`/${CATALOG_NAME}/${currentSection}/${product.code}`}
-            >
-              <Typography
-                variant="body1"
-                className={classes.fontWeightBold}
-              >
-                {product.name}
-              </Typography>
-            </Link>
+            <Typography variant="body1" className={classes.fontWeightBold}>
+              {product.name}
+            </Typography>
           </CardActions>
         </Grid>
         <Button
-        variant="outlined"
-        className={selected ? classes.addToCartShow : classes.addToCartHide}
-        onClick={() => {
-          addItem(
-            getSessionId(),
-            {
-              sessionId: getSessionId(),
-              blockId: product.blockId,
-              productId: product.id,
-              price: parseInt(getPriceProperty(product).value, 0),
-              quantity: 1,
-              currency: 'RUB'
-            },
-            (newState) => {
-              setSnackState({
-                ...snackState,
-                open: true,
-                success: newState.httpStatus.ok
-              });
-            }
-          );
-        }}
-      >
-        В КОРЗИНУ
-      </Button>
+          variant="outlined"
+          className={selected ? classes.addToCartShow : classes.addToCartHide}
+          onClick={() => {
+            addItem(
+              getSessionId(),
+              {
+                sessionId: getSessionId(),
+                blockId: product.blockId,
+                productId: product.id,
+                price: parseInt(getPriceProperty(product).value, 0),
+                quantity: 1,
+                currency: 'RUB'
+              },
+              (newState) => {
+                setSnackState({
+                  ...snackState,
+                  open: true,
+                  success: newState.httpStatus.ok
+                });
+              }
+            );
+          }}
+        >
+          В КОРЗИНУ
+        </Button>
       </Card>
       <Snackbar
         key={'cartSnackBar'}

@@ -160,6 +160,7 @@ const SectionGrid = (props: SectionGridProps) => {
               direction="column"
               justify="flex-end"
               alignItems="center"
+              style={{height: '100%'}}
             >
               <CardContent></CardContent>
               <CardActions>
