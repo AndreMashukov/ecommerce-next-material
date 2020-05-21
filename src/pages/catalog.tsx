@@ -163,7 +163,9 @@ const SectionGrid = (props: SectionGridProps) => {
             >
               <CardContent></CardContent>
               <CardActions>
-                <Typography color="textPrimary">{section.name}</Typography>
+                <Typography variant="body1">
+                  {section.name}
+                </Typography>
               </CardActions>
             </Grid>
           </Card>

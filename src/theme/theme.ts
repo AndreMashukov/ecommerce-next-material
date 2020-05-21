@@ -42,7 +42,7 @@ export default createMuiTheme({
         '&:hover': {
           backgroundColor: grey[500],
           cursor: 'pointer',
-          '& *': {
+          '& div': {
             color: 'white',
             fontSize: 'bolder'
           }

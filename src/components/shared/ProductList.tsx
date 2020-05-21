@@ -26,18 +26,8 @@ interface ProductListItemProps {
 
 const useStyles = makeStyles({
   box: {
-    // margin: 'auto',
-    // backgroundColor: grey[100],
-    // padding: '10px',
-    // // margin: '10px',
-    // display: 'flex',
-    // flexDirection: 'column',
-    // justifyContent: 'space-between',
+    position: 'relative',
     height: '300px'
-    // overflow: 'hidden',
-    // '&:hover': {
-    //   backgroundColor: grey[500]
-    // }
   },
   addToCartShow: {
     display: 'block',
@@ -112,7 +102,6 @@ const ProductListItem = (props: ProductListItemProps) => {
 
   return (
     <div
-      style={{ position: 'relative' }}
       onMouseEnter={() => {
         setSelected(true);
       }}
@@ -123,32 +112,6 @@ const ProductListItem = (props: ProductListItemProps) => {
         setSelected(true);
       }}
     >
-      <Button
-        variant="outlined"
-        className={selected ? classes.addToCartShow : classes.addToCartHide}
-        onClick={() => {
-          addItem(
-            getSessionId(),
-            {
-              sessionId: getSessionId(),
-              blockId: product.blockId,
-              productId: product.id,
-              price: parseInt(getPriceProperty(product).value, 0),
-              quantity: 1,
-              currency: 'RUB'
-            },
-            (newState) => {
-              setSnackState({
-                ...snackState,
-                open: true,
-                success: newState.httpStatus.ok
-              });
-            }
-          );
-        }}
-      >
-        В КОРЗИНУ
-      </Button>
       <Card variant="outlined" className={classes.box}>
         <Grid
           container
@@ -176,6 +139,32 @@ const ProductListItem = (props: ProductListItemProps) => {
             </Link>
           </CardActions>
         </Grid>
+        <Button
+        variant="outlined"
+        className={selected ? classes.addToCartShow : classes.addToCartHide}
+        onClick={() => {
+          addItem(
+            getSessionId(),
+            {
+              sessionId: getSessionId(),
+              blockId: product.blockId,
+              productId: product.id,
+              price: parseInt(getPriceProperty(product).value, 0),
+              quantity: 1,
+              currency: 'RUB'
+            },
+            (newState) => {
+              setSnackState({
+                ...snackState,
+                open: true,
+                success: newState.httpStatus.ok
+              });
+            }
+          );
+        }}
+      >
+        В КОРЗИНУ
+      </Button>
       </Card>
       <Snackbar
         key={'cartSnackBar'}
