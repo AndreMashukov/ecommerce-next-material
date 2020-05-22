@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/styles';
 import { colors } from '../../theme/constants';
 import clsx from 'clsx';
 import { PRODUCT_PROPERTIES } from '../../constants';
+import { Grid } from '@material-ui/core';
 
 const properties = [
   PRODUCT_PROPERTIES.NEW,
@@ -41,27 +42,23 @@ export const Badges = (props: Props) => {
   const { product } = props;
   const badges: React.ReactElement[] = [];
 
-  const getStyles = (propertyId: number) => {
-    // tslint:disable-next-line: no-console
-    console.log(propertyId);
-    return clsx(
+  const getStyles = (propertyId: number) => clsx(
       propertyId === PRODUCT_PROPERTIES.SPECIAL_OFFER.id && classes.specialOffer,
       propertyId === PRODUCT_PROPERTIES.NEW.id && classes.new,
       propertyId === PRODUCT_PROPERTIES.TOP_SELL.id && classes.topSell,
       classes.text,
       classes.box
-    );
-  };
+  );
 
   properties.forEach((property) => {
     getProductProperty(product, property.id) &&
       badges.push(
-        <div
+        <Grid container justify="center"
           key={`sp_badge_${product.code}_${property.id}`}
           className={getStyles(property.id)}
         >
           {property.name}
-        </div>
+        </Grid>
       );
   });
 

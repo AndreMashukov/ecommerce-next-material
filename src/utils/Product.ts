@@ -1,6 +1,6 @@
 import { Product } from '../models';
 import { ElementProperty } from '../models/ElementProperty';
-import { PRODUCT_PROPERTIES} from '../constants';
+import { PRODUCT_PROPERTIES } from '../constants';
 
 export function getProductProperty(
   product: Product,
