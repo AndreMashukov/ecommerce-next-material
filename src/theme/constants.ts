@@ -17,7 +17,7 @@ export const colors = {
   },
   badge: {
     new: pink[400],
-    specialOffer: red[500],
-    topSell: orange[900]
+    specialOffer: red[800],
+    topSell: orange[600]
   }
 };

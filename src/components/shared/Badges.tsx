@@ -7,8 +7,9 @@ import clsx from 'clsx';
 import { PRODUCT_PROPERTIES } from '../../constants';
 
 const properties = [
+  PRODUCT_PROPERTIES.NEW,
   PRODUCT_PROPERTIES.SPECIAL_OFFER,
-  PRODUCT_PROPERTIES.NEW
+  PRODUCT_PROPERTIES.TOP_SELL
 ];
 
 interface Props {
@@ -18,6 +19,12 @@ interface Props {
 const useStyles = makeStyles({
   specialOffer: {
     backgroundColor: colors.badge.specialOffer
+  },
+  new: {
+    backgroundColor: colors.badge.new
+  },
+  topSell: {
+    backgroundColor: colors.badge.topSell
   },
   box: {
     padding: '5px 15px 5px 15px',
@@ -34,23 +41,29 @@ export const Badges = (props: Props) => {
   const { product } = props;
   const badges: React.ReactElement[] = [];
 
-  const getStyles = (property: number) => clsx(
-    classes.text,
-    classes.box,
-    property === 13 && classes.specialOffer
-  );
+  const getStyles = (propertyId: number) => {
+    // tslint:disable-next-line: no-console
+    console.log(propertyId);
+    return clsx(
+      propertyId === PRODUCT_PROPERTIES.SPECIAL_OFFER.id && classes.specialOffer,
+      propertyId === PRODUCT_PROPERTIES.NEW.id && classes.new,
+      propertyId === PRODUCT_PROPERTIES.TOP_SELL.id && classes.topSell,
+      classes.text,
+      classes.box
+    );
+  };
 
-  properties.forEach(property => {
+  properties.forEach((property) => {
     getProductProperty(product, property.id) &&
       badges.push(
         <div
-          key={`sp_badge_${product.code}`}
+          key={`sp_badge_${product.code}_${property.id}`}
           className={getStyles(property.id)}
         >
-          АКЦИЯ
+          {property.name}
         </div>
       );
-    });
+  });
 
   return React.useMemo(
     () => <>{badges.length > 0 && badges.map((badge) => badge)}</>,

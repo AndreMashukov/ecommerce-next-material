@@ -24,11 +24,11 @@ export const PRODUCT_PROPERTIES: ProductProperties = {
   },
   TOP_SELL: {
     id: 15,
-    name: 'TOP SELL'
+    name: 'ХИТ'
   },
   RECOMMENDED: {
     id: 19,
-    name: 'TOP SELL'
+    name: 'RECOMMENDED'
   },
   PRICE: {
     id: 22,
