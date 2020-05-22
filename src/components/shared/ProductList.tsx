@@ -5,12 +5,13 @@ import SessionContext from '../../store/SessionContext/SessionContext';
 import CartContext from '../../store/CartContext/CartContext';
 import { makeStyles } from '@material-ui/styles';
 import Alert from '@material-ui/lab/Alert';
-import { getPrice, getPriceProperty } from '../../utils/Product';
+import { getPrice } from '../../utils/Product';
 import { CATALOG_NAME } from '../../constants';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import { useRouter } from 'next/router';
+import { Badges } from './Badges';
 
 interface ProductListProps {
   products: Product[];
@@ -36,6 +37,13 @@ const useStyles = makeStyles({
     left: '50%',
     transform: 'translate(-50%, -50%)',
     '-ms-transform': 'translate(-50%, -50%)'
+  },
+  badges: {
+    display: 'block',
+    opacity: '1',
+    position: 'absolute',
+    top: '10%',
+    right: '0'
   },
   addToCartHide: {
     display: 'none'
@@ -124,6 +132,9 @@ const ProductListItem = (props: ProductListItemProps) => {
           style={{height: '100%'}}
         >
           <CardContent>
+            <div className={classes.badges}>
+              <Badges product={product} />
+            </div>
             <Typography variant="h5" className={classes.fontWeightBold}>
               {getPrice(product)} ₽
             </Typography>
@@ -144,7 +155,7 @@ const ProductListItem = (props: ProductListItemProps) => {
                 sessionId: getSessionId(),
                 blockId: product.blockId,
                 productId: product.id,
-                price: parseInt(getPriceProperty(product).value, 0),
+                price: getPrice(product),
                 quantity: 1,
                 currency: 'RUB'
               },

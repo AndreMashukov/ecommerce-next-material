@@ -1,24 +1,9 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-import teal from '@material-ui/core/colors/teal';
+import { colors } from './constants';
 import grey from '@material-ui/core/colors/grey';
-import pink from '@material-ui/core/colors/pink';
 
 // A theme with custom primary and secondary color.
 // It's optional.
-
-const colors = {
-  primary: {
-    light: grey[50],
-    main: grey[300],
-    dark: grey[800]
-  },
-  secondary: {
-    light: teal[200],
-    main: teal[300],
-    dark: pink[600]
-  }
-};
-
 export default createMuiTheme({
   palette: {
     primary: {
