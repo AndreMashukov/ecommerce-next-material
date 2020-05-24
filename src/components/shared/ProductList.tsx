@@ -27,7 +27,15 @@ interface ProductListItemProps {
 const useStyles = makeStyles({
   card: {
     position: 'relative',
-    height: '300px'
+    height: '300px',
+    '&:hover': {
+      '& div': {
+        opacity: '85%'
+      }
+    }
+  },
+  cardGrid: {
+    height: '100%'
   },
   addToCartShow: {
     display: 'block',
@@ -35,8 +43,7 @@ const useStyles = makeStyles({
     position: 'absolute',
     top: '50%',
     left: '50%',
-    transform: 'translate(-50%, -50%)',
-    '-ms-transform': 'translate(-50%, -50%)'
+    transform: 'translate(-50%, -50%)'
   },
   badges: {
     display: 'block',
@@ -117,10 +124,7 @@ const ProductListItem = (props: ProductListItemProps) => {
         setSelected(true);
       }}
     >
-      <Card
-        variant="outlined"
-        className={classes.card}
-      >
+      <Card variant="outlined" className={classes.card}>
         <Grid
           container
           direction="column"
@@ -129,7 +133,7 @@ const ProductListItem = (props: ProductListItemProps) => {
           onClick={() => {
             handleCardClick(product.code, currentSection);
           }}
-          style={{height: '100%'}}
+          className={classes.cardGrid}
         >
           <CardContent>
             <div className={classes.badges}>

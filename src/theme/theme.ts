@@ -21,6 +21,7 @@ export default createMuiTheme({
     MuiCard: {
       root: {
         backgroundColor: colors.primary.light,
+        transition: 'all 0.3s linear',
         minHeight: '100px',
         maxWidth: '300px',
         margin: 'auto',
