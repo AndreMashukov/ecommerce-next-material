@@ -8,6 +8,7 @@ import SessionContext from '../../store/SessionContext/SessionContext';
 import { getCartItemsNumber, getCartTotal } from '../../utils/Cart';
 import { ListCartItem } from './ListCartItem';
 import theme from '../../theme/theme';
+import { useRouter } from 'next/router';
 
 interface Props {
   onClose: () => void;
@@ -31,6 +32,14 @@ export const ListCart = (props: Props) => {
   const { items, syncCart } = useContext(CartContext);
   const { getSessionId } = useContext(SessionContext);
   const classes = useStyles();
+  const router = useRouter();
+
+  const handleMakeOrderClick = () => {
+    props.onClose();
+    if (process.browser) {
+      router.push('/order/make');
+    }
+  };
 
   useEffect(() => {
     syncCart(getSessionId());
@@ -63,7 +72,8 @@ export const ListCart = (props: Props) => {
         </Grid>
       </div>
       <div>
-        <Button variant="outlined" style={{ marginBottom: '15px' }}>
+        <Button variant="outlined" style={{ marginBottom: '15px' }}
+          onClick={() => {handleMakeOrderClick();}}>
           ОФОРМИТЬ ЗАКАЗ
         </Button>
       </div>

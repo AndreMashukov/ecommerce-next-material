@@ -23,13 +23,12 @@ const CartProvider: React.FunctionComponent<{}> = (
 ) => {
   const [state, dispatch] = useAsyncReducer(cartReducer, initialValues);
 
-  async function getItems(sessionId: string): Promise<CartItem[]> {
-    await syncCart(sessionId);
+  function getItems(): CartItem[] {
     return state.items;
   }
 
-  async function syncCart(sessionId: string) {
-    await dispatch({ type: TYPES.CART_GET, sessionId });
+  function syncCart(sessionId: string) {
+    dispatch({ type: TYPES.CART_GET, sessionId });
   }
 
   function removeItem(sessionId: string, id: number = 0): void {

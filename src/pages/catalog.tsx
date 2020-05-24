@@ -21,7 +21,7 @@ enum TABS {
 
 interface Props {
   _sections: Section[];
-  _sessionId: number;
+  _sessionId: string;
 }
 
 interface SectionGridProps {

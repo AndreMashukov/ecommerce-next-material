@@ -12,7 +12,7 @@ import {
 import Page404 from '../../404';
 
 interface Props {
-  _sessionId: number;
+  _sessionId: string;
   _product: Product;
   _section: Section;
 }
