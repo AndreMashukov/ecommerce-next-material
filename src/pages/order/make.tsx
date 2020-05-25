@@ -1,23 +1,26 @@
-import React from 'react';
+import React, { useContext, useCallback } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import { NextPageContext } from 'next';
 import { handleSession } from '../../utils/handleSession';
-import { getCart } from '../../services/CartApi';
-import { CartItem } from '../../models';
+import CartContext from '../../store/CartContext/CartContext';
 
 interface Props {
   _sessionId: string;
-  _cart: CartItem[];
 }
 
 const OrderMakePage = (props: Props) => {
-  const { _cart } = props;
+  const { _sessionId } = props;
   const navColor = 'textSecondary';
+  const { syncCart, items, getItems } = useContext(CartContext);
 
-  // tslint:disable-next-line: no-console
-  console.log(_cart);
+  useCallback(() => {
+    syncCart(_sessionId);
+  },[items]);
+
+    // tslint:disable-next-line: no-console
+    console.log(getItems());
 
   return (
     <>
@@ -57,10 +60,8 @@ const OrderMakePage = (props: Props) => {
 
 OrderMakePage.getInitialProps = async (ctx: NextPageContext) => {
   const sessionId = await handleSession(ctx);
-  const cart = await getCart(sessionId._sessionId);
   return {
-    _sessionId: sessionId,
-    _cart: cart
+    _sessionId: sessionId
   };
 };
 
