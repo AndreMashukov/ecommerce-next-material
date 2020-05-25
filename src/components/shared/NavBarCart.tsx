@@ -1,11 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { ListCart } from './ListCart';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../theme/theme';
 import CartContext from '../../store/CartContext/CartContext';
-import { getCart } from '../../services/CartApi';
-import { CartItem } from '../../models';
 import SessionContext from '../../store/SessionContext/SessionContext';
 import { getCartItemsNumber } from '../../utils/Cart';
 import Paper from '@material-ui/core/Paper';
@@ -35,8 +33,8 @@ export const NavBarCart = () => {
   const classes = useStyles();
   const divRef = React.useRef();
   const [open, setOpen] = React.useState(false);
-  const { items } = useContext(CartContext);
-  const { getSessionId, setSessionId } = useContext(SessionContext);
+  const { items, getItems, syncCart } = useContext(CartContext);
+  const { getSessionId } = useContext(SessionContext);
 
   const id = open ? 'cart-paper' : undefined;
 
@@ -48,24 +46,17 @@ export const NavBarCart = () => {
     setOpen(false);
   };
 
-  const [cart, setCart] = useState({ items: [] });
-
   useEffect(() => {
-    const getCartItems = async () => {
-      const cartItems: CartItem[] = await getCart(getSessionId());
-      if (cartItems.length === 0) {
-        handlePaperClose();
-      }
-      setCart({ items: cartItems });
-    };
-
-    getCartItems();
-  }, [items, setSessionId]);
+    syncCart(getSessionId());
+    if (getItems().length === 0) {
+      handlePaperClose();
+    }
+  }, [items.length, getSessionId()]);
 
   return (
     <div
       ref={divRef}
-      className={cart.items.length === 0 ? classes.cartInactive : ''}
+      className={getItems().length === 0 ? classes.cartInactive : ''}
     >
       <Grid
         container
@@ -77,23 +68,21 @@ export const NavBarCart = () => {
         spacing={2}
       >
         <Grid item>
-          {cart.items.length === 0
+          {getItems().length === 0
             ? cartIsEmpty
-            : `${cartIsNotEmpty}: ${getCartItemsNumber(cart.items)}`}
+            : `${cartIsNotEmpty}: ${getCartItemsNumber(getItems())}`}
         </Grid>
         <Grid item>
           <img src="/img/bag_full.png" />
         </Grid>
       </Grid>
-      {cart.items.length > 0 && (
-        <div style={{
-          display: open ? '' : 'none'
-        }}>
-          <Paper
-            id={id}
-            elevation={3}
-            className={classes.paper}
-          >
+      {getItems().length > 0 && (
+        <div
+          style={{
+            display: open ? '' : 'none'
+          }}
+        >
+          <Paper id={id} elevation={3} className={classes.paper}>
             <ListCart onClose={handlePaperClose} />
           </Paper>
         </div>

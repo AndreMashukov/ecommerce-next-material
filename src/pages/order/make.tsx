@@ -1,10 +1,11 @@
-import React, { useContext, useCallback } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import { NextPageContext } from 'next';
 import { handleSession } from '../../utils/handleSession';
-import CartContext from '../../store/CartContext/CartContext';
+import { OrderMakeList } from '../../components';
+import SessionContext from '../../store/SessionContext/SessionContext';
 
 interface Props {
   _sessionId: string;
@@ -13,14 +14,11 @@ interface Props {
 const OrderMakePage = (props: Props) => {
   const { _sessionId } = props;
   const navColor = 'textSecondary';
-  const { syncCart, items, getItems } = useContext(CartContext);
+  const { setSessionId } = useContext(SessionContext);
 
-  useCallback(() => {
-    syncCart(_sessionId);
-  },[items]);
-
-    // tslint:disable-next-line: no-console
-    console.log(getItems());
+  useEffect(() => {
+    setSessionId(_sessionId);
+  },[_sessionId]);
 
   return (
     <>
@@ -54,6 +52,7 @@ const OrderMakePage = (props: Props) => {
           </Typography>
         </Grid>
       </div>
+      <OrderMakeList />
     </>
   );
 };
@@ -61,7 +60,7 @@ const OrderMakePage = (props: Props) => {
 OrderMakePage.getInitialProps = async (ctx: NextPageContext) => {
   const sessionId = await handleSession(ctx);
   return {
-    _sessionId: sessionId
+    _sessionId: sessionId._sessionId
   };
 };
 

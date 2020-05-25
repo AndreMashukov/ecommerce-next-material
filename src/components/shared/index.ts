@@ -11,3 +11,4 @@ export * from './ProductNotFound';
 export * from './ProductDetail';
 export * from './CustomTabs';
 export * from './Badges';
+export * from './OrderMakeList';
