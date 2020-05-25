@@ -1,7 +1,7 @@
-$layout-min-width-medium: 1024px;
-$layout-min-width-small: 768px;
-$desktop-width: 1024px;
-$tablet-width: 768px;
+$layout-min-width-medium: 1268px;
+$layout-min-width-small: 1024px;
+$desktop-width: 1268px;
+$tablet-width: 1024px;
 
 @mixin desktop {
   @media (min-width: #{$desktop-width}) {
