@@ -70,6 +70,9 @@ export default createMuiTheme({
     h4: {
       fontFamily: 'Comfortaa, Arial, sans-serif'
     },
+    h3: {
+      color: colors.primary.dark
+    },
     fontFamily: [
       'Open Sans',
       'BlinkMacSystemFont',
