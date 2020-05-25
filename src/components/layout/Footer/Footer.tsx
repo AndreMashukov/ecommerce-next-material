@@ -57,7 +57,7 @@ export const Footer = () => {
           alignItems="center"
           className={classes.footerCopyright}
         >
-          <Grid item xs={6}>
+          <Grid item xs={4}>
             <div className="footer-block">
               <Typography variant="body1">
                 © Интернет-Магазин MIRRA, 2020

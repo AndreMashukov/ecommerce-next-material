@@ -3,14 +3,16 @@ import CartContext from '../../store/CartContext/CartContext';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../theme/theme';
 import { CartItem } from '../../models';
 import clsx from 'clsx';
+import { getCartTotal } from '../../utils/Cart';
 
 const useStyles = makeStyles({
   root: {
-    backgroundColor: theme.palette.primary.main
+    backgroundColor: theme.palette.primary.main,
   },
   grid: {
     padding: '30px 70px 30px 70px',
@@ -27,6 +29,7 @@ const useStyles = makeStyles({
 export const OrderMakeList = () => {
   const classes = useStyles();
   const { getItems } = useContext(CartContext);
+  const listVariant = 'h6';
 
   return (
     <div className={classes.root}>
@@ -51,6 +54,53 @@ export const OrderMakeList = () => {
             </div>
           </Paper>
         </Grid>
+      </Grid>
+      <Grid
+        container
+        justify="center"
+        style={{ padding: '20px' }}
+        direction="row"
+        alignItems="flex-start"
+      >
+        <Grid xs={3} item>
+          <Grid container justify="space-between">
+            <Typography variant={listVariant} color="textPrimary">
+              Стоимость товаров
+            </Typography>
+            <Typography variant={listVariant} color="textPrimary">
+              {getCartTotal(getItems())} ₽
+            </Typography>
+          </Grid>
+          <Grid container justify="space-between">
+            <Typography variant={listVariant} color="textPrimary">
+              Доставка
+            </Typography>
+            <Typography variant={listVariant} color="textPrimary">
+              0 ₽
+            </Typography>
+          </Grid>
+          <Grid container justify="space-between">
+            <Typography
+              variant={listVariant}
+              style={{ fontWeight: 'bolder' }}
+              color="textPrimary"
+            >
+              К оплате
+            </Typography>
+            <Typography
+              variant={listVariant}
+              style={{ fontWeight: 'bolder' }}
+              color="textPrimary"
+            >
+              {getCartTotal(getItems())} ₽
+            </Typography>
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid container justify="center" style={{padding: '10px'}}>
+        <Button variant="outlined" style={{ marginBottom: '15px' }}>
+          ОФОРМИТЬ
+        </Button>
       </Grid>
     </div>
   );
