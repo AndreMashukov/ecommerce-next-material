@@ -12,10 +12,10 @@ import { getCartTotal } from '../../utils/Cart';
 
 const useStyles = makeStyles({
   root: {
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.primary.main
   },
   grid: {
-    padding: '30px 70px 30px 70px',
+    padding: '60px 70px 30px 70px',
     backgroundColor: theme.palette.primary.main
   },
   paper: {
@@ -26,7 +26,7 @@ const useStyles = makeStyles({
   }
 });
 
-export const OrderMakeList = () => {
+export const OrderMakeList: React.FC = () => {
   const classes = useStyles();
   const { getItems } = useContext(CartContext);
   const listVariant = 'h6';
