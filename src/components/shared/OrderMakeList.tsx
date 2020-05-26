@@ -9,6 +9,7 @@ import theme from '../../theme/theme';
 import { CartItem } from '../../models';
 import clsx from 'clsx';
 import { getCartTotal } from '../../utils/Cart';
+import MakeOrderFormComposed  from '../forms/MakeOrderForm';
 
 const useStyles = makeStyles({
   root: {
@@ -51,6 +52,9 @@ export const OrderMakeList: React.FC = () => {
                 телефона, неточный или неполный адрес могут привести к
                 дополнительной задержке.
               </Typography>
+            </div>
+            <div>
+              <MakeOrderFormComposed />
             </div>
           </Paper>
         </Grid>
