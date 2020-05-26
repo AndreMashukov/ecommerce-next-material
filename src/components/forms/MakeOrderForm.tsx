@@ -5,6 +5,7 @@ import withEmailError from './enhancers/withEmailError';
 import withTextFieldState from './enhancers/withTextFieldState';
 import { MakeOrderFormProps } from './models/MakeOrderForm';
 import withPhoneError from './enhancers/withPhoneError';
+import FormattedInputs from './shared/FormattedInputs';
 
 // tslint:disable-next-line: no-any
 type WithComposeProps = MakeOrderFormProps & any;
@@ -13,10 +14,10 @@ const MakeOrderForm = (props: WithComposeProps) => {
   const {
     email,
     emailError,
-    onEmailchange,
-    phone,
-    phoneError,
-    onPhoneChange
+    onEmailchange
+    // phone,
+    // phoneError,
+    // onPhoneChange
   } = props;
   return (
     <div>
@@ -33,7 +34,7 @@ const MakeOrderForm = (props: WithComposeProps) => {
           />
         </Grid>
         <Grid item>
-          <TextField
+          {/* <TextField
             variant="outlined"
             placeholder="Контактный телефон"
             value={phone.value}
@@ -41,7 +42,8 @@ const MakeOrderForm = (props: WithComposeProps) => {
             helperText={phoneError}
             onChange={onPhoneChange}
             margin="normal"
-          />
+          /> */}
+          <FormattedInputs />
         </Grid>
       </Grid>
     </div>
