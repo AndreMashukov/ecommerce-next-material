@@ -58,7 +58,7 @@ interface State {
   textmask: string;
 }
 
-export default function FormattedInputs() {
+export default function FormattedPhone() {
   const classes = useStyles();
   const [values, setValues] = React.useState<State>({
     textmask: '8 (   )    -  -  '

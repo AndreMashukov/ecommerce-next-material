@@ -9,7 +9,7 @@ const getEmailError = (email: TextField) => {
   const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   const isValidEmail = emailRegex.test(email.value);
-  return !isValidEmail ? 'Invalid email.' : '';
+  return !isValidEmail ? 'Неверный E-Mail.' : '';
 };
 
 const withEmailError = withProps((ownerProps: Partial<MakeOrderFormProps>) => ({

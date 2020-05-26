@@ -6,8 +6,10 @@ const getPhoneError = (phone: TextField) => {
     return '';
   }
 
-  const isValidPhone = phone.value.trim().length > 7;
-  return !isValidPhone ? 'Invalid phone number.' : '';
+  const phoneRegex = /^(\+7|7|8)?[\s\-]?\(?[489][0-9]{2}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/;
+
+  const isValidPhone = phoneRegex.test(phone.value);
+  return !isValidPhone ? 'Неверный формат телефона.' : '';
 };
 
 const withPhoneError = withProps((ownerProps: Partial<MakeOrderFormProps>) => ({
