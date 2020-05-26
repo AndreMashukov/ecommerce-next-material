@@ -4,6 +4,13 @@ import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import { MakeOrderFormProps } from '../models/MakeOrderForm';
+import withPhoneError from '../enhancers/withPhoneError';
+import withTextFieldState from '../enhancers/withTextFieldState';
+import { compose } from 'recompose';
+
+// tslint:disable-next-line: no-any
+type WithComposeProps = Partial<MakeOrderFormProps> & any;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -58,22 +65,32 @@ interface State {
   textmask: string;
 }
 
-export default function FormattedPhone() {
+function FormattedPhone(props: WithComposeProps) {
+  const {
+    phone,
+    phoneError,
+    onPhoneChange
+  } = props;
   const classes = useStyles();
   const [values, setValues] = React.useState<State>({
     textmask: '8 (   )    -  -  '
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // tslint:disable-next-line: no-console
+    console.log(event.target.value);
     setValues({
       ...values,
       [event.target.name]: event.target.value
     });
+
+    onPhoneChange(event);
+    phone.value = event.target.value;
   };
 
   return (
     <div className={classes.root}>
-      <FormControl>
+      <FormControl error={phoneError}>
         <InputLabel htmlFor="formatted-text-mask-input">
           Контактный телефон
         </InputLabel>
@@ -81,6 +98,7 @@ export default function FormattedPhone() {
           placeholder="Контактный телефон"
           value={values.textmask}
           onChange={handleChange}
+          error={phoneError}
           name="textmask"
           id="formatted-text-mask-input"
           // tslint:disable-next-line: no-any
@@ -90,3 +108,5 @@ export default function FormattedPhone() {
     </div>
   );
 }
+
+export default compose(withTextFieldState, withPhoneError)(FormattedPhone);
