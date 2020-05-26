@@ -1,7 +1,7 @@
 import { withProps } from 'recompose';
-import { MakeOrderFormProps, Email } from '../models';
+import { MakeOrderFormProps, TextField } from '../models';
 
-const getEmailError = (email: Email) => {
+const getEmailError = (email: TextField) => {
   if (!email.isDirty) {
     return '';
   }

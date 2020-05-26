@@ -2,7 +2,8 @@ import { withStateHandlers } from 'recompose';
 import { ChangeEventType } from '../models';
 
 const initialState = {
-  email: { value: '', isDirty: false }
+  email: { value: '', isDirty: false },
+  phone: { value: '', isDirty: false }
 };
 
 const onEmailchange = () => (event: ChangeEventType) => ({
@@ -12,8 +13,16 @@ const onEmailchange = () => (event: ChangeEventType) => ({
   }
 });
 
+const onPhoneChange = () => (event: ChangeEventType) => ({
+  phone: {
+    value: event.target.value,
+    isDirty: true
+  }
+});
+
 const withTextFieldState = withStateHandlers(initialState, {
-  onEmailchange
+  onEmailchange,
+  onPhoneChange
 });
 
 export default withTextFieldState;

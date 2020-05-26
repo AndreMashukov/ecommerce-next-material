@@ -1,6 +1,6 @@
 export type ChangeEventType = React.ChangeEvent<HTMLInputElement>;
 
-export interface Email {
+export interface TextField {
   value: string;
   isDirty: boolean;
 }
