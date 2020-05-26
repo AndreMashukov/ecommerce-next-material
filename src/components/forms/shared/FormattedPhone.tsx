@@ -18,6 +18,10 @@ const useStyles = makeStyles((theme: Theme) =>
       '& > *': {
         margin: theme.spacing(1)
       }
+    },
+    error: {
+      fontSize: 'smaller',
+      color: theme.palette.error.main
     }
   })
 );
@@ -77,8 +81,6 @@ function FormattedPhone(props: WithComposeProps) {
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // tslint:disable-next-line: no-console
-    console.log(event.target.value);
     setValues({
       ...values,
       [event.target.name]: event.target.value
@@ -104,6 +106,7 @@ function FormattedPhone(props: WithComposeProps) {
           // tslint:disable-next-line: no-any
           inputComponent={TextMaskCustom as any}
         />
+        {phoneError && (<div className={classes.error}>{phoneError}</div>)}
       </FormControl>
     </div>
   );

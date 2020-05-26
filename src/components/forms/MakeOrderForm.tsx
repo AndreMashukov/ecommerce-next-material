@@ -34,15 +34,6 @@ const MakeOrderForm = (props: WithComposeProps) => {
           />
         </Grid>
         <Grid item>
-          {/* <TextField
-            variant="outlined"
-            placeholder="Контактный телефон"
-            value={phone.value}
-            error={!!phoneError}
-            helperText={phoneError}
-            onChange={onPhoneChange}
-            margin="normal"
-          /> */}
           <FormattedPhone />
         </Grid>
       </Grid>
