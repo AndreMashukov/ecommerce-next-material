@@ -7,6 +7,10 @@ export interface MakeOrderFormProps {
   phone: TextField;
   phoneError: (phone: TextField) => boolean;
   onPhoneChange: (event: ChangeEventType) => Event;
+  lastName: TextField;
+  firstName: TextField;
+  lastNameError: (lastName: TextField) => boolean;
+  firstNameError: (firstName: TextField) => boolean;
   // tslint:disable-next-line: no-any
   handleSubmit: any;
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import { compose } from 'recompose';
 import { TextField, Grid } from '@material-ui/core';
 import withEmailError from './enhancers/withEmailError';
+import withNameError from './enhancers/withNameError';
 import withTextFieldState from './enhancers/withTextFieldState';
 import { MakeOrderFormProps } from './models/MakeOrderForm';
 import withPhoneError from './enhancers/withPhoneError';
@@ -14,13 +15,40 @@ const MakeOrderForm = (props: WithComposeProps) => {
   const {
     email,
     emailError,
-    onEmailchange
-    // phone,
-    // phoneError,
-    // onPhoneChange
+    onEmailchange,
+    lastName,
+    firstName,
+    firstNameError,
+    lastNameError,
+    onLastNameChange,
+    onFirstNameChange
   } = props;
   return (
     <div>
+      <Grid container spacing={3} justify="center">
+        <Grid item>
+          <TextField
+            variant="outlined"
+            placeholder="Фамилия"
+            value={lastName.value}
+            error={!!lastNameError}
+            helperText={lastNameError}
+            onChange={onLastNameChange}
+            margin="normal"
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            variant="outlined"
+            placeholder="Имя"
+            value={firstName.value}
+            error={!!firstNameError}
+            helperText={firstNameError}
+            onChange={onFirstNameChange}
+            margin="normal"
+          />
+        </Grid>
+      </Grid>
       <Grid container spacing={3} justify="center">
         <Grid item>
           <TextField
@@ -44,5 +72,6 @@ const MakeOrderForm = (props: WithComposeProps) => {
 export default compose(
   withTextFieldState,
   withEmailError,
-  withPhoneError
+  withPhoneError,
+  withNameError
 )(MakeOrderForm);
