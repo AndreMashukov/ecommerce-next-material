@@ -11,6 +11,5 @@ export interface MakeOrderFormProps {
   firstName: TextField;
   lastNameError: (lastName: TextField) => boolean;
   firstNameError: (firstName: TextField) => boolean;
-  // tslint:disable-next-line: no-any
-  handleSubmit: any;
+  handleSubmit: (props: Partial<MakeOrderFormProps>) => void;
 }

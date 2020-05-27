@@ -15,7 +15,8 @@ import {
   withEmailError,
   withNameError,
   withTextFieldState,
-  withPhoneError
+  withPhoneError,
+  withSubmitHandler
 } from '../forms/enhancers';
 import { MakeOrderFormProps } from '../forms/models/MakeOrderForm';
 
@@ -39,6 +40,7 @@ const useStyles = makeStyles({
 });
 
 const OrderMakeList: React.FC = (props: WithComposeProps) => {
+  const { handleSubmit } = props;
   const classes = useStyles();
   const { getItems } = useContext(CartContext);
   const listVariant = 'h6';
@@ -116,6 +118,7 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
         <Button
           variant="outlined"
           style={{ marginBottom: '15px' }}
+          onClick={handleSubmit}
         >
           ОФОРМИТЬ
         </Button>
@@ -155,5 +158,6 @@ export const OrderMakeListComposed = compose(
   withTextFieldState,
   withEmailError,
   withPhoneError,
-  withNameError
+  withNameError,
+  withSubmitHandler
 )(OrderMakeList);

@@ -2,7 +2,7 @@ import { withHandlers } from 'recompose';
 import { MakeOrderFormProps } from '../models';
 
 const handleSubmitForm = ({ emailError, email, phoneError, phone } : Partial<MakeOrderFormProps>) => {
-  if (emailError || phoneError) {
+  if (emailError || phoneError ) {
     return;
   }
 
@@ -15,6 +15,6 @@ const handleSubmitForm = ({ emailError, email, phoneError, phone } : Partial<Mak
   console.log(data);
 };
 
-export default withHandlers({
+export const withSubmitHandler = withHandlers({
   handleSubmit: (props) => () => handleSubmitForm(props)
 });
