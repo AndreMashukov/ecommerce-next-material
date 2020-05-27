@@ -21,7 +21,10 @@ const MakeOrderForm = (props: WithComposeProps) => {
     firstNameError,
     lastNameError,
     onLastNameChange,
-    onFirstNameChange
+    onFirstNameChange,
+    phone,
+    phoneError,
+    onPhoneChange
   } = props;
   return (
     <div>
@@ -62,7 +65,11 @@ const MakeOrderForm = (props: WithComposeProps) => {
           />
         </Grid>
         <Grid item>
-          <FormattedPhone />
+          <FormattedPhone
+            phone={phone}
+            phoneError={phoneError}
+            onPhoneChange={onPhoneChange}
+          />
         </Grid>
       </Grid>
     </div>

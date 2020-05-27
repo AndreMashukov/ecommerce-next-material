@@ -5,12 +5,6 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import { MakeOrderFormProps } from '../models/MakeOrderForm';
-import withPhoneError from '../enhancers/withPhoneError';
-import withTextFieldState from '../enhancers/withTextFieldState';
-import { compose } from 'recompose';
-
-// tslint:disable-next-line: no-any
-type WithComposeProps = Partial<MakeOrderFormProps> & any;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -69,7 +63,7 @@ interface State {
   textmask: string;
 }
 
-function FormattedPhone(props: WithComposeProps) {
+function FormattedPhone(props: Partial<MakeOrderFormProps>) {
   const {
     phone,
     phoneError,
@@ -92,7 +86,7 @@ function FormattedPhone(props: WithComposeProps) {
 
   return (
     <div className={classes.root}>
-      <FormControl error={phoneError}>
+      <FormControl error={phoneError ? true : false}>
         <InputLabel htmlFor="formatted-text-mask-input">
           Контактный телефон
         </InputLabel>
@@ -100,7 +94,7 @@ function FormattedPhone(props: WithComposeProps) {
           placeholder="Контактный телефон"
           value={values.textmask}
           onChange={handleChange}
-          error={phoneError}
+          error={phoneError ? true : false}
           name="textmask"
           id="formatted-text-mask-input"
           // tslint:disable-next-line: no-any
@@ -112,4 +106,4 @@ function FormattedPhone(props: WithComposeProps) {
   );
 }
 
-export default compose(withTextFieldState, withPhoneError)(FormattedPhone);
+export default FormattedPhone;
