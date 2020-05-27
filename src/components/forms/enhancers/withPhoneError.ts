@@ -12,8 +12,6 @@ const getPhoneError = (phone: TextField) => {
   return !isValidPhone ? 'Неверный формат телефона.' : '';
 };
 
-const withPhoneError = withProps((ownerProps: Partial<MakeOrderFormProps>) => ({
+export const  withPhoneError = withProps((ownerProps: Partial<MakeOrderFormProps>) => ({
   phoneError: getPhoneError(ownerProps.phone)
 }));
-
-export default withPhoneError;

@@ -12,8 +12,7 @@ const getEmailError = (email: TextField) => {
   return !isValidEmail ? 'Неверный E-Mail.' : '';
 };
 
-const withEmailError = withProps((ownerProps: Partial<MakeOrderFormProps>) => ({
+export const withEmailError = withProps((ownerProps: Partial<MakeOrderFormProps>) => ({
   emailError: getEmailError(ownerProps.email)
 }));
 
-export default withEmailError;

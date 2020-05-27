@@ -1,11 +1,13 @@
 import React from 'react';
 import { compose } from 'recompose';
 import { TextField, Grid } from '@material-ui/core';
-import withEmailError from './enhancers/withEmailError';
-import withNameError from './enhancers/withNameError';
-import withTextFieldState from './enhancers/withTextFieldState';
+import {
+  withEmailError,
+  withNameError,
+  withTextFieldState,
+  withPhoneError
+} from './enhancers';
 import { MakeOrderFormProps } from './models/MakeOrderForm';
-import withPhoneError from './enhancers/withPhoneError';
 import FormattedPhone from './shared/FormattedPhone';
 
 // tslint:disable-next-line: no-any

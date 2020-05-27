@@ -36,11 +36,10 @@ const onFirstNameChange = () => (event: ChangeEventType) => ({
   }
 });
 
-const withTextFieldState = withStateHandlers(initialState, {
+export const withTextFieldState = withStateHandlers(initialState, {
   onEmailchange,
   onPhoneChange,
   onLastNameChange,
   onFirstNameChange
 });
 
-export default withTextFieldState;

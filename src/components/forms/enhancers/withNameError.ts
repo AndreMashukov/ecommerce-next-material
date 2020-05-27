@@ -12,9 +12,8 @@ const getNameError = (name: TextField) => {
   return !isValidName ? 'Неверный формат имя/фамилии.' : '';
 };
 
-const withNameError = withProps((ownerProps: Partial<MakeOrderFormProps>) => ({
+export const withNameError = withProps((ownerProps: Partial<MakeOrderFormProps>) => ({
   lastNameError: getNameError(ownerProps.lastName),
   firstNameError: getNameError(ownerProps.firstName)
 }));
 
-export default withNameError;
