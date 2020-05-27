@@ -22,7 +22,6 @@ import { MakeOrderFormProps } from '../forms/models/MakeOrderForm';
 // tslint:disable-next-line: no-any
 type WithComposeProps = MakeOrderFormProps & any;
 
-
 const useStyles = makeStyles({
   root: {
     backgroundColor: theme.palette.primary.main
@@ -66,7 +65,7 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
               </Typography>
             </div>
             <div>
-              <MakeOrderForm{...props} />
+              <MakeOrderForm {...props} />
             </div>
           </Paper>
         </Grid>
@@ -113,8 +112,11 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
           </Grid>
         </Grid>
       </Grid>
-      <Grid container justify="center" style={{padding: '10px'}}>
-        <Button variant="outlined" style={{ marginBottom: '15px' }}>
+      <Grid container justify="center" style={{ padding: '10px' }}>
+        <Button
+          variant="outlined"
+          style={{ marginBottom: '15px' }}
+        >
           ОФОРМИТЬ
         </Button>
       </Grid>
@@ -155,4 +157,3 @@ export const OrderMakeListComposed = compose(
   withPhoneError,
   withNameError
 )(OrderMakeList);
-
