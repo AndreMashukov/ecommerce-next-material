@@ -1,19 +1,12 @@
 import React from 'react';
-import { compose } from 'recompose';
 import { TextField, Grid } from '@material-ui/core';
-import {
-  withEmailError,
-  withNameError,
-  withTextFieldState,
-  withPhoneError
-} from './enhancers';
 import { MakeOrderFormProps } from './models/MakeOrderForm';
 import FormattedPhone from './shared/FormattedPhone';
 
 // tslint:disable-next-line: no-any
 type WithComposeProps = MakeOrderFormProps & any;
 
-const MakeOrderForm = (props: WithComposeProps) => {
+export const MakeOrderForm = (props: WithComposeProps) => {
   const {
     email,
     emailError,
@@ -78,9 +71,3 @@ const MakeOrderForm = (props: WithComposeProps) => {
   );
 };
 
-export default compose(
-  withTextFieldState,
-  withEmailError,
-  withPhoneError,
-  withNameError
-)(MakeOrderForm);

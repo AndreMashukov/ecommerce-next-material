@@ -9,7 +9,19 @@ import theme from '../../theme/theme';
 import { CartItem } from '../../models';
 import clsx from 'clsx';
 import { getCartTotal } from '../../utils/Cart';
-import MakeOrderFormComposed  from '../forms/MakeOrderForm';
+import { MakeOrderForm } from '../forms';
+import { compose } from 'recompose';
+import {
+  withEmailError,
+  withNameError,
+  withTextFieldState,
+  withPhoneError
+} from '../forms/enhancers';
+import { MakeOrderFormProps } from '../forms/models/MakeOrderForm';
+
+// tslint:disable-next-line: no-any
+type WithComposeProps = MakeOrderFormProps & any;
+
 
 const useStyles = makeStyles({
   root: {
@@ -27,7 +39,7 @@ const useStyles = makeStyles({
   }
 });
 
-export const OrderMakeList: React.FC = () => {
+const OrderMakeList: React.FC = (props: WithComposeProps) => {
   const classes = useStyles();
   const { getItems } = useContext(CartContext);
   const listVariant = 'h6';
@@ -54,7 +66,7 @@ export const OrderMakeList: React.FC = () => {
               </Typography>
             </div>
             <div>
-              <MakeOrderFormComposed />
+              <MakeOrderForm{...props} />
             </div>
           </Paper>
         </Grid>
@@ -136,3 +148,11 @@ const OrderMakeItem = (item: CartItem) => {
     </Grid>
   );
 };
+
+export const OrderMakeListComposed = compose(
+  withTextFieldState,
+  withEmailError,
+  withPhoneError,
+  withNameError
+)(OrderMakeList);
+

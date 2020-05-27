@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import { NextPageContext } from 'next';
 import { handleSession } from '../../utils/handleSession';
-import { OrderMakeList } from '../../components';
+import { OrderMakeListComposed } from '../../components';
 import SessionContext from '../../store/SessionContext/SessionContext';
 
 interface Props {
@@ -52,7 +52,7 @@ const OrderMakePage = (props: Props) => {
           </Typography>
         </Grid>
       </div>
-      <OrderMakeList />
+      <OrderMakeListComposed />
     </>
   );
 };
