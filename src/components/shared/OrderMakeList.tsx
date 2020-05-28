@@ -79,7 +79,7 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
         direction="row"
         alignItems="flex-start"
       >
-        <Grid xs={3} item>
+        <Grid xs={12} sm={6} md={4} item>
           <Grid container justify="space-between">
             <Typography variant={listVariant} color="textPrimary">
               Стоимость товаров
