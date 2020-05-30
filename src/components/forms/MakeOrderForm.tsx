@@ -34,8 +34,13 @@ export const MakeOrderForm = (props: WithComposeProps) => {
     onFirstNameChange,
     phone,
     phoneError,
-    onPhoneChange
+    onPhoneChange,
+    region,
+    onRegionChange,
+    city,
+    address
   } = props;
+
   return (
     <div>
       <Grid container spacing={3} justify="center">
@@ -86,19 +91,24 @@ export const MakeOrderForm = (props: WithComposeProps) => {
             Местоположение доставки
           </Typography>
         </Grid>
-        <Grid container direction="column" spacing={2} justify="center" alignItems="center">
+        <Grid
+          container
+          direction="column"
+          spacing={2}
+          justify="center"
+          alignItems="center"
+        >
           <Grid item>
             <FormControl variant="outlined">
               <InputLabel id="demo-simple-select-outlined-label">
                 Регион доставки
               </InputLabel>
               <Select
-                style={{width: '200px'}}
-                defaultValue={10}
+                style={{ width: '200px' }}
+                value={region.value}
+                onChange={onRegionChange}
                 labelId="demo-simple-select-outlined-label"
                 id="demo-simple-select-outlined"
-                // value={age}
-                // onChange={handleChange}
                 label="Регион доставки"
               >
                 <MenuItem value={10}>Москва</MenuItem>
@@ -107,18 +117,30 @@ export const MakeOrderForm = (props: WithComposeProps) => {
               </Select>
             </FormControl>
           </Grid>
+          {region.value > 10 && (
+            <Grid item>
+              <TextField
+                style={{ width: '300px' }}
+                variant="outlined"
+                value={city.value}
+                placeholder="Название населенного пункта"
+                margin="normal"
+              />
+            </Grid>
+          )}
           <Grid item>
             <TextField
-              style={{width: '300px'}}
+              style={{ width: '300px' }}
               variant="outlined"
-              placeholder="Название населенного пункта"
+              value={address.value}
+              placeholder="Адрес доставки"
               margin="normal"
             />
-        </Grid>
+          </Grid>
         </Grid>
         <Grid container className={classes.border}>
           <Typography variant="caption" style={{ fontWeight: 'bold' }}>
-            Адрес доставки
+            Служба доставки
           </Typography>
         </Grid>
       </Grid>

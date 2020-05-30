@@ -11,5 +11,9 @@ export interface MakeOrderFormProps {
   firstName: TextField;
   lastNameError: (lastName: TextField) => boolean;
   firstNameError: (firstName: TextField) => boolean;
+  region: TextField;
+  onRegionChange: (event: ChangeEventType) => Event;
+  city: TextField;
+  address: TextField;
   handleSubmit: (props: Partial<MakeOrderFormProps>) => void;
 }

@@ -5,7 +5,10 @@ const initialState = {
   email: { value: '', isDirty: false },
   phone: { value: '', isDirty: false },
   lastName: { value: '', isDirty: false },
-  firstName: { value: '', isDirty: false }
+  firstName: { value: '', isDirty: false },
+  region: { value: '10', isDirty: false },
+  city: { value: '', isDirty: false },
+  address: { value: '', isDirty: false }
 };
 
 const onEmailchange = () => (event: ChangeEventType) => ({
@@ -36,10 +39,18 @@ const onFirstNameChange = () => (event: ChangeEventType) => ({
   }
 });
 
+const onRegionChange = () => (event: ChangeEventType) => ({
+  region: {
+    value: event.target.value,
+    isDirty: true
+  }
+});
+
 export const withTextFieldState = withStateHandlers(initialState, {
   onEmailchange,
   onPhoneChange,
   onLastNameChange,
-  onFirstNameChange
+  onFirstNameChange,
+  onRegionChange
 });
 
