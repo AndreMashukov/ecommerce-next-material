@@ -22,6 +22,7 @@ export const CreatePasswordrForm = (props: WithComposeProps) => {
           variant="outlined"
           placeholder="Пароль"
           value={password.value}
+          type="password"
           error={!!passwordError}
           helperText={passwordError}
           onChange={onPasswordChange}
@@ -32,6 +33,7 @@ export const CreatePasswordrForm = (props: WithComposeProps) => {
           placeholder="Подтверждение пароля"
           value={confirmPassword.value}
           error={!!confirmPasswordError}
+          type="password"
           helperText={confirmPasswordError}
           onChange={onConfirmPasswordChange}
           margin="normal"

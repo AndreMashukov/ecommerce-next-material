@@ -45,13 +45,13 @@ const useStyles = makeStyles({
 
 const OrderMakeList: React.FC = (props: WithComposeProps) => {
   const [passwDlgOpen, setPasswDlgOpen] = useState(false);
-  const { handleSubmit } = props;
+  const { makeOrderSubmit } = props;
   const classes = useStyles();
   const { getItems } = useContext(CartContext);
   const listVariant = 'h6';
   const handleOrderMake = () => {
     setPasswDlgOpen(true);
-    if (handleSubmit()) {
+    if (makeOrderSubmit()) {
       setPasswDlgOpen(true);
     } else {
       // tslint:disable-next-line: no-console
