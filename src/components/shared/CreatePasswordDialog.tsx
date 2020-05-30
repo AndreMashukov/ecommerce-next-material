@@ -9,19 +9,14 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 interface Props {
   open: boolean;
-  // tslint:disable-next-line: no-any
-  setOpen: any;
+  setOpen: (status: boolean) => void;
 }
 
 export default function CreatePasswordDialog(props: Props) {
-  const [open, setOpen] = React.useState(false);
-  React.useEffect(() => {
-    setOpen(props.open);
-  }, [props]);
+  const  { open, setOpen } = props;
 
   const handleClose = () => {
     setOpen(false);
-    props.setOpen(false);
   };
 
   return (
