@@ -14,6 +14,8 @@ export interface MakeOrderFormProps {
   region: TextField;
   onRegionChange: (event: ChangeEventType) => Event;
   city: TextField;
+  onCityChange: (event: ChangeEventType) => Event;
   address: TextField;
-  handleSubmit: (props: Partial<MakeOrderFormProps>) => void;
+  onAddressChange: (event: ChangeEventType) => Event;
+  handleSubmit: (props: Partial<MakeOrderFormProps>) => boolean;
 }

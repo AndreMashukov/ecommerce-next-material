@@ -20,6 +20,7 @@ import {
 } from '../forms/enhancers';
 import { MakeOrderFormProps } from '../forms/models/MakeOrderForm';
 
+
 // tslint:disable-next-line: no-any
 type WithComposeProps = MakeOrderFormProps & any;
 
@@ -44,6 +45,15 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
   const classes = useStyles();
   const { getItems } = useContext(CartContext);
   const listVariant = 'h6';
+  const handleOrderMake = () => {
+    if (handleSubmit()) {
+      // tslint:disable-next-line: no-console
+      console.log('success');
+    } else {
+      // tslint:disable-next-line: no-console
+      console.log('check fields');
+    }
+  };
 
   return (
     <div className={classes.root}>
@@ -118,7 +128,7 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
         <Button
           variant="outlined"
           style={{ marginBottom: '15px' }}
-          onClick={handleSubmit}
+          onClick={handleOrderMake}
         >
           ОФОРМИТЬ
         </Button>

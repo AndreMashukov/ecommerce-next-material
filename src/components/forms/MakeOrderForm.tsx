@@ -38,7 +38,9 @@ export const MakeOrderForm = (props: WithComposeProps) => {
     region,
     onRegionChange,
     city,
-    address
+    onCityChange,
+    address,
+    onAddressChange,
   } = props;
 
   return (
@@ -123,6 +125,7 @@ export const MakeOrderForm = (props: WithComposeProps) => {
                 style={{ width: '300px' }}
                 variant="outlined"
                 value={city.value}
+                onChange={onCityChange}
                 placeholder="Название населенного пункта"
                 margin="normal"
               />
@@ -133,6 +136,7 @@ export const MakeOrderForm = (props: WithComposeProps) => {
               style={{ width: '300px' }}
               variant="outlined"
               value={address.value}
+              onChange={onAddressChange}
               placeholder="Адрес доставки"
               margin="normal"
             />

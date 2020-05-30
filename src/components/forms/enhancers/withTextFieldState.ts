@@ -46,11 +46,27 @@ const onRegionChange = () => (event: ChangeEventType) => ({
   }
 });
 
+const onCityChange = () => (event: ChangeEventType) => ({
+  city: {
+    value: event.target.value,
+    isDirty: true
+  }
+});
+
+const onAddressChange = () => (event: ChangeEventType) => ({
+  address: {
+    value: event.target.value,
+    isDirty: true
+  }
+});
+
 export const withTextFieldState = withStateHandlers(initialState, {
   onEmailchange,
   onPhoneChange,
   onLastNameChange,
   onFirstNameChange,
-  onRegionChange
+  onRegionChange,
+  onCityChange,
+  onAddressChange
 });
 
