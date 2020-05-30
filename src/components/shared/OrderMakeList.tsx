@@ -136,7 +136,7 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
           </Button>
         </Grid>
       </div>
-      <CreatePasswordDialog _open={passwDlgOpen} />
+      <CreatePasswordDialog open={passwDlgOpen} setOpen={setPasswDlgOpen}/>
     </>
   );
 };

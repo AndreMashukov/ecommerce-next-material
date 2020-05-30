@@ -8,26 +8,29 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 interface Props {
-  _open: boolean;
+  open: boolean;
+  // tslint:disable-next-line: no-any
+  setOpen: any;
 }
 
 export default function CreatePasswordDialog(props: Props) {
-  const [open, setOpen] = React.useState(props._open);
-  // tslint:disable-next-line: no-console
-  console.log(props._open);
+  const [open, setOpen] = React.useState(false);
+  React.useEffect(() => {
+    setOpen(props.open);
+  }, [props]);
 
   const handleClose = () => {
     setOpen(false);
+    props.setOpen(false);
   };
 
   return (
     <div>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+        <DialogTitle id="form-dialog-title">Создайте Пароль</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To subscribe to this website, please enter your email address here. We will send updates
-            occasionally.
+            Для отслеживания Ваших заказов будет создан Ваш персональный раздел.
           </DialogContentText>
           <TextField
             autoFocus
