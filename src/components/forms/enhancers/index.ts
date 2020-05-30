@@ -6,3 +6,4 @@ export * from './withMakeOrderSubmit';
 export * from './withCreatePasswordState';
 export * from './withPasswordError';
 export * from './withConfirmPasswordError';
+export * from './withCreatePasswordSubmit';

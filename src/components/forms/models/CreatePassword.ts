@@ -7,4 +7,7 @@ export interface CreatePasswordFormProps {
   confirmPassword: TextField;
   confirmPasswordError: (confirmPassword: TextField) => boolean;
   onConfirmPasswordChange: (event: ChangeEventType) => Event;
+  createPasswordSubmit: (
+    props: Partial<CreatePasswordFormProps>
+  ) => boolean | Partial<CreatePasswordFormProps>;
 }

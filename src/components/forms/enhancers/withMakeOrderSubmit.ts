@@ -14,14 +14,14 @@ const handleSubmitForm = ({
   city,
   address
 }: Partial<MakeOrderFormProps>) => {
-  if (!lastName.isDirty
-    || lastNameError
-    || !firstName
-    || firstNameError
-    || !email.isDirty
-    || emailError
-    || !phone.isDirty
-    || phoneError) {
+  if ((!lastName.isDirty
+    || lastNameError)
+    || (!firstName.isDirty
+    || firstNameError)
+    || (!email.isDirty
+    || emailError)
+    || (!phone.isDirty
+    || phoneError)) {
     return false;
   }
 
@@ -35,7 +35,7 @@ const handleSubmitForm = ({
 
   // tslint:disable-next-line: no-console
   console.log(data);
-  return true;
+  return data;
 };
 
 export const withMakeOrderSubmit = withHandlers({

@@ -24,11 +24,19 @@ export default function CreatePasswordDialog(
     onPasswordChange,
     confirmPassword,
     confirmPasswordError,
-    onConfirmPasswordChange
+    onConfirmPasswordChange,
+    createPasswordSubmit
   } = props;
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleSubmit = () => {
+    const passwords = createPasswordSubmit(props);
+    if (passwords) {
+      setOpen(false);
+    }
   };
 
   return (
@@ -58,7 +66,7 @@ export default function CreatePasswordDialog(
           <Button variant="outlined" onClick={handleClose}>
             Отменить
           </Button>
-          <Button variant="outlined" onClick={handleClose}>
+          <Button variant="outlined" onClick={handleSubmit}>
             Продолжить
           </Button>
         </DialogActions>

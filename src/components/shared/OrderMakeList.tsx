@@ -19,7 +19,8 @@ import {
   withMakeOrderSubmit,
   withCreatePasswordState,
   withPasswordError,
-  withConfirmPasswordError
+  withConfirmPasswordError,
+  withCreatePasswordSubmit
 } from '../forms/enhancers';
 import { MakeOrderFormProps, CreatePasswordFormProps } from '../forms/models';
 import CreatePasswordDialog from './CreatePasswordDialog';
@@ -50,7 +51,6 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
   const { getItems } = useContext(CartContext);
   const listVariant = 'h6';
   const handleOrderMake = () => {
-    setPasswDlgOpen(true);
     if (makeOrderSubmit()) {
       setPasswDlgOpen(true);
     } else {
@@ -179,5 +179,6 @@ export const OrderMakeListComposed = compose(
   withMakeOrderSubmit,
   withCreatePasswordState,
   withPasswordError,
-  withConfirmPasswordError
+  withConfirmPasswordError,
+  withCreatePasswordSubmit
 )(OrderMakeList);
