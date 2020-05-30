@@ -38,6 +38,6 @@ const handleSubmitForm = ({
   return true;
 };
 
-export const withSubmitHandler = withHandlers({
+export const withMakeOrderSubmit = withHandlers({
   handleSubmit: (props) => () => handleSubmitForm(props)
 });

@@ -40,7 +40,7 @@ export const MakeOrderForm = (props: WithComposeProps) => {
     city,
     onCityChange,
     address,
-    onAddressChange,
+    onAddressChange
   } = props;
 
   return (

@@ -60,7 +60,7 @@ const onAddressChange = () => (event: ChangeEventType) => ({
   }
 });
 
-export const withTextFieldState = withStateHandlers(initialState, {
+export const withMakeOrderdState = withStateHandlers(initialState, {
   onEmailchange,
   onPhoneChange,
   onLastNameChange,

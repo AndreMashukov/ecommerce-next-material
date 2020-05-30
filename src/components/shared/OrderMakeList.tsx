@@ -14,15 +14,18 @@ import { compose } from 'recompose';
 import {
   withEmailError,
   withNameError,
-  withTextFieldState,
+  withMakeOrderdState,
   withPhoneError,
-  withSubmitHandler
+  withMakeOrderSubmit,
+  withCreatePasswordState,
+  withPasswordError,
+  withConfirmPasswordError
 } from '../forms/enhancers';
-import { MakeOrderFormProps } from '../forms/models/MakeOrderForm';
+import { MakeOrderFormProps, CreatePasswordFormProps } from '../forms/models';
 import CreatePasswordDialog from './CreatePasswordDialog';
 
 // tslint:disable-next-line: no-any
-type WithComposeProps = MakeOrderFormProps & any;
+type WithComposeProps = MakeOrderFormProps & CreatePasswordFormProps & any;
 
 const useStyles = makeStyles({
   root: {
@@ -136,7 +139,7 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
           </Button>
         </Grid>
       </div>
-      <CreatePasswordDialog open={passwDlgOpen} setOpen={setPasswDlgOpen}/>
+      <CreatePasswordDialog open={passwDlgOpen} setOpen={setPasswDlgOpen} {...props}/>
     </>
   );
 };
@@ -169,9 +172,12 @@ const OrderMakeItem = (item: CartItem) => {
 };
 
 export const OrderMakeListComposed = compose(
-  withTextFieldState,
+  withMakeOrderdState,
   withEmailError,
   withPhoneError,
   withNameError,
-  withSubmitHandler
+  withMakeOrderSubmit,
+  withCreatePasswordState,
+  withPasswordError,
+  withConfirmPasswordError
 )(OrderMakeList);
