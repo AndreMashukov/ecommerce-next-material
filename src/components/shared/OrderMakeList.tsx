@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import CartContext from '../../store/CartContext/CartContext';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -19,7 +19,7 @@ import {
   withSubmitHandler
 } from '../forms/enhancers';
 import { MakeOrderFormProps } from '../forms/models/MakeOrderForm';
-
+import CreatePasswordDialog from './CreatePasswordDialog';
 
 // tslint:disable-next-line: no-any
 type WithComposeProps = MakeOrderFormProps & any;
@@ -41,14 +41,15 @@ const useStyles = makeStyles({
 });
 
 const OrderMakeList: React.FC = (props: WithComposeProps) => {
+  const [passwDlgOpen, setPasswDlgOpen] = useState(false);
   const { handleSubmit } = props;
   const classes = useStyles();
   const { getItems } = useContext(CartContext);
   const listVariant = 'h6';
   const handleOrderMake = () => {
+    setPasswDlgOpen(true);
     if (handleSubmit()) {
-      // tslint:disable-next-line: no-console
-      console.log('success');
+      setPasswDlgOpen(true);
     } else {
       // tslint:disable-next-line: no-console
       console.log('check fields');
@@ -56,84 +57,87 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
   };
 
   return (
-    <div className={classes.root}>
-      <Grid container justify="center">
-        <Grid item className={classes.grid} xs={10}>
-          <Paper className={classes.paper}>
-            {getItems().map((item, index) => (
-              <div
-                key={`OrderMakeList_${item.productId}`}
-                className={clsx(index !== 0 && classes.border)}
-              >
-                <OrderMakeItem {...item} />
+    <>
+      <div className={classes.root}>
+        <Grid container justify="center">
+          <Grid item className={classes.grid} xs={10}>
+            <Paper className={classes.paper}>
+              {getItems().map((item, index) => (
+                <div
+                  key={`OrderMakeList_${item.productId}`}
+                  className={clsx(index !== 0 && classes.border)}
+                >
+                  <OrderMakeItem {...item} />
+                </div>
+              ))}
+              <div>
+                <Typography variant="caption">
+                  Пожалуйста, внимательно проверяйте Ваши персональные данные
+                  при регистрации и оформлении заказа. Неправильно указанный
+                  номер телефона, неточный или неполный адрес могут привести к
+                  дополнительной задержке.
+                </Typography>
               </div>
-            ))}
-            <div>
-              <Typography variant="caption">
-                Пожалуйста, внимательно проверяйте Ваши персональные данные при
-                регистрации и оформлении заказа. Неправильно указанный номер
-                телефона, неточный или неполный адрес могут привести к
-                дополнительной задержке.
-              </Typography>
-            </div>
-            <div>
-              <MakeOrderForm {...props} />
-            </div>
-          </Paper>
-        </Grid>
-      </Grid>
-      <Grid
-        container
-        justify="center"
-        style={{ padding: '20px' }}
-        direction="row"
-        alignItems="flex-start"
-      >
-        <Grid xs={12} sm={6} md={4} item>
-          <Grid container justify="space-between">
-            <Typography variant={listVariant} color="textPrimary">
-              Стоимость товаров
-            </Typography>
-            <Typography variant={listVariant} color="textPrimary">
-              {getCartTotal(getItems())} ₽
-            </Typography>
-          </Grid>
-          <Grid container justify="space-between">
-            <Typography variant={listVariant} color="textPrimary">
-              Доставка
-            </Typography>
-            <Typography variant={listVariant} color="textPrimary">
-              0 ₽
-            </Typography>
-          </Grid>
-          <Grid container justify="space-between">
-            <Typography
-              variant={listVariant}
-              style={{ fontWeight: 'bolder' }}
-              color="textPrimary"
-            >
-              К оплате
-            </Typography>
-            <Typography
-              variant={listVariant}
-              style={{ fontWeight: 'bolder' }}
-              color="textPrimary"
-            >
-              {getCartTotal(getItems())} ₽
-            </Typography>
+              <div>
+                <MakeOrderForm {...props} />
+              </div>
+            </Paper>
           </Grid>
         </Grid>
-      </Grid>
-      <Grid container justify="center" style={{ padding: '10px' }}>
-        <Button
-          variant="outlined"
-          style={{ marginBottom: '15px' }}
-          onClick={handleOrderMake}
+        <Grid
+          container
+          justify="center"
+          style={{ padding: '20px' }}
+          direction="row"
+          alignItems="flex-start"
         >
-          ОФОРМИТЬ
-        </Button>
-      </Grid>
-    </div>
+          <Grid xs={12} sm={6} md={4} item>
+            <Grid container justify="space-between">
+              <Typography variant={listVariant} color="textPrimary">
+                Стоимость товаров
+              </Typography>
+              <Typography variant={listVariant} color="textPrimary">
+                {getCartTotal(getItems())} ₽
+              </Typography>
+            </Grid>
+            <Grid container justify="space-between">
+              <Typography variant={listVariant} color="textPrimary">
+                Доставка
+              </Typography>
+              <Typography variant={listVariant} color="textPrimary">
+                0 ₽
+              </Typography>
+            </Grid>
+            <Grid container justify="space-between">
+              <Typography
+                variant={listVariant}
+                style={{ fontWeight: 'bolder' }}
+                color="textPrimary"
+              >
+                К оплате
+              </Typography>
+              <Typography
+                variant={listVariant}
+                style={{ fontWeight: 'bolder' }}
+                color="textPrimary"
+              >
+                {getCartTotal(getItems())} ₽
+              </Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid container justify="center" style={{ padding: '10px' }}>
+          <Button
+            variant="outlined"
+            style={{ marginBottom: '15px' }}
+            onClick={handleOrderMake}
+          >
+            ОФОРМИТЬ
+          </Button>
+        </Grid>
+      </div>
+      <CreatePasswordDialog _open={passwDlgOpen} />
+    </>
   );
 };
 
