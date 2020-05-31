@@ -14,14 +14,17 @@ const handleSubmitForm = ({
   city,
   address
 }: Partial<MakeOrderFormProps>) => {
-  if ((!lastName.isDirty
-    || lastNameError)
-    || (!firstName.isDirty
-    || firstNameError)
-    || (!email.isDirty
-    || emailError)
-    || (!phone.isDirty
-    || phoneError)) {
+  if (lastNameError
+    || firstNameError
+    || emailError
+    || phoneError) {
+    return false;
+  }
+
+  if (!lastName.isDirty
+    || !firstName.isDirty
+    || !email.isDirty
+    || !phone.isDirty) {
     return false;
   }
 
