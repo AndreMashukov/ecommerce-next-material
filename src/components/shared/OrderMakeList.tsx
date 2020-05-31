@@ -51,7 +51,8 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
   const { getItems } = useContext(CartContext);
   const listVariant = 'h6';
   const handleOrderMake = () => {
-    if (makeOrderSubmit()) {
+    const orderData = makeOrderSubmit();
+    if (orderData) {
       setPasswDlgOpen(true);
     } else {
       // tslint:disable-next-line: no-console
