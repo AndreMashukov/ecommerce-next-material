@@ -36,6 +36,8 @@ export default function CreatePasswordDialog(
     const passwords = createPasswordSubmit(props);
     if (passwords) {
       setOpen(false);
+    } else {
+      password.isDirty = true;
     }
   };
 
@@ -43,13 +45,14 @@ export default function CreatePasswordDialog(
     <div>
       <Dialog
         open={open}
+        maxWidth = {'xs'}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Создайте Пароль</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Для отслеживания Ваших заказов будет создан Ваш персональный раздел.
+            Для доступа в Ваш персональный раздел.
           </DialogContentText>
           <CreatePasswordrForm
             {...{
