@@ -33,7 +33,7 @@ export default function CreatePasswordDialog(
     password.isDirty = false;
     confirmPassword.value = '';
     confirmPassword.isDirty = false;
-  }
+  };
 
   const handleClose = () => {
     setOpen(false);
@@ -70,8 +70,7 @@ export default function CreatePasswordDialog(
               onPasswordChange,
               confirmPassword,
               confirmPasswordError,
-              onConfirmPasswordChange,
-              useForceUpdate
+              onConfirmPasswordChange
             }}
           />
         </DialogContent>
