@@ -8,11 +8,13 @@ import { OrderMakeListComposed } from '../../components';
 import SessionContext from '../../store/SessionContext/SessionContext';
 
 interface Props {
-  _sessionId: string;
+  session: {
+    _sessionId: string;
+  };
 }
 
 const OrderMakePage = (props: Props) => {
-  const { _sessionId } = props;
+  const { _sessionId } = props.session;
   const navColor = 'textSecondary';
   const { setSessionId } = useContext(SessionContext);
 
@@ -58,9 +60,9 @@ const OrderMakePage = (props: Props) => {
 };
 
 OrderMakePage.getInitialProps = async (ctx: NextPageContext) => {
-  const sessionId = await handleSession(ctx);
+  const session = await handleSession(ctx);
   return {
-    _sessionId: sessionId._sessionId
+    session
   };
 };
 
