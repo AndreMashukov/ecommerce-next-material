@@ -27,7 +27,8 @@ export default function CreatePasswordDialog(
     onConfirmPasswordChange,
     clearPassword,
     clearConfirmPassword,
-    createPasswordSubmit
+    createPasswordSubmit,
+    handlePasswordSuccess
   } = props;
 
   const cleanPassword = () => {
@@ -45,6 +46,7 @@ export default function CreatePasswordDialog(
     if (passwords) {
       setOpen(false);
       cleanPassword();
+      handlePasswordSuccess(password.value);
     }
   };
 

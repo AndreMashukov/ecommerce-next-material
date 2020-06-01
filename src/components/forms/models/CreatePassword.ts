@@ -12,4 +12,5 @@ export interface CreatePasswordFormProps {
   createPasswordSubmit: (
     props: Partial<CreatePasswordFormProps>
   ) => boolean | Partial<CreatePasswordFormProps>;
+  handlePasswordSuccess: (passw: string) => void;
 }

@@ -24,6 +24,8 @@ import {
 } from '../forms/enhancers';
 import { MakeOrderFormProps, CreatePasswordFormProps } from '../forms/models';
 import CreatePasswordDialog from './CreatePasswordDialog';
+import { checkUserExists, createNewUser } from '../../services/UserApi';
+import { User } from '../../models/User';
 
 // tslint:disable-next-line: no-any
 type WithComposeProps = MakeOrderFormProps & CreatePasswordFormProps & any;
@@ -74,6 +76,21 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
       setPasswDlgOpen(true);
     } else {
       makeDirtyIfEmpty();
+    }
+  };
+
+  const handlePasswordSuccess = async (passw: string) => {
+    let user: User;
+    const resp = await checkUserExists(email.value);
+    if (!resp) {
+      user = await createNewUser({
+        email: email.value,
+        lastName: lastName.value,
+        firstName: firstName.value,
+        password: passw
+      });
+      // tslint:disable-next-line: no-console
+      console.log(user);
     }
   };
 
@@ -161,6 +178,7 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
         open={passwDlgOpen}
         setOpen={setPasswDlgOpen}
         {...props}
+        handlePasswordSuccess={handlePasswordSuccess}
       />
     </>
   );
