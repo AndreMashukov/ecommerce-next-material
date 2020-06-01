@@ -20,7 +20,23 @@ const onConfirmPasswordChange = () => (event: ChangeEventType) => ({
   }
 });
 
+const clearPassword = () => () => ({
+  password: {
+    value: '',
+    isDirty: false
+  }
+});
+
+const clearConfirmPassword = () => () => ({
+  confirmPassword: {
+    value: '',
+    isDirty: false
+  }
+});
+
 export const withCreatePasswordState = withStateHandlers(initialState, {
   onPasswordChange,
-  onConfirmPasswordChange
+  onConfirmPasswordChange,
+  clearPassword,
+  clearConfirmPassword
 });

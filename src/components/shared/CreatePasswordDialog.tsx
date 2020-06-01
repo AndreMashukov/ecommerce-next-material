@@ -25,14 +25,14 @@ export default function CreatePasswordDialog(
     confirmPassword,
     confirmPasswordError,
     onConfirmPasswordChange,
+    clearPassword,
+    clearConfirmPassword,
     createPasswordSubmit
   } = props;
 
   const cleanPassword = () => {
-    password.value = '';
-    password.isDirty = false;
-    confirmPassword.value = '';
-    confirmPassword.isDirty = false;
+    clearPassword();
+    clearConfirmPassword();
   };
 
   const handleClose = () => {
@@ -45,8 +45,6 @@ export default function CreatePasswordDialog(
     if (passwords) {
       setOpen(false);
       cleanPassword();
-    } else {
-      password.isDirty = true;
     }
   };
 
