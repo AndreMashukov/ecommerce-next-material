@@ -1,5 +1,5 @@
 import { withStateHandlers } from 'recompose';
-import { ChangeEventType } from '../models';
+import { ChangeEventType } from '../../models';
 
 const initialState = {
   email: { value: '', isDirty: false },

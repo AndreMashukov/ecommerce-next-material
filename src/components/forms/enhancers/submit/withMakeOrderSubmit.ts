@@ -1,5 +1,5 @@
 import { withHandlers } from 'recompose';
-import { MakeOrderFormProps } from '../models';
+import { MakeOrderFormProps } from '../../models';
 
 const handleSubmitForm = ({
   lastName,

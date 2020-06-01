@@ -1,5 +1,5 @@
 import { withProps } from 'recompose';
-import { CreatePasswordFormProps, TextField } from '../models';
+import { CreatePasswordFormProps, TextField } from '../../models';
 
 const getConfirmPasswordError = (
   password: TextField,

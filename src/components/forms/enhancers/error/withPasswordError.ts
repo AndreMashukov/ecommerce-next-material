@@ -1,5 +1,5 @@
 import { withProps } from 'recompose';
-import { CreatePasswordFormProps, TextField } from '../models';
+import { CreatePasswordFormProps, TextField } from '../../models';
 
 const getPasswordError = (password: TextField): string => {
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;

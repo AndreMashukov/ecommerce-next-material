@@ -1,5 +1,5 @@
 import { withHandlers } from 'recompose';
-import { CreatePasswordFormProps } from '../models';
+import { CreatePasswordFormProps } from '../../models';
 
 const handleSubmitForm = ({
   password,

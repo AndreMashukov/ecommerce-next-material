@@ -1,5 +1,5 @@
 import { withProps } from 'recompose';
-import { MakeOrderFormProps, TextField } from '../models';
+import { MakeOrderFormProps, TextField } from '../../models';
 
 const getNameError = (name: TextField) => {
   if (!name.isDirty) {

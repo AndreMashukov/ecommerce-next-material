@@ -1,5 +1,5 @@
 import { withProps } from 'recompose';
-import { MakeOrderFormProps, TextField } from '../models';
+import { MakeOrderFormProps, TextField } from '../../models';
 
 const getPhoneError = (phone: TextField): string => {
   if (!phone.isDirty) {

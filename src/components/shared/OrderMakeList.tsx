@@ -55,7 +55,7 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
     firstNameDirty,
     lastNameDirty,
     emailDirty,
-    phoneDirty,
+    phoneDirty
   } = props;
 
   const makeDirtyIfEmpty = () => {
