@@ -28,14 +28,23 @@ export default function CreatePasswordDialog(
     createPasswordSubmit
   } = props;
 
+  const cleanPassword = () => {
+    password.value = '';
+    password.isDirty = false;
+    confirmPassword.value = '';
+    confirmPassword.isDirty = false;
+  }
+
   const handleClose = () => {
     setOpen(false);
+    cleanPassword();
   };
 
   const handleSubmit = () => {
     const passwords = createPasswordSubmit(props);
     if (passwords) {
       setOpen(false);
+      cleanPassword();
     } else {
       password.isDirty = true;
     }
@@ -45,7 +54,7 @@ export default function CreatePasswordDialog(
     <div>
       <Dialog
         open={open}
-        maxWidth = {'xs'}
+        maxWidth={'xs'}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
@@ -61,7 +70,8 @@ export default function CreatePasswordDialog(
               onPasswordChange,
               confirmPassword,
               confirmPasswordError,
-              onConfirmPasswordChange
+              onConfirmPasswordChange,
+              useForceUpdate
             }}
           />
         </DialogContent>

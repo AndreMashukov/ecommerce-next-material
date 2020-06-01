@@ -19,26 +19,24 @@ const handleSubmitForm = ({
     || emailError
     || phoneError) {
     return false;
-  }
-
-  if (!lastName.isDirty
+  } else if (!lastName.isDirty
     || !firstName.isDirty
     || !email.isDirty
     || !phone.isDirty) {
     return false;
+  } else {
+    const data = {
+      email,
+      phone,
+      region,
+      city,
+      address
+    };
+
+    // tslint:disable-next-line: no-console
+    console.log(data);
+    return data;
   }
-
-  const data = {
-    email,
-    phone,
-    region,
-    city,
-    address
-  };
-
-  // tslint:disable-next-line: no-console
-  console.log(data);
-  return data;
 };
 
 export const withMakeOrderSubmit = withHandlers({

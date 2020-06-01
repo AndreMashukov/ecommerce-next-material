@@ -5,7 +5,7 @@ const getPasswordError = (password: TextField): string => {
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
 
   const isValidPassword =
-    password.value === '' || passwordRegex.test(password.value);
+    password.value.length > 5 && passwordRegex.test(password.value);
   return !isValidPassword
     ? 'Пароль должен содержать не менее 6 символов, как минимум одну букву и одну цифру.'
     : '';
