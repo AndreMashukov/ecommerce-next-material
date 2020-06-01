@@ -17,5 +17,9 @@ export interface MakeOrderFormProps {
   onCityChange: (event: ChangeEventType) => TextField;
   address: TextField;
   onAddressChange: (event: ChangeEventType) => TextField;
+  firstNameDirty: () => TextField;
+  lastNameDirty: () => TextField;
+  emailDirty: () => TextField;
+  phoneDirty: () => TextField;
   makeOrderSubmit: (props: Partial<MakeOrderFormProps>) => boolean;
 }

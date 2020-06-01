@@ -60,6 +60,34 @@ const onAddressChange = () => (event: ChangeEventType) => ({
   }
 });
 
+const firstNameDirty = () => () => ({
+  firstName: {
+    value: '',
+    isDirty: true
+  }
+});
+
+const lastNameDirty = () => () => ({
+  lastName: {
+    value: '',
+    isDirty: true
+  }
+});
+
+const emailDirty = () => () => ({
+  email: {
+    value: '',
+    isDirty: true
+  }
+});
+
+const phoneDirty = () => () => ({
+  phone: {
+    value: '',
+    isDirty: true
+  }
+});
+
 export const withMakeOrderdState = withStateHandlers(initialState, {
   onEmailchange,
   onPhoneChange,
@@ -67,6 +95,10 @@ export const withMakeOrderdState = withStateHandlers(initialState, {
   onFirstNameChange,
   onRegionChange,
   onCityChange,
-  onAddressChange
+  onAddressChange,
+  firstNameDirty,
+  lastNameDirty,
+  emailDirty,
+  phoneDirty
 });
 

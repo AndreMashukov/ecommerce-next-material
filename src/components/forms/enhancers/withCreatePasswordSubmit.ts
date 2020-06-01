@@ -10,7 +10,6 @@ const handleSubmitForm = ({
   if (passwordError || confirmPasswordError) {
     return false;
   } else if (!confirmPassword.isDirty && !confirmPassword.isDirty) {
-    password.isDirty = true;
     return false;
   } else {
     return {

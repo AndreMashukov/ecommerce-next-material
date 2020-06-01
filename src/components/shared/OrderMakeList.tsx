@@ -46,7 +46,25 @@ const useStyles = makeStyles({
 
 const OrderMakeList: React.FC = (props: WithComposeProps) => {
   const [passwDlgOpen, setPasswDlgOpen] = useState(false);
-  const { makeOrderSubmit } = props;
+  const {
+    makeOrderSubmit,
+    firstName,
+    lastName,
+    email,
+    phone,
+    firstNameDirty,
+    lastNameDirty,
+    emailDirty,
+    phoneDirty,
+  } = props;
+
+  const makeDirtyIfEmpty = () => {
+    lastName.value === '' && lastNameDirty();
+    firstName.value === '' && firstNameDirty();
+    email.value === '' && emailDirty();
+    phone.value === '' && phoneDirty();
+  };
+
   const classes = useStyles();
   const { getItems } = useContext(CartContext);
   const listVariant = 'h6';
@@ -55,8 +73,7 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
     if (orderData) {
       setPasswDlgOpen(true);
     } else {
-      // tslint:disable-next-line: no-console
-      console.log('check fields');
+      makeDirtyIfEmpty();
     }
   };
 
@@ -140,7 +157,11 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
           </Button>
         </Grid>
       </div>
-      <CreatePasswordDialog open={passwDlgOpen} setOpen={setPasswDlgOpen} {...props}/>
+      <CreatePasswordDialog
+        open={passwDlgOpen}
+        setOpen={setPasswDlgOpen}
+        {...props}
+      />
     </>
   );
 };
