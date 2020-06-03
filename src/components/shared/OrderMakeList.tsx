@@ -26,6 +26,7 @@ import { MakeOrderFormProps, CreatePasswordFormProps } from '../forms/models';
 import CreatePasswordDialog from './CreatePasswordDialog';
 import { checkUserExists, createNewUser } from '../../services/UserApi';
 import { User } from '../../models/User';
+import SessionContext from '../../store/SessionContext/SessionContext';
 
 // tslint:disable-next-line: no-any
 type WithComposeProps = MakeOrderFormProps & CreatePasswordFormProps & any;
@@ -47,6 +48,9 @@ const useStyles = makeStyles({
 });
 
 const OrderMakeList: React.FC = (props: WithComposeProps) => {
+  const { setToken } = useContext(SessionContext);
+  const { getItems } = useContext(CartContext);
+
   const [passwDlgOpen, setPasswDlgOpen] = useState(false);
   const {
     makeOrderSubmit,
@@ -68,8 +72,8 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
   };
 
   const classes = useStyles();
-  const { getItems } = useContext(CartContext);
   const listVariant = 'h6';
+
   const handleOrderMake = () => {
     const orderData = makeOrderSubmit();
     if (orderData) {
@@ -89,6 +93,9 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
         firstName: firstName.value,
         password: passw
       });
+      if (user.token) {
+        setToken(user.token);
+      }
       // tslint:disable-next-line: no-console
       console.log(user);
     }
