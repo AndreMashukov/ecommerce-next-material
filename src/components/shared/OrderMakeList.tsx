@@ -25,6 +25,7 @@ import {
 import { MakeOrderFormProps, CreatePasswordFormProps } from '../forms/models';
 import CreatePasswordDialog from './CreatePasswordDialog';
 import { checkUserExists, createNewUser } from '../../services/UserApi';
+import { postOrder } from '../../services/OrderApi';
 import { User } from '../../models/User';
 import SessionContext from '../../store/SessionContext/SessionContext';
 
@@ -95,6 +96,9 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
       });
       if (user.token) {
         setToken(user.token);
+        postOrder({
+          userId: user.id
+        }, user.token);
       }
       // tslint:disable-next-line: no-console
       console.log(user);

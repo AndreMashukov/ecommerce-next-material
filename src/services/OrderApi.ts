@@ -1,17 +1,14 @@
-import { useContext } from 'react';
 import fetch from 'isomorphic-unfetch';
 import { API_BASE } from '../constants';
 import { Order } from '../models';
-import SessionContext from '../store/SessionContext/SessionContext';
 
-export const postOrder = async (_order: Order): Promise<Order> => {
-  const { getToken } = useContext(SessionContext);
-  const res = await fetch(`${API_BASE}/personal/order`, {
+export const postOrder = async (_order: Order, token: string): Promise<Order> => {
+  const res = await fetch(`${API_BASE}/personal/orders`, {
     method: 'POST',
     body: JSON.stringify(_order),
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${getToken()}`
+      Authorization: `Bearer ${token}`
     }
   });
 
