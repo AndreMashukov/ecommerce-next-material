@@ -49,7 +49,7 @@ const useStyles = makeStyles({
 });
 
 const OrderMakeList: React.FC = (props: WithComposeProps) => {
-  const { setToken } = useContext(SessionContext);
+  const { getSessionId, setToken } = useContext(SessionContext);
   const { getItems } = useContext(CartContext);
 
   const [passwDlgOpen, setPasswDlgOpen] = useState(false);
@@ -96,9 +96,15 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
       });
       if (user.token) {
         setToken(user.token);
-        postOrder({
-          userId: user.id
-        }, user.token);
+        const newOrder = await postOrder(
+          {
+            userId: user.id,
+            sessionId: getSessionId()
+          },
+          user.token
+        );
+        if (newOrder.id) {
+        }
       }
       // tslint:disable-next-line: no-console
       console.log(user);
