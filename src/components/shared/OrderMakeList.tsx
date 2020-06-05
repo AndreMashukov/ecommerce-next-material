@@ -29,6 +29,7 @@ import { postOrder } from '../../services/OrderApi';
 import { User } from '../../models/User';
 import SessionContext from '../../store/SessionContext/SessionContext';
 import { useRouter } from 'next/router';
+import { destroyCookie } from 'nookies';
 
 // tslint:disable-next-line: no-any
 type WithComposeProps = MakeOrderFormProps & CreatePasswordFormProps & any;
@@ -77,42 +78,42 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
   const classes = useStyles();
   const listVariant = 'h6';
 
-  const handleOrderMake = () => {
+  const handleOrderMake = async () => {
     const orderData = makeOrderSubmit();
     if (orderData) {
-      setPasswDlgOpen(true);
+      const resp = await checkUserExists(email.value);
+      if (!resp) {
+        setPasswDlgOpen(true);
+      }
     } else {
       makeDirtyIfEmpty();
     }
   };
 
   const handlePasswordSuccess = async (passw: string) => {
-    let user: User;
-    const resp = await checkUserExists(email.value);
-    if (!resp) {
-      user = await createNewUser({
-        email: email.value,
-        lastName: lastName.value,
-        firstName: firstName.value,
-        password: passw
-      });
-      if (user.token) {
-        setToken(user.token);
-        const newOrder = await postOrder(
-          {
-            userId: user.id,
-            sessionId: getSessionId()
-          },
-          user.token
-        );
-        if (newOrder.id) {
-          if (process.browser) {
-            router.push(`/order/done?sessionId=${getSessionId()}`);
-          }
+    const user: User = await createNewUser({
+      email: email.value,
+      lastName: lastName.value,
+      firstName: firstName.value,
+      password: passw
+    });
+    if (user.token) {
+      setToken(user.token);
+      const newOrder = await postOrder(
+        {
+          userId: user.id,
+          sessionId: getSessionId()
+        },
+        user.token
+      );
+      if (newOrder.id) {
+        if (process.browser) {
+          destroyCookie(null, 'sessionId', {
+            path: '/'
+          });
+          router.push(`/order/done?sessionId=${getSessionId()}`);
         }
       }
-      // tslint:disable-next-line: no-console
-      console.log(user);
     }
   };
 

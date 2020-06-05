@@ -3,7 +3,6 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { NextPageContext } from 'next';
 import { handleSession } from '../../utils/handleSession';
-import { destroyCookie } from 'nookies';
 import SessionContext from '../../store/SessionContext/SessionContext';
 
 interface Props {
@@ -34,13 +33,7 @@ const OrderMakePage = (props: Props) => {
 };
 
 OrderMakePage.getInitialProps = async (ctx: NextPageContext) => {
-  let session = await handleSession(ctx);
-  if (session._sessionId === ctx.query.sessionId) {
-      destroyCookie(ctx, 'sessionId', {
-        path: '/'
-      });
-    session = await handleSession(ctx);
-  }
+  const session = await handleSession(ctx);
   return {
     session
   };
