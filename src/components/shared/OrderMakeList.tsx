@@ -100,6 +100,11 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
       }
     } else {
       makeDirtyIfEmpty();
+      setSnackState({
+        open: true,
+        success: false,
+        text: 'Обратите внимание на обязательные для заполнения поля'
+      });
     }
   };
 
@@ -124,7 +129,7 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
           destroyCookie(null, 'sessionId', {
             path: '/'
           });
-          router.push(`/order/done?sessionId=${getSessionId()}`);
+          router.push(`/order/done?orderId=${newOrder.id}`);
         }
       }
     }
