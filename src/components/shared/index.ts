@@ -12,3 +12,4 @@ export * from './ProductDetail';
 export * from './CustomTabs';
 export * from './Badges';
 export * from './OrderMakeList';
+export * from './CustomSnackBar';

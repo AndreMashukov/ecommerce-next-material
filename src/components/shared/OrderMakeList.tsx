@@ -30,6 +30,7 @@ import { User } from '../../models/User';
 import SessionContext from '../../store/SessionContext/SessionContext';
 import { useRouter } from 'next/router';
 import { destroyCookie } from 'nookies';
+import { CustomSnackBar } from './CustomSnackBar';
 
 // tslint:disable-next-line: no-any
 type WithComposeProps = MakeOrderFormProps & CreatePasswordFormProps & any;
@@ -56,6 +57,12 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
   const router = useRouter();
 
   const [passwDlgOpen, setPasswDlgOpen] = useState(false);
+  const [snackState, setSnackState] = useState({
+    open: false,
+    success: false,
+    text: ''
+  });
+
   const {
     makeOrderSubmit,
     firstName,
@@ -84,6 +91,12 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
       const resp = await checkUserExists(email.value);
       if (!resp) {
         setPasswDlgOpen(true);
+      } else {
+        setSnackState({
+          open: true,
+          success: false,
+          text: 'Пользователь с таким E-Mail уже существует'
+        });
       }
     } else {
       makeDirtyIfEmpty();
@@ -202,6 +215,10 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
         setOpen={setPasswDlgOpen}
         {...props}
         handlePasswordSuccess={handlePasswordSuccess}
+      />
+      <CustomSnackBar
+        {...snackState}
+        handleClose={() => setSnackState({ ...snackState, open: false })}
       />
     </>
   );
