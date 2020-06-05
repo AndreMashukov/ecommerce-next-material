@@ -28,6 +28,7 @@ import { checkUserExists, createNewUser } from '../../services/UserApi';
 import { postOrder } from '../../services/OrderApi';
 import { User } from '../../models/User';
 import SessionContext from '../../store/SessionContext/SessionContext';
+import { useRouter } from 'next/router';
 
 // tslint:disable-next-line: no-any
 type WithComposeProps = MakeOrderFormProps & CreatePasswordFormProps & any;
@@ -51,6 +52,7 @@ const useStyles = makeStyles({
 const OrderMakeList: React.FC = (props: WithComposeProps) => {
   const { getSessionId, setToken } = useContext(SessionContext);
   const { getItems } = useContext(CartContext);
+  const router = useRouter();
 
   const [passwDlgOpen, setPasswDlgOpen] = useState(false);
   const {
@@ -104,6 +106,9 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
           user.token
         );
         if (newOrder.id) {
+          if (process.browser) {
+            router.push(`/order/done?sessionId=${getSessionId()}`);
+          }
         }
       }
       // tslint:disable-next-line: no-console
