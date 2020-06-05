@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { NextPageContext } from 'next';
 import { handleSession } from '../../utils/handleSession';
-import SessionContext from '../../store/SessionContext/SessionContext';
+import useSession from '../../hooks/useSession';
 
 interface Props {
   session: {
@@ -13,11 +13,7 @@ interface Props {
 
 const OrderMakePage = (props: Props) => {
   const { _sessionId } = props.session;
-  const { setSessionId } = useContext(SessionContext);
-
-  useEffect(() => {
-    setSessionId(_sessionId);
-  }, [_sessionId]);
+  useSession(_sessionId);
 
   return (
     <>

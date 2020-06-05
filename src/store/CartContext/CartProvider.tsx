@@ -3,7 +3,7 @@ import CartContext from './CartContext';
 import { CartItem } from '../../models';
 import cartReducer from './reducers/cartReducer';
 import TYPES from './reducers/types';
-import useAsyncReducer from './reducers/useAsyncReducer';
+import useAsyncReducer from '../../hooks/useAsyncReducer';
 import { CartState } from './reducers/models';
 
 interface Cart {
