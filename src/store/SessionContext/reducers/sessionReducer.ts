@@ -1,6 +1,6 @@
 import { SessionAction, SessionState } from './models';
 import TYPES from './types';
-import { storeUser } from './utils';
+import { storeUser } from '../../../utils/User';
 
 export default function sessionReducer(
   state: SessionState,

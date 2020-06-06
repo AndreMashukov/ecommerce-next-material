@@ -3,7 +3,7 @@ import SessionContext from './SessionContext';
 import sessionReducer from './reducers/sessionReducer';
 import TYPES from './reducers/types';
 import { User } from '../../models';
-import { retrieveUser, handleSession } from './reducers/utils';
+import { retrieveUser, handleSession } from '../../utils/User';
 
 // tslint:disable-next-line: no-any
 const SessionProvider: React.FunctionComponent<{}> = (props: any) => {

@@ -1,6 +1,6 @@
-import { User, Session } from '../../../models';
+import { User, Session } from '../models';
 import { parseCookies, setCookie } from 'nookies';
-import { createNewSession } from '../../../services/SessionApi';
+import { createNewSession } from '../services/SessionApi';
 
 const USER_RECORD_NAME = 'userState';
 
