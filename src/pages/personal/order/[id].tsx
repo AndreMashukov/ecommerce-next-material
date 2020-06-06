@@ -2,8 +2,8 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { NextPageContext } from 'next';
-import { handleSession } from '../../utils/handleSession';
-import useSession from '../../hooks/useSession';
+import { handleSession } from '../../../utils/handleSession';
+import useSession from '../../../hooks/useSession';
 
 interface Props {
   session: {
@@ -11,7 +11,7 @@ interface Props {
   };
 }
 
-const OrderMakePage = (props: Props) => {
+const PersonalOrderIdPage = (props: Props) => {
   const { _sessionId } = props.session;
   useSession(_sessionId);
 
@@ -28,11 +28,11 @@ const OrderMakePage = (props: Props) => {
   );
 };
 
-OrderMakePage.getInitialProps = async (ctx: NextPageContext) => {
+PersonalOrderIdPage.getInitialProps = async (ctx: NextPageContext) => {
   const session = await handleSession(ctx);
   return {
     session
   };
 };
 
-export default OrderMakePage;
+export default PersonalOrderIdPage;

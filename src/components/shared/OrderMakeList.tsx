@@ -129,7 +129,7 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
           destroyCookie(null, 'sessionId', {
             path: '/'
           });
-          router.push(`/order/done?orderId=${newOrder.id}`);
+          router.push(`/personal/order/${newOrder.id}`);
         }
       }
     }
