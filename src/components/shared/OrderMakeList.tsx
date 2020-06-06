@@ -52,7 +52,7 @@ const useStyles = makeStyles({
 });
 
 const OrderMakeList: React.FC = (props: WithComposeProps) => {
-  const { getSessionId, setToken } = useContext(SessionContext);
+  const { getSessionId, setUser } = useContext(SessionContext);
   const { getItems } = useContext(CartContext);
   const router = useRouter();
 
@@ -119,7 +119,7 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
       firstName: firstName.value
     });
     if (user.token) {
-      setToken(user.token);
+      setUser(user);
       const newOrder = await postOrder(
         {
           userId: user.id,

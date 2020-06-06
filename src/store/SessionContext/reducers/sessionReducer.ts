@@ -8,8 +8,8 @@ export default function sessionReducer(
   switch (action.type) {
     case TYPES.SESSION_SET:
       return { ...state, ...{ sessionId: action.sessionId } };
-    case TYPES.TOKEN_SET:
-      return { ...state, ...{ token: action.token } };
+    case TYPES.USER_SET:
+      return { ...state, ...{ user: action.user } };
     default:
       return state;
   }

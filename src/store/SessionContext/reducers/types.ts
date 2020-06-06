@@ -1,6 +1,6 @@
 enum TYPES {
   SESSION_SET,
-  TOKEN_SET
+  USER_SET
 }
 
 export default TYPES;

@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/styles';
 import theme from '../../../theme/theme';
 import { NavBarCart, SectionList } from '../../shared';
 import { Section, Category } from '../../../models/Section';
+import { AuthNavBar } from '../../shared/AuthNavBar';
 
 interface NavBarProps {
   sections: Section[];
@@ -76,7 +77,7 @@ export const NavBar = (props: NavBarProps) => {
               </Grid>
             </Grid>
             <Grid item>
-              AuthNavBar
+              <AuthNavBar />
             </Grid>
           </Grid>
         </div>

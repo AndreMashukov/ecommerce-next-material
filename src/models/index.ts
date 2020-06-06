@@ -3,3 +3,4 @@ export * from './Product';
 export * from './CartItem';
 export * from './Session';
 export * from './Order';
+export * from './User';

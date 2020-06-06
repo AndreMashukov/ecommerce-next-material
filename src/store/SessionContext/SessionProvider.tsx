@@ -2,6 +2,7 @@ import { useReducer } from 'react';
 import SessionContext from './SessionContext';
 import sessionReducer from './reducers/sessionReducer';
 import TYPES from './reducers/types';
+import { User } from '../../models';
 
 // tslint:disable-next-line: no-any
 const SessionProvider: React.FunctionComponent<{}> = (props: any) => {
@@ -12,24 +13,24 @@ const SessionProvider: React.FunctionComponent<{}> = (props: any) => {
     dispatch({ type: TYPES.SESSION_SET, sessionId });
   }
 
-  function setToken(token: string): void {
-    dispatch({ type: TYPES.TOKEN_SET, token });
-  }
-
   function getSessionId(): string {
     return state.sessionId;
   }
 
-  function getToken(): string {
-    return state.token;
+  function setUser(user: User): void {
+    dispatch({ type: TYPES.USER_SET, user });
+  }
+
+  function getUser(): User {
+    return state.user;
   }
 
   return (
     <SessionContext.Provider value={{
       setSessionId,
       getSessionId,
-      setToken,
-      getToken
+      getUser,
+      setUser
     }}>
       {props.children}
     </SessionContext.Provider>

@@ -1,8 +1,10 @@
+import { User } from '../../models';
+
 export default interface CartContextManager {
+  sessionId?: string;
   setSessionId: (sessionId: string) => void;
   getSessionId: () => string;
-  sessionId?: string;
-  token?: string;
-  setToken: (token: string) => void;
-  getToken: () => string;
+  user?: User;
+  setUser: (user: User) => void;
+  getUser: () => User;
 }

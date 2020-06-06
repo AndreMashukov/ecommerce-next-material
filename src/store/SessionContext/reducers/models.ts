@@ -1,12 +1,13 @@
 import TYPES from './types';
+import { User } from '../../../models';
 
 export interface SessionState {
   sessionId: string;
-  token?: string;
+  user?: User;
 }
 
 export interface SessionAction {
   type: TYPES;
   sessionId?: string;
-  token?: string;
+  user?: User;
 }
