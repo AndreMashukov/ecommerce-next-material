@@ -72,7 +72,10 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
     firstNameDirty,
     lastNameDirty,
     emailDirty,
-    phoneDirty
+    phoneDirty,
+    region,
+    city,
+    address
   } = props;
 
   const makeDirtyIfEmpty = () => {
@@ -111,16 +114,21 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
   const handlePasswordSuccess = async (passw: string) => {
     const user: User = await createNewUser({
       email: email.value,
+      password: passw,
       lastName: lastName.value,
-      firstName: firstName.value,
-      password: passw
+      firstName: firstName.value
     });
     if (user.token) {
       setToken(user.token);
       const newOrder = await postOrder(
         {
           userId: user.id,
-          sessionId: getSessionId()
+          sessionId: getSessionId(),
+          props: {
+            region: region.value,
+            city: city.value,
+            address: address.value
+          }
         },
         user.token
       );
