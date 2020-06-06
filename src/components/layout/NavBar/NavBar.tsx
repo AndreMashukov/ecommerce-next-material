@@ -64,12 +64,19 @@ export const NavBar = (props: NavBarProps) => {
     <div>
       <div className={classes.upperSection}>
         <div className="navbar-layout">
-          <Grid container direction="row" justify="flex-start" spacing={2}>
+          <Grid container direction="row" justify="space-between">
             <Grid item>
-              <Typography variant="subtitle2">Доставка</Typography>
+              <Grid container direction="row" justify="flex-start" spacing={2}>
+                <Grid item>
+                  <Typography variant="subtitle2">Доставка</Typography>
+                </Grid>
+                <Grid item>
+                  <Typography variant="subtitle2">Оплата</Typography>
+                </Grid>
+              </Grid>
             </Grid>
             <Grid item>
-              <Typography variant="subtitle2">Оплата</Typography>
+              AuthNavBar
             </Grid>
           </Grid>
         </div>
