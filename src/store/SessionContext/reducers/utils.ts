@@ -1,4 +1,6 @@
-import { User } from '../../../models';
+import { User, Session } from '../../../models';
+import { parseCookies, setCookie } from 'nookies';
+import { createNewSession } from '../../../services/SessionApi';
 
 const USER_RECORD_NAME = 'userState';
 
@@ -20,5 +22,22 @@ export const deserializeUser = (): (User | undefined) => {
 export const serializeUser = (user: User): void => {
   if (process.browser) {
     localStorage.setItem(USER_RECORD_NAME, JSON.stringify(user));
+  }
+};
+
+export const handleSession = async () => {
+  if (process.browser) {
+    const { sessionId } = parseCookies();
+    if (sessionId === undefined) {
+      const session: Session = await createNewSession();
+      setCookie(null, 'sessionId', session.id, {
+        // maxAge: 30 * 24 * 60 * 60,
+        maxAge: 60 * 60 * 2,
+        path: '/'
+      });
+      return session;
+    } else {
+      return { id: sessionId };
+    }
   }
 };

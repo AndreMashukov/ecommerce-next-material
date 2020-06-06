@@ -1,16 +1,22 @@
-import { useReducer } from 'react';
+import { useReducer, useEffect } from 'react';
 import SessionContext from './SessionContext';
 import sessionReducer from './reducers/sessionReducer';
 import TYPES from './reducers/types';
 import { User } from '../../models';
-import { deserializeUser } from './reducers/utils';
+import { deserializeUser, handleSession } from './reducers/utils';
 
 // tslint:disable-next-line: no-any
 const SessionProvider: React.FunctionComponent<{}> = (props: any) => {
-  const { _sessionId } = props;
+  useEffect(() => {
+    const getSession = async() => {
+      setSessionId((await handleSession()).id);
+    };
+
+    getSession();
+  }, []);
 
   const [state, dispatch] = useReducer(sessionReducer, {
-    sessionId: _sessionId,
+    sessionId: '',
     user: deserializeUser()
   });
 
