@@ -1,6 +1,6 @@
 import { SessionAction, SessionState } from './models';
 import TYPES from './types';
-import { serializeUser } from './utils';
+import { storeUser } from './utils';
 
 export default function sessionReducer(
   state: SessionState,
@@ -10,7 +10,7 @@ export default function sessionReducer(
     case TYPES.SESSION_SET:
       return { ...state, ...{ sessionId: action.sessionId } };
     case TYPES.USER_SET:
-      serializeUser(action.user);
+      storeUser(action.user);
       return { ...state, ...{ user: action.user } };
     default:
       return state;

@@ -13,7 +13,7 @@ import { useRouter } from 'next/router';
 import { CustomTabs } from '../components/shared';
 
 enum TABS {
-  PUPOSE_TAB,
+  PURPOSE_TAB,
   LINE_TAB
 }
 
@@ -26,7 +26,7 @@ interface SectionGridProps {
 }
 
 const CatalogPage = (props: Props) => {
-  const [activeTab, setActiveTab] = React.useState(TABS.PUPOSE_TAB);
+  const [activeTab, setActiveTab] = React.useState(TABS.PURPOSE_TAB);
   const { sections } = props;
 
   const lineSections = sections.filter(
@@ -54,7 +54,7 @@ const CatalogPage = (props: Props) => {
         activeTab={activeTab}
         onTabChange={handleChange}/>
       <div>
-        {activeTab === TABS.PUPOSE_TAB && (
+        {activeTab === TABS.PURPOSE_TAB && (
           <SectionGrid sections={purposeSections} />
         )}
         {activeTab === TABS.LINE_TAB && (

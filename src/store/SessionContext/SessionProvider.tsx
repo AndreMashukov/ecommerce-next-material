@@ -3,7 +3,7 @@ import SessionContext from './SessionContext';
 import sessionReducer from './reducers/sessionReducer';
 import TYPES from './reducers/types';
 import { User } from '../../models';
-import { deserializeUser, handleSession } from './reducers/utils';
+import { retrieveUser, handleSession } from './reducers/utils';
 
 // tslint:disable-next-line: no-any
 const SessionProvider: React.FunctionComponent<{}> = (props: any) => {
@@ -17,7 +17,7 @@ const SessionProvider: React.FunctionComponent<{}> = (props: any) => {
 
   const [state, dispatch] = useReducer(sessionReducer, {
     sessionId: '',
-    user: deserializeUser()
+    user: retrieveUser()
   });
 
   function setSessionId(sessionId: string): void {

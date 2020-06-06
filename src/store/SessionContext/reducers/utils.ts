@@ -4,7 +4,7 @@ import { createNewSession } from '../../../services/SessionApi';
 
 const USER_RECORD_NAME = 'userState';
 
-export const deserializeUser = (): (User | undefined) => {
+export const retrieveUser = (): (User | undefined) => {
   if (process.browser) {
     try {
       const record = localStorage.getItem(USER_RECORD_NAME);
@@ -19,7 +19,7 @@ export const deserializeUser = (): (User | undefined) => {
   }
 };
 
-export const serializeUser = (user: User): void => {
+export const storeUser = (user: User): void => {
   if (process.browser) {
     localStorage.setItem(USER_RECORD_NAME, JSON.stringify(user));
   }
