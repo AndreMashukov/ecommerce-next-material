@@ -3,11 +3,16 @@ import SessionContext from './SessionContext';
 import sessionReducer from './reducers/sessionReducer';
 import TYPES from './reducers/types';
 import { User } from '../../models';
+import { deserializeUser } from './reducers/utils';
 
 // tslint:disable-next-line: no-any
 const SessionProvider: React.FunctionComponent<{}> = (props: any) => {
-  const {_sessionId} = props;
-  const [state, dispatch] = useReducer(sessionReducer, {sessionId: _sessionId});
+  const { _sessionId } = props;
+
+  const [state, dispatch] = useReducer(sessionReducer, {
+    sessionId: _sessionId,
+    user: deserializeUser()
+  });
 
   function setSessionId(sessionId: string): void {
     dispatch({ type: TYPES.SESSION_SET, sessionId });
@@ -26,12 +31,14 @@ const SessionProvider: React.FunctionComponent<{}> = (props: any) => {
   }
 
   return (
-    <SessionContext.Provider value={{
-      setSessionId,
-      getSessionId,
-      getUser,
-      setUser
-    }}>
+    <SessionContext.Provider
+      value={{
+        setSessionId,
+        getSessionId,
+        getUser,
+        setUser
+      }}
+    >
       {props.children}
     </SessionContext.Provider>
   );
