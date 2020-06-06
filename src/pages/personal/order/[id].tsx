@@ -1,20 +1,8 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import { NextPageContext } from 'next';
-import { handleSession } from '../../../utils/handleSession';
-import useSession from '../../../hooks/useSession';
 
-interface Props {
-  session: {
-    _sessionId: string;
-  };
-}
-
-const PersonalOrderIdPage = (props: Props) => {
-  const { _sessionId } = props.session;
-  useSession(_sessionId);
-
+const PersonalOrderIdPage = () => {
   return (
     <>
       <div style={{ margin: '20px' }}>
@@ -26,13 +14,6 @@ const PersonalOrderIdPage = (props: Props) => {
       </div>
     </>
   );
-};
-
-PersonalOrderIdPage.getInitialProps = async (ctx: NextPageContext) => {
-  const session = await handleSession(ctx);
-  return {
-    session
-  };
 };
 
 export default PersonalOrderIdPage;

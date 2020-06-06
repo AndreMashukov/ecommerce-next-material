@@ -2,35 +2,33 @@ import React from 'react';
 import { getSections, getProductByCode } from '../../../services';
 import { PRODUCT_CATALOG_ID, CATALOG_NAME } from '../../../constants';
 import { Section, Product } from '../../../models';
-import { NextPageContext } from 'next';
-import { handleSession } from '../../../utils/handleSession';
 import {
   ProductBreadcrumbs,
   ProductNotFound,
   ProductDetail
 } from '../../../components';
 import Page404 from '../../404';
+import { NextPageContext } from 'next';
 
 interface Props {
-  _sessionId: string;
-  _product: Product;
-  _section: Section;
+  product: Product;
+  section: Section;
 }
 
 const ProductPage = (props: Props) => {
-  const { _product, _section } = props;
+  const { product, section } = props;
 
   return (
     <>
-      {_product ? (
+      {product ? (
         <div>
           <div style={{ marginBottom: '30px' }}>
-            <ProductBreadcrumbs product={_product} section={_section} />
+            <ProductBreadcrumbs product={product} section={section} />
           </div>
-          <ProductDetail product={_product} section={_section} />
+          <ProductDetail product={product} section={section} />
         </div>
-      ) : _section ? (
-        <ProductNotFound url={`/${CATALOG_NAME}/${_section.code}`} />
+      ) : section ? (
+        <ProductNotFound url={`/${CATALOG_NAME}/${section.code}`} />
       ) : (
         <Page404 />
       )}
@@ -46,16 +44,15 @@ ProductPage.getInitialProps = async (ctx: NextPageContext) => {
     blockId: PRODUCT_CATALOG_ID,
     code: query.product
   });
-  const session = await handleSession(ctx);
+
   const currentSection: Section = sectionList.find(
     (item) => item.code === query.section
   );
 
   return {
-    _sessionId: session._sessionId,
-    _product:
+    product:
       currentProduct.name === 'NotFoundError' ? undefined : currentProduct,
-    _section: currentSection
+    section: currentSection
   };
 };
 

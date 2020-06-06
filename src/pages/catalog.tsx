@@ -2,8 +2,6 @@ import React from 'react';
 import { getSections } from '../services/CatalogApi';
 import { PRODUCT_CATALOG_ID, SECTION_LEVELS, CATALOG_NAME } from '../constants';
 import { Section } from '../models';
-import { NextPageContext } from 'next';
-import { handleSession } from '../utils/handleSession';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -20,23 +18,22 @@ enum TABS {
 }
 
 interface Props {
-  _sections: Section[];
-  _sessionId: string;
+  sections: Section[];
 }
 
 interface SectionGridProps {
-  _sections: Section[];
+  sections: Section[];
 }
 
 const CatalogPage = (props: Props) => {
   const [activeTab, setActiveTab] = React.useState(TABS.PUPOSE_TAB);
-  const { _sections } = props;
+  const { sections } = props;
 
-  const lineSections = _sections.filter(
+  const lineSections = sections.filter(
     (item) => item.depthLevel === SECTION_LEVELS.TOP_LEVEL
   );
 
-  const purposeSections = _sections.filter(
+  const purposeSections = sections.filter(
     (item) => item.depthLevel === SECTION_LEVELS.SUB_LEVEL && item.categoryId
   );
 
@@ -58,29 +55,27 @@ const CatalogPage = (props: Props) => {
         onTabChange={handleChange}/>
       <div>
         {activeTab === TABS.PUPOSE_TAB && (
-          <SectionGrid _sections={purposeSections} />
+          <SectionGrid sections={purposeSections} />
         )}
         {activeTab === TABS.LINE_TAB && (
-          <SectionGrid _sections={lineSections} />
+          <SectionGrid sections={lineSections} />
         )}
       </div>
     </div>
   );
 };
 
-CatalogPage.getInitialProps = async (ctx: NextPageContext) => {
-  const sectionList = await getSections(PRODUCT_CATALOG_ID);
-  const session = await handleSession(ctx);
+CatalogPage.getInitialProps = async () => {
+  const sections = await getSections(PRODUCT_CATALOG_ID);
   return {
-    _sections: sectionList,
-    _sessionId: session._sessionId
+    sections
   };
 };
 
 export default CatalogPage;
 
 const SectionGrid = (props: SectionGridProps) => {
-  const { _sections } = props;
+  const { sections } = props;
   const router = useRouter();
 
   const handleCardClick = (code: string) => {
@@ -98,7 +93,7 @@ const SectionGrid = (props: SectionGridProps) => {
       wrap="wrap"
       spacing={3}
     >
-      {_sections.map((section) => (
+      {sections.map((section) => (
         <Grid key={section.code} item xs={10} sm={6} md={3}>
           <Card
             variant="outlined"

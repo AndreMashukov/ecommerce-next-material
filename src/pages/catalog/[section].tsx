@@ -6,14 +6,12 @@ import { Section } from '../../models';
 import { Grid, Typography } from '@material-ui/core';
 import { NextPageContext } from 'next';
 import { ProductList, CatalogBreadcrumbs } from '../../components/shared';
-import { handleSession } from '../../utils/handleSession';
 import Page404 from '../404';
 
 interface Props {
   products: Product[];
   sections: Section[];
   currentSection: string;
-  _sessionId: number;
 }
 
 function getSectionByCode(sections: Section[], code: string): Section {
@@ -92,12 +90,10 @@ SectionPage.getInitialProps = async (ctx: NextPageContext) => {
     sectionCode: ctx.query.section
   });
   const sectionList = await getSections(PRODUCT_CATALOG_ID);
-  const session = await handleSession(ctx);
   return {
     products: [].concat.apply([], productList),
     sections: sectionList,
-    currentSection: ctx.query.section,
-    _sessionId: session._sessionId
+    currentSection: ctx.query.section
   };
 };
 

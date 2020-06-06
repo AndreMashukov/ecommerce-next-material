@@ -2,21 +2,10 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
-import { NextPageContext } from 'next';
-import { handleSession } from '../../utils/handleSession';
 import { OrderMakeListComposed } from '../../components';
-import useSession from '../../hooks/useSession';
 
-interface Props {
-  session: {
-    _sessionId: string;
-  };
-}
-
-const OrderMakePage = (props: Props) => {
-  const { _sessionId } = props.session;
+const OrderMakePage = () => {
   const navColor = 'textSecondary';
-  useSession(_sessionId);
 
   return (
     <>
@@ -53,13 +42,6 @@ const OrderMakePage = (props: Props) => {
       <OrderMakeListComposed />
     </>
   );
-};
-
-OrderMakePage.getInitialProps = async (ctx: NextPageContext) => {
-  const session = await handleSession(ctx);
-  return {
-    session
-  };
 };
 
 export default OrderMakePage;

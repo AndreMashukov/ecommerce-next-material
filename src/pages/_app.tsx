@@ -7,7 +7,6 @@ import { NavBar, Footer, Layout } from '../components';
 import { Section, Category } from '../models/Section';
 import { getSections } from '../services/CatalogApi';
 import { PRODUCT_CATALOG_ID } from '../constants';
-import { handleSession } from '../utils/handleSession';
 
 interface AppState {
   sectionList: Section[];
@@ -42,7 +41,6 @@ class MyApp extends App<Props> {
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx);
     }
-    pageProps._sessionId =  (await handleSession(ctx))._sessionId;
     return {pageProps};
   }
 
