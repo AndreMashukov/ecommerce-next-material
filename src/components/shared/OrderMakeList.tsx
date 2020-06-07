@@ -109,6 +109,11 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
         });
         router.push(`/personal/order/${newOrder.id}`);
       }
+      setSnackState({
+        open: true,
+        success: true,
+        text: 'Ваш заказ успешно создан'
+      });
     }
   };
 
