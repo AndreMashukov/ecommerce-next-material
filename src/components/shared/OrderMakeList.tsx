@@ -52,7 +52,7 @@ const useStyles = makeStyles({
 });
 
 const OrderMakeList: React.FC = (props: WithComposeProps) => {
-  const { getSessionId, setUser } = useContext(SessionContext);
+  const { getSessionId, setUser, getUser } = useContext(SessionContext);
   const { getItems } = useContext(CartContext);
   const router = useRouter();
 
@@ -88,18 +88,46 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
   const classes = useStyles();
   const listVariant = 'h6';
 
+
+  const createNewOrder = async (user: User) => {
+    const newOrder = await postOrder(
+      {
+        userId: user.id,
+        sessionId: getSessionId(),
+        props: {
+          region: region.value,
+          city: city.value,
+          address: address.value
+        }
+      },
+      user.token
+    );
+    if (newOrder.id) {
+      if (process.browser) {
+        destroyCookie(null, 'sessionId', {
+          path: '/'
+        });
+        router.push(`/personal/order/${newOrder.id}`);
+      }
+    }
+  };
+
   const handleOrderMake = async () => {
     const orderData = makeOrderSubmit();
     if (orderData) {
-      const resp = await checkUserExists(email.value);
-      if (!resp) {
-        setPasswDlgOpen(true);
+      if (!getUser()) {
+        const resp = await checkUserExists(email.value);
+        if (!resp) {
+          setPasswDlgOpen(true);
+        } else {
+          setSnackState({
+            open: true,
+            success: false,
+            text: 'Пользователь с таким E-Mail уже существует'
+          });
+        }
       } else {
-        setSnackState({
-          open: true,
-          success: false,
-          text: 'Пользователь с таким E-Mail уже существует'
-        });
+        createNewOrder(getUser());
       }
     } else {
       makeDirtyIfEmpty();
@@ -120,26 +148,7 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
     });
     if (user.token) {
       setUser(user);
-      const newOrder = await postOrder(
-        {
-          userId: user.id,
-          sessionId: getSessionId(),
-          props: {
-            region: region.value,
-            city: city.value,
-            address: address.value
-          }
-        },
-        user.token
-      );
-      if (newOrder.id) {
-        if (process.browser) {
-          destroyCookie(null, 'sessionId', {
-            path: '/'
-          });
-          router.push(`/personal/order/${newOrder.id}`);
-        }
-      }
+      await createNewOrder(user);
     }
   };
 
