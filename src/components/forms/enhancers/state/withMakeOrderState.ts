@@ -1,11 +1,14 @@
 import { withStateHandlers } from 'recompose';
 import { ChangeEventType } from '../../models';
+import { retrieveUser } from '../../../../utils/User';
+
+const user = retrieveUser();
 
 const initialState = {
-  email: { value: '', isDirty: false },
+  email: { value: user ? user.email : '', isDirty: user ? true : false },
   phone: { value: '', isDirty: false },
-  lastName: { value: '', isDirty: false },
-  firstName: { value: '', isDirty: false },
+  lastName: { value: user ? user.lastName : '', isDirty: user ? true : false  },
+  firstName: { value: user ? user.firstName : '', isDirty: user ? true : false  },
   region: { value: '10', isDirty: false },
   city: { value: '', isDirty: false },
   address: { value: '', isDirty: false }
@@ -13,7 +16,7 @@ const initialState = {
 
 const onEmailchange = () => (event: ChangeEventType) => ({
   email: {
-    value: event.target.value,
+    value: user ? user.email : event.target.value,
     isDirty: true
   }
 });
@@ -27,14 +30,14 @@ const onPhoneChange = () => (event: ChangeEventType) => ({
 
 const onLastNameChange = () => (event: ChangeEventType) => ({
   lastName: {
-    value: event.target.value,
+    value: user ? user.lastName : event.target.value,
     isDirty: true
   }
 });
 
 const onFirstNameChange = () => (event: ChangeEventType) => ({
   firstName: {
-    value: event.target.value,
+    value: user ? user.firstName : event.target.value,
     isDirty: true
   }
 });
