@@ -20,10 +20,28 @@ const LoginForm = (props: WithComposeProps) => {
     email,
     emailError,
     onEmailChange,
+    emailDirty,
     password,
     passwordError,
-    onPasswordChange
+    onPasswordChange,
+    passwordDirty,
+    loginSubmit
   } = props;
+
+  const makeDirtyIfEmpty = () => {
+    email.value === '' && emailDirty();
+    password.value === '' && passwordDirty();
+  };
+
+  const handleLoginSubmit = () => {
+    const login = loginSubmit();
+    if (login) {
+      // tslint:disable-next-line: no-console
+      console.log(login);
+    } else {
+      makeDirtyIfEmpty();
+    }
+  };
 
   return (
     <div>
@@ -62,7 +80,7 @@ const LoginForm = (props: WithComposeProps) => {
           </Grid>
           <Grid item>
             <Grid container justify="center">
-              <Button variant="contained" disableElevation>
+              <Button variant="contained" disableElevation onClick={handleLoginSubmit}>
                 ВОЙТИ
               </Button>
             </Grid>

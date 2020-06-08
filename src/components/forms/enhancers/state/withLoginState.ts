@@ -1,43 +1,24 @@
 import { withStateHandlers } from 'recompose';
-import { ChangeEventType } from '../../models';
+
+import {
+  onEmailChange,
+  clearEmail,
+  onPasswordChange,
+  clearPassword,
+  emailDirty,
+  passwordDirty
+} from './handlers';
 
 const initialState = {
   email: { value: '', isDirty: false},
   password: { value: '', isDirty: false}
 };
 
-const onEmailChange = () => (event: ChangeEventType) => ({
-  email: {
-    value: event.target.value,
-    isDirty: true
-  }
-});
-
-const onPasswordChange = () => (event: ChangeEventType) => ({
-  password: {
-    value: event.target.value,
-    isDirty: true
-  }
-});
-
-const clearEmail = () => () => ({
-  email: {
-    value: '',
-    isDirty: false
-  }
-});
-
-
-const clearPassword = () => () => ({
-  password: {
-    value: '',
-    isDirty: false
-  }
-});
-
 export const withLoginState = withStateHandlers(initialState, {
   onPasswordChange,
   onEmailChange,
   clearEmail,
-  clearPassword
+  clearPassword,
+  emailDirty,
+  passwordDirty
 });
