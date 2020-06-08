@@ -56,12 +56,15 @@ export default createMuiTheme({
       },
       contained: {
         fontWeight: 'bold',
-        color: colors.secondary.dark,
+        borderRadius: '0',
+        padding: '10px 15px 10px 15px',
+        color: colors.secondary.main,
+        border: `1px solid ${colors.secondary.main}`,
         background: `linear-gradient(45deg, ${colors.primary.light} 30%, ${colors.primary.light} 90%)`,
 
         '&:hover': {
           color: colors.primary.light,
-          background: `linear-gradient(45deg, ${colors.secondary.dark} 30%, ${colors.secondary.dark} 90%)`
+          background: `linear-gradient(45deg, ${colors.secondary.main} 30%, ${colors.secondary.main} 90%)`
         }
       }
     }
