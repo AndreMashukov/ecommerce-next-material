@@ -5,7 +5,12 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { LoginFormProps } from './models';
 import { compose } from 'recompose';
-import { withLoginState, withEmailError, withLoginSubmit } from './enhancers';
+import {
+  withLoginState,
+  withEmailError,
+  withPasswordError,
+  withLoginSubmit
+} from './enhancers';
 
 // tslint:disable-next-line: no-any
 type WithComposeProps = LoginFormProps & any;
@@ -16,15 +21,23 @@ const LoginForm = (props: WithComposeProps) => {
     emailError,
     onEmailChange,
     password,
+    passwordError,
     onPasswordChange
   } = props;
 
   return (
     <div>
       <Paper elevation={0} style={{ padding: '15px 35px 15px 35px' }}>
-        <Grid container direction="column" spacing={3} justify="center">
+        <Grid
+          container
+          direction="column"
+          spacing={3}
+          justify="center"
+          alignItems="center"
+        >
           <Grid item>
             <TextField
+              style={{width: '300px'}}
               variant="outlined"
               placeholder="E-Mail"
               value={email.value}
@@ -36,9 +49,12 @@ const LoginForm = (props: WithComposeProps) => {
           </Grid>
           <Grid item>
             <TextField
+              style={{width: '300px'}}
               variant="outlined"
               placeholder="Пароль"
               value={password.value}
+              error={!!passwordError}
+              helperText={passwordError}
               type="password"
               onChange={onPasswordChange}
               margin="normal"
@@ -60,5 +76,6 @@ const LoginForm = (props: WithComposeProps) => {
 export const LoginFormComposed = compose(
   withLoginState,
   withEmailError,
+  withPasswordError,
   withLoginSubmit
 )(LoginForm);

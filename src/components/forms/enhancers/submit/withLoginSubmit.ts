@@ -4,11 +4,12 @@ import { LoginFormProps } from '../../models';
 const handleSubmitForm = ({
   password,
   email,
-  emailError
+  emailError,
+  passwordError
 }: Partial<LoginFormProps>) => {
-  if (emailError) {
+  if (emailError || passwordError) {
     return false;
-  } else if (!email.isDirty && !email.isDirty) {
+  } else if (!email.isDirty && !password.isDirty) {
     return false;
   } else {
     return {

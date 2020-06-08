@@ -20,6 +20,14 @@ const onPasswordChange = () => (event: ChangeEventType) => ({
   }
 });
 
+const clearEmail = () => () => ({
+  email: {
+    value: '',
+    isDirty: false
+  }
+});
+
+
 const clearPassword = () => () => ({
   password: {
     value: '',
@@ -27,9 +35,9 @@ const clearPassword = () => () => ({
   }
 });
 
-
 export const withLoginState = withStateHandlers(initialState, {
   onPasswordChange,
   onEmailChange,
+  clearEmail,
   clearPassword
 });
