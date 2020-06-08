@@ -12,7 +12,13 @@ const useStyles = makeStyles({
   },
   innerBackground: {
     padding: '10px 0 20px 0',
+    backgroundColor: theme.palette.primary.light
   },
+  darkBorder: {
+    padding: '50px 70px 50px 70px',
+    backgroundColor: theme.palette.primary.main
+  }
+});
 
 const AuthPage = () => {
   const classes = useStyles();
