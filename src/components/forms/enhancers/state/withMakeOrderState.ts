@@ -14,7 +14,7 @@ const initialState = {
   address: { value: '', isDirty: false }
 };
 
-const onEmailchange = () => (event: ChangeEventType) => ({
+const onEmailChange = () => (event: ChangeEventType) => ({
   email: {
     value: user ? user.email : event.target.value,
     isDirty: true
@@ -92,7 +92,7 @@ const phoneDirty = () => () => ({
 });
 
 export const withMakeOrderdState = withStateHandlers(initialState, {
-  onEmailchange,
+  onEmailChange,
   onPhoneChange,
   onLastNameChange,
   onFirstNameChange,

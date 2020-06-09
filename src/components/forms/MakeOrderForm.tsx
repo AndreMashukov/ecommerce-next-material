@@ -26,7 +26,7 @@ export const MakeOrderForm = (props: WithComposeProps) => {
   const {
     email,
     emailError,
-    onEmailchange,
+    onEmailChange,
     lastName,
     firstName,
     firstNameError,
@@ -82,7 +82,7 @@ export const MakeOrderForm = (props: WithComposeProps) => {
             disabled={getUser() ? true : false}
             error={!!emailError}
             helperText={emailError}
-            onChange={onEmailchange}
+            onChange={onEmailChange}
             margin="normal"
           />
         </Grid>

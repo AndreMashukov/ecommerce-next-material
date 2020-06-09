@@ -3,7 +3,7 @@ import { ChangeEventType, TextField } from './GlobalModels';
 export interface MakeOrderFormProps {
   email: TextField;
   emailError: (email: TextField) => boolean;
-  onEmailchange: (event: ChangeEventType) => TextField;
+  onEmailChange: (event: ChangeEventType) => TextField;
   phone: TextField;
   phoneError: (phone: TextField) => boolean;
   onPhoneChange: (event: ChangeEventType) => TextField;
