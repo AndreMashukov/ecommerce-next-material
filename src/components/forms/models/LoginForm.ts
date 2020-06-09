@@ -3,7 +3,7 @@ import { ChangeEventType, TextField } from './GlobalModels';
 interface Login {
   email: TextField;
   password: TextField;
-};
+}
 
 export interface LoginFormProps extends Login {
   emailError: (email: TextField) => boolean;

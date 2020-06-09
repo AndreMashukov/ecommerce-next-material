@@ -21,10 +21,12 @@ const LoginForm = (props: WithComposeProps) => {
     emailError,
     onEmailChange,
     emailDirty,
+    clearEmail,
     password,
     passwordError,
     onPasswordChange,
     passwordDirty,
+    clearPassword,
     loginSubmit
   } = props;
 
@@ -33,9 +35,15 @@ const LoginForm = (props: WithComposeProps) => {
     password.value === '' && passwordDirty();
   };
 
+  const clearFields = () => {
+    clearEmail();
+    clearPassword();
+  };
+
   const handleLoginSubmit = () => {
     const login = loginSubmit();
     if (login) {
+      clearFields();
       // tslint:disable-next-line: no-console
       console.log(login);
     } else {
