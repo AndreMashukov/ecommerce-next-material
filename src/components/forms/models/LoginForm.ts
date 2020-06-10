@@ -1,6 +1,6 @@
 import { ChangeEventType, TextField } from './GlobalModels';
 
-interface Login {
+export interface Login {
   email: TextField;
   password: TextField;
 }
@@ -11,5 +11,5 @@ export interface LoginFormProps extends Login {
   passwordError: (password: TextField) => boolean;
   onPasswordChange: (event: ChangeEventType) => TextField;
   clearPassword: () => TextField;
-  loginSubmit: () => boolean | Login;
+  loginSubmit: () => Login | undefined;
 }

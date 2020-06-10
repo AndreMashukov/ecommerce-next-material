@@ -24,7 +24,6 @@ const LoginForm = (props: WithComposeProps) => {
     emailError,
     onEmailChange,
     emailDirty,
-    clearEmail,
     password,
     passwordError,
     onPasswordChange,
@@ -46,15 +45,10 @@ const LoginForm = (props: WithComposeProps) => {
     password.value === '' && passwordDirty();
   };
 
-  const clearFields = () => {
-    clearEmail();
-    clearPassword();
-  };
-
   const handleLoginSubmit = async () => {
     const login = loginSubmit();
     if (login) {
-      clearFields();
+      clearPassword();
       const response = await loginUser({ email: email.value, password: password.value });
 
       // tslint:disable-next-line: no-console

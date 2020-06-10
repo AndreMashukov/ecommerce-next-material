@@ -1,16 +1,16 @@
 import { withHandlers } from 'recompose';
-import { LoginFormProps } from '../../models';
+import { LoginFormProps, Login } from '../../models';
 
 const handleSubmitForm = ({
   password,
   email,
   emailError,
   passwordError
-}: Partial<LoginFormProps>) => {
+}: Partial<LoginFormProps>): Login | undefined => {
   if (emailError || passwordError) {
-    return false;
+    return undefined;
   } else if (!email.isDirty && !password.isDirty) {
-    return false;
+    return undefined;
   } else {
     return {
       email,
