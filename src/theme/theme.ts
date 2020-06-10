@@ -18,6 +18,12 @@ export default createMuiTheme({
     }
   },
   overrides: {
+    MuiLink: {
+      root: {
+        color: colors.primary.dark,
+        cursor: 'pointer'
+      }
+    },
     MuiCard: {
       root: {
         backgroundColor: colors.primary.light,

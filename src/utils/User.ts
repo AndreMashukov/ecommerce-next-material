@@ -19,6 +19,12 @@ export const retrieveUser = (): (User | undefined) => {
   }
 };
 
+export const removeUser = (): void => {
+  if (process.browser) {
+    localStorage.removeItem(USER_RECORD_NAME);
+  }
+};
+
 export const storeUser = (user: User): void => {
   if (process.browser) {
     localStorage.setItem(USER_RECORD_NAME, JSON.stringify(user));

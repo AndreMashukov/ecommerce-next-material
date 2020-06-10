@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
@@ -14,6 +14,8 @@ import {
 import { loginUser } from '../../services/UserApi';
 import { CustomSnackBar } from '../shared';
 import { useRouter } from 'next/router';
+import SessionContext from '../../store/SessionContext/SessionContext';
+import { User } from '../../models';
 
 // tslint:disable-next-line: no-any
 type WithComposeProps = LoginFormProps & any;
@@ -33,6 +35,7 @@ const LoginForm = (props: WithComposeProps) => {
   } = props;
 
   const router = useRouter();
+  const { setUser } = useContext(SessionContext);
 
   const [snackState, setSnackState] = useState({
     open: false,
@@ -60,6 +63,7 @@ const LoginForm = (props: WithComposeProps) => {
           text: 'Неверный E-Mail/пароль'
         });
       } else {
+        setUser(response as User);
         if (process.browser) {
           router.push('/personal/profile');
         }

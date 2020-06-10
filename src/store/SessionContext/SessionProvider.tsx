@@ -36,13 +36,18 @@ const SessionProvider: React.FunctionComponent<{}> = (props: any) => {
     return state.user;
   }
 
+  function logoutUser(): void {
+    dispatch({ type: TYPES.USER_LOGOUT });
+  }
+
   return (
     <SessionContext.Provider
       value={{
         setSessionId,
         getSessionId,
         getUser,
-        setUser
+        setUser,
+        logoutUser
       }}
     >
       {props.children}

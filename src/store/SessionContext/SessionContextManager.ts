@@ -7,4 +7,5 @@ export default interface CartContextManager {
   user?: User;
   setUser: (user: User) => void;
   getUser: () => User;
+  logoutUser: () => void;
 }
