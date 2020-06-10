@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
@@ -11,6 +11,8 @@ import {
   withPasswordError,
   withLoginSubmit
 } from './enhancers';
+import { loginUser } from '../../services/UserApi';
+import { CustomSnackBar } from '../shared';
 
 // tslint:disable-next-line: no-any
 type WithComposeProps = LoginFormProps & any;
@@ -30,6 +32,12 @@ const LoginForm = (props: WithComposeProps) => {
     loginSubmit
   } = props;
 
+  const [snackState, setSnackState] = useState({
+    open: false,
+    success: false,
+    text: ''
+  });
+
   const makeDirtyIfEmpty = () => {
     email.value === '' && emailDirty();
     password.value === '' && passwordDirty();
@@ -40,12 +48,21 @@ const LoginForm = (props: WithComposeProps) => {
     clearPassword();
   };
 
-  const handleLoginSubmit = () => {
+  const handleLoginSubmit = async () => {
     const login = loginSubmit();
     if (login) {
       clearFields();
+      const response = await loginUser({ email: email.value, password: password.value });
+
       // tslint:disable-next-line: no-console
-      console.log(login);
+      console.log(response);
+      if (response.name) {
+        setSnackState({
+          open: true,
+          success: false,
+          text: 'Неверный E-Mail/пароль'
+        });
+      }
     } else {
       makeDirtyIfEmpty();
     }
@@ -63,7 +80,7 @@ const LoginForm = (props: WithComposeProps) => {
         >
           <Grid item>
             <TextField
-              style={{width: '300px'}}
+              style={{ width: '300px' }}
               variant="outlined"
               placeholder="E-Mail"
               value={email.value}
@@ -75,7 +92,7 @@ const LoginForm = (props: WithComposeProps) => {
           </Grid>
           <Grid item>
             <TextField
-              style={{width: '300px'}}
+              style={{ width: '300px' }}
               variant="outlined"
               placeholder="Пароль"
               value={password.value}
@@ -88,13 +105,21 @@ const LoginForm = (props: WithComposeProps) => {
           </Grid>
           <Grid item>
             <Grid container justify="center">
-              <Button variant="contained" disableElevation onClick={handleLoginSubmit}>
+              <Button
+                variant="contained"
+                disableElevation
+                onClick={handleLoginSubmit}
+              >
                 ВОЙТИ
               </Button>
             </Grid>
           </Grid>
         </Grid>
       </Paper>
+      <CustomSnackBar
+        {...snackState}
+        handleClose={() => setSnackState({ ...snackState, open: false })}
+      />
     </div>
   );
 };
