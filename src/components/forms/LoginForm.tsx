@@ -13,6 +13,7 @@ import {
 } from './enhancers';
 import { loginUser } from '../../services/UserApi';
 import { CustomSnackBar } from '../shared';
+import { useRouter } from 'next/router';
 
 // tslint:disable-next-line: no-any
 type WithComposeProps = LoginFormProps & any;
@@ -31,6 +32,8 @@ const LoginForm = (props: WithComposeProps) => {
     clearPassword,
     loginSubmit
   } = props;
+
+  const router = useRouter();
 
   const [snackState, setSnackState] = useState({
     open: false,
@@ -62,6 +65,10 @@ const LoginForm = (props: WithComposeProps) => {
           success: false,
           text: 'Неверный E-Mail/пароль'
         });
+      } else {
+        if (process.browser) {
+          router.push('/personal/profile');
+        }
       }
     } else {
       makeDirtyIfEmpty();
