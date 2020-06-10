@@ -13,7 +13,6 @@ import {
 } from './enhancers';
 import { loginUser } from '../../services/UserApi';
 import { CustomSnackBar } from '../shared';
-import { useRouter } from 'next/router';
 import SessionContext from '../../store/SessionContext/SessionContext';
 import { User } from '../../models';
 
@@ -34,7 +33,6 @@ const LoginForm = (props: WithComposeProps) => {
     loginSubmit
   } = props;
 
-  const router = useRouter();
   const { setUser } = useContext(SessionContext);
 
   const [snackState, setSnackState] = useState({
@@ -64,9 +62,6 @@ const LoginForm = (props: WithComposeProps) => {
         });
       } else {
         setUser(response as User);
-        if (process.browser) {
-          router.push('/personal/profile');
-        }
       }
     } else {
       makeDirtyIfEmpty();

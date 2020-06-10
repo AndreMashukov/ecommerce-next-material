@@ -44,6 +44,7 @@ export const MakeOrderForm = (props: WithComposeProps) => {
     onAddressChange
   } = props;
   const { getUser } = useContext(SessionContext);
+  const user = getUser();
 
   return (
     <div>
@@ -52,8 +53,8 @@ export const MakeOrderForm = (props: WithComposeProps) => {
           <TextField
             variant="outlined"
             placeholder="Фамилия"
-            value={lastName.value}
-            disabled={getUser() ? true : false}
+            value={user ? user.lastName : lastName.value}
+            disabled={user ? true : false}
             error={!!lastNameError}
             helperText={lastNameError}
             onChange={onLastNameChange}
@@ -64,8 +65,8 @@ export const MakeOrderForm = (props: WithComposeProps) => {
           <TextField
             variant="outlined"
             placeholder="Имя"
-            value={firstName.value}
-            disabled={getUser() ? true : false}
+            value={user ? user.firstName : firstName.value}
+            disabled={user ? true : false}
             error={!!firstNameError}
             helperText={firstNameError}
             onChange={onFirstNameChange}
@@ -78,8 +79,8 @@ export const MakeOrderForm = (props: WithComposeProps) => {
           <TextField
             variant="outlined"
             placeholder="E-Mail"
-            value={email.value}
-            disabled={getUser() ? true : false}
+            value={user ? user.email : email.value}
+            disabled={user ? true : false}
             error={!!emailError}
             helperText={emailError}
             onChange={onEmailChange}
