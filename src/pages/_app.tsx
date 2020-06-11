@@ -7,6 +7,8 @@ import { NavBar, Footer, Layout } from '../components';
 import { Section, Category } from '../models/Section';
 import { getSections } from '../services/CatalogApi';
 import { PRODUCT_CATALOG_ID } from '../constants';
+import axios from 'axios';
+import { retrieveUser } from '../utils/User';
 
 interface AppState {
   sectionList: Section[];
@@ -19,29 +21,32 @@ interface Props extends AppComponentProps, MaterialAppComponentProps {
 
 const getCategories = (sections: Section[]): Category[] => {
   const categories: Category[] = [];
-  !!sections && sections.forEach(item => {
-    const category: Category = {
-      categoryId: item.categoryId,
-      categoryName: item.categoryName
-    };
+  !!sections &&
+    sections.forEach((item) => {
+      const category: Category = {
+        categoryId: item.categoryId,
+        categoryName: item.categoryName
+      };
 
-    if (item.categoryId > 0 && !categories.find(_item =>
-        _item.categoryId === category.categoryId)) {
-      categories.push(category);
-    }
-  });
+      if (
+        item.categoryId > 0 &&
+        !categories.find((_item) => _item.categoryId === category.categoryId)
+      ) {
+        categories.push(category);
+      }
+    });
 
   return categories;
 };
 
 class MyApp extends App<Props> {
   // tslint:disable-next-line: no-any
-  static async getInitialProps({Component, ctx}: any) {
-    let pageProps = {_sessionId: ''};
+  static async getInitialProps({ Component, ctx }: any) {
+    let pageProps = { _sessionId: '' };
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx);
     }
-    return {pageProps};
+    return { pageProps };
   }
 
   state: AppState = {
@@ -50,7 +55,38 @@ class MyApp extends App<Props> {
   };
 
   componentDidMount() {
-    getSections(PRODUCT_CATALOG_ID).then(resp => {
+    axios.interceptors.request.use(
+      (config) => {
+        config.headers = {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${retrieveUser().token}`
+      };
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
+      }
+    );
+
+    axios.interceptors.response.use(
+      (response) => {
+        if (response.status === 401) {
+          alert('You are not authorized');
+        }
+        if (response.status === 403) {
+          alert('AccessDeniedError');
+        }
+        return response;
+      },
+      (error) => {
+        if (error.response && error.response.data) {
+          return Promise.reject(error.response.data);
+        }
+        return Promise.reject(error.message);
+      }
+    );
+
+    getSections(PRODUCT_CATALOG_ID).then((resp) => {
       this.setState({
         sectionList: resp,
         categoryList: getCategories(resp)
@@ -68,7 +104,7 @@ class MyApp extends App<Props> {
 
     return (
       <Store {...pageProps}>
-        <NavBar {...navBarProps}/>
+        <NavBar {...navBarProps} />
         <Layout>
           <Component pageContext={pageContext} {...pageProps} />
         </Layout>

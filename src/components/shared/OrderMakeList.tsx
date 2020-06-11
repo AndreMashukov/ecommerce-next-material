@@ -91,20 +91,16 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
   const classes = useStyles();
   const listVariant = 'h6';
 
-
   const createNewOrder = async (user: User) => {
-    const newOrder = await postOrder(
-      {
-        userId: user.id,
-        sessionId: getSessionId(),
-        props: {
-          region: region.value,
-          city: city.value,
-          address: address.value
-        }
-      },
-      user.token
-    );
+    const newOrder = await postOrder({
+      userId: user.id,
+      sessionId: getSessionId(),
+      props: {
+        region: region.value,
+        city: city.value,
+        address: address.value
+      }
+    });
     if (newOrder.id) {
       if (process.browser) {
         destroyCookie(null, 'sessionId', {
