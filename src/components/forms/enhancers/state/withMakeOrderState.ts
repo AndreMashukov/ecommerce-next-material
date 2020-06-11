@@ -91,6 +91,13 @@ const phoneDirty = () => () => ({
   }
 });
 
+const addressDirty = () => () => ({
+  address: {
+    value: '',
+    isDirty: true
+  }
+});
+
 export const withMakeOrderdState = withStateHandlers(initialState, {
   onEmailChange,
   onPhoneChange,
@@ -102,6 +109,7 @@ export const withMakeOrderdState = withStateHandlers(initialState, {
   firstNameDirty,
   lastNameDirty,
   emailDirty,
-  phoneDirty
+  phoneDirty,
+  addressDirty
 });
 

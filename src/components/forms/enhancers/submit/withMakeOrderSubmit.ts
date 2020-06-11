@@ -12,17 +12,20 @@ const handleSubmitForm = ({
   phone,
   region,
   city,
-  address
+  address,
+  addressError
 }: Partial<MakeOrderFormProps>) => {
   if (lastNameError
     || firstNameError
     || emailError
-    || phoneError) {
+    || phoneError
+    || addressError) {
     return false;
   } else if (!lastName.isDirty
     || !firstName.isDirty
     || !email.isDirty
-    || !phone.isDirty) {
+    || !phone.isDirty
+    || !address.isDirty) {
     return false;
   } else {
     const data = {

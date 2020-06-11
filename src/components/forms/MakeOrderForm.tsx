@@ -41,7 +41,8 @@ export const MakeOrderForm = (props: WithComposeProps) => {
     city,
     onCityChange,
     address,
-    onAddressChange
+    onAddressChange,
+    addressError
   } = props;
   const { getUser } = useContext(SessionContext);
   const user = getUser();
@@ -143,6 +144,8 @@ export const MakeOrderForm = (props: WithComposeProps) => {
               variant="outlined"
               value={address.value}
               onChange={onAddressChange}
+              error={!!addressError}
+              helperText={addressError}
               placeholder="Адрес доставки"
               margin="normal"
             />
