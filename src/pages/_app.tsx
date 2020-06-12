@@ -7,7 +7,7 @@ import { NavBar, Footer, Layout } from '../components';
 import { Section, Category } from '../models/Section';
 import { getSections } from '../services/CatalogApi';
 import { PRODUCT_CATALOG_ID } from '../constants';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { retrieveUser } from '../utils/User';
 
 interface AppState {
@@ -60,7 +60,7 @@ class MyApp extends App<Props> {
         config.headers = {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${retrieveUser().token}`
-      };
+        };
         return config;
       },
       (error) => {
@@ -70,19 +70,15 @@ class MyApp extends App<Props> {
 
     axios.interceptors.response.use(
       (response) => {
-        if (response.status === 401) {
-          alert('You are not authorized');
-        }
-        if (response.status === 403) {
-          alert('AccessDeniedError');
-        }
         return response;
       },
-      (error) => {
-        if (error.response && error.response.data) {
-          return Promise.reject(error.response.data);
+      (error: AxiosError) => {
+        const { status } = error.response;
+        if (status === 403) {
+          // tslint:disable-next-line: no-console
+          console.log('status: ', status);
         }
-        return Promise.reject(error.message);
+        return Promise.reject(status);
       }
     );
 
