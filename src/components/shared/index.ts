@@ -13,3 +13,4 @@ export * from './CustomTabs';
 export * from './Badges';
 export * from './OrderMakeList';
 export * from './CustomSnackBar';
+export * from './LoginDialog';

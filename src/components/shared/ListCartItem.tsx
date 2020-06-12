@@ -84,7 +84,7 @@ export const ListCartItem = (props: Props) => {
         <div className={classes.item}>
           <Typography variant="h6">
             {item.name}{' '}
-            {item.packageType.trim().length > 2 &&
+            {item.packageType && item.packageType.trim().length > 2 &&
               '(' + item.packageType.trim() + ')'}
           </Typography>
           <Typography variant="body2" color="textSecondary">

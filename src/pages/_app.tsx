@@ -9,8 +9,11 @@ import { getSections } from '../services/CatalogApi';
 import { PRODUCT_CATALOG_ID } from '../constants';
 import axios, { AxiosError } from 'axios';
 import { retrieveUser } from '../utils/User';
+import { LoginDialog } from '../components/shared';
 
 interface AppState {
+  loginDialogOpen: boolean;
+  handleLoginDialogClose: () => void;
   sectionList: Section[];
   categoryList: Category[];
 }
@@ -50,6 +53,15 @@ class MyApp extends App<Props> {
   }
 
   state: AppState = {
+    loginDialogOpen: false,
+    handleLoginDialogClose: () => {
+      this.setState({
+        ...this.state,
+        ...{
+          loginDialogOpen: false
+        }
+      });
+    },
     sectionList: [],
     categoryList: []
   };
@@ -77,6 +89,12 @@ class MyApp extends App<Props> {
         if (status === 403) {
           // tslint:disable-next-line: no-console
           console.log('status: ', status);
+          this.setState({
+            ...this.state,
+            ...{
+              loginDialogOpen: true
+            }
+          });
         }
         return Promise.reject(status);
       }
@@ -84,8 +102,11 @@ class MyApp extends App<Props> {
 
     getSections(PRODUCT_CATALOG_ID).then((resp) => {
       this.setState({
-        sectionList: resp,
-        categoryList: getCategories(resp)
+        ...this.state,
+        ...{
+          sectionList: resp,
+          categoryList: getCategories(resp)
+        }
       });
     });
   }
@@ -105,6 +126,10 @@ class MyApp extends App<Props> {
           <Component pageContext={pageContext} {...pageProps} />
         </Layout>
         <Footer />
+        <LoginDialog
+          isOpen={this.state.loginDialogOpen}
+          handleClose={this.state.handleLoginDialogClose}
+        />
       </Store>
     );
   }
