@@ -12,11 +12,14 @@ import { retrieveUser, storeUser, removeUser } from '../utils/User';
 import moment from 'moment';
 import { refreshToken } from '../services/TokenApi';
 import { withRouter } from 'next/router';
+import { CustomSnackBar } from '../components/shared';
 
 const REFRESH_TOKEN_FREQ = 5;
 const REFRESH_TOKEN_FREQ_UNIT = 'days';
 
 interface AppState {
+  snackOpen: boolean;
+  handleSnackClose: () => void;
   sectionList: Section[];
   categoryList: Category[];
 }
@@ -56,9 +59,27 @@ class MyApp extends App<Props> {
   }
 
   state: AppState = {
+    snackOpen: false,
+    handleSnackClose: () => {
+      this.setState({
+        ...this.state,
+        ...{
+          snackOpen: false
+        }
+      });
+    },
     sectionList: [],
     categoryList: []
   };
+
+  handleSnackOpen() {
+    this.setState({
+      ...this.state,
+      ...{
+        snackOpen: true
+      }
+    });
+  }
 
   componentDidMount() {
     const { router } = this.props;
@@ -96,8 +117,9 @@ class MyApp extends App<Props> {
       },
       (error: AxiosError) => {
         const { status } = error.response;
-        if ((status && status === 403) || 401) {
+        if (status && status === (403 || 401)) {
           removeUser();
+          this.handleSnackOpen();
           router.push('/auth');
         }
         return Promise.reject(error);
@@ -129,6 +151,12 @@ class MyApp extends App<Props> {
         <Layout>
           <Component pageContext={pageContext} {...pageProps} />
         </Layout>
+        <CustomSnackBar
+          open={this.state.snackOpen}
+          success={false}
+          text={'Время вашей сессии истекло. Введите ваш Е-Майл/Пароль'}
+          handleClose={this.state.handleSnackClose}
+        />
         <Footer />
       </Store>
     );
