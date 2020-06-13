@@ -8,12 +8,15 @@ import { Section, Category } from '../models/Section';
 import { getSections } from '../services/CatalogApi';
 import { PRODUCT_CATALOG_ID } from '../constants';
 import axios, { AxiosError } from 'axios';
-import { retrieveUser } from '../utils/User';
-import { LoginDialog } from '../components/shared';
+import { retrieveUser, storeUser, removeUser } from '../utils/User';
+import moment from 'moment';
+import { refreshToken } from '../services/TokenApi';
+import { withRouter } from 'next/router';
+
+const REFRESH_TOKEN_FREQ = 5;
+const REFRESH_TOKEN_FREQ_UNIT = 'days';
 
 interface AppState {
-  loginDialogOpen: boolean;
-  handleLoginDialogClose: () => void;
   sectionList: Section[];
   categoryList: Category[];
 }
@@ -53,22 +56,29 @@ class MyApp extends App<Props> {
   }
 
   state: AppState = {
-    loginDialogOpen: false,
-    handleLoginDialogClose: () => {
-      this.setState({
-        ...this.state,
-        ...{
-          loginDialogOpen: false
-        }
-      });
-    },
     sectionList: [],
     categoryList: []
   };
 
   componentDidMount() {
+    const { router } = this.props;
     axios.interceptors.request.use(
-      (config) => {
+      async (config) => {
+        const user = retrieveUser();
+        if (
+          moment(user.tokenTime).add(
+            REFRESH_TOKEN_FREQ,
+            REFRESH_TOKEN_FREQ_UNIT
+          ) < moment()
+        ) {
+          const refreshedUser = await refreshToken({
+            userId: user.id,
+            refreshToken: user.refreshToken
+          });
+          if (refreshedUser.token) {
+            storeUser(refreshedUser);
+          }
+        }
         config.headers = {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${retrieveUser().token}`
@@ -86,17 +96,11 @@ class MyApp extends App<Props> {
       },
       (error: AxiosError) => {
         const { status } = error.response;
-        if (status === 403) {
-          // tslint:disable-next-line: no-console
-          console.log('status: ', status);
-          this.setState({
-            ...this.state,
-            ...{
-              loginDialogOpen: true
-            }
-          });
+        if ((status && status === 403) || 401) {
+          removeUser();
+          router.push('/auth');
         }
-        return Promise.reject(status);
+        return Promise.reject(error);
       }
     );
 
@@ -126,13 +130,9 @@ class MyApp extends App<Props> {
           <Component pageContext={pageContext} {...pageProps} />
         </Layout>
         <Footer />
-        <LoginDialog
-          isOpen={this.state.loginDialogOpen}
-          handleClose={this.state.handleLoginDialogClose}
-        />
       </Store>
     );
   }
 }
 
-export default withMaterial(MyApp);
+export default withMaterial(withRouter(MyApp));
