@@ -1,14 +1,11 @@
 import { withStateHandlers } from 'recompose';
 import { ChangeEventType } from '../../models';
-import { retrieveUser } from '../../../../utils/User';
-
-const user = retrieveUser();
 
 const initialState = {
-  email: { value: user ? user.email : '', isDirty: user ? true : false },
+  email: { value: '', isDirty: false },
   phone: { value: '', isDirty: false },
-  lastName: { value: user ? user.lastName : '', isDirty: user ? true : false  },
-  firstName: { value: user ? user.firstName : '', isDirty: user ? true : false  },
+  lastName: { value: '', isDirty: false },
+  firstName: { value: '', isDirty: false },
   region: { value: '10', isDirty: false },
   city: { value: '', isDirty: false },
   address: { value: '', isDirty: false }
@@ -16,7 +13,14 @@ const initialState = {
 
 const onEmailChange = () => (event: ChangeEventType) => ({
   email: {
-    value: user ? user.email : event.target.value,
+    value: event.target.value,
+    isDirty: true
+  }
+});
+
+const setEmail = () => (_email: string) => ({
+  email: {
+    value: _email,
     isDirty: true
   }
 });
@@ -30,14 +34,28 @@ const onPhoneChange = () => (event: ChangeEventType) => ({
 
 const onLastNameChange = () => (event: ChangeEventType) => ({
   lastName: {
-    value: user ? user.lastName : event.target.value,
+    value: event.target.value,
+    isDirty: true
+  }
+});
+
+const setLastName = () => (_lastName: string) => ({
+  lastName: {
+    value: _lastName,
+    isDirty: true
+  }
+});
+
+const setFirstName = () => (_firstName: string) => ({
+  lastName: {
+    value: _firstName,
     isDirty: true
   }
 });
 
 const onFirstNameChange = () => (event: ChangeEventType) => ({
   firstName: {
-    value: user ? user.firstName : event.target.value,
+    value: event.target.value,
     isDirty: true
   }
 });
@@ -100,9 +118,12 @@ const addressDirty = () => () => ({
 
 export const withMakeOrderdState = withStateHandlers(initialState, {
   onEmailChange,
+  setEmail,
   onPhoneChange,
   onLastNameChange,
+  setLastName,
   onFirstNameChange,
+  setFirstName,
   onRegionChange,
   onCityChange,
   onAddressChange,

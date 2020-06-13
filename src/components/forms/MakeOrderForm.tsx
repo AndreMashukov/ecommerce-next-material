@@ -26,9 +26,12 @@ export const MakeOrderForm = (props: WithComposeProps) => {
   const {
     email,
     emailError,
+    setEmail,
     onEmailChange,
     lastName,
+    setLastName,
     firstName,
+    setFirstName,
     firstNameError,
     lastNameError,
     onLastNameChange,
@@ -47,6 +50,14 @@ export const MakeOrderForm = (props: WithComposeProps) => {
   const { getUser } = useContext(SessionContext);
   const user = getUser();
 
+  React.useEffect(() => {
+    if (user) {
+      setEmail(user.email);
+      setLastName(user.lastName);
+      setFirstName(user.firstName);
+    }
+  }, [getUser()]);
+
   return (
     <div>
       <Grid container spacing={3} justify="center">
@@ -54,7 +65,7 @@ export const MakeOrderForm = (props: WithComposeProps) => {
           <TextField
             variant="outlined"
             placeholder="Фамилия"
-            value={user ? user.lastName : lastName.value}
+            value={lastName.value}
             disabled={user ? true : false}
             error={!!lastNameError}
             helperText={lastNameError}
@@ -66,7 +77,7 @@ export const MakeOrderForm = (props: WithComposeProps) => {
           <TextField
             variant="outlined"
             placeholder="Имя"
-            value={user ? user.firstName : firstName.value}
+            value={firstName.value}
             disabled={user ? true : false}
             error={!!firstNameError}
             helperText={firstNameError}
@@ -80,7 +91,7 @@ export const MakeOrderForm = (props: WithComposeProps) => {
           <TextField
             variant="outlined"
             placeholder="E-Mail"
-            value={user ? user.email : email.value}
+            value={email.value}
             disabled={user ? true : false}
             error={!!emailError}
             helperText={emailError}
