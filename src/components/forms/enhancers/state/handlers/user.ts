@@ -1,8 +1,43 @@
 import { ChangeEventType } from '../../../models';
 
+export const onLastNameChange = () => (event: ChangeEventType) => ({
+  lastName: {
+    value: event.target.value,
+    isDirty: true
+  }
+});
+
+export const setLastName = () => (_lastName: string) => ({
+  lastName: {
+    value: _lastName,
+    isDirty: true
+  }
+});
+
+export const setFirstName = () => (_firstName: string) => ({
+  firstName: {
+    value: _firstName,
+    isDirty: true
+  }
+});
+
+export const onFirstNameChange = () => (event: ChangeEventType) => ({
+  firstName: {
+    value: event.target.value,
+    isDirty: true
+  }
+});
+
 export const onEmailChange = () => (event: ChangeEventType) => ({
   email: {
     value: event.target.value,
+    isDirty: true
+  }
+});
+
+export const setEmail = () => (_email: string) => ({
+  email: {
+    value: _email,
     isDirty: true
   }
 });

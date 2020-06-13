@@ -1,5 +1,13 @@
 import { withStateHandlers } from 'recompose';
 import { ChangeEventType } from '../../models';
+import {
+  onEmailChange,
+  setEmail,
+  onLastNameChange,
+  setLastName,
+  onFirstNameChange,
+  setFirstName
+} from './handlers';
 
 const initialState = {
   email: { value: '', isDirty: false },
@@ -11,50 +19,8 @@ const initialState = {
   address: { value: '', isDirty: false }
 };
 
-const onEmailChange = () => (event: ChangeEventType) => ({
-  email: {
-    value: event.target.value,
-    isDirty: true
-  }
-});
-
-const setEmail = () => (_email: string) => ({
-  email: {
-    value: _email,
-    isDirty: true
-  }
-});
-
 const onPhoneChange = () => (event: ChangeEventType) => ({
   phone: {
-    value: event.target.value,
-    isDirty: true
-  }
-});
-
-const onLastNameChange = () => (event: ChangeEventType) => ({
-  lastName: {
-    value: event.target.value,
-    isDirty: true
-  }
-});
-
-const setLastName = () => (_lastName: string) => ({
-  lastName: {
-    value: _lastName,
-    isDirty: true
-  }
-});
-
-const setFirstName = () => (_firstName: string) => ({
-  lastName: {
-    value: _firstName,
-    isDirty: true
-  }
-});
-
-const onFirstNameChange = () => (event: ChangeEventType) => ({
-  firstName: {
     value: event.target.value,
     isDirty: true
   }
