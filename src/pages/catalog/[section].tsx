@@ -7,6 +7,7 @@ import { Grid, Typography } from '@material-ui/core';
 import { NextPageContext } from 'next';
 import { ProductList, CatalogBreadcrumbs } from '../../components/shared';
 import Page404 from '../404';
+import '../Layout.scss';
 
 interface Props {
   products: Product[];
@@ -28,7 +29,7 @@ const SectionPage = (props: Props) => {
   }
 
   return (
-    <div>
+    <div className="page-root-layout">
       {sectionName ? (
         <div>
           <div style={{ marginBottom: '30px' }}>

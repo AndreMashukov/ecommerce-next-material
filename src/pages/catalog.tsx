@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import { useRouter } from 'next/router';
 import { CustomTabs } from '../components/shared';
+import './Layout.scss';
 
 enum TABS {
   PURPOSE_TAB,
@@ -42,7 +43,7 @@ const CatalogPage = (props: Props) => {
   };
 
   return (
-    <div>
+    <div className="page-root-layout">
       <Breadcrumbs aria-label="breadcrumb" style={{ marginBottom: '30px' }}>
         <Link color="inherit" href="/">
           Главная

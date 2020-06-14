@@ -6,19 +6,21 @@ import theme from '../theme/theme';
 import { LoginFormComposed } from '../components/forms/LoginForm';
 import SessionContext from '../store/SessionContext/SessionContext';
 import { useRouter } from 'next/router';
+import './Layout.scss';
 
 const useStyles = makeStyles({
+  pageRootExtended: {
+    backgroundColor: theme.palette.primary.main
+  },
   root: {
-    padding: '20px 70px 70px 70px',
-    backgroundColor: theme.palette.primary.light
+    padding: '20px 70px 70px 70px'
   },
   innerBackground: {
-    padding: '10px 0 20px 0',
-    backgroundColor: theme.palette.primary.light
+    padding: '10px 0 20px 0'
   },
-  darkBorder: {
-    padding: '50px 70px 50px 70px',
-    backgroundColor: theme.palette.primary.main
+  lightBorder: {
+    padding: '30px',
+    backgroundColor: theme.palette.primary.light
   }
 });
 
@@ -34,24 +36,35 @@ const AuthPage = () => {
   }, [getUser()]);
 
   return (
-    <div className={classes.root}>
-      <Grid
-        container
-        justify="center"
-        alignItems="center"
-        className={classes.innerBackground}
-      >
-        <Typography variant="h3">Вход</Typography>
-      </Grid>
-      <div className={classes.darkBorder}>
-        <Grid
-          container
-          justify="center"
-          alignItems="center"
-          className={classes.innerBackground}
-        >
-          <LoginFormComposed />
-        </Grid>
+    <div className={classes.pageRootExtended}>
+      <div className="page-root-layout">
+        <div className={classes.root}>
+          <Grid
+            container
+            justify="center"
+            alignItems="center"
+            className={classes.innerBackground}
+          >
+            <Typography variant="h3">Вход</Typography>
+          </Grid>
+          <Grid
+            container
+            direction="column"
+            justify="center"
+            alignItems="center"
+          >
+            <Grid className={classes.lightBorder} item>
+              <Grid
+                container
+                justify="center"
+                alignItems="center"
+                className={classes.innerBackground}
+              >
+                <LoginFormComposed />
+              </Grid>
+            </Grid>
+          </Grid>
+        </div>
       </div>
     </div>
   );

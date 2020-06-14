@@ -6,13 +6,14 @@ import { OrderMakeListComposed } from '../../components';
 import CartContext from '../../store/CartContext/CartContext';
 import Link from 'next/link';
 import MatLink from '@material-ui/core/Link';
+import '../Layout.scss';
 
 const OrderMakePage = () => {
   const { getItems } = React.useContext(CartContext);
   const navColor = 'textSecondary';
 
   return (
-    <>
+    <div className="page-root-layout">
       <div style={{ margin: '20px' }}>
         <Grid container direction="row" justify="center" spacing={2}>
           <Grid item>
@@ -67,7 +68,7 @@ const OrderMakePage = () => {
         )}
       </div>
       {getItems().length > 0 && <OrderMakeListComposed />}
-    </>
+    </div>
   );
 };
 

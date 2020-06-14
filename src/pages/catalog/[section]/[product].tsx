@@ -9,6 +9,7 @@ import {
 } from '../../../components';
 import Page404 from '../../404';
 import { NextPageContext } from 'next';
+import '../../Layout.scss';
 
 interface Props {
   product: Product;
@@ -19,7 +20,7 @@ const ProductPage = (props: Props) => {
   const { product, section } = props;
 
   return (
-    <>
+    <div className="page-root-layout">
       {product ? (
         <div>
           <div style={{ marginBottom: '30px' }}>
@@ -33,7 +34,7 @@ const ProductPage = (props: Props) => {
         <Page404 />
       )}
       }
-    </>
+    </div>
   );
 };
 

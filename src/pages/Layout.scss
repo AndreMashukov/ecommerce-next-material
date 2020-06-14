@@ -1,0 +1,6 @@
+@import '../styles/mixins';
+
+.page-root-layout {
+  @include layout;
+  padding: 20px 0 10px 0;
+}
