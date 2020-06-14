@@ -45,6 +45,11 @@ export const AuthNavBar = () => {
             </Typography>
           </Grid>
           <Grid item>
+            <Typography variant={variant} style={{fontWeight: 'bold'}}>
+              /
+            </Typography>
+          </Grid>
+          <Grid item>
             <Typography variant={variant}>Регистрация</Typography>
           </Grid>
         </Grid>
