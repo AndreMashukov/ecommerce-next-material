@@ -117,7 +117,7 @@ class MyApp extends App<Props> {
       },
       (error: AxiosError) => {
         const { status } = error.response;
-        if (status && status === (403 || 401)) {
+        if (status && (status === (403 || 401))) {
           removeUser();
           this.handleSnackOpen();
           router.push('/auth');

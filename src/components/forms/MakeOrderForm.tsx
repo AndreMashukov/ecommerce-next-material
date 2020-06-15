@@ -1,9 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { TextField, Grid, Typography } from '@material-ui/core';
 import Radio from '@material-ui/core/Radio';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Paper from '@material-ui/core/Paper';
-import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
 import { MakeOrderFormProps } from './models/MakeOrderForm';
 import FormattedPhone from './shared/FormattedPhone';
@@ -197,59 +195,45 @@ export const MakeOrderForm = (props: WithComposeProps) => {
             Служба доставки
           </Typography>
         </Grid>
-        <FormControl component="fieldset">
-          <RadioGroup
-            aria-label="delivery"
-            name="delivery"
-            value={deliveryOptionsValue}
-            onChange={handleChangeDelivery}
-          >
-            <Grid
-              container
-              direction="column"
-              justify="space-around"
-              spacing={1}
-            >
-              {deliveryOptions.map((delivery) => (
-                <Grid item>
-                  <Paper style={{ padding: '20px' }}>
-                    <Grid
-                      container
-                      justify="space-between"
-                      alignItems="center"
-                      spacing={4}
-                      id={`delivery_${delivery.delivery_id}`}
-                    >
-                      <Grid item xs={1}>
-                        <FormControlLabel
-                          value={delivery.delivery_id}
-                          control={<Radio />}
-                          label=""
-                        />
-                      </Grid>
-                      <Grid item xs={4}>
-                        <div>{delivery.delivery_name}</div>
-                        <div>{delivery.delivery_description}</div>
-                      </Grid>
-                      <Grid item>
-                        <div>Срок доставки</div>
-                        <div>
-                          {delivery.delivery_period_from} -{' '}
-                          {delivery.delivery_period_to}{' '}
-                          {delivery.delivery_period_to > 5 ? 'дней' : 'дня'}
-                        </div>
-                      </Grid>
-                      <Grid item>
-                        <div>Стоимость доставки</div>
-                        <div>{delivery.delivery_price} ₽</div>
-                      </Grid>
-                    </Grid>
-                  </Paper>
+        <Grid container direction="column" justify="space-around" spacing={1}>
+          {deliveryOptions.map((delivery) => (
+            <Grid item>
+              <Paper style={{ padding: '20px' }}>
+                <Grid
+                  container
+                  justify="space-between"
+                  alignItems="center"
+                  spacing={4}
+                  id={`delivery_${delivery.delivery_id}`}
+                >
+                  <Grid item xs={1}>
+                    <Radio
+                      checked={deliveryOptionsValue === delivery.delivery_id}
+                      onChange={handleChangeDelivery}
+                      value={delivery.delivery_id}
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <div>{delivery.delivery_name}</div>
+                    <div>{delivery.delivery_description}</div>
+                  </Grid>
+                  <Grid item>
+                    <div>Срок доставки</div>
+                    <div>
+                      {delivery.delivery_period_from} -{' '}
+                      {delivery.delivery_period_to}{' '}
+                      {delivery.delivery_period_to > 5 ? 'дней' : 'дня'}
+                    </div>
+                  </Grid>
+                  <Grid item>
+                    <div>Стоимость доставки</div>
+                    <div>{delivery.delivery_price} ₽</div>
+                  </Grid>
                 </Grid>
-              ))}
+              </Paper>
             </Grid>
-          </RadioGroup>
-        </FormControl>
+          ))}
+        </Grid>
       </Grid>
     </div>
   );
