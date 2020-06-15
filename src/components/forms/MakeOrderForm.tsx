@@ -1,12 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { TextField, Grid, Typography } from '@material-ui/core';
+import Radio from '@material-ui/core/Radio';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Paper from '@material-ui/core/Paper';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControl from '@material-ui/core/FormControl';
 import { MakeOrderFormProps } from './models/MakeOrderForm';
 import FormattedPhone from './shared/FormattedPhone';
 import theme from '../../theme/theme';
 import { makeStyles } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import SessionContext from '../../store/SessionContext/SessionContext';
@@ -72,9 +75,18 @@ export const MakeOrderForm = (props: WithComposeProps) => {
         getCartTotal(getItems())
       );
       setDeliveryOptions(deliveries);
+      setDeliveryOptionsValue(deliveries[0].delivery_id);
     };
     getDelivery();
   }, [region.value, getItems()]);
+
+  const [deliveryOptionsValue, setDeliveryOptionsValue] = useState(null);
+
+  const handleChangeDelivery = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDeliveryOptionsValue((event.target as HTMLInputElement).value);
+    // tslint:disable-next-line: no-console
+    console.log(deliveryOptionsValue);
+  };
 
   return (
     <div>
@@ -185,38 +197,59 @@ export const MakeOrderForm = (props: WithComposeProps) => {
             Служба доставки
           </Typography>
         </Grid>
-        <Grid container direction="column" justify="space-around" spacing={2}>
-          {deliveryOptions.map((delivery) => (
-            <Grid item>
-              <Paper style={{ padding: '20px', margin: '5px' }}>
-                <Grid
-                  container
-                  justify="space-between"
-                  alignItems="center"
-                  spacing={4}
-                  id={`delivery_${delivery.delivery_id}`}
-                >
-                  <Grid item xs={6}>
-                    <div>{delivery.delivery_name}</div>
-                    <div>{delivery.delivery_description}</div>
-                  </Grid>
-                  <Grid item>
-                    <div>Срок доставки</div>
-                    <div>
-                      {delivery.delivery_period_from} -{' '}
-                      {delivery.delivery_period_to}{' '}
-                      {delivery.delivery_period_to > 5 ? 'дней' : 'дня'}
-                    </div>
-                  </Grid>
-                  <Grid item>
-                    <div>Стоимость доставки</div>
-                    <div>{delivery.delivery_price} ₽</div>
-                  </Grid>
+        <FormControl component="fieldset">
+          <RadioGroup
+            aria-label="delivery"
+            name="delivery"
+            value={deliveryOptionsValue}
+            onChange={handleChangeDelivery}
+          >
+            <Grid
+              container
+              direction="column"
+              justify="space-around"
+              spacing={1}
+            >
+              {deliveryOptions.map((delivery) => (
+                <Grid item>
+                  <Paper style={{ padding: '20px' }}>
+                    <Grid
+                      container
+                      justify="space-between"
+                      alignItems="center"
+                      spacing={4}
+                      id={`delivery_${delivery.delivery_id}`}
+                    >
+                      <Grid item xs={1}>
+                        <FormControlLabel
+                          value={delivery.delivery_id}
+                          control={<Radio />}
+                          label=""
+                        />
+                      </Grid>
+                      <Grid item xs={4}>
+                        <div>{delivery.delivery_name}</div>
+                        <div>{delivery.delivery_description}</div>
+                      </Grid>
+                      <Grid item>
+                        <div>Срок доставки</div>
+                        <div>
+                          {delivery.delivery_period_from} -{' '}
+                          {delivery.delivery_period_to}{' '}
+                          {delivery.delivery_period_to > 5 ? 'дней' : 'дня'}
+                        </div>
+                      </Grid>
+                      <Grid item>
+                        <div>Стоимость доставки</div>
+                        <div>{delivery.delivery_price} ₽</div>
+                      </Grid>
+                    </Grid>
+                  </Paper>
                 </Grid>
-              </Paper>
+              ))}
             </Grid>
-          ))}
-        </Grid>
+          </RadioGroup>
+        </FormControl>
       </Grid>
     </div>
   );
