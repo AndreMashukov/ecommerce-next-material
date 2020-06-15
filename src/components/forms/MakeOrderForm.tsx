@@ -1,5 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { TextField, Grid, Typography } from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
 import { MakeOrderFormProps } from './models/MakeOrderForm';
 import FormattedPhone from './shared/FormattedPhone';
 import theme from '../../theme/theme';
@@ -9,6 +10,10 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import SessionContext from '../../store/SessionContext/SessionContext';
+import { getDeliveryOptions } from '../../services/DeliveryApi';
+import { getCartTotal } from '../../utils/Cart';
+import CartContext from '../../store/CartContext/CartContext';
+import { Delivery } from '../../models';
 
 const useStyles = makeStyles({
   border: {
@@ -48,15 +53,28 @@ export const MakeOrderForm = (props: WithComposeProps) => {
     addressError
   } = props;
   const { getUser } = useContext(SessionContext);
+  const { getItems } = useContext(CartContext);
   const user = getUser();
+  const [deliveryOptions, setDeliveryOptions] = useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (user) {
       setEmail(user.email);
       setLastName(user.lastName);
       setFirstName(user.firstName);
     }
   }, [getUser()]);
+
+  useEffect(() => {
+    const getDelivery = async () => {
+      const deliveries: Delivery[] = await getDeliveryOptions(
+        region.value,
+        getCartTotal(getItems())
+      );
+      setDeliveryOptions(deliveries);
+    };
+    getDelivery();
+  }, [region.value, getItems()]);
 
   return (
     <div>
@@ -166,6 +184,38 @@ export const MakeOrderForm = (props: WithComposeProps) => {
           <Typography variant="caption" style={{ fontWeight: 'bold' }}>
             Служба доставки
           </Typography>
+        </Grid>
+        <Grid container direction="column" justify="space-around" spacing={2}>
+          {deliveryOptions.map((delivery) => (
+            <Grid item>
+              <Paper style={{ padding: '20px', margin: '5px' }}>
+                <Grid
+                  container
+                  justify="space-between"
+                  alignItems="center"
+                  spacing={4}
+                  id={`delivery_${delivery.delivery_id}`}
+                >
+                  <Grid item xs={6}>
+                    <div>{delivery.delivery_name}</div>
+                    <div>{delivery.delivery_description}</div>
+                  </Grid>
+                  <Grid item>
+                    <div>Срок доставки</div>
+                    <div>
+                      {delivery.delivery_period_from} -{' '}
+                      {delivery.delivery_period_to}{' '}
+                      {delivery.delivery_period_to > 5 ? 'дней' : 'дня'}
+                    </div>
+                  </Grid>
+                  <Grid item>
+                    <div>Стоимость доставки</div>
+                    <div>{delivery.delivery_price} ₽</div>
+                  </Grid>
+                </Grid>
+              </Paper>
+            </Grid>
+          ))}
         </Grid>
       </Grid>
     </div>
