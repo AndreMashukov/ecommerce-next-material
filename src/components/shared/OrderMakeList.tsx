@@ -97,6 +97,7 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
       userId: user.id,
       sessionId: getSessionId(),
       deliveryId,
+      price: getCartTotal(getItems()),
       props: {
         region: region.value,
         city: city.value,
