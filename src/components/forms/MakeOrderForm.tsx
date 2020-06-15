@@ -51,7 +51,8 @@ export const MakeOrderForm = (props: WithComposeProps) => {
     onCityChange,
     address,
     onAddressChange,
-    addressError
+    addressError,
+    setDeliveryId
   } = props;
   const { getUser } = useContext(SessionContext);
   const { getItems } = useContext(CartContext);
@@ -74,6 +75,7 @@ export const MakeOrderForm = (props: WithComposeProps) => {
       );
       setDeliveryOptions(deliveries);
       setDeliveryOptionsValue(deliveries[0].delivery_id);
+      setDeliveryId(deliveries[0].delivery_id);
     };
     getDelivery();
   }, [region.value, getItems()]);
@@ -84,6 +86,7 @@ export const MakeOrderForm = (props: WithComposeProps) => {
     setDeliveryOptionsValue((event.target as HTMLInputElement).value);
     // tslint:disable-next-line: no-console
     console.log(deliveryOptionsValue);
+    setDeliveryId(deliveryOptionsValue);
   };
 
   return (
@@ -227,7 +230,7 @@ export const MakeOrderForm = (props: WithComposeProps) => {
                   </Grid>
                   <Grid item>
                     <div>Стоимость доставки</div>
-                    <div>{delivery.delivery_price} ₽</div>
+                    <div>{parseInt(delivery.delivery_price.toString(), 0)} ₽</div>
                   </Grid>
                 </Grid>
               </Paper>

@@ -13,7 +13,8 @@ const handleSubmitForm = ({
   region,
   city,
   address,
-  addressError
+  addressError,
+  deliveryId
 }: Partial<MakeOrderFormProps>) => {
   if (lastNameError
     || firstNameError
@@ -33,7 +34,8 @@ const handleSubmitForm = ({
       phone,
       region,
       city,
-      address
+      address,
+      deliveryId
     };
 
     return data;

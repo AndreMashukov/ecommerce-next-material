@@ -77,7 +77,8 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
     region,
     city,
     address,
-    addressDirty
+    addressDirty,
+    deliveryId
   } = props;
 
   const makeDirtyIfEmpty = () => {
@@ -95,6 +96,7 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
     const newOrder = await postOrder({
       userId: user.id,
       sessionId: getSessionId(),
+      deliveryId,
       props: {
         region: region.value,
         city: city.value,

@@ -16,7 +16,8 @@ const initialState = {
   firstName: { value: '', isDirty: false },
   region: { value: '10', isDirty: false },
   city: { value: '', isDirty: false },
-  address: { value: '', isDirty: false }
+  address: { value: '', isDirty: false },
+  deliveryId: 0
 };
 
 const onPhoneChange = () => (event: ChangeEventType) => ({
@@ -82,6 +83,10 @@ const addressDirty = () => () => ({
   }
 });
 
+const setDeliveryId = () => (_deliveryId: number) => ({
+  deliveryId: _deliveryId
+});
+
 export const withMakeOrderdState = withStateHandlers(initialState, {
   onEmailChange,
   setEmail,
@@ -97,6 +102,7 @@ export const withMakeOrderdState = withStateHandlers(initialState, {
   lastNameDirty,
   emailDirty,
   phoneDirty,
-  addressDirty
+  addressDirty,
+  setDeliveryId
 });
 
