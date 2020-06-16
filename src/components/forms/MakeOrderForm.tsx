@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { TextField, Grid, Typography } from '@material-ui/core';
-import Radio from '@material-ui/core/Radio';
-import Paper from '@material-ui/core/Paper';
+import React, { useContext, useEffect } from 'react';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
 import { MakeOrderFormProps } from './models/MakeOrderForm';
 import FormattedPhone from './shared/FormattedPhone';
@@ -11,10 +11,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import SessionContext from '../../store/SessionContext/SessionContext';
-import { getDeliveryOptions } from '../../services/DeliveryApi';
-import { getCartTotal } from '../../utils/Cart';
-import CartContext from '../../store/CartContext/CartContext';
-import { Delivery } from '../../models';
+import { DeliveryOptions } from './shared';
 
 const useStyles = makeStyles({
   border: {
@@ -57,9 +54,7 @@ export const MakeOrderForm = (props: WithComposeProps) => {
     onDeliveryChange
   } = props;
   const { getUser } = useContext(SessionContext);
-  const { getItems } = useContext(CartContext);
   const user = getUser();
-  const [deliveryOptions, setDeliveryOptions] = useState([]);
 
   useEffect(() => {
     if (user) {
@@ -69,17 +64,6 @@ export const MakeOrderForm = (props: WithComposeProps) => {
     }
   }, [getUser()]);
 
-  useEffect(() => {
-    const getDelivery = async () => {
-      const deliveries: Delivery[] = await getDeliveryOptions(
-        region.value,
-        getCartTotal(getItems())
-      );
-      setDeliveryOptions(deliveries);
-      setDeliveryId(deliveries[0].delivery_id);
-    };
-    getDelivery();
-  }, [region.value, getItems()]);
 
   return (
     <div>
@@ -190,44 +174,16 @@ export const MakeOrderForm = (props: WithComposeProps) => {
             Служба доставки
           </Typography>
         </Grid>
-        <Grid container direction="column" justify="space-around" spacing={1}>
-          {deliveryOptions.map((delivery) => (
-            <Grid item>
-              <Paper style={{ padding: '20px' }}>
-                <Grid
-                  container
-                  justify="space-between"
-                  alignItems="center"
-                  spacing={4}
-                  id={`delivery_${delivery.delivery_id}`}
-                >
-                  <Grid item xs={1}>
-                    <Radio
-                      checked={deliveryId === delivery.delivery_id}
-                      onChange={onDeliveryChange}
-                      value={delivery.delivery_id}
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <div>{delivery.delivery_name}</div>
-                    <div>{delivery.delivery_description}</div>
-                  </Grid>
-                  <Grid item>
-                    <div>Срок доставки</div>
-                    <div>
-                      {delivery.delivery_period_from} -{' '}
-                      {delivery.delivery_period_to}{' '}
-                      {delivery.delivery_period_to > 5 ? 'дней' : 'дня'}
-                    </div>
-                  </Grid>
-                  <Grid item>
-                    <div>Стоимость доставки</div>
-                    <div>{parseInt(delivery.delivery_price.toString(), 0)} ₽</div>
-                  </Grid>
-                </Grid>
-              </Paper>
-            </Grid>
-          ))}
+        <DeliveryOptions
+          region={region}
+          deliveryId={deliveryId}
+          setDeliveryId={setDeliveryId}
+          onDeliveryChange={onDeliveryChange}
+        />
+        <Grid container className={classes.border}>
+          <Typography variant="caption" style={{ fontWeight: 'bold' }}>
+            Платежная система
+          </Typography>
         </Grid>
       </Grid>
     </div>
