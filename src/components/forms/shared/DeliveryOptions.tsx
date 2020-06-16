@@ -53,28 +53,35 @@ export const DeliveryOptions = (props: DeliveryOptionsProps) => {
             >
               <Grid item xs={1}>
                 <Radio
+                  style={{paddingTop: '20px'}}
                   checked={deliveryId === delivery.delivery_id}
                   onChange={onDeliveryChange}
                   value={delivery.delivery_id}
                 />
               </Grid>
               <Grid item xs={4}>
-                <Typography>{delivery.delivery_name}</Typography>
+                <Typography style={{ fontWeight: 'bold' }}>
+                  {delivery.delivery_name}
+                </Typography>
                 <Typography>{delivery.delivery_description}</Typography>
               </Grid>
               <Grid item>
-                <Typography>Срок доставки</Typography>
-                <Typography>
-                  {delivery.delivery_period_from} -{' '}
-                  {delivery.delivery_period_to}{' '}
-                  {delivery.delivery_period_to > 5 ? 'дней' : 'дня'}
-                </Typography>
+                <Grid container  direction="column" justify="flex-start" alignItems="flex-end">
+                  <Typography>Срок доставки</Typography>
+                  <Typography>
+                    {delivery.delivery_period_from} -{' '}
+                    {delivery.delivery_period_to}{' '}
+                    {delivery.delivery_period_to > 5 ? 'дней' : 'дня'}
+                  </Typography>
+                </Grid>
               </Grid>
               <Grid item>
-                <Typography>Стоимость доставки</Typography>
-                <Typography>
-                  {parseInt(delivery.delivery_price.toString(), 0)} ₽
-                </Typography>
+                <Grid container  direction="column" justify="flex-start" alignItems="flex-end">
+                  <Typography>Стоимость доставки</Typography>
+                  <Typography>
+                    {parseInt(delivery.delivery_price.toString(), 0)} ₽
+                  </Typography>
+                </Grid>
               </Grid>
             </Grid>
           </Paper>
