@@ -87,6 +87,10 @@ const setDeliveryId = () => (_deliveryId: number) => ({
   deliveryId: _deliveryId
 });
 
+const onDeliveryChange = () => (event: ChangeEventType) => ({
+  deliveryId: parseInt(event.target.value, 0)
+});
+
 export const withMakeOrderdState = withStateHandlers(initialState, {
   onEmailChange,
   setEmail,
@@ -103,6 +107,7 @@ export const withMakeOrderdState = withStateHandlers(initialState, {
   emailDirty,
   phoneDirty,
   addressDirty,
+  onDeliveryChange,
   setDeliveryId
 });
 

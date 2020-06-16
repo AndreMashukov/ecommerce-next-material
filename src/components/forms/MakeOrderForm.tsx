@@ -52,7 +52,9 @@ export const MakeOrderForm = (props: WithComposeProps) => {
     address,
     onAddressChange,
     addressError,
-    setDeliveryId
+    deliveryId,
+    setDeliveryId,
+    onDeliveryChange
   } = props;
   const { getUser } = useContext(SessionContext);
   const { getItems } = useContext(CartContext);
@@ -74,20 +76,10 @@ export const MakeOrderForm = (props: WithComposeProps) => {
         getCartTotal(getItems())
       );
       setDeliveryOptions(deliveries);
-      setDeliveryOptionsValue(deliveries[0].delivery_id);
       setDeliveryId(deliveries[0].delivery_id);
     };
     getDelivery();
   }, [region.value, getItems()]);
-
-  const [deliveryOptionsValue, setDeliveryOptionsValue] = useState(null);
-
-  const handleChangeDelivery = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDeliveryOptionsValue((event.target as HTMLInputElement).value);
-    // tslint:disable-next-line: no-console
-    console.log(deliveryOptionsValue);
-    setDeliveryId(deliveryOptionsValue);
-  };
 
   return (
     <div>
@@ -151,15 +143,15 @@ export const MakeOrderForm = (props: WithComposeProps) => {
         >
           <Grid item>
             <FormControl variant="outlined">
-              <InputLabel id="demo-simple-select-outlined-label">
+              <InputLabel id="region-select-outlined-label">
                 Регион доставки
               </InputLabel>
               <Select
                 style={{ width: '200px' }}
                 value={region.value}
                 onChange={onRegionChange}
-                labelId="demo-simple-select-outlined-label"
-                id="demo-simple-select-outlined"
+                labelId="region-select-outlined-label"
+                id="region-select-outlined"
                 label="Регион доставки"
               >
                 <MenuItem value={10}>Москва</MenuItem>
@@ -211,8 +203,8 @@ export const MakeOrderForm = (props: WithComposeProps) => {
                 >
                   <Grid item xs={1}>
                     <Radio
-                      checked={deliveryOptionsValue === delivery.delivery_id}
-                      onChange={handleChangeDelivery}
+                      checked={deliveryId === delivery.delivery_id}
+                      onChange={onDeliveryChange}
                       value={delivery.delivery_id}
                     />
                   </Grid>
