@@ -8,7 +8,7 @@ const getNameError = (name: TextField) => {
 
   const nameRegex = /^[A-Za-z][-a-zA-Z]+/;
 
-  const isValidName = nameRegex.test(name.value) && name.value.length > 1;
+  const isValidName = nameRegex.test(name.value) && (name.value.length > 1 && name.value.length < 100);
   return !isValidName ? 'Неверный формат имя/фамилии.' : '';
 };
 

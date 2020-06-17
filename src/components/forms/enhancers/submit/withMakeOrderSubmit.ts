@@ -12,6 +12,7 @@ const handleSubmitForm = ({
   phone,
   region,
   city,
+  cityError,
   address,
   addressError,
   comment,
@@ -21,12 +22,14 @@ const handleSubmitForm = ({
     || firstNameError
     || emailError
     || phoneError
+    || cityError
     || addressError) {
     return false;
   } else if (!lastName.isDirty
     || !firstName.isDirty
     || !email.isDirty
     || !phone.isDirty
+    || (region > 10 && !city.isDirty)
     || !address.isDirty) {
     return false;
   } else {

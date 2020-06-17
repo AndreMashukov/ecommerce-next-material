@@ -8,7 +8,7 @@ const getAddressError = (
     return '';
   }
 
-  return (address.value.length > 5) ? '' : 'Должно содержать не менее 5 символов';
+  return (address.value.length > 5 && address.value.length < 255) ? '' : 'Должно содержать от 5 до 255 символов';
 };
 
 export const withAddressError = withProps((ownerProps: Partial<MakeOrderFormProps>) => ({

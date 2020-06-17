@@ -7,10 +7,10 @@ import { getDeliveryOptions } from '../../../services/DeliveryApi';
 import { getCartTotal } from '../../../utils/Cart';
 import { Delivery } from '../../../models';
 import CartContext from '../../../store/CartContext/CartContext';
-import { ChangeEventType, TextField } from '../models';
+import { ChangeEventType } from '../models';
 
 interface DeliveryOptionsProps {
-  region: TextField;
+  region: number;
   deliveryId: number;
   setDeliveryId: (_deliveryId: number) => number;
   onDeliveryChange: (event: ChangeEventType) => number;
@@ -24,7 +24,7 @@ export const DeliveryOptions = (props: DeliveryOptionsProps) => {
   useEffect(() => {
     const getDelivery = async (): Promise<void> => {
       const deliveries: Delivery[] = await getDeliveryOptions(
-        parseInt(region.value, 0),
+        region,
         getCartTotal(getItems())
       );
       setDeliveryOptions(deliveries);
@@ -32,7 +32,7 @@ export const DeliveryOptions = (props: DeliveryOptionsProps) => {
     };
 
       getDelivery();
-  }, [region.value, getItems()]);
+  }, [region, getItems()]);
 
   return (
     <Grid

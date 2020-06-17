@@ -16,6 +16,7 @@ import {
   withNameError,
   withMakeOrderdState,
   withPhoneError,
+  withCityError,
   withAddressError,
   withMakeOrderSubmit,
   withCreatePasswordState,
@@ -76,6 +77,7 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
     phoneDirty,
     region,
     city,
+    cityDirty,
     address,
     addressDirty,
     comment,
@@ -88,6 +90,7 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
     email.value === '' && emailDirty();
     phone.value === '' && phoneDirty();
     address.value === '' && addressDirty();
+    city.value === '' && cityDirty();
   };
 
   const classes = useStyles();
@@ -101,7 +104,7 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
       price: getCartTotal(getItems()),
       comment: comment.value,
       props: {
-        region: region.value,
+        region,
         city: city.value,
         address: address.value
       }
@@ -286,6 +289,7 @@ export const OrderMakeListComposed = compose(
   withMakeOrderdState,
   withEmailError,
   withPhoneError,
+  withCityError,
   withNameError,
   withAddressError,
   withMakeOrderSubmit,

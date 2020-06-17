@@ -15,10 +15,12 @@ export interface MakeOrderFormProps {
   firstName: TextField;
   firstNameError: (firstName: TextField) => boolean;
   firstNameDirty: () => TextField;
-  region: TextField;
-  onRegionChange: (event: ChangeEventType) => TextField;
+  region: number;
+  onRegionChange: (event: ChangeEventType) => number;
   city: TextField;
   onCityChange: (event: ChangeEventType) => TextField;
+  cityDirty: () => TextField;
+  cityError: (address: TextField) => boolean;
   address: TextField;
   onAddressChange: (event: ChangeEventType) => TextField;
   addressDirty: () => TextField;

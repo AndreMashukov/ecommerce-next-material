@@ -45,6 +45,7 @@ export const MakeOrderForm = (props: WithComposeProps) => {
     region,
     onRegionChange,
     city,
+    cityError,
     onCityChange,
     address,
     onAddressChange,
@@ -133,7 +134,7 @@ export const MakeOrderForm = (props: WithComposeProps) => {
               </InputLabel>
               <Select
                 style={{ width: '200px' }}
-                value={region.value}
+                value={region}
                 onChange={onRegionChange}
                 labelId="region-select-outlined-label"
                 id="region-select-outlined"
@@ -145,13 +146,15 @@ export const MakeOrderForm = (props: WithComposeProps) => {
               </Select>
             </FormControl>
           </Grid>
-          {region.value > 10 && (
+          {region > 10 && (
             <Grid item>
               <TextField
                 style={{ width: '300px' }}
                 variant="outlined"
                 value={city.value}
                 onChange={onCityChange}
+                error={!!cityError}
+                helperText={cityError}
                 placeholder="Название населенного пункта"
                 margin="normal"
               />
