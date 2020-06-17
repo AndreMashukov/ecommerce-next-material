@@ -51,6 +51,7 @@ export const MakeOrderForm = (props: WithComposeProps) => {
     onAddressChange,
     addressError,
     comment,
+    commentError,
     onCommentChange,
     deliveryId,
     setDeliveryId,
@@ -187,6 +188,8 @@ export const MakeOrderForm = (props: WithComposeProps) => {
               variant="outlined"
               value={comment.value}
               onChange={onCommentChange}
+              error={!!commentError}
+              helperText={commentError}
               multiline
               rows={4}
               placeholder="Комментарий"

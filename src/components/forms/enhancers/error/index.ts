@@ -5,3 +5,4 @@ export * from './withPasswordError';
 export * from './withConfirmPasswordError';
 export * from './withCityError';
 export * from './withAddressError';
+export * from './withCommentError';

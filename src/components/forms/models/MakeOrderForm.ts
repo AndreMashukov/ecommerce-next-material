@@ -27,6 +27,7 @@ export interface MakeOrderFormProps {
   addressError: (address: TextField) => boolean;
   comment: TextField;
   onCommentChange: (event: ChangeEventType) => TextField;
+  commentError: (comment: TextField) => boolean;
   deliveryId: number;
   onDeliveryChange: (event: ChangeEventType) => number;
   makeOrderSubmit: (props: Partial<MakeOrderFormProps>) => boolean;

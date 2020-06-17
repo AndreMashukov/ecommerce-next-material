@@ -18,6 +18,7 @@ import {
   withPhoneError,
   withCityError,
   withAddressError,
+  withCommentError,
   withMakeOrderSubmit,
   withCreatePasswordState,
   withPasswordError,
@@ -106,6 +107,7 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
       props: {
         region,
         city: city.value,
+        phone: phone.value,
         address: address.value
       }
     });
@@ -292,6 +294,7 @@ export const OrderMakeListComposed = compose(
   withCityError,
   withNameError,
   withAddressError,
+  withCommentError,
   withMakeOrderSubmit,
   withCreatePasswordState,
   withPasswordError,

@@ -16,6 +16,7 @@ const handleSubmitForm = ({
   address,
   addressError,
   comment,
+  commentError,
   deliveryId
 }: Partial<MakeOrderFormProps>) => {
   if (lastNameError
@@ -23,6 +24,7 @@ const handleSubmitForm = ({
     || emailError
     || phoneError
     || cityError
+    || commentError
     || addressError) {
     return false;
   } else if (!lastName.isDirty
