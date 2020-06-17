@@ -22,7 +22,7 @@ export const DeliveryOptions = (props: DeliveryOptionsProps) => {
   const [deliveryOptions, setDeliveryOptions] = useState([]);
 
   useEffect(() => {
-    const getDelivery = async () => {
+    const getDelivery = async (): Promise<void> => {
       const deliveries: Delivery[] = await getDeliveryOptions(
         parseInt(region.value, 0),
         getCartTotal(getItems())
@@ -30,7 +30,8 @@ export const DeliveryOptions = (props: DeliveryOptionsProps) => {
       setDeliveryOptions(deliveries);
       setDeliveryId(deliveries[0].delivery_id);
     };
-    getDelivery();
+
+      getDelivery();
   }, [region.value, getItems()]);
 
   return (

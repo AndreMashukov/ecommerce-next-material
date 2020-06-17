@@ -164,6 +164,8 @@ export const MakeOrderForm = (props: WithComposeProps) => {
               onChange={onAddressChange}
               error={!!addressError}
               helperText={addressError}
+              multiline
+              rows={4}
               placeholder="Адрес доставки"
               margin="normal"
             />
