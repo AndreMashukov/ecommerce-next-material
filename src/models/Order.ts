@@ -6,5 +6,6 @@ export interface Order {
   sessionId: string;
   deliveryId: number;
   price: number;
+  comment?: string;
   props?: OrderProps;
 }

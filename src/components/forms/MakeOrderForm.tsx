@@ -49,6 +49,8 @@ export const MakeOrderForm = (props: WithComposeProps) => {
     address,
     onAddressChange,
     addressError,
+    comment,
+    onCommentChange,
     deliveryId,
     setDeliveryId,
     onDeliveryChange
@@ -63,7 +65,6 @@ export const MakeOrderForm = (props: WithComposeProps) => {
       setFirstName(user.firstName);
     }
   }, [getUser()]);
-
 
   return (
     <div>
@@ -167,6 +168,25 @@ export const MakeOrderForm = (props: WithComposeProps) => {
               multiline
               rows={4}
               placeholder="Адрес доставки"
+              margin="normal"
+            />
+          </Grid>
+        </Grid>
+        <Grid container className={classes.border}>
+          <Typography variant="caption" style={{ fontWeight: 'bold' }}>
+            Ваш комментарий к доставке
+          </Typography>
+        </Grid>
+        <Grid container justify="center">
+          <Grid item>
+            <TextField
+              style={{ width: '300px' }}
+              variant="outlined"
+              value={comment.value}
+              onChange={onCommentChange}
+              multiline
+              rows={4}
+              placeholder="Комментарий"
               margin="normal"
             />
           </Grid>

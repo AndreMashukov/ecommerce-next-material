@@ -14,6 +14,7 @@ const handleSubmitForm = ({
   city,
   address,
   addressError,
+  comment,
   deliveryId
 }: Partial<MakeOrderFormProps>) => {
   if (lastNameError
@@ -35,6 +36,7 @@ const handleSubmitForm = ({
       region,
       city,
       address,
+      comment,
       deliveryId
     };
 

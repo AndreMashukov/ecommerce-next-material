@@ -17,6 +17,7 @@ const initialState = {
   region: { value: '10', isDirty: false },
   city: { value: '', isDirty: false },
   address: { value: '', isDirty: false },
+  comment: { value: '', isDirty: false },
   deliveryId: 0
 };
 
@@ -47,6 +48,14 @@ const onAddressChange = () => (event: ChangeEventType) => ({
     isDirty: true
   }
 });
+
+const onCommentChange = () => (event: ChangeEventType) => ({
+  comment: {
+    value: event.target.value,
+    isDirty: true
+  }
+});
+
 
 const firstNameDirty = () => () => ({
   firstName: {
@@ -91,6 +100,7 @@ const onDeliveryChange = () => (event: ChangeEventType) => ({
   deliveryId: parseInt(event.target.value, 0)
 });
 
+
 export const withMakeOrderdState = withStateHandlers(initialState, {
   onEmailChange,
   setEmail,
@@ -102,12 +112,13 @@ export const withMakeOrderdState = withStateHandlers(initialState, {
   onRegionChange,
   onCityChange,
   onAddressChange,
+  onCommentChange,
+  onDeliveryChange,
+  setDeliveryId,
   firstNameDirty,
   lastNameDirty,
   emailDirty,
   phoneDirty,
-  addressDirty,
-  onDeliveryChange,
-  setDeliveryId
+  addressDirty
 });
 
