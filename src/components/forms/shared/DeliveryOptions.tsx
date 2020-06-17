@@ -13,11 +13,18 @@ interface DeliveryOptionsProps {
   region: number;
   deliveryId: number;
   setDeliveryId: (_deliveryId: number) => number;
+  setDeliveryPrice: (_deliveryPrice: number) => number;
   onDeliveryChange: (event: ChangeEventType) => number;
 }
 
 export const DeliveryOptions = (props: DeliveryOptionsProps) => {
-  const { region, deliveryId, setDeliveryId, onDeliveryChange } = props;
+  const {
+    region,
+    deliveryId,
+    setDeliveryId,
+    setDeliveryPrice,
+    onDeliveryChange
+  } = props;
   const { getItems } = useContext(CartContext);
   const [deliveryOptions, setDeliveryOptions] = useState([]);
 
@@ -28,10 +35,12 @@ export const DeliveryOptions = (props: DeliveryOptionsProps) => {
         getCartTotal(getItems())
       );
       setDeliveryOptions(deliveries);
+      // TODO: Should choose delivertId from selected option
       setDeliveryId(deliveries[0].delivery_id);
+      setDeliveryPrice(deliveries[0].delivery_price);
     };
 
-      getDelivery();
+    getDelivery();
   }, [region, getItems()]);
 
   return (
@@ -53,9 +62,13 @@ export const DeliveryOptions = (props: DeliveryOptionsProps) => {
               id={`delivery_${delivery.delivery_id}`}
             >
               <Grid item xs={1}>
-                <div style={{position: 'relative'}}>
+                <div style={{ position: 'relative' }}>
                   <Radio
-                    style={{position: 'absolute', bottom: '30px', top: '25px'}}
+                    style={{
+                      position: 'absolute',
+                      bottom: '30px',
+                      top: '25px'
+                    }}
                     checked={deliveryId === delivery.delivery_id}
                     onChange={onDeliveryChange}
                     value={delivery.delivery_id}
@@ -69,7 +82,12 @@ export const DeliveryOptions = (props: DeliveryOptionsProps) => {
                 <Typography>{delivery.delivery_description}</Typography>
               </Grid>
               <Grid item>
-                <Grid container  direction="column" justify="flex-start" alignItems="flex-end">
+                <Grid
+                  container
+                  direction="column"
+                  justify="flex-start"
+                  alignItems="flex-end"
+                >
                   <Typography>Срок доставки</Typography>
                   <Typography>
                     {delivery.delivery_period_from} -{' '}
@@ -79,7 +97,12 @@ export const DeliveryOptions = (props: DeliveryOptionsProps) => {
                 </Grid>
               </Grid>
               <Grid item>
-                <Grid container  direction="column" justify="flex-start" alignItems="flex-end">
+                <Grid
+                  container
+                  direction="column"
+                  justify="flex-start"
+                  alignItems="flex-end"
+                >
                   <Typography>Стоимость доставки</Typography>
                   <Typography>
                     {parseInt(delivery.delivery_price.toString(), 0)} ₽

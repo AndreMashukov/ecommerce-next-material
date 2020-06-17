@@ -55,7 +55,8 @@ export const MakeOrderForm = (props: WithComposeProps) => {
     onCommentChange,
     deliveryId,
     setDeliveryId,
-    onDeliveryChange
+    onDeliveryChange,
+    setDeliveryPrice
   } = props;
   const { getUser } = useContext(SessionContext);
   const user = getUser();
@@ -206,6 +207,7 @@ export const MakeOrderForm = (props: WithComposeProps) => {
           region={region}
           deliveryId={deliveryId}
           setDeliveryId={setDeliveryId}
+          setDeliveryPrice={setDeliveryPrice}
           onDeliveryChange={onDeliveryChange}
         />
         <Grid container className={classes.border}>

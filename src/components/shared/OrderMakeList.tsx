@@ -82,7 +82,8 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
     address,
     addressDirty,
     comment,
-    deliveryId
+    deliveryId,
+    deliveryPrice
   } = props;
 
   const makeDirtyIfEmpty = () => {
@@ -215,7 +216,7 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
                 Доставка
               </Typography>
               <Typography variant={listVariant} color="textPrimary">
-                0 ₽
+                {parseInt(deliveryPrice, 0)} ₽
               </Typography>
             </Grid>
             <Grid container justify="space-between">
@@ -231,7 +232,7 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
                 style={{ fontWeight: 'bolder' }}
                 color="textPrimary"
               >
-                {getCartTotal(getItems())} ₽
+                {getCartTotal(getItems()) + parseInt(deliveryPrice,0)} ₽
               </Typography>
             </Grid>
           </Grid>

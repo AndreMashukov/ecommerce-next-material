@@ -31,4 +31,5 @@ export interface MakeOrderFormProps {
   deliveryId: number;
   onDeliveryChange: (event: ChangeEventType) => number;
   makeOrderSubmit: (props: Partial<MakeOrderFormProps>) => boolean;
+  deliveryPrice: number;
 }
