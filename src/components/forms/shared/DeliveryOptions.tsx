@@ -52,12 +52,14 @@ export const DeliveryOptions = (props: DeliveryOptionsProps) => {
               id={`delivery_${delivery.delivery_id}`}
             >
               <Grid item xs={1}>
-                <Radio
-                  style={{paddingTop: '20px'}}
-                  checked={deliveryId === delivery.delivery_id}
-                  onChange={onDeliveryChange}
-                  value={delivery.delivery_id}
-                />
+                <div style={{position: 'relative'}}>
+                  <Radio
+                    style={{position: 'absolute', bottom: '30px', top: '25px'}}
+                    checked={deliveryId === delivery.delivery_id}
+                    onChange={onDeliveryChange}
+                    value={delivery.delivery_id}
+                  />
+                </div>
               </Grid>
               <Grid item xs={4}>
                 <Typography style={{ fontWeight: 'bold' }}>
