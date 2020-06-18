@@ -19,7 +19,8 @@ const initialState = {
   address: { value: '', isDirty: false },
   comment: { value: '', isDirty: false },
   deliveryId: 0,
-  deliveryPrice: 0
+  deliveryPrice: 0,
+  paySystemId: 0
 };
 
 const onPhoneChange = () => (event: ChangeEventType) => ({
@@ -108,6 +109,14 @@ const setDeliveryPrice = () => (_deliveryPrice: number) => ({
   deliveryPrice: _deliveryPrice
 });
 
+const setPaySystemId = () => (_paySystemId: number) => ({
+  paySystemId: _paySystemId
+});
+
+const onPaySystemChange = () => (event: ChangeEventType) => ({
+  paySystemId: parseInt(event.target.value, 0)
+});
+
 export const withMakeOrderdState = withStateHandlers(initialState, {
   onEmailChange,
   setEmail,
@@ -123,6 +132,8 @@ export const withMakeOrderdState = withStateHandlers(initialState, {
   onDeliveryChange,
   setDeliveryId,
   setDeliveryPrice,
+  setPaySystemId,
+  onPaySystemChange,
   firstNameDirty,
   lastNameDirty,
   emailDirty,

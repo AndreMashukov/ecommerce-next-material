@@ -52,7 +52,7 @@ export const DeliveryOptions = (props: DeliveryOptionsProps) => {
       style={{ marginBottom: '10px' }}
     >
       {deliveryOptions.map((delivery) => (
-        <Grid item>
+        <Grid item key={`DeliveryOptions_${delivery.delivery_id}`}>
           <Paper style={{ padding: '20px' }}>
             <Grid
               container

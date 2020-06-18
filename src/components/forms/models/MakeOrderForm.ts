@@ -1,5 +1,6 @@
 import { ChangeEventType, TextField } from './GlobalModels';
 
+// TODO: Remove handlers since they are exported from withMakeOrderState
 export interface MakeOrderFormProps {
   email: TextField;
   emailError: (email: TextField) => boolean;
@@ -30,6 +31,8 @@ export interface MakeOrderFormProps {
   commentError: (comment: TextField) => boolean;
   deliveryId: number;
   onDeliveryChange: (event: ChangeEventType) => number;
-  makeOrderSubmit: (props: Partial<MakeOrderFormProps>) => boolean;
   deliveryPrice: number;
+  paySystemId: number;
+  onPaySystemChange: (event: ChangeEventType) => number;
+  makeOrderSubmit: (props: Partial<MakeOrderFormProps>) => boolean;
 }
