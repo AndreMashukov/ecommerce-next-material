@@ -21,8 +21,7 @@ const useStyles = makeStyles({
   }
 });
 
-// tslint:disable-next-line: no-any
-type WithComposeProps = MakeOrderFormProps & any;
+type WithComposeProps = MakeOrderFormProps;
 
 export const MakeOrderForm = (props: WithComposeProps) => {
   const classes = useStyles();
