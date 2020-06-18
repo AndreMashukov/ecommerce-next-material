@@ -69,10 +69,10 @@ export const NavBar = (props: NavBarProps) => {
             <Grid item>
               <Grid container direction="row" justify="flex-start" spacing={2}>
                 <Grid item>
-                  <Typography variant="subtitle2">Доставка</Typography>
+                  <Typography variant="body1">Доставка</Typography>
                 </Grid>
                 <Grid item>
-                  <Typography variant="subtitle2">Оплата</Typography>
+                  <Typography variant="body1">Оплата</Typography>
                 </Grid>
               </Grid>
             </Grid>
