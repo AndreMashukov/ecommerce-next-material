@@ -6,3 +6,4 @@ export * from './Order';
 export * from './User';
 export * from './Error';
 export * from './Delivery';
+export * from './PaySystem';
