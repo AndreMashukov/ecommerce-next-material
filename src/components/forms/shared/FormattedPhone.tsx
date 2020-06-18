@@ -4,7 +4,7 @@ import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
-import { MakeOrderFormProps } from '../models/MakeOrderForm';
+import { TextField, ChangeEventType } from '../models';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -63,7 +63,13 @@ interface State {
   textmask: string;
 }
 
-function FormattedPhone(props: Partial<MakeOrderFormProps>) {
+interface FormattedPhoneProps {
+  phone: TextField;
+  phoneError: (phone: TextField) => boolean;
+  onPhoneChange: (event: ChangeEventType) => TextField;
+}
+
+function FormattedPhone(props: FormattedPhoneProps) {
   const {
     phone,
     phoneError,
