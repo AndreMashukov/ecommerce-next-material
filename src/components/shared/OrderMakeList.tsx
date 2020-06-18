@@ -54,7 +54,7 @@ const useStyles = makeStyles({
   }
 });
 
-const OrderMakeList: React.FC = (props: WithComposeProps) => {
+const OrderMakeList: React.FC<WithComposeProps> = (props: WithComposeProps) => {
   const { getSessionId, setUser, getUser } = useContext(SessionContext);
   const { getItems } = useContext(CartContext);
   const router = useRouter();

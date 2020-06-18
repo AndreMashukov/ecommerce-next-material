@@ -15,6 +15,7 @@ import { loginUser } from '../../services/UserApi';
 import { CustomSnackBar } from '../shared';
 import SessionContext from '../../store/SessionContext/SessionContext';
 import { User } from '../../models';
+import { Typography } from '@material-ui/core';
 
 // tslint:disable-next-line: no-any
 type WithComposeProps = LoginFormProps & any;
@@ -33,6 +34,8 @@ const LoginForm = (props: WithComposeProps) => {
     loginSubmit
   } = props;
 
+  const textVariant = 'body2';
+
   const { setUser } = useContext(SessionContext);
 
   const [snackState, setSnackState] = useState({
@@ -50,7 +53,10 @@ const LoginForm = (props: WithComposeProps) => {
     const login = loginSubmit();
     if (login) {
       clearPassword();
-      const response = await loginUser({ email: email.value, password: password.value });
+      const response = await loginUser({
+        email: email.value,
+        password: password.value
+      });
 
       // tslint:disable-next-line: no-console
       console.log(response);
@@ -79,10 +85,13 @@ const LoginForm = (props: WithComposeProps) => {
           alignItems="center"
         >
           <Grid item>
+            <Typography variant={textVariant} color="textSecondary">
+              E-Mail
+            </Typography>
             <TextField
               style={{ width: '300px' }}
               variant="outlined"
-              placeholder="E-Mail"
+              placeholder="Ваш E-Mail"
               value={email.value}
               error={!!emailError}
               helperText={emailError}
@@ -91,10 +100,13 @@ const LoginForm = (props: WithComposeProps) => {
             />
           </Grid>
           <Grid item>
+            <Typography variant={textVariant} color="textSecondary">
+              Пароль
+            </Typography>
             <TextField
               style={{ width: '300px' }}
               variant="outlined"
-              placeholder="Пароль"
+              placeholder="Ваш Пароль"
               value={password.value}
               error={!!passwordError}
               helperText={passwordError}
@@ -112,6 +124,24 @@ const LoginForm = (props: WithComposeProps) => {
               >
                 ВОЙТИ
               </Button>
+            </Grid>
+          </Grid>
+          <Grid item>
+            <Grid
+              container
+              direction="column"
+              justify="center"
+              alignItems="center"
+              spacing={2}
+            >
+              <Grid item>
+                <Typography variant={textVariant}>Забыли пароль?</Typography>
+              </Grid>
+              <Grid item>
+                <Typography variant={textVariant}>
+                  Зарегистрироваться
+                </Typography>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
