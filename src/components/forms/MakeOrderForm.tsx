@@ -11,7 +11,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import SessionContext from '../../store/SessionContext/SessionContext';
-import { DeliveryOptions } from './shared';
+import { DeliveryOptions, PaySystemOptions } from './shared';
 
 const useStyles = makeStyles({
   border: {
@@ -56,7 +56,10 @@ export const MakeOrderForm = (props: WithComposeProps) => {
     deliveryId,
     setDeliveryId,
     onDeliveryChange,
-    setDeliveryPrice
+    setDeliveryPrice,
+    paySystemId,
+    setPaySystemId,
+    onPaySystemChange
   } = props;
   const { getUser } = useContext(SessionContext);
   const user = getUser();
@@ -215,6 +218,12 @@ export const MakeOrderForm = (props: WithComposeProps) => {
             Платежная система
           </Typography>
         </Grid>
+        <PaySystemOptions
+          region={region}
+          paySystemId={paySystemId}
+          setPaySystemId={setPaySystemId}
+          onPaySystemChange={onPaySystemChange}
+        />
       </Grid>
     </div>
   );

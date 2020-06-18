@@ -66,6 +66,7 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
     text: ''
   });
 
+  // TODO: Implement corresponding types
   const {
     makeOrderSubmit,
     firstName,
@@ -83,7 +84,8 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
     addressDirty,
     comment,
     deliveryId,
-    deliveryPrice
+    deliveryPrice,
+    paySystemId
   } = props;
 
   const makeDirtyIfEmpty = () => {
@@ -103,6 +105,7 @@ const OrderMakeList: React.FC = (props: WithComposeProps) => {
       userId: user.id,
       sessionId: getSessionId(),
       deliveryId,
+      paySystemId,
       price: getCartTotal(getItems()),
       comment: comment.value,
       props: {

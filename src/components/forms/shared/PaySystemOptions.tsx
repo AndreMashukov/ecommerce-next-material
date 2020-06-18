@@ -50,38 +50,32 @@ export const PaySystemOptions = (props: PaySystemOptionsProps) => {
             <Grid
               container
               justify="space-between"
-              alignItems="flex-start"
+              alignItems="center"
               spacing={4}
               id={`PaySystem_${paySystem.pay_system_id}`}
             >
               <Grid item xs={1}>
-                <div style={{ position: 'relative' }}>
+                <div>
                   <Radio
-                    style={{
-                      position: 'absolute',
-                      bottom: '30px',
-                      top: '25px'
-                    }}
                     checked={paySystemId === paySystem.pay_system_id}
                     onChange={onPaySystemChange}
                     value={paySystem.pay_system_id}
                   />
                 </div>
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={5}>
                 <Typography style={{ fontWeight: 'bold' }}>
                   {paySystem.pay_system_name}
                 </Typography>
-                <Typography>{paySystem.pay_system_description}</Typography>
               </Grid>
-              <Grid item>
+              <Grid item xs={6}>
                 <Grid
                   container
-                  direction="column"
+                  direction="row"
                   justify="flex-start"
                   alignItems="flex-end"
                 >
-                  MasterCard, Visa
+                  <Typography>{paySystem.pay_system_description}</Typography>
                 </Grid>
               </Grid>
             </Grid>
