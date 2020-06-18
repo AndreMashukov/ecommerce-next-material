@@ -55,7 +55,7 @@ export const ListCart = (props: Props) => {
           alignItems="baseline"
         >
           <Grid item>
-            <Typography variant="body1" className={classes.fontWeigthBold}>
+            <Typography variant="h6" className={classes.fontWeigthBold}>
               Всего товаров: {items ? getCartItemsNumber(items) : 0} /{' '}
               {items ? getCartTotal(items) : 0} ₽
             </Typography>
@@ -86,7 +86,7 @@ export const ListCart = (props: Props) => {
           ))}
       </Grid>
       <div className={classes.total}>
-        <Typography variant="body1" className={classes.fontWeigthBold}>
+        <Typography variant="h6" className={classes.fontWeigthBold}>
           Итого : {items ? getCartTotal(items) : 0} ₽
         </Typography>
       </div>
