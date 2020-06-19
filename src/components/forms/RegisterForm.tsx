@@ -8,7 +8,10 @@ import { compose } from 'recompose';
 import {
   withRegisterState,
   withEmailError,
+  withPhoneError,
   withPasswordError,
+  withConfirmPasswordError,
+  withNameError,
   withLoginSubmit
 } from './enhancers';
 import { loginUser } from '../../services/UserApi';
@@ -30,6 +33,12 @@ const RegisterForm = (props: WithComposeProps) => {
     phone,
     phoneError,
     onPhoneChange,
+    firstName,
+    firstNameError,
+    onFirstNameChange,
+    lastName,
+    lastNameError,
+    onLastNameChange,
     password,
     passwordError,
     onPasswordChange,
@@ -62,9 +71,9 @@ const RegisterForm = (props: WithComposeProps) => {
     confirmPassword.value === '' && confirmPasswordDirty();
   };
 
-  const handleLoginSubmit = async () => {
-    const login = loginSubmit();
-    if (login) {
+  const handleRegisterSubmit = async () => {
+    const registerFields = loginSubmit();
+    if (registerFields) {
       clearPassword();
       const response = await loginUser({
         email: email.value,
@@ -90,8 +99,13 @@ const RegisterForm = (props: WithComposeProps) => {
   return (
     <div>
       <Paper elevation={0} style={{ padding: '15px 35px 15px 35px' }}>
-        <Grid container direction="row" alignItems="center" spacing={formSpacing}>
-          <Grid item xs={12} sm={6} style={{height: `${rowDistance}`}}>
+        <Grid
+          container
+          direction="row"
+          alignItems="center"
+          spacing={formSpacing}
+        >
+          <Grid item xs={12} sm={6} style={{ height: `${rowDistance}` }}>
             <Grid
               container
               direction="column"
@@ -110,12 +124,12 @@ const RegisterForm = (props: WithComposeProps) => {
                   helperText={emailError}
                   onChange={onEmailChange}
                   margin="normal"
-                  style={{width: `${fieldWidth}`}}
+                  style={{ width: `${fieldWidth}` }}
                 />
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} sm={6} style={{height: `${rowDistance}`}}>
+          <Grid item xs={12} sm={6} style={{ height: `${rowDistance}` }}>
             <Grid
               container
               direction="column"
@@ -132,8 +146,68 @@ const RegisterForm = (props: WithComposeProps) => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid container direction="row" alignItems="center" spacing={formSpacing}>
-          <Grid item xs={12} sm={6} style={{height: `${rowDistance}`}}>
+        <Grid
+          container
+          direction="row"
+          alignItems="center"
+          spacing={formSpacing}
+        >
+          <Grid item xs={12} sm={6} style={{ height: `${rowDistance}` }}>
+            <Grid
+              container
+              direction="column"
+              justify="flex-start"
+              alignItems="flex-start"
+            >
+              <Grid item>
+                <Typography variant={textVariant} color="textSecondary">
+                  Фамилия
+                </Typography>
+                <TextField
+                  variant="outlined"
+                  placeholder="Фамилия"
+                  value={lastName.value}
+                  error={!!lastNameError}
+                  helperText={lastNameError}
+                  onChange={onLastNameChange}
+                  margin="normal"
+                  style={{ width: `${fieldWidth}` }}
+                />
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item xs={12} sm={6} style={{ height: `${rowDistance}` }}>
+            <Grid
+              container
+              direction="column"
+              justify="flex-start"
+              alignItems="flex-start"
+            >
+              <Grid item>
+                <Typography variant={textVariant} color="textSecondary">
+                  Имя
+                </Typography>
+                <TextField
+                  variant="outlined"
+                  placeholder="Имя"
+                  value={firstName.value}
+                  error={!!firstNameError}
+                  helperText={firstNameError}
+                  onChange={onFirstNameChange}
+                  margin="normal"
+                  style={{ width: `${fieldWidth}` }}
+                />
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid
+          container
+          direction="row"
+          alignItems="center"
+          spacing={formSpacing}
+        >
+          <Grid item xs={12} sm={6} style={{ height: `${rowDistance}` }}>
             <Grid
               container
               direction="column"
@@ -153,12 +227,12 @@ const RegisterForm = (props: WithComposeProps) => {
                   type="password"
                   onChange={onPasswordChange}
                   margin="normal"
-                  style={{width: `${fieldWidth}`}}
+                  style={{ width: `${fieldWidth}` }}
                 />
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} sm={6} style={{height: `${rowDistance}`}}>
+          <Grid item xs={12} sm={6} style={{ height: `${rowDistance}` }}>
             <Grid
               container
               direction="column"
@@ -178,17 +252,17 @@ const RegisterForm = (props: WithComposeProps) => {
                   type="password"
                   onChange={onConfirmPasswordChange}
                   margin="normal"
-                  style={{width: `${fieldWidth}`}}
+                  style={{ width: `${fieldWidth}` }}
                 />
               </Grid>
             </Grid>
           </Grid>
         </Grid>
-        <Grid container justify="center" style={{margin: '40px 0 10px 0'}}>
+        <Grid container justify="center" style={{ margin: '40px 0 10px 0' }}>
           <Button
             variant="contained"
             disableElevation
-            onClick={handleLoginSubmit}
+            onClick={handleRegisterSubmit}
           >
             ЗАРЕГИСТРИРОВАТЬСЯ
           </Button>
@@ -206,5 +280,8 @@ export const RegisterFormComposed = compose(
   withRegisterState,
   withEmailError,
   withPasswordError,
+  withPhoneError,
+  withNameError,
+  withConfirmPasswordError,
   withLoginSubmit
 )(RegisterForm);

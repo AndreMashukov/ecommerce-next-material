@@ -5,6 +5,8 @@ import {
   clearEmail,
   onPhoneChange,
   phoneDirty,
+  onLastNameChange,
+  onFirstNameChange,
   onPasswordChange,
   clearPassword,
   emailDirty,
@@ -16,6 +18,8 @@ import {
 const initialState = {
   email: { value: '', isDirty: false},
   phone: { value: '', isDirty: false},
+  lastName: { value: '', isDirty: false},
+  firstName: { value: '', isDirty: false},
   password: { value: '', isDirty: false},
   confirmPassword: { value: '', isDirty: false}
 };
@@ -26,6 +30,8 @@ export const withRegisterState = withStateHandlers(initialState, {
   clearEmail,
   onPhoneChange,
   phoneDirty,
+  onLastNameChange,
+  onFirstNameChange,
   clearPassword,
   emailDirty,
   passwordDirty,
