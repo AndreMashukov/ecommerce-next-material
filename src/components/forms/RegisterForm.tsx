@@ -44,6 +44,9 @@ const RegisterForm = (props: WithComposeProps) => {
   } = props;
 
   const textVariant = 'body2';
+  const fieldWidth = '220px';
+  const formSpacing = 5;
+  const rowDistance = '180px';
 
   const { setUser } = useContext(SessionContext);
 
@@ -87,12 +90,12 @@ const RegisterForm = (props: WithComposeProps) => {
   return (
     <div>
       <Paper elevation={0} style={{ padding: '15px 35px 15px 35px' }}>
-        <Grid container direction="row" alignItems="center" spacing={2}>
-          <Grid item xs={12} sm={6}>
+        <Grid container direction="row" alignItems="center" spacing={formSpacing}>
+          <Grid item xs={12} sm={6} style={{height: `${rowDistance}`}}>
             <Grid
               container
               direction="column"
-              justify="space-evenly"
+              justify="flex-start"
               alignItems="flex-start"
             >
               <Grid item>
@@ -107,15 +110,16 @@ const RegisterForm = (props: WithComposeProps) => {
                   helperText={emailError}
                   onChange={onEmailChange}
                   margin="normal"
+                  style={{width: `${fieldWidth}`}}
                 />
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={6} style={{height: `${rowDistance}`}}>
             <Grid
               container
               direction="column"
-              justify="space-evenly"
+              justify="flex-start"
               alignItems="flex-start"
             >
               <Grid item>
@@ -128,12 +132,12 @@ const RegisterForm = (props: WithComposeProps) => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid container direction="row" alignItems="center" spacing={2}>
-          <Grid item xs={12} sm={6}>
+        <Grid container direction="row" alignItems="center" spacing={formSpacing}>
+          <Grid item xs={12} sm={6} style={{height: `${rowDistance}`}}>
             <Grid
               container
               direction="column"
-              justify="space-evenly"
+              justify="flex-start"
               alignItems="flex-start"
             >
               <Grid item>
@@ -141,7 +145,6 @@ const RegisterForm = (props: WithComposeProps) => {
                   Пароль
                 </Typography>
                 <TextField
-                  style={{ width: '250px' }}
                   variant="outlined"
                   placeholder="Ваш Пароль"
                   value={password.value}
@@ -150,15 +153,16 @@ const RegisterForm = (props: WithComposeProps) => {
                   type="password"
                   onChange={onPasswordChange}
                   margin="normal"
+                  style={{width: `${fieldWidth}`}}
                 />
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={6} style={{height: `${rowDistance}`}}>
             <Grid
               container
               direction="column"
-              justify="space-evenly"
+              justify="flex-start"
               alignItems="flex-start"
             >
               <Grid item>
@@ -166,7 +170,6 @@ const RegisterForm = (props: WithComposeProps) => {
                   Подтверждение пароля
                 </Typography>
                 <TextField
-                  style={{ width: '250px' }}
                   variant="outlined"
                   placeholder="Подтверждение пароля"
                   value={confirmPassword.value}
@@ -175,12 +178,13 @@ const RegisterForm = (props: WithComposeProps) => {
                   type="password"
                   onChange={onConfirmPasswordChange}
                   margin="normal"
+                  style={{width: `${fieldWidth}`}}
                 />
               </Grid>
             </Grid>
           </Grid>
         </Grid>
-        <Grid container justify="center">
+        <Grid container justify="center" style={{margin: '40px 0 10px 0'}}>
           <Button
             variant="contained"
             disableElevation
