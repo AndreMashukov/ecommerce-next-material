@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
@@ -12,12 +12,12 @@ import {
   withPasswordError,
   withConfirmPasswordError,
   withNameError,
-  withLoginSubmit
+  withRegisterSubmit
 } from './enhancers';
-import { loginUser } from '../../services/UserApi';
+// import { loginUser } from '../../services/UserApi';
 import { CustomSnackBar } from '../shared';
-import SessionContext from '../../store/SessionContext/SessionContext';
-import { User } from '../../models';
+// import SessionContext from '../../store/SessionContext/SessionContext';
+// import { User } from '../../models';
 import { Typography } from '@material-ui/core';
 import FormattedPhone from './shared/FormattedPhone';
 
@@ -33,11 +33,14 @@ const RegisterForm = (props: WithComposeProps) => {
     phone,
     phoneError,
     onPhoneChange,
+    phoneDirty,
     firstName,
     firstNameError,
+    firstNameDirty,
     onFirstNameChange,
     lastName,
     lastNameError,
+    lastNameDirty,
     onLastNameChange,
     password,
     passwordError,
@@ -49,15 +52,16 @@ const RegisterForm = (props: WithComposeProps) => {
     onConfirmPasswordChange,
     confirmPasswordDirty,
     // clearConfirmPassword,
-    loginSubmit
+    registerSubmit
   } = props;
 
   const textVariant = 'body2';
   const fieldWidth = '220px';
   const formSpacing = 5;
   const rowDistance = '180px';
+  const labelColor = 'textPrimary';
 
-  const { setUser } = useContext(SessionContext);
+  // const { setUser } = useContext(SessionContext);
 
   const [snackState, setSnackState] = useState({
     open: false,
@@ -67,30 +71,17 @@ const RegisterForm = (props: WithComposeProps) => {
 
   const makeDirtyIfEmpty = () => {
     email.value === '' && emailDirty();
+    phone.value === '' && phoneDirty();
+    lastName.value === '' && lastNameDirty();
+    firstName.value === '' && firstNameDirty();
     password.value === '' && passwordDirty();
     confirmPassword.value === '' && confirmPasswordDirty();
   };
 
   const handleRegisterSubmit = async () => {
-    const registerFields = loginSubmit();
+    const registerFields = registerSubmit();
     if (registerFields) {
       clearPassword();
-      const response = await loginUser({
-        email: email.value,
-        password: password.value
-      });
-
-      // tslint:disable-next-line: no-console
-      console.log(response);
-      if (response.name) {
-        setSnackState({
-          open: true,
-          success: false,
-          text: 'Неверный E-Mail/пароль'
-        });
-      } else {
-        setUser(response as User);
-      }
     } else {
       makeDirtyIfEmpty();
     }
@@ -113,7 +104,7 @@ const RegisterForm = (props: WithComposeProps) => {
               alignItems="flex-start"
             >
               <Grid item>
-                <Typography variant={textVariant} color="textSecondary">
+                <Typography variant={textVariant} color={labelColor}>
                   E-Mail
                 </Typography>
                 <TextField
@@ -160,7 +151,7 @@ const RegisterForm = (props: WithComposeProps) => {
               alignItems="flex-start"
             >
               <Grid item>
-                <Typography variant={textVariant} color="textSecondary">
+                <Typography variant={textVariant} color={labelColor}>
                   Фамилия
                 </Typography>
                 <TextField
@@ -184,7 +175,7 @@ const RegisterForm = (props: WithComposeProps) => {
               alignItems="flex-start"
             >
               <Grid item>
-                <Typography variant={textVariant} color="textSecondary">
+                <Typography variant={textVariant} color={labelColor}>
                   Имя
                 </Typography>
                 <TextField
@@ -215,7 +206,7 @@ const RegisterForm = (props: WithComposeProps) => {
               alignItems="flex-start"
             >
               <Grid item>
-                <Typography variant={textVariant} color="textSecondary">
+                <Typography variant={textVariant} color={labelColor}>
                   Пароль
                 </Typography>
                 <TextField
@@ -240,7 +231,7 @@ const RegisterForm = (props: WithComposeProps) => {
               alignItems="flex-start"
             >
               <Grid item>
-                <Typography variant={textVariant} color="textSecondary">
+                <Typography variant={textVariant} color={labelColor}>
                   Подтверждение пароля
                 </Typography>
                 <TextField
@@ -283,5 +274,5 @@ export const RegisterFormComposed = compose(
   withPhoneError,
   withNameError,
   withConfirmPasswordError,
-  withLoginSubmit
+  withRegisterSubmit
 )(RegisterForm);

@@ -35,6 +35,7 @@ const LoginForm = (props: WithComposeProps) => {
   } = props;
 
   const textVariant = 'body2';
+  const labelColor = 'textPrimary';
 
   const { setUser } = useContext(SessionContext);
 
@@ -82,7 +83,7 @@ const LoginForm = (props: WithComposeProps) => {
           alignItems="center"
         >
           <Grid item>
-            <Typography variant={textVariant} color="textSecondary">
+            <Typography variant={textVariant} color={labelColor}>
               E-Mail
             </Typography>
             <TextField
@@ -97,7 +98,7 @@ const LoginForm = (props: WithComposeProps) => {
             />
           </Grid>
           <Grid item>
-            <Typography variant={textVariant} color="textSecondary">
+            <Typography variant={textVariant} color={labelColor}>
               Пароль
             </Typography>
             <TextField
