@@ -19,7 +19,7 @@ interface LoginFormErrors {
 }
 
 interface LoginFormSubmit {
-  loginSubmit: () => Login | Login;
+  loginSubmit: () => Login | undefined;
 }
 
 export type LoginFormProps = Login

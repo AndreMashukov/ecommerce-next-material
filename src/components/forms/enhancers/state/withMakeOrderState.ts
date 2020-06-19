@@ -6,7 +6,12 @@ import {
   onLastNameChange,
   setLastName,
   onFirstNameChange,
-  setFirstName
+  setFirstName,
+  firstNameDirty,
+  lastNameDirty,
+  emailDirty,
+  phoneDirty,
+  onPhoneChange
 } from './handlers';
 
 const initialState = {
@@ -22,13 +27,6 @@ const initialState = {
   deliveryPrice: 0,
   paySystemId: 0
 };
-
-const onPhoneChange = () => (event: ChangeEventType) => ({
-  phone: {
-    value: event.target.value,
-    isDirty: true
-  }
-});
 
 const onRegionChange = () => (event: ChangeEventType) => ({
   region: parseInt(event.target.value, 0)
@@ -51,34 +49,6 @@ const onAddressChange = () => (event: ChangeEventType) => ({
 const onCommentChange = () => (event: ChangeEventType) => ({
   comment: {
     value: event.target.value,
-    isDirty: true
-  }
-});
-
-const firstNameDirty = () => () => ({
-  firstName: {
-    value: '',
-    isDirty: true
-  }
-});
-
-const lastNameDirty = () => () => ({
-  lastName: {
-    value: '',
-    isDirty: true
-  }
-});
-
-const emailDirty = () => () => ({
-  email: {
-    value: '',
-    isDirty: true
-  }
-});
-
-const phoneDirty = () => () => ({
-  phone: {
-    value: '',
     isDirty: true
   }
 });

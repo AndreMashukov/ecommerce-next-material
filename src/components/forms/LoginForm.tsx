@@ -57,9 +57,6 @@ const LoginForm = (props: WithComposeProps) => {
         email: email.value,
         password: password.value
       });
-
-      // tslint:disable-next-line: no-console
-      console.log(response);
       if (response.name) {
         setSnackState({
           open: true,

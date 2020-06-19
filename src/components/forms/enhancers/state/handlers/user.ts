@@ -90,3 +90,38 @@ export const passwordDirty = () => () => ({
     isDirty: true
   }
 });
+
+export const confirmPasswordDirty = () => () => ({
+  confirmPassword: {
+    value: '',
+    isDirty: true
+  }
+});
+
+export const onPhoneChange = () => (event: ChangeEventType) => ({
+  phone: {
+    value: event.target.value,
+    isDirty: true
+  }
+});
+
+export const firstNameDirty = () => () => ({
+  firstName: {
+    value: '',
+    isDirty: true
+  }
+});
+
+export const lastNameDirty = () => () => ({
+  lastName: {
+    value: '',
+    isDirty: true
+  }
+});
+
+export const phoneDirty = () => () => ({
+  phone: {
+    value: '',
+    isDirty: true
+  }
+});
