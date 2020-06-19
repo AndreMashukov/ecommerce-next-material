@@ -87,7 +87,7 @@ const RegisterForm = (props: WithComposeProps) => {
   return (
     <div>
       <Paper elevation={0} style={{ padding: '15px 35px 15px 35px' }}>
-        <Grid container direction="row" alignItems="center">
+        <Grid container direction="row" alignItems="center" spacing={2}>
           <Grid item xs={12} sm={6}>
             <Grid
               container
@@ -128,7 +128,7 @@ const RegisterForm = (props: WithComposeProps) => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid container direction="row" alignItems="center">
+        <Grid container direction="row" alignItems="center" spacing={2}>
           <Grid item xs={12} sm={6}>
             <Grid
               container
