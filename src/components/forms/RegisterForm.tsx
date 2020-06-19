@@ -61,13 +61,13 @@ const RegisterForm = (props: WithComposeProps) => {
   const rowDistance = '180px';
   const labelColor = 'textPrimary';
 
-  // const { setUser } = useContext(SessionContext);
-
   const [snackState, setSnackState] = useState({
     open: false,
     success: false,
     text: ''
   });
+
+  const [ submitted, setSubmitted ] = useState(false);
 
   const makeDirtyIfEmpty = () => {
     email.value === '' && emailDirty();
@@ -79,11 +79,17 @@ const RegisterForm = (props: WithComposeProps) => {
   };
 
   const handleRegisterSubmit = async () => {
+    setSubmitted(true);
     const registerFields = registerSubmit();
     if (registerFields) {
       clearPassword();
     } else {
       makeDirtyIfEmpty();
+      setSnackState({
+        open: true,
+        success: false,
+        text: 'Обратите внимание на обязательные для заполнения поля'
+      });
     }
   };
 
@@ -111,8 +117,8 @@ const RegisterForm = (props: WithComposeProps) => {
                   variant="outlined"
                   placeholder="Ваш E-Mail"
                   value={email.value}
-                  error={!!emailError}
-                  helperText={emailError}
+                  error={submitted && (!!emailError)}
+                  helperText={submitted && emailError}
                   onChange={onEmailChange}
                   margin="normal"
                   style={{ width: `${fieldWidth}` }}
@@ -130,7 +136,7 @@ const RegisterForm = (props: WithComposeProps) => {
               <Grid item>
                 <FormattedPhone
                   phone={phone}
-                  phoneError={phoneError}
+                  phoneError={submitted && phoneError}
                   onPhoneChange={onPhoneChange}
                 />
               </Grid>
@@ -158,8 +164,8 @@ const RegisterForm = (props: WithComposeProps) => {
                   variant="outlined"
                   placeholder="Фамилия"
                   value={lastName.value}
-                  error={!!lastNameError}
-                  helperText={lastNameError}
+                  error={submitted && (!!lastNameError)}
+                  helperText={submitted && lastNameError}
                   onChange={onLastNameChange}
                   margin="normal"
                   style={{ width: `${fieldWidth}` }}
@@ -182,8 +188,8 @@ const RegisterForm = (props: WithComposeProps) => {
                   variant="outlined"
                   placeholder="Имя"
                   value={firstName.value}
-                  error={!!firstNameError}
-                  helperText={firstNameError}
+                  error={submitted && (!!firstNameError)}
+                  helperText={submitted && firstNameError}
                   onChange={onFirstNameChange}
                   margin="normal"
                   style={{ width: `${fieldWidth}` }}
@@ -213,8 +219,8 @@ const RegisterForm = (props: WithComposeProps) => {
                   variant="outlined"
                   placeholder="Ваш Пароль"
                   value={password.value}
-                  error={!!passwordError}
-                  helperText={passwordError}
+                  error={submitted && (!!passwordError)}
+                  helperText={submitted && passwordError}
                   type="password"
                   onChange={onPasswordChange}
                   margin="normal"
@@ -238,8 +244,8 @@ const RegisterForm = (props: WithComposeProps) => {
                   variant="outlined"
                   placeholder="Подтверждение пароля"
                   value={confirmPassword.value}
-                  error={!!confirmPasswordError}
-                  helperText={confirmPasswordError}
+                  error={submitted && (!!confirmPasswordError)}
+                  helperText={submitted && confirmPasswordError}
                   type="password"
                   onChange={onConfirmPasswordChange}
                   margin="normal"

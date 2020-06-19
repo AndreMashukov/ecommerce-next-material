@@ -1,4 +1,4 @@
-import { ChangeEventType, TextField } from './GlobalModels';
+import { ChangeEventType, TextField, SubmitState } from './GlobalModels';
 
 export interface RegisterFormFields {
   email: TextField;
@@ -35,7 +35,7 @@ interface RegisterFormErrors {
   confirmPasswordError: (confirmPassword: TextField) => boolean;
 }
 
-interface RegisterFormSubmit {
+interface RegisterFormSubmit extends SubmitState {
   RegisterSubmit: () => RegisterFormFields | undefined;
 }
 
