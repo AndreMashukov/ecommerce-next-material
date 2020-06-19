@@ -1,4 +1,4 @@
-import { ChangeEventType, TextField } from './GlobalModels';
+import { ChangeEventType, TextField, SubmitStateInterface } from './GlobalModels';
 import { ChangeEvent } from 'react';
 
 export interface MakeOrderFormFields {
@@ -15,7 +15,7 @@ export interface MakeOrderFormFields {
   paySystemId: number;
 }
 
-interface MakeOrderFormHandlers {
+interface MakeOrderFormHandlers extends SubmitStateInterface {
   onEmailChange: (event: ChangeEventType) => TextField;
   emailDirty: () => TextField;
   setEmail: (email: string) => TextField;

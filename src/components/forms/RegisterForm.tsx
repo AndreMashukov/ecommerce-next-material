@@ -52,7 +52,8 @@ const RegisterForm = (props: WithComposeProps) => {
     onConfirmPasswordChange,
     confirmPasswordDirty,
     // clearConfirmPassword,
-    registerSubmit
+    registerSubmit,
+    submitState
   } = props;
 
   const textVariant = 'body2';
@@ -67,7 +68,7 @@ const RegisterForm = (props: WithComposeProps) => {
     text: ''
   });
 
-  const [ submitted, setSubmitted ] = useState(false);
+  // const [ submitted, setSubmitted ] = useState(false);
 
   const makeDirtyIfEmpty = () => {
     email.value === '' && emailDirty();
@@ -79,7 +80,7 @@ const RegisterForm = (props: WithComposeProps) => {
   };
 
   const handleRegisterSubmit = async () => {
-    setSubmitted(true);
+    // setSubmitted(true);
     const registerFields = registerSubmit();
     if (registerFields) {
       clearPassword();
@@ -117,8 +118,8 @@ const RegisterForm = (props: WithComposeProps) => {
                   variant="outlined"
                   placeholder="Ваш E-Mail"
                   value={email.value}
-                  error={submitted && (!!emailError)}
-                  helperText={submitted && emailError}
+                  error={submitState.submitted && !!emailError}
+                  helperText={submitState.submitted && emailError}
                   onChange={onEmailChange}
                   margin="normal"
                   style={{ width: `${fieldWidth}` }}
@@ -136,7 +137,7 @@ const RegisterForm = (props: WithComposeProps) => {
               <Grid item>
                 <FormattedPhone
                   phone={phone}
-                  phoneError={submitted && phoneError}
+                  phoneError={submitState.submitted && phoneError}
                   onPhoneChange={onPhoneChange}
                 />
               </Grid>
@@ -164,8 +165,8 @@ const RegisterForm = (props: WithComposeProps) => {
                   variant="outlined"
                   placeholder="Фамилия"
                   value={lastName.value}
-                  error={submitted && (!!lastNameError)}
-                  helperText={submitted && lastNameError}
+                  error={submitState.submitted && !!lastNameError}
+                  helperText={submitState.submitted && lastNameError}
                   onChange={onLastNameChange}
                   margin="normal"
                   style={{ width: `${fieldWidth}` }}
@@ -188,8 +189,8 @@ const RegisterForm = (props: WithComposeProps) => {
                   variant="outlined"
                   placeholder="Имя"
                   value={firstName.value}
-                  error={submitted && (!!firstNameError)}
-                  helperText={submitted && firstNameError}
+                  error={submitState.submitted && !!firstNameError}
+                  helperText={submitState.submitted && firstNameError}
                   onChange={onFirstNameChange}
                   margin="normal"
                   style={{ width: `${fieldWidth}` }}
@@ -219,8 +220,8 @@ const RegisterForm = (props: WithComposeProps) => {
                   variant="outlined"
                   placeholder="Ваш Пароль"
                   value={password.value}
-                  error={submitted && (!!passwordError)}
-                  helperText={submitted && passwordError}
+                  error={submitState.submitted && !!passwordError}
+                  helperText={submitState.submitted && passwordError}
                   type="password"
                   onChange={onPasswordChange}
                   margin="normal"
@@ -244,8 +245,8 @@ const RegisterForm = (props: WithComposeProps) => {
                   variant="outlined"
                   placeholder="Подтверждение пароля"
                   value={confirmPassword.value}
-                  error={submitted && (!!confirmPasswordError)}
-                  helperText={submitted && confirmPasswordError}
+                  error={submitState.submitted && !!confirmPasswordError}
+                  helperText={submitState.submitted && confirmPasswordError}
                   type="password"
                   onChange={onConfirmPasswordChange}
                   margin="normal"

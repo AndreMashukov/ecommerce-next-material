@@ -5,6 +5,11 @@ export interface TextField {
   isDirty: boolean;
 }
 
+export interface SubmitStateInterface {
+  submitState: SubmitState;
+}
+
+
 export class SubmitState {
   public submitted: boolean;
 

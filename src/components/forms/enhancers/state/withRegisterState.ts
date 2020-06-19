@@ -16,6 +16,7 @@ import {
   onConfirmPasswordChange,
   confirmPasswordDirty
 } from './handlers';
+import { SubmitState } from '../../models';
 
 const initialState = {
   email: { value: '', isDirty: false},
@@ -23,7 +24,8 @@ const initialState = {
   lastName: { value: '', isDirty: false},
   firstName: { value: '', isDirty: false},
   password: { value: '', isDirty: false},
-  confirmPassword: { value: '', isDirty: false}
+  confirmPassword: { value: '', isDirty: false},
+  submitState: new SubmitState()
 };
 
 export const withRegisterState = withStateHandlers(initialState, {
