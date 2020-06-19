@@ -1,4 +1,4 @@
-import { ChangeEventType, TextField, SubmitStateInterface } from './GlobalModels';
+import { ChangeEventType, TextField } from './GlobalModels';
 
 export interface RegisterFormFields {
   email: TextField;
@@ -9,7 +9,7 @@ export interface RegisterFormFields {
   confirmPassword: TextField;
 }
 
-interface RegisterFormHandlers extends SubmitStateInterface {
+interface RegisterFormHandlers{
   onEmailChange: (event: ChangeEventType) => TextField;
   emailDirty: () => TextField;
   onPhoneChange: (event: ChangeEventType) => TextField;

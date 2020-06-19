@@ -14,9 +14,7 @@ const handleSubmitForm = ({
   firstNameError,
   passwordError,
   confirmPasswordError,
-  submitState
 }: Partial<RegisterFormProps>): Partial<RegisterFormFields> | undefined => {
-  submitState.setSubmitted();
   if (
     emailError
     || phoneError
