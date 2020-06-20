@@ -162,6 +162,7 @@ const OrderMakeList: React.FC<WithComposeProps> = (props: WithComposeProps) => {
   const handlePasswordSuccess = async (passw: string) => {
     const user: User = await createNewUser({
       email: email.value,
+      phone: phone.value,
       password: passw,
       lastName: lastName.value,
       firstName: firstName.value

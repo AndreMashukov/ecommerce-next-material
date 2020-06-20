@@ -90,6 +90,7 @@ const RegisterForm = (props: WithComposeProps) => {
       if (!resp) {
         const user: User = await createNewUser({
           email: email.value,
+          phone: phone.value,
           password: password.value,
           lastName: lastName.value,
           firstName: firstName.value
