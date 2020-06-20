@@ -23,13 +23,9 @@ type WithComposeProps = LoginFormProps & any;
 const LoginForm = (props: WithComposeProps) => {
   const {
     email,
-    emailError,
     onEmailChange,
-    emailDirty,
     password,
-    passwordError,
     onPasswordChange,
-    passwordDirty,
     clearPassword,
     loginSubmit
   } = props;
@@ -44,11 +40,6 @@ const LoginForm = (props: WithComposeProps) => {
     success: false,
     text: ''
   });
-
-  const makeDirtyIfEmpty = () => {
-    email.value === '' && emailDirty();
-    password.value === '' && passwordDirty();
-  };
 
   const handleLoginSubmit = async () => {
     const login = loginSubmit();
@@ -68,7 +59,12 @@ const LoginForm = (props: WithComposeProps) => {
         setUser(response as User);
       }
     } else {
-      makeDirtyIfEmpty();
+      setSnackState({
+        open: true,
+        success: false,
+        text: 'Неверный E-Mail/пароль'
+      });
+      clearPassword();
     }
   };
 
@@ -91,8 +87,6 @@ const LoginForm = (props: WithComposeProps) => {
               variant="outlined"
               placeholder="Ваш E-Mail"
               value={email.value}
-              error={!!emailError}
-              helperText={emailError}
               onChange={onEmailChange}
               margin="normal"
             />
@@ -106,8 +100,6 @@ const LoginForm = (props: WithComposeProps) => {
               variant="outlined"
               placeholder="Ваш Пароль"
               value={password.value}
-              error={!!passwordError}
-              helperText={passwordError}
               type="password"
               onChange={onPasswordChange}
               margin="normal"
