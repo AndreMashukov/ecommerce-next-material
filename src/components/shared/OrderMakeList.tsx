@@ -59,8 +59,9 @@ const OrderMakeList: React.FC<WithComposeProps> = (props: WithComposeProps) => {
   const { getItems } = useContext(CartContext);
   const router = useRouter();
 
-  const [passwDlgOpen, setPasswDlgOpen] = useState(false);
-  const [snackState, setSnackState] = useState({
+  const [ submitted, setSubmitted ] = useState(false);
+  const [ passwDlgOpen, setPasswDlgOpen ] = useState(false);
+  const [ snackState, setSnackState ] = useState({
     open: false,
     success: false,
     text: ''
@@ -131,6 +132,7 @@ const OrderMakeList: React.FC<WithComposeProps> = (props: WithComposeProps) => {
   };
 
   const handleOrderMake = async () => {
+    setSubmitted(true);
     const orderData = makeOrderSubmit();
     if (orderData) {
       if (!getUser()) {
@@ -193,7 +195,7 @@ const OrderMakeList: React.FC<WithComposeProps> = (props: WithComposeProps) => {
                 </Typography>
               </div>
               <div>
-                <MakeOrderForm {...props} />
+                <MakeOrderForm {...props} submitted={submitted} />
               </div>
             </Paper>
           </Grid>
