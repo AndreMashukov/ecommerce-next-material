@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
@@ -14,12 +14,13 @@ import {
   withNameError,
   withRegisterSubmit
 } from './enhancers';
-// import { loginUser } from '../../services/UserApi';
+import { createNewUser, checkUserExists } from '../../services/UserApi';
 import { CustomSnackBar } from '../shared';
-// import SessionContext from '../../store/SessionContext/SessionContext';
-// import { User } from '../../models';
 import { Typography } from '@material-ui/core';
 import FormattedPhone from './shared/FormattedPhone';
+import { User } from '../../models';
+import SessionContext from '../../store/SessionContext/SessionContext';
+
 
 // tslint:disable-next-line: no-any
 type WithComposeProps = RegisterFormProps & any;
@@ -51,7 +52,7 @@ const RegisterForm = (props: WithComposeProps) => {
     confirmPasswordError,
     onConfirmPasswordChange,
     confirmPasswordDirty,
-    // clearConfirmPassword,
+    clearConfirmPassword,
     registerSubmit
   } = props;
 
@@ -61,13 +62,14 @@ const RegisterForm = (props: WithComposeProps) => {
   const rowDistance = '180px';
   const labelColor = 'textPrimary';
 
+  const { setUser } = useContext(SessionContext);
+
   const [snackState, setSnackState] = useState({
     open: false,
     success: false,
     text: ''
   });
-
-  const [ submitted, setSubmitted ] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const makeDirtyIfEmpty = () => {
     email.value === '' && emailDirty();
@@ -83,6 +85,25 @@ const RegisterForm = (props: WithComposeProps) => {
     const registerFields = registerSubmit();
     if (registerFields) {
       clearPassword();
+      clearConfirmPassword();
+      const resp = await checkUserExists(email.value);
+      if (!resp) {
+        const user: User = await createNewUser({
+          email: email.value,
+          password: password.value,
+          lastName: lastName.value,
+          firstName: firstName.value
+        });
+        if (user.token) {
+          setUser(user);
+        }
+      } else {
+        setSnackState({
+          open: true,
+          success: false,
+          text: 'Пользователь с таким E-Mail уже существует'
+        });
+      }
     } else {
       makeDirtyIfEmpty();
       setSnackState({

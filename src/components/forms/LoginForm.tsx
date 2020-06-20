@@ -16,6 +16,8 @@ import { CustomSnackBar } from '../shared';
 import SessionContext from '../../store/SessionContext/SessionContext';
 import { User } from '../../models';
 import { Typography } from '@material-ui/core';
+import Link from 'next/link';
+import MatLink from '@material-ui/core/Link';
 
 // tslint:disable-next-line: no-any
 type WithComposeProps = LoginFormProps & any;
@@ -129,7 +131,9 @@ const LoginForm = (props: WithComposeProps) => {
               </Grid>
               <Grid item>
                 <Typography variant={textVariant}>
-                  Зарегистрироваться
+                  <Link href="/register" prefetch={false}>
+                    <MatLink>Зарегистрироваться</MatLink>
+                  </Link>
                 </Typography>
               </Grid>
             </Grid>

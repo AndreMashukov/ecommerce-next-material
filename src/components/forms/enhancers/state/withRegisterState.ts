@@ -14,7 +14,8 @@ import {
   emailDirty,
   passwordDirty,
   onConfirmPasswordChange,
-  confirmPasswordDirty
+  confirmPasswordDirty,
+  clearConfirmPassword
 } from './handlers';
 
 const initialState = {
@@ -40,5 +41,6 @@ export const withRegisterState = withStateHandlers(initialState, {
   emailDirty,
   passwordDirty,
   onConfirmPasswordChange,
-  confirmPasswordDirty
+  confirmPasswordDirty,
+  clearConfirmPassword
 });
