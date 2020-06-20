@@ -36,7 +36,7 @@ interface RegisterFormErrors {
 }
 
 interface RegisterFormSubmit {
-  RegisterSubmit: () => RegisterFormFields | undefined;
+  registerSubmit: () => RegisterFormFields | undefined;
 }
 
 export type RegisterFormProps = RegisterFormFields
