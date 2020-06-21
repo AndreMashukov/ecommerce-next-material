@@ -42,6 +42,7 @@ export const MakeOrderForm = (props: WithComposeProps) => {
     phone,
     phoneError,
     onPhoneChange,
+    setPhone,
     region,
     onRegionChange,
     city,
@@ -70,6 +71,7 @@ export const MakeOrderForm = (props: WithComposeProps) => {
       setEmail(user.email);
       setLastName(user.lastName);
       setFirstName(user.firstName);
+      setPhone(user.phone);
     }
   }, [getUser()]);
 
@@ -116,6 +118,7 @@ export const MakeOrderForm = (props: WithComposeProps) => {
         </Grid>
         <Grid item>
           <FormattedPhone
+            preFill={true}
             phone={phone}
             phoneError={submitted && phoneError}
             onPhoneChange={onPhoneChange}

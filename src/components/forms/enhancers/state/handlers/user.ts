@@ -7,6 +7,13 @@ export const onLastNameChange = () => (event: ChangeEventType) => ({
   }
 });
 
+export const setPhone = () => (_phone: string) => ({
+  phone: {
+    value: _phone,
+    isDirty: true
+  }
+});
+
 export const setLastName = () => (_lastName: string) => ({
   lastName: {
     value: _lastName,

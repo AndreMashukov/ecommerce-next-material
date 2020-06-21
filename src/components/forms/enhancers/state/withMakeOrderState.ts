@@ -3,6 +3,7 @@ import { ChangeEventType } from '../../models';
 import {
   onEmailChange,
   setEmail,
+  setPhone,
   onLastNameChange,
   setLastName,
   onFirstNameChange,
@@ -91,6 +92,7 @@ export const withMakeOrderdState = withStateHandlers(initialState, {
   onEmailChange,
   setEmail,
   onPhoneChange,
+  setPhone,
   onLastNameChange,
   setLastName,
   onFirstNameChange,

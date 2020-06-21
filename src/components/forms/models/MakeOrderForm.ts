@@ -21,6 +21,7 @@ interface MakeOrderFormHandlers {
   setEmail: (email: string) => TextField;
   onPhoneChange: (event: ChangeEventType) => TextField;
   phoneDirty: () => TextField;
+  setPhone: (phone: string) => TextField;
   onLastNameChange: (event: ChangeEventType) => TextField;
   lastNameDirty: () => TextField;
   setLastName: (lastName: string) => TextField;

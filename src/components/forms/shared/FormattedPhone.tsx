@@ -64,6 +64,7 @@ interface State {
 }
 
 interface FormattedPhoneProps {
+  preFill?: boolean;
   phone: TextField;
   phoneError: (phone: TextField) => boolean;
   onPhoneChange: (event: ChangeEventType) => TextField;
@@ -71,6 +72,7 @@ interface FormattedPhoneProps {
 
 function FormattedPhone(props: FormattedPhoneProps) {
   const {
+    preFill,
     phone,
     phoneError,
     onPhoneChange
@@ -98,7 +100,7 @@ function FormattedPhone(props: FormattedPhoneProps) {
         </InputLabel>
         <Input
           placeholder="Контактный телефон"
-          value={values.textmask}
+          value={preFill ? phone.value : values.textmask}
           onChange={handleChange}
           error={phoneError ? true : false}
           name="textmask"
