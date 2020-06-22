@@ -3,7 +3,7 @@ import '../../Layout.scss';
 import { NextPageContext } from 'next';
 import { getOrder } from '../../../services/OrderApi';
 import SessionContext from '../../../store/SessionContext/SessionContext';
-import { Order } from '../../../models';
+import { Order, Error } from '../../../models';
 import { useRouter } from 'next/router';
 import { OrderDetails } from '../../../components/shared';
 import Typography from '@material-ui/core/Typography';
@@ -16,23 +16,17 @@ const PersonalOrderIdPage = (props: PersonalOrderIdPageProps) => {
   const { orderId } = props;
   const { getUser } = useContext(SessionContext);
   const [loading, setLoading] = useState(true);
-  const [order, setOrder] =  useState<Partial<Order & Error>>(null);
+  const [order, setOrder] = useState<Partial<Order & Error>>(null);
   const router = useRouter();
 
   useEffect(() => {
-     if (!getUser()) {
+    if (!getUser()) {
       process.browser && router.push('/auth');
     } else {
       const retrieveOrder = async () => {
-        let orderOrError: Partial<Order & Error>= null;
-        try {
-          orderOrError = await getOrder(orderId, getUser().id);
-          setOrder(orderOrError);
-        } catch (err) {
-          setOrder(orderOrError);
-          // tslint:disable-next-line: no-console
-          console.log(orderOrError);
-        }
+        let orderOrError: Partial<Order & Error> = null;
+        orderOrError = await getOrder(orderId, getUser().id);
+        setOrder(orderOrError);
         setLoading(false);
       };
 
@@ -44,9 +38,13 @@ const PersonalOrderIdPage = (props: PersonalOrderIdPageProps) => {
     <div className="page-root-layout">
       {!loading && (
         <div style={{ margin: '20px' }}>
-          {order ? (<OrderDetails order={order}/>) : (
+          {!order.status ? (
+            <OrderDetails order={order} />
+          ) : (
             <div>
-              <Typography variant="h5" color="error">Заказ не найден</Typography>
+              <Typography variant="h5" color="error">
+                Заказ не найден
+              </Typography>
             </div>
           )}
         </div>
@@ -56,7 +54,11 @@ const PersonalOrderIdPage = (props: PersonalOrderIdPageProps) => {
 };
 
 PersonalOrderIdPage.getInitialProps = async (ctx: NextPageContext) => {
-  const orderId = parseInt(ctx.query.id[0], 0);
+  const queryString: string | string[] = ctx.query.id;
+  const orderId = parseInt(
+    typeof queryString === 'string' ? queryString : queryString.join(),
+    0
+  );
   return {
     orderId
   };

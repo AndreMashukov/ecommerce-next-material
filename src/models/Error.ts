@@ -1,7 +1,7 @@
 export interface Error {
-  name?: string;
-  message?: string;
+  name: string;
+  message: string;
   // tslint:disable-next-line: no-any
-  errors?: any[];
+  errors: any[];
   status?: number;
 }

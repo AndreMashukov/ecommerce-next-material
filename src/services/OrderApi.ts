@@ -12,16 +12,16 @@ export const getOrder = async (
   _id: number,
   _userId: string
 ): Promise<Partial<Order & Error>> => {
-  // tslint:disable-next-line: no-any
   let res: AxiosResponse<Partial<Order & Error>>;
   try {
     res = await axios.get(
       `${API_BASE}/personal/orders?id=${_id}&userId=${_userId}`
     );
   } catch (err) {
-    return {status: res.status};
+    const { status } = err.response;
+    return { status };
   }
 
-  const order = await res.data;
+  const order = res.data;
   return order;
 };
