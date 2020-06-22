@@ -32,7 +32,9 @@ const PersonalOrderIdPage = (_props: PersonalOrderIdPageProps) => {
     paySystemId,
     price,
     comment,
-    props
+    props,
+    user,
+    cart
   }: Partial<Order & Error>): Order => ({
     id,
     userId,
@@ -41,7 +43,9 @@ const PersonalOrderIdPage = (_props: PersonalOrderIdPageProps) => {
     paySystemId,
     price,
     comment,
-    props
+    props,
+    user,
+    cart
   });
 
   useEffect(() => {

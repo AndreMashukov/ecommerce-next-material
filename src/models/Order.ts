@@ -1,4 +1,6 @@
 import { OrderProps } from './OrderProps';
+import { User } from './User';
+import { CartItem } from './CartItem';
 
 export interface Order {
   id?: number;
@@ -9,4 +11,6 @@ export interface Order {
   price: number;
   comment?: string;
   props?: OrderProps;
+  user?: User;
+  cart?: CartItem[];
 }
