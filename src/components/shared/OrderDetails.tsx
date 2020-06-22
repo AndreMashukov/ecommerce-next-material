@@ -3,10 +3,10 @@ import { makeStyles } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Typography  from '@material-ui/core/Typography';
 // import theme from '../../theme/theme';
-import { Order } from '../../models';
+import { Order, Error } from '../../models';
 
 interface Props {
-  order: Order;
+  order: Partial<Order & Error>;
 }
 
 const useStyles = makeStyles({

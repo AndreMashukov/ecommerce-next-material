@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { API_BASE } from '../constants';
 import { Order, Error } from '../models';
 
@@ -11,10 +11,17 @@ export const postOrder = async (_order: Order): Promise<Order> => {
 export const getOrder = async (
   _id: number,
   _userId: string
-): Promise<Order & Error> => {
-  const res = await axios.get(
-    `${API_BASE}/personal/orders?id=${_id}&userId=${_userId}`
-  );
+): Promise<Partial<Order & Error>> => {
+  // tslint:disable-next-line: no-any
+  let res: AxiosResponse<Partial<Order & Error>>;
+  try {
+    res = await axios.get(
+      `${API_BASE}/personal/orders?id=${_id}&userId=${_userId}`
+    );
+  } catch (err) {
+    return {status: res.status};
+  }
+
   const order = await res.data;
   return order;
 };

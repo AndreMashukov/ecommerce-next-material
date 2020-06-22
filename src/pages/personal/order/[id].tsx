@@ -6,6 +6,7 @@ import SessionContext from '../../../store/SessionContext/SessionContext';
 import { Order } from '../../../models';
 import { useRouter } from 'next/router';
 import { OrderDetails } from '../../../components/shared';
+import Typography from '@material-ui/core/Typography';
 
 interface PersonalOrderIdPageProps {
   orderId: number;
@@ -15,17 +16,23 @@ const PersonalOrderIdPage = (props: PersonalOrderIdPageProps) => {
   const { orderId } = props;
   const { getUser } = useContext(SessionContext);
   const [loading, setLoading] = useState(true);
-  const [order, setOrder] =  useState<Order & Error>(null);
+  const [order, setOrder] =  useState<Partial<Order & Error>>(null);
   const router = useRouter();
 
   useEffect(() => {
-    if (!orderId) {
-      process.browser && router.push('/404');
-    } else if (!getUser()) {
+     if (!getUser()) {
       process.browser && router.push('/auth');
     } else {
       const retrieveOrder = async () => {
-        setOrder(await getOrder(orderId, getUser().id));
+        let orderOrError: Partial<Order & Error>= null;
+        try {
+          orderOrError = await getOrder(orderId, getUser().id);
+          setOrder(orderOrError);
+        } catch (err) {
+          setOrder(orderOrError);
+          // tslint:disable-next-line: no-console
+          console.log(orderOrError);
+        }
         setLoading(false);
       };
 
@@ -37,7 +44,11 @@ const PersonalOrderIdPage = (props: PersonalOrderIdPageProps) => {
     <div className="page-root-layout">
       {!loading && (
         <div style={{ margin: '20px' }}>
-          <OrderDetails order={order}/>
+          {order ? (<OrderDetails order={order}/>) : (
+            <div>
+              <Typography variant="h5" color="error">Заказ не найден</Typography>
+            </div>
+          )}
         </div>
       )}
     </div>
