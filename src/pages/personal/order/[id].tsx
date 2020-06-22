@@ -7,26 +7,53 @@ import { Order, Error } from '../../../models';
 import { useRouter } from 'next/router';
 import { OrderDetails } from '../../../components/shared';
 import Typography from '@material-ui/core/Typography';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import Link from '@material-ui/core/Link';
 
 interface PersonalOrderIdPageProps {
   orderId: number;
 }
 
-const PersonalOrderIdPage = (props: PersonalOrderIdPageProps) => {
-  const { orderId } = props;
+const PersonalOrderIdPage = (_props: PersonalOrderIdPageProps) => {
+  const { orderId } = _props;
   const { getUser } = useContext(SessionContext);
   const [loading, setLoading] = useState(true);
-  const [order, setOrder] = useState<Partial<Order & Error>>(null);
+  const [orderOrError, setOrderOrError] = useState<Partial<Order & Error>>(
+    null
+  );
+  const [order, setOrder] = useState<Order>(null);
   const router = useRouter();
+
+  const pickOrderProperties = ({
+    id,
+    userId,
+    sessionId,
+    deliveryId,
+    paySystemId,
+    price,
+    comment,
+    props
+  }: Partial<Order & Error>): Order => ({
+    id,
+    userId,
+    sessionId,
+    deliveryId,
+    paySystemId,
+    price,
+    comment,
+    props
+  });
 
   useEffect(() => {
     if (!getUser()) {
       process.browser && router.push('/auth');
     } else {
       const retrieveOrder = async () => {
-        let orderOrError: Partial<Order & Error> = null;
-        orderOrError = await getOrder(orderId, getUser().id);
-        setOrder(orderOrError);
+        const resp = await getOrder(orderId, getUser().id);
+        setOrderOrError(resp);
+        if (!resp.status) {
+          setOrder(pickOrderProperties(resp));
+        }
         setLoading(false);
       };
 
@@ -37,11 +64,24 @@ const PersonalOrderIdPage = (props: PersonalOrderIdPageProps) => {
   return (
     <div className="page-root-layout">
       {!loading && (
-        <div style={{ margin: '20px' }}>
-          {!order.status ? (
+        <div>
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link color="inherit" href="/">
+              <Typography >Главная</Typography>
+            </Link>
+            <Link color="inherit" href="/personal/order">
+              <Typography>Заказы</Typography>
+            </Link>
+            {!orderOrError.status && (
+              <Typography color="textPrimary">
+                Мой заказ №{order.id}
+              </Typography>
+            )}
+          </Breadcrumbs>
+          {!orderOrError.status ? (
             <OrderDetails order={order} />
           ) : (
-            <div>
+            <div style={{ margin: '20px' }}>
               <Typography variant="h5" color="error">
                 Заказ не найден
               </Typography>

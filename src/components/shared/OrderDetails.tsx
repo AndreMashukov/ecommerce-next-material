@@ -1,12 +1,12 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import Typography  from '@material-ui/core/Typography';
+import Typography from '@material-ui/core/Typography';
 // import theme from '../../theme/theme';
-import { Order, Error } from '../../models';
+import { Order } from '../../models';
 
 interface Props {
-  order: Partial<Order & Error>;
+  order: Order;
 }
 
 const useStyles = makeStyles({
@@ -21,7 +21,7 @@ export const OrderDetails = (props: Props) => {
   const primaryTextColor = 'textPrimary';
 
   return (
-    <div>
+    <div style={{ margin: '20px' }}>
       <Grid container direction="column" justify="center" spacing={2}>
         <Grid item>
           <Typography
@@ -29,7 +29,7 @@ export const OrderDetails = (props: Props) => {
             color={primaryTextColor}
             className={classes.fontWeigthBold}
           >
-            Мой заказ {order.id}
+            Мой заказ №{order.id}
           </Typography>
         </Grid>
       </Grid>
