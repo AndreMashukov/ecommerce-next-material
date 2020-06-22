@@ -1,20 +1,54 @@
-import React from 'react';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import React, { useContext, useEffect, useState } from 'react';
 import '../../Layout.scss';
+import { NextPageContext } from 'next';
+import { getOrder } from '../../../services/OrderApi';
+import SessionContext from '../../../store/SessionContext/SessionContext';
+import { Order } from '../../../models';
+import { useRouter } from 'next/router';
+import { OrderDetails } from '../../../components/shared';
 
-const PersonalOrderIdPage = () => {
+interface PersonalOrderIdPageProps {
+  orderId: number;
+}
+
+const PersonalOrderIdPage = (props: PersonalOrderIdPageProps) => {
+  const { orderId } = props;
+  const { getUser } = useContext(SessionContext);
+  const [loading, setLoading] = useState(true);
+  const [order, setOrder] =  useState<Order & Error>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!orderId) {
+      process.browser && router.push('/404');
+    } else if (!getUser()) {
+      process.browser && router.push('/auth');
+    } else {
+      const retrieveOrder = async () => {
+        setOrder(await getOrder(orderId, getUser().id));
+        setLoading(false);
+      };
+
+      retrieveOrder();
+    }
+  }, [orderId]);
+
   return (
     <div className="page-root-layout">
-      <div style={{ margin: '20px' }}>
-        <Grid container direction="column" justify="center" spacing={2}>
-          <Grid item>
-            <Typography>Ваш заказ успешно принят!</Typography>
-          </Grid>
-        </Grid>
-      </div>
+      {!loading && (
+        <div style={{ margin: '20px' }}>
+          <OrderDetails order={order}/>
+        </div>
+      )}
     </div>
   );
+};
+
+PersonalOrderIdPage.getInitialProps = async (ctx: NextPageContext) => {
+  const orderId = parseInt(ctx.query.id[0], 0);
+  return {
+    orderId
+  };
 };
 
 export default PersonalOrderIdPage;
