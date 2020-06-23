@@ -3,8 +3,14 @@ import { makeStyles } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 import theme from '../../theme/theme';
-import { Order } from '../../models';
+import { Order, CartItem } from '../../models';
 import { REGIONS } from '../../constants';
 
 interface Props {
@@ -14,6 +20,10 @@ interface Props {
 interface OrderDetailsTableProps {
   title: string;
   columns: string[][];
+}
+
+interface OrderContentTableProps {
+  cart: CartItem[];
 }
 
 const useStyles = makeStyles({
@@ -27,6 +37,9 @@ const useStyles = makeStyles({
     paddingLeft: '10px',
     borderBottom: `1px solid ${theme.palette.primary.main}`,
     marginBottom: '20px'
+  },
+  table: {
+    minWidth: 500
   }
 });
 
@@ -37,7 +50,7 @@ export const OrderDetails = (props: Props) => {
 
   return (
     <div style={{ margin: '20px' }}>
-      <Grid container direction="column" justify="center" spacing={2}>
+      <Grid container direction="column" justify="center" spacing={1}>
         <Grid item>
           <Typography
             variant="h5"
@@ -75,6 +88,14 @@ export const OrderDetails = (props: Props) => {
                 ]
               ]}
             />
+          </Paper>
+        </Grid>
+        <Grid item>
+          <Paper className={classes.paper}>
+            <Grid container className={classes.border}>
+              <Typography variant="h6">Состав заказа</Typography>
+            </Grid>
+            <OrderContentTable cart={order.cart} />
           </Paper>
         </Grid>
       </Grid>
@@ -143,8 +164,8 @@ const OrderDetailsTable = (_props: OrderDetailsTableProps) => {
                   spacing={2}
                 >
                   <Grid item>
-                  <Typography variant="caption">
-                    {columns[1][index]}
+                    <Typography variant="caption">
+                      {columns[1][index]}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -154,5 +175,47 @@ const OrderDetailsTable = (_props: OrderDetailsTableProps) => {
         </Grid>
       ))}
     </div>
+  );
+};
+
+const OrderContentTable = (_props: OrderContentTableProps) => {
+  const { cart } = _props;
+  const classes = useStyles();
+
+  return (
+    <Grid container justify="center">
+      <TableContainer component={Paper} style={{width: '550px'}}>
+        <Table
+          className={classes.table}
+          size="small"
+          aria-label="order content table"
+        >
+          <TableHead>
+            <TableRow>
+              <TableCell>
+                <Typography color="textSecondary">Наименование</Typography>
+              </TableCell>
+              <TableCell align="right">
+                <Typography color="textSecondary">Цена</Typography>
+              </TableCell>
+              <TableCell align="right">
+                <Typography color="textSecondary">Количество</Typography>
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {cart.map((row) => (
+              <TableRow key={row.skuCode}>
+                <TableCell component="th" scope="row">
+                  {row.name}
+                </TableCell>
+                <TableCell align="right">{row.price}</TableCell>
+                <TableCell align="right">{row.quantity}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Grid>
   );
 };
