@@ -19,5 +19,8 @@ export const colors = {
     new: pink[400],
     specialOffer: red[800],
     topSell: orange[600]
+  },
+  orderNav: {
+    selected: orange[300]
   }
 };

@@ -11,7 +11,8 @@ import theme from '../../theme/theme';
 import { useRouter } from 'next/router';
 
 interface Props {
-  onClose: () => void;
+  isPopup: boolean;
+  onClose?: () => void;
 }
 
 const useStyles = makeStyles({
@@ -29,13 +30,14 @@ const useStyles = makeStyles({
 });
 
 export const ListCart = (props: Props) => {
+  const { isPopup, onClose } = props;
   const { items, syncCart } = useContext(CartContext);
   const { getSessionId } = useContext(SessionContext);
   const classes = useStyles();
   const router = useRouter();
 
   const handleMakeOrderClick = () => {
-    props.onClose();
+    isPopup && onClose();
     if (process.browser) {
       router.push('/order/make');
     }
@@ -61,22 +63,27 @@ export const ListCart = (props: Props) => {
             </Typography>
           </Grid>
           <Grid item>
-            <IconButton
+            {isPopup && (<IconButton
               aria-label="close"
               color="inherit"
               onClick={props.onClose}
             >
               <ArrowRightAltIcon />
-            </IconButton>
+            </IconButton>)}
           </Grid>
         </Grid>
       </div>
-      <div>
-        <Button variant="outlined" style={{ marginBottom: '15px' }}
-          onClick={() => {handleMakeOrderClick();}}>
+      {isPopup && (<div>
+        <Button
+          variant="outlined"
+          style={{ marginBottom: '15px' }}
+          onClick={() => {
+            handleMakeOrderClick();
+          }}
+        >
           ОФОРМИТЬ ЗАКАЗ
         </Button>
-      </div>
+      </div>)}
       <Grid container direction="column" justify="flex-start">
         {items &&
           items.map((item: CartItem) => (
@@ -90,6 +97,19 @@ export const ListCart = (props: Props) => {
           Итого : {items ? getCartTotal(items) : 0} ₽
         </Typography>
       </div>
+      <Grid container justify="flex-end">
+      {!isPopup && (<div>
+        <Button
+          variant="outlined"
+          style={{ marginBottom: '15px' }}
+          onClick={() => {
+            handleMakeOrderClick();
+          }}
+        >
+          ПЕРЕЙТИ К ОФОРМЛЕНИЮ
+        </Button>
+      </div>)}
+      </Grid>
     </div>
   );
 };

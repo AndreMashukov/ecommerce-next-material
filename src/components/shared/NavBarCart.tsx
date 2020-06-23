@@ -83,7 +83,7 @@ export const NavBarCart = () => {
           }}
         >
           <Paper id={id} elevation={3} className={classes.paper}>
-            <ListCart onClose={handlePaperClose} />
+            <ListCart isPopup={true} onClose={handlePaperClose} />
           </Paper>
         </div>
       )}
