@@ -38,3 +38,18 @@ export const SECTION_LEVELS = {
   TOP_LEVEL: 1,
   SUB_LEVEL: 2
 };
+
+export const REGIONS = {
+  MOSCOW: {
+    id: 10,
+    name: 'Москва'
+  },
+  MOSCOW_OBLAST: {
+    id: 20,
+    name: 'Московская область'
+  },
+  RUSSIA: {
+    id: 30,
+    name: 'по России'
+  }
+};

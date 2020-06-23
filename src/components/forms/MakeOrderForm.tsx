@@ -12,6 +12,7 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import SessionContext from '../../store/SessionContext/SessionContext';
 import { DeliveryOptions, PaySystemOptions } from './shared';
+import { REGIONS } from '../../constants';
 
 const useStyles = makeStyles({
   border: {
@@ -149,9 +150,9 @@ export const MakeOrderForm = (props: WithComposeProps) => {
                 id="region-select-outlined"
                 label="Регион доставки"
               >
-                <MenuItem value={10}>Москва</MenuItem>
-                <MenuItem value={20}>Московская область</MenuItem>
-                <MenuItem value={30}>По России</MenuItem>
+                {Object.entries(REGIONS).map(key => (
+                  <MenuItem value={key[1].id}>{key[1].name}</MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Grid>
