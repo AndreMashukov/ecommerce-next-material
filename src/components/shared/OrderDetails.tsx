@@ -13,8 +13,7 @@ interface Props {
 
 interface OrderDetailsTableProps {
   title: string;
-  columnOne: string[];
-  columnTwo: string[];
+  columns: string[][];
 }
 
 const useStyles = makeStyles({
@@ -55,21 +54,25 @@ export const OrderDetails = (props: Props) => {
             </Grid>
             <OrderDetailsTable
               title={'Персональные данные'}
-              columnOne={['Имя', 'E-Mail', 'Телефон']}
-              columnTwo={[
-                `${order.user.firstName} ${order.user.lastName}`,
-                order.user.email,
-                order.props.phone
+              columns={[
+                ['Имя', 'E-Mail', 'Телефон'],
+                [
+                  `${order.user.firstName} ${order.user.lastName}`,
+                  order.user.email,
+                  order.props.phone
+                ]
               ]}
             />
             <OrderDetailsTable
               title={'Данные для доставки'}
-              columnOne={['Город', 'Адрес доставки']}
-              columnTwo={[
-                order.props.region === REGIONS.MOSCOW.id
-                  ? REGIONS.MOSCOW.name
-                  : order.props.city,
-                order.props.address
+              columns={[
+                ['Город', 'Адрес доставки'],
+                [
+                  order.props.region === REGIONS.MOSCOW.id
+                    ? REGIONS.MOSCOW.name
+                    : order.props.city,
+                  order.props.address
+                ]
               ]}
             />
           </Paper>
@@ -80,48 +83,76 @@ export const OrderDetails = (props: Props) => {
 };
 
 const OrderDetailsTable = (_props: OrderDetailsTableProps) => {
-  const { title, columnOne, columnTwo } = _props;
+  const { title, columns } = _props;
   const classes = useStyles();
-  const gridItemJustify = 'center';
+  const gridItemJustify = 'flex-start';
   return (
     <div style={{ marginBottom: '10px' }}>
-      <Grid container justify="center">
+      <Grid container justify="center" style={{ marginBottom: '5px' }}>
         <Typography variant="body1" className={classes.fontWeigthBold}>
           {title}
         </Typography>
       </Grid>
-      <Grid
-        container
-        justify="center"
-        direction="row"
-        alignItems="center"
-        spacing={2}
-      >
-        <Grid item xs={6}>
-          <Grid
-            container
-            justify={gridItemJustify}
-            direction="column"
-            alignItems="flex-end"
-          >
-            {columnOne.map((item) => (
-              <Grid item>{item}:</Grid>
-            ))}
+      {columns[0].map((item, index) => (
+        <Grid
+          container
+          justify="center"
+          direction="row"
+          alignItems="flex-start"
+          spacing={2}
+        >
+          <Grid item xs={6}>
+            <Grid
+              key={`${item}_1`}
+              container
+              justify={gridItemJustify}
+              direction="column"
+              alignItems="flex-end"
+            >
+              <Grid item>
+                <Grid
+                  container
+                  direction="column"
+                  justify={gridItemJustify}
+                  alignItems={gridItemJustify}
+                  spacing={2}
+                >
+                  <Grid item>
+                    <Typography variant="caption" color="textSecondary">
+                      {columns[0][index]}:
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item xs={6}>
+            <Grid
+              key={`${item}_2`}
+              container
+              justify={gridItemJustify}
+              direction="column"
+              alignItems="flex-start"
+            >
+              <Grid item xs={10}>
+                <Grid
+                  container
+                  direction="column"
+                  justify={gridItemJustify}
+                  alignItems={gridItemJustify}
+                  spacing={2}
+                >
+                  <Grid item>
+                  <Typography variant="caption">
+                    {columns[1][index]}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={6}>
-          <Grid
-            container
-            justify={gridItemJustify}
-            direction="column"
-            alignItems="flex-start"
-          >
-            {columnTwo.map((item) => (
-              <Grid item>{item}</Grid>
-            ))}
-          </Grid>
-        </Grid>
-      </Grid>
+      ))}
     </div>
   );
 };
