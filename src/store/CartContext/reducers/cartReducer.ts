@@ -8,7 +8,7 @@ import {
   decrementQty
 } from '../../../services/CartApi';
 import { Subscription, from } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, switchMap } from 'rxjs/operators';
 
 const cartGetReducer = async (
   action: CartAction,
@@ -28,17 +28,24 @@ const cartGetReducer = async (
 
 const cartRemoveReducer = async (
   action: CartAction,
-  callback: (newState: CartState) => void
+  callback: (newState: CartState) => void,
+  subscriptions: Subscription
 ) => {
-  await removeFromCart(action.sessionId, parseInt(action.id, 0));
-  const cart = await getCart(action.sessionId);
-  const updatedCart: CartItem[] = [];
-  cart.forEach((item) => {
-    if (item.productId !== parseInt(action.id, 0)) {
-      updatedCart.push(item);
-    }
-  });
-  callback({ items: updatedCart });
+  subscriptions.add(
+    from(removeFromCart(action.sessionId, parseInt(action.id, 0)))
+      .pipe(
+        switchMap(() => from(getCart(action.sessionId))),
+        tap((cart) => {
+          const updatedCart: CartItem[] = [];
+          cart.forEach((item) => {
+            if (item.productId !== parseInt(action.id, 0)) {
+              updatedCart.push(item);
+            }
+          });
+          callback({ items: updatedCart });
+        })
+    ).subscribe()
+  );
 };
 
 const cartAddReducer = async (
@@ -86,7 +93,7 @@ export default async function cartReducer(
         cartGetReducer(action, _resolve, subscriptions);
         break;
       case TYPES.CART_REMOVE:
-        cartRemoveReducer(action, _resolve);
+        cartRemoveReducer(action, _resolve, subscriptions);
         break;
       case TYPES.CART_ADD:
         cartAddReducer(action, state, _resolve);
