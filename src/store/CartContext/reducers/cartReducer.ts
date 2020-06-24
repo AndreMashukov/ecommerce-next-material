@@ -7,15 +7,24 @@ import {
   removeFromCart,
   decrementQty
 } from '../../../services/CartApi';
-// import { Subscription, from } from 'rxjs';
+import { Subscription, from } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 const cartGetReducer = async (
   action: CartAction,
-  callback: (newState: CartState) => void
+  callback: (newState: CartState) => void,
+  subscriptions: Subscription
 ) => {
-  const items = await getCart(action.sessionId);
-  callback({ items });
-}
+  subscriptions.add(
+    from(getCart(action.sessionId))
+      .pipe(
+        tap((items) => {
+          callback({ items });
+        })
+      )
+      .subscribe()
+  );
+};
 
 const cartRemoveReducer = async (
   action: CartAction,
@@ -68,12 +77,13 @@ const cartDecrementReducer = async (
 
 export default async function cartReducer(
   state: CartState,
-  action: CartAction
+  action: CartAction,
+  subscriptions: Subscription
 ): Promise<CartState> {
   return new Promise(async (_resolve) => {
     switch (action.type) {
       case TYPES.CART_GET:
-        cartGetReducer(action, _resolve);
+        cartGetReducer(action, _resolve, subscriptions);
         break;
       case TYPES.CART_REMOVE:
         cartRemoveReducer(action, _resolve);

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import { Subscription  } from 'rxjs';
 // tslint:disable-next-line: no-any
 const _initialState: any = null;
 
@@ -9,7 +9,8 @@ const useAsyncReducer = (reducer: any, initialState = _initialState) => {
 
   // tslint:disable-next-line: no-any
   const dispatch = async (action: any, callback?: (state: any) => void) => {
-    const result = reducer(state, action);
+    const subscriptions = new Subscription();
+    const result = reducer(state, action, subscriptions);
     if (typeof result.then === 'function') {
       try {
         const newState = await result;
@@ -23,8 +24,8 @@ const useAsyncReducer = (reducer: any, initialState = _initialState) => {
     } else {
       setState(result);
     }
+    subscriptions.unsubscribe();
   };
-
   return [state, dispatch];
 };
 
