@@ -1,65 +1,61 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
-import { Paper, Typography } from '@material-ui/core';
 import theme from '../../theme/theme';
 
 interface Props {
+  isDisabled: boolean;
   value: number;
   onHandleBack: () => void;
   onHandleNext: () => void;
-  isDisabled: boolean;
 }
 
 const useStyles = makeStyles({
-  root: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+  stepperPaper: {
     background: theme.palette.background.default,
-    padding: 8,
-    width: '200px',
-    border: `1px solid ${theme.palette.primary.dark}`
+    padding: '10px'
   }
 });
 
 export const Stepper = (props: Props) => {
   const { value, onHandleNext, onHandleBack, isDisabled } = props;
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(value);
-
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) =>  {
-      onHandleNext();
-
-      return prevActiveStep + 1;
-    });
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => {
-      onHandleBack();
-
-      return prevActiveStep - 1;
-    });
-  };
 
   return (
-    <Paper square elevation={0} className={classes.root}>
-      <Button size="small" onClick={handleBack} disabled={activeStep === 1 || isDisabled}>
-        <RemoveIcon />
-      </Button>
-      <React.Fragment>
-        <Typography variant="body1" style={{fontWeight: 'bold'}}>
-          {isDisabled ?  ''  : activeStep}
-        </Typography>
-      </React.Fragment>
-      <Button size="small" onClick={handleNext} disabled={isDisabled} >
-        <AddIcon />
-      </Button>
-    </Paper>
+    <div
+      style={{
+        width: '200px',
+        border: `1px solid ${theme.palette.primary.dark}`
+      }}
+    >
+      <Paper className={classes.stepperPaper} elevation={0}>
+        <Grid container justify="space-between" alignItems="center">
+          <Grid item xs={4}>
+            <Button
+              disabled={isDisabled || value === 1}
+              size="small"
+              onClick={onHandleBack}
+            >
+              <RemoveIcon />
+            </Button>
+          </Grid>
+          <Grid item>
+            <Typography variant="body1" style={{ fontWeight: 'bold' }}>
+              {value}
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Button disabled={isDisabled} size="small" onClick={onHandleNext}>
+              <AddIcon />
+            </Button>
+          </Grid>
+        </Grid>
+      </Paper>
+    </div>
   );
 };

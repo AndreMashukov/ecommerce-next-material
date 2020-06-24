@@ -1,7 +1,9 @@
 import React, { useContext, useState } from 'react';
-import { makeStyles, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import Snackbar from '@material-ui/core/Snackbar';
 import theme from '../../theme/theme';
-import { IconButton, Snackbar } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import { CartItem } from '../../models';
 import { Stepper } from './Stepper';
@@ -32,6 +34,10 @@ const useStyles = makeStyles({
     '& > *': {
       marginBottom: '10px'
     }
+  },
+  stepperPaper: {
+    background: theme.palette.background.default,
+    padding: '10px'
   }
 });
 
@@ -84,7 +90,8 @@ export const ListCartItem = (props: Props) => {
         <div className={classes.item}>
           <Typography variant="h6">
             {item.name}{' '}
-            {item.packageType && item.packageType.trim().length > 2 &&
+            {item.packageType &&
+              item.packageType.trim().length > 2 &&
               '(' + item.packageType.trim() + ')'}
           </Typography>
           <Typography variant="body2" color="textSecondary">
