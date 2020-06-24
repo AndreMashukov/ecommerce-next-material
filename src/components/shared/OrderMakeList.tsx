@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import CartContext from '../../store/CartContext/CartContext';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -34,6 +34,8 @@ import SessionContext from '../../store/SessionContext/SessionContext';
 import { useRouter } from 'next/router';
 import { destroyCookie } from 'nookies';
 import { CustomSnackBar } from './CustomSnackBar';
+import { Subscription, from } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 // tslint:disable-next-line: no-any
 type WithComposeProps = MakeOrderFormProps & CreatePasswordFormProps & any;
@@ -58,10 +60,32 @@ const OrderMakeList: React.FC<WithComposeProps> = (props: WithComposeProps) => {
   const { getSessionId, setUser, getUser } = useContext(SessionContext);
   const { getItems } = useContext(CartContext);
   const router = useRouter();
+  const subscriptions = new Subscription();
+  const [newOrder, setNewOrder] = useState(null);
 
-  const [ submitted, setSubmitted ] = useState(false);
-  const [ passwDlgOpen, setPasswDlgOpen ] = useState(false);
-  const [ snackState, setSnackState ] = useState({
+  useEffect(() => {
+    if (newOrder) {
+      if (process.browser) {
+        destroyCookie(null, 'sessionId', {
+          path: '/'
+        });
+        router.push(`/personal/order/${newOrder.id}`);
+      }
+      setSnackState({
+        open: true,
+        success: true,
+        text: 'Ваш заказ успешно создан'
+      });
+    }
+
+    return () => {
+      subscriptions.unsubscribe();
+    };
+  }, [newOrder]);
+
+  const [submitted, setSubmitted] = useState(false);
+  const [passwDlgOpen, setPasswDlgOpen] = useState(false);
+  const [snackState, setSnackState] = useState({
     open: false,
     success: false,
     text: ''
@@ -101,34 +125,33 @@ const OrderMakeList: React.FC<WithComposeProps> = (props: WithComposeProps) => {
   const classes = useStyles();
   const listVariant = 'h6';
 
-  const createNewOrder = async (user: User) => {
-    const newOrder = await postOrder({
-      userId: user.id,
-      sessionId: getSessionId(),
-      deliveryId,
-      paySystemId,
-      price: getCartTotal(getItems()),
-      comment: comment.value,
-      props: {
-        region,
-        city: city.value,
-        phone: phone.value,
-        address: address.value
-      }
-    });
-    if (newOrder.id) {
-      if (process.browser) {
-        destroyCookie(null, 'sessionId', {
-          path: '/'
-        });
-        router.push(`/personal/order/${newOrder.id}`);
-      }
-      setSnackState({
-        open: true,
-        success: true,
-        text: 'Ваш заказ успешно создан'
-      });
-    }
+  const createNewOrder = (user: User) => {
+    // let newOrder: Order;
+    const postOrderObservable = from(
+      postOrder({
+        userId: user.id,
+        sessionId: getSessionId(),
+        deliveryId,
+        paySystemId,
+        price: getCartTotal(getItems()),
+        comment: comment.value,
+        props: {
+          region,
+          city: city.value,
+          phone: phone.value,
+          address: address.value
+        }
+      })
+    );
+    subscriptions.add(
+      postOrderObservable
+        .pipe(
+          tap((resp) => {
+            setNewOrder(resp);
+          })
+        )
+        .subscribe()
+    );
   };
 
   const handleOrderMake = async () => {
@@ -238,7 +261,7 @@ const OrderMakeList: React.FC<WithComposeProps> = (props: WithComposeProps) => {
                 style={{ fontWeight: 'bolder' }}
                 color="textPrimary"
               >
-                {getCartTotal(getItems()) + parseInt(deliveryPrice,0)} ₽
+                {getCartTotal(getItems()) + parseInt(deliveryPrice, 0)} ₽
               </Typography>
             </Grid>
           </Grid>
