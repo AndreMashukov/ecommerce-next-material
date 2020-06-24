@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Subscription  } from 'rxjs';
+import { CartState } from '../store/CartContext/reducers/models';
 // tslint:disable-next-line: no-any
 const _initialState: any = null;
 
@@ -8,7 +9,7 @@ const useAsyncReducer = (reducer: any, initialState = _initialState) => {
   const [state, setState] = useState(initialState);
 
   // tslint:disable-next-line: no-any
-  const dispatch = async (action: any, callback?: (state: any) => void) => {
+  const dispatch = async (action: any, callback?: (state: CartState) => void) => {
     const subscriptions = new Subscription();
     const result = reducer(state, action, subscriptions);
     if (typeof result.then === 'function') {
@@ -24,7 +25,9 @@ const useAsyncReducer = (reducer: any, initialState = _initialState) => {
     } else {
       setState(result);
     }
-    subscriptions.unsubscribe();
+    if (subscriptions) {
+      subscriptions.unsubscribe();
+    }
   };
   return [state, dispatch];
 };
