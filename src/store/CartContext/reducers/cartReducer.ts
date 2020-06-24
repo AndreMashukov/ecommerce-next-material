@@ -84,18 +84,33 @@ const cartAddReducer = async (
 const cartDecrementReducer = async (
   action: CartAction,
   state: CartState,
-  callback: (newState: CartState) => void
+  callback: (newState: CartState) => void,
+  subscriptions: Subscription
 ) => {
-  const result = await decrementQty(action.item);
-  if (result.ok) {
-    callback({
-      ...state,
-      items: await getCart(action.sessionId),
-      httpStatus: result
-    });
-  } else {
-    callback({ ...state, httpStatus: result });
-  }
+  let requestResult: Response = null;
+  subscriptions.add(
+    from(decrementQty(action.item))
+      .pipe(
+        switchMap((result) => {
+          if (result.ok) {
+            requestResult = result;
+            return from(getCart(action.sessionId));
+          } else {
+            callback({ ...state, httpStatus: result });
+            return null;
+          }
+        }),
+        tap((items) => {
+          items &&
+            callback({
+              ...state,
+              items,
+              httpStatus: requestResult
+            });
+        })
+      )
+      .subscribe()
+  );
 };
 
 export default async function cartReducer(
@@ -115,7 +130,7 @@ export default async function cartReducer(
         cartAddReducer(action, state, _resolve, subscriptions);
         break;
       case TYPES.CART_DECREMENT:
-        cartDecrementReducer(action, state, _resolve);
+        cartDecrementReducer(action, state, _resolve, subscriptions);
         break;
       default:
         _resolve(state);
