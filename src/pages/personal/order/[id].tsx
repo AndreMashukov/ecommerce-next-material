@@ -9,6 +9,7 @@ import { OrderDetails } from '../../../components/shared';
 import Typography from '@material-ui/core/Typography';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
+import { Subscription, from } from 'rxjs';
 
 interface PersonalOrderIdPageProps {
   orderId: number;
@@ -49,20 +50,27 @@ const PersonalOrderIdPage = (_props: PersonalOrderIdPageProps) => {
   });
 
   useEffect(() => {
+    const orderObservable = from(getOrder(orderId, getUser().id));
+    const subscriptions = new Subscription();
     if (!getUser()) {
       process.browser && router.push('/auth');
     } else {
-      const retrieveOrder = async () => {
-        const resp = await getOrder(orderId, getUser().id);
-        setOrderOrError(resp);
-        if (!resp.status) {
-          setOrder(pickOrderProperties(resp));
-        }
-        setLoading(false);
-      };
-
-      retrieveOrder();
+      subscriptions.add(
+        orderObservable.subscribe(
+          (resp) => {
+            setOrderOrError(resp);
+            if (!resp.status) {
+              setOrder(pickOrderProperties(resp));
+            }
+            setLoading(false);
+          }
+        )
+      );
     }
+
+    return () => {
+      subscriptions.unsubscribe();
+    };
   }, [orderId]);
 
   return (
@@ -71,15 +79,13 @@ const PersonalOrderIdPage = (_props: PersonalOrderIdPageProps) => {
         <div>
           <Breadcrumbs aria-label="breadcrumb">
             <Link color="inherit" href="/">
-              <Typography >Главная</Typography>
+              <Typography>Главная</Typography>
             </Link>
             <Link color="inherit" href="/personal/order">
               <Typography>Заказы</Typography>
             </Link>
             {!orderOrError.status && (
-              <Typography color="textPrimary">
-                Мой заказ №{order.id}
-              </Typography>
+              <Typography color="textPrimary">Мой заказ №{order.id}</Typography>
             )}
           </Breadcrumbs>
           {!orderOrError.status ? (
