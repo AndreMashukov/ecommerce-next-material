@@ -13,6 +13,7 @@ import moment from 'moment';
 import { refreshToken } from '../services/TokenApi';
 import { withRouter } from 'next/router';
 import { CustomSnackBar } from '../components/shared';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const REFRESH_TOKEN_FREQ = 5;
 const REFRESH_TOKEN_FREQ_UNIT = 'days';
@@ -22,6 +23,7 @@ interface AppState {
   handleSnackClose: () => void;
   sectionList: Section[];
   categoryList: Category[];
+  isLoading: boolean;
 }
 
 interface Props extends AppComponentProps, MaterialAppComponentProps {
@@ -58,6 +60,15 @@ class MyApp extends App<Props> {
     return { pageProps };
   }
 
+  setLoading(flag: boolean) {
+    this.setState({
+      ...this.state,
+      ...{
+        isLoading: flag
+      }
+    });
+  }
+
   state: AppState = {
     snackOpen: false,
     handleSnackClose: () => {
@@ -69,7 +80,8 @@ class MyApp extends App<Props> {
       });
     },
     sectionList: [],
-    categoryList: []
+    categoryList: [],
+    isLoading: false
   };
 
   handleSnackOpen() {
@@ -85,6 +97,7 @@ class MyApp extends App<Props> {
     const { router } = this.props;
     axios.interceptors.request.use(
       async (config) => {
+        this.setLoading(true);
         const user = retrieveUser();
         if (
           moment(user.tokenTime).add(
@@ -113,6 +126,7 @@ class MyApp extends App<Props> {
 
     axios.interceptors.response.use(
       (response) => {
+        this.setLoading(false);
         return response;
       },
       (error: AxiosError) => {
@@ -122,6 +136,7 @@ class MyApp extends App<Props> {
           this.handleSnackOpen();
           router.push('/auth');
         }
+        this.setLoading(false);
         return Promise.reject(error);
       }
     );
@@ -157,6 +172,17 @@ class MyApp extends App<Props> {
           text={'Время вашей сессии истекло. Введите ваш Е-Майл/Пароль'}
           handleClose={this.state.handleSnackClose}
         />
+        {this.state.isLoading && (
+          <div
+            style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%'
+            }}
+          >
+            <CircularProgress color="secondary" size={70} thickness={5} />
+          </div>
+        )}
         <Footer />
       </Store>
     );

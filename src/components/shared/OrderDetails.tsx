@@ -184,7 +184,7 @@ const OrderContentTable = (_props: OrderContentTableProps) => {
 
   return (
     <Grid container justify="center">
-      <TableContainer component={Paper} style={{width: '550px'}}>
+      <TableContainer component={Paper} style={{width: '550px', padding: '15px'}}>
         <Table
           className={classes.table}
           size="small"
@@ -205,7 +205,7 @@ const OrderContentTable = (_props: OrderContentTableProps) => {
           </TableHead>
           <TableBody>
             {cart.map((row) => (
-              <TableRow key={row.skuCode}>
+              <TableRow key={`TableRow_${row.productId}`}>
                 <TableCell component="th" scope="row">
                   {row.name}
                 </TableCell>
