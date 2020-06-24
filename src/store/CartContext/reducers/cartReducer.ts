@@ -44,25 +44,41 @@ const cartRemoveReducer = async (
           });
           callback({ items: updatedCart });
         })
-    ).subscribe()
+      )
+      .subscribe()
   );
 };
 
 const cartAddReducer = async (
   action: CartAction,
   state: CartState,
-  callback: (newState: CartState) => void
+  callback: (newState: CartState) => void,
+  subscriptions: Subscription
 ) => {
-  const result = await addToCart(action.item);
-  if (result.ok) {
-    callback({
-      ...state,
-      items: await getCart(action.sessionId),
-      httpStatus: result
-    });
-  } else {
-    callback({ ...state, httpStatus: result });
-  }
+  let requestResult: Response = null;
+  subscriptions.add(
+    from(addToCart(action.item))
+      .pipe(
+        switchMap((result) => {
+          if (result.ok) {
+            requestResult = result;
+            return from(getCart(action.sessionId));
+          } else {
+            callback({ ...state, httpStatus: result });
+            return null;
+          }
+        }),
+        tap((items) => {
+          items &&
+            callback({
+              ...state,
+              items,
+              httpStatus: requestResult
+            });
+        })
+      )
+      .subscribe()
+  );
 };
 
 const cartDecrementReducer = async (
@@ -96,7 +112,7 @@ export default async function cartReducer(
         cartRemoveReducer(action, _resolve, subscriptions);
         break;
       case TYPES.CART_ADD:
-        cartAddReducer(action, state, _resolve);
+        cartAddReducer(action, state, _resolve, subscriptions);
         break;
       case TYPES.CART_DECREMENT:
         cartDecrementReducer(action, state, _resolve);
