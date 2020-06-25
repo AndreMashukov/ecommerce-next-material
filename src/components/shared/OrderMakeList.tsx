@@ -126,7 +126,6 @@ const OrderMakeList: React.FC<WithComposeProps> = (props: WithComposeProps) => {
   const listVariant = 'h6';
 
   const createNewOrder = (user: User) => {
-    // let newOrder: Order;
     const postOrderObservable = from(
       postOrder({
         userId: user.id,

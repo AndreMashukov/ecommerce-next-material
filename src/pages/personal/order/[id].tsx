@@ -50,13 +50,12 @@ const PersonalOrderIdPage = (_props: PersonalOrderIdPageProps) => {
   });
 
   useEffect(() => {
-    const orderObservable = from(getOrder(orderId, getUser().id));
     const subscriptions = new Subscription();
     if (!getUser()) {
       process.browser && router.push('/auth');
     } else {
       subscriptions.add(
-        orderObservable.subscribe(
+        from(getOrder(orderId, getUser().id)).subscribe(
           (resp) => {
             setOrderOrError(resp);
             if (!resp.status) {
