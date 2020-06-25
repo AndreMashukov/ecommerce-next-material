@@ -3,7 +3,7 @@ import { ProductProperties } from './models';
 export const API_BASE =
   process.env.NODE_ENV !== 'production'
     ? 'http://localhost:3001/api'
-    : 'http://localhost:3001/api';
+    : 'http://localhost:3002/api';
 
 export const USER_RECORD_NAME = 'userState';
 export const COOKIE_EXPIRY_PERIOD =  60 * 60 * 2;

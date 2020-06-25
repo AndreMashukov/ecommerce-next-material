@@ -9,7 +9,7 @@ const handleSubmitForm = ({
 }: Partial<CreatePasswordFormProps>) => {
   if (passwordError || confirmPasswordError) {
     return false;
-  } else if (!confirmPassword.isDirty && !confirmPassword.isDirty) {
+  } else if (!confirmPassword.isDirty) {
     return false;
   } else {
     return {

@@ -61,7 +61,7 @@ export const CustomTabs = (props: Props) => {
           aria-label="catalog-tabs"
         >
           {tabs.map((tab, index) => (
-            <Tab label={tab} className={tabStyle(index)} />
+            <Tab key={`Tab_${tab}_${index}`} label={tab} className={tabStyle(index)} />
           ))}
         </Tabs>
       </Paper>

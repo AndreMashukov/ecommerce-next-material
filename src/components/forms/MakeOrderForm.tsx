@@ -22,8 +22,7 @@ const useStyles = makeStyles({
   }
 });
 
-type WithComposeProps = MakeOrderFormProps
-  & {submitted: boolean};
+type WithComposeProps = MakeOrderFormProps & { submitted: boolean };
 
 export const MakeOrderForm = (props: WithComposeProps) => {
   const classes = useStyles();
@@ -85,7 +84,7 @@ export const MakeOrderForm = (props: WithComposeProps) => {
             placeholder="Фамилия"
             value={lastName.value}
             disabled={user ? true : false}
-            error={submitted && (!!lastNameError)}
+            error={submitted && !!lastNameError}
             helperText={submitted && lastNameError}
             onChange={onLastNameChange}
             margin="normal"
@@ -97,7 +96,7 @@ export const MakeOrderForm = (props: WithComposeProps) => {
             placeholder="Имя"
             value={firstName.value}
             disabled={user ? true : false}
-            error={submitted && (!!firstNameError)}
+            error={submitted && !!firstNameError}
             helperText={submitted && firstNameError}
             onChange={onFirstNameChange}
             margin="normal"
@@ -111,7 +110,7 @@ export const MakeOrderForm = (props: WithComposeProps) => {
             placeholder="E-Mail"
             value={email.value}
             disabled={user ? true : false}
-            error={submitted && (!!emailError)}
+            error={submitted && !!emailError}
             helperText={submitted && emailError}
             onChange={onEmailChange}
             margin="normal"
@@ -150,8 +149,13 @@ export const MakeOrderForm = (props: WithComposeProps) => {
                 id="region-select-outlined"
                 label="Регион доставки"
               >
-                {Object.entries(REGIONS).map(key => (
-                  <MenuItem value={key[1].id}>{key[1].name}</MenuItem>
+                {Object.entries(REGIONS).map((key) => (
+                  <MenuItem
+                    key={`MenuItemMakeOrder_${key[1].id}`}
+                    value={key[1].id}
+                  >
+                    {key[1].name}
+                  </MenuItem>
                 ))}
               </Select>
             </FormControl>
@@ -163,7 +167,7 @@ export const MakeOrderForm = (props: WithComposeProps) => {
                 variant="outlined"
                 value={city.value}
                 onChange={onCityChange}
-                error={submitted && (!!cityError)}
+                error={submitted && !!cityError}
                 helperText={submitted && cityError}
                 placeholder="Название населенного пункта"
                 margin="normal"
@@ -176,7 +180,7 @@ export const MakeOrderForm = (props: WithComposeProps) => {
               variant="outlined"
               value={address.value}
               onChange={onAddressChange}
-              error={submitted && (!!addressError)}
+              error={submitted && !!addressError}
               helperText={submitted && addressError}
               multiline
               rows={4}
@@ -197,7 +201,7 @@ export const MakeOrderForm = (props: WithComposeProps) => {
               variant="outlined"
               value={comment.value}
               onChange={onCommentChange}
-              error={submitted && (!!commentError)}
+              error={submitted && !!commentError}
               helperText={submitted && commentError}
               multiline
               rows={4}

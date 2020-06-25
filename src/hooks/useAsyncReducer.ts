@@ -25,9 +25,7 @@ const useAsyncReducer = (reducer: any, initialState = _initialState) => {
     } else {
       setState(result);
     }
-    if (subscriptions) {
-      subscriptions.unsubscribe();
-    }
+    subscriptions.unsubscribe();
   };
   return [state, dispatch];
 };

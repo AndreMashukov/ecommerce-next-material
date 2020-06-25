@@ -116,6 +116,7 @@ const OrderDetailsTable = (_props: OrderDetailsTableProps) => {
       </Grid>
       {columns[0].map((item, index) => (
         <Grid
+          key={`Grid_${item}_1`}
           container
           justify="center"
           direction="row"

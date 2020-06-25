@@ -191,7 +191,7 @@ const OrderMakeList: React.FC<WithComposeProps> = (props: WithComposeProps) => {
     });
     if (user.token) {
       setUser(user);
-      await createNewOrder(user);
+      createNewOrder(user);
     }
   };
 
