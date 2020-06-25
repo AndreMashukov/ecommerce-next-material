@@ -12,6 +12,7 @@ import TableRow from '@material-ui/core/TableRow';
 import theme from '../../theme/theme';
 import { Order, CartItem } from '../../models';
 import { REGIONS } from '../../constants';
+import { Variant } from '@material-ui/core/styles/createTypography';
 
 interface Props {
   order: Order;
@@ -20,6 +21,7 @@ interface Props {
 interface OrderDetailsTableProps {
   title: string;
   columns: string[][];
+  variant: Variant;
 }
 
 interface OrderContentTableProps {
@@ -67,6 +69,7 @@ export const OrderDetails = (props: Props) => {
             </Grid>
             <OrderDetailsTable
               title={'Персональные данные'}
+              variant="caption"
               columns={[
                 ['Имя', 'E-Mail', 'Телефон'],
                 [
@@ -78,6 +81,7 @@ export const OrderDetails = (props: Props) => {
             />
             <OrderDetailsTable
               title={'Данные для доставки'}
+              variant="caption"
               columns={[
                 ['Город', 'Адрес доставки'],
                 [
@@ -104,7 +108,7 @@ export const OrderDetails = (props: Props) => {
 };
 
 const OrderDetailsTable = (_props: OrderDetailsTableProps) => {
-  const { title, columns } = _props;
+  const { title, columns, variant } = _props;
   const classes = useStyles();
   const gridItemJustify = 'flex-start';
   return (
@@ -140,7 +144,7 @@ const OrderDetailsTable = (_props: OrderDetailsTableProps) => {
                   spacing={2}
                 >
                   <Grid item>
-                    <Typography variant="caption" color="textSecondary">
+                    <Typography variant="caption">
                       {columns[0][index]}:
                     </Typography>
                   </Grid>
@@ -165,7 +169,7 @@ const OrderDetailsTable = (_props: OrderDetailsTableProps) => {
                   spacing={2}
                 >
                   <Grid item>
-                    <Typography variant="caption">
+                   <Typography variant={variant}>
                       {columns[1][index]}
                     </Typography>
                   </Grid>
