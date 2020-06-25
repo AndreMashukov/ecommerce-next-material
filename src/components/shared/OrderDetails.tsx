@@ -19,9 +19,10 @@ interface Props {
 }
 
 interface OrderDetailsTableProps {
-  title: string;
+  title?: string;
   columns: string[][];
   variant: Variant;
+  isTotal?: boolean;
 }
 
 interface OrderContentTableProps {
@@ -49,6 +50,9 @@ export const OrderDetails = (props: Props) => {
   const { order } = props;
   const classes = useStyles();
   const primaryTextColor = 'textPrimary';
+  const amountToPay =
+    parseInt(order.price.toString(), 0) +
+    parseInt(order.delivery.price.toString(), 0);
 
   return (
     <div style={{ margin: '20px' }}>
@@ -100,6 +104,34 @@ export const OrderDetails = (props: Props) => {
               <Typography variant="h6">Состав заказа</Typography>
             </Grid>
             <OrderContentTable cart={order.cart} />
+            <Grid container>
+              <Grid item xs={3}></Grid>
+              <Grid item xs={9}>
+                <OrderDetailsTable
+                  variant="body1"
+                  columns={[
+                    ['Цена', 'Стоимость доставки'],
+                    [
+                      `${parseInt(order.price.toString(), 0)} ₽`,
+                      `${parseInt(order.delivery.price.toString(), 0)} ₽`
+                    ]
+                  ]}
+                />
+              </Grid>
+            </Grid>
+            <Grid container>
+              <Grid item xs={3}></Grid>
+              <Grid item xs={9}>
+                <OrderDetailsTable
+                  variant="body1"
+                  isTotal={true}
+                  columns={[
+                    ['Итого'],
+                    [`${parseInt(amountToPay.toString(), 0)} ₽`]
+                  ]}
+                />
+              </Grid>
+            </Grid>
           </Paper>
         </Grid>
       </Grid>
@@ -108,16 +140,18 @@ export const OrderDetails = (props: Props) => {
 };
 
 const OrderDetailsTable = (_props: OrderDetailsTableProps) => {
-  const { title, columns, variant } = _props;
+  const { title, columns, variant, isTotal } = _props;
   const classes = useStyles();
   const gridItemJustify = 'flex-start';
   return (
     <div style={{ marginBottom: '10px' }}>
-      <Grid container justify="center" style={{ marginBottom: '5px' }}>
-        <Typography variant="body1" className={classes.fontWeigthBold}>
-          {title}
-        </Typography>
-      </Grid>
+      {title && (
+        <Grid container justify="center" style={{ marginBottom: '5px' }}>
+          <Typography variant="body1" className={classes.fontWeigthBold}>
+            {title}
+          </Typography>
+        </Grid>
+      )}
       {columns[0].map((item, index) => (
         <Grid
           key={`Grid_${item}_1`}
@@ -144,7 +178,11 @@ const OrderDetailsTable = (_props: OrderDetailsTableProps) => {
                   spacing={2}
                 >
                   <Grid item>
-                    <Typography variant="caption">
+                    <Typography
+                      variant={variant}
+                      color={title ? 'textSecondary' : 'textPrimary'}
+                      style={isTotal && { fontWeight: 'bold' }}
+                    >
                       {columns[0][index]}:
                     </Typography>
                   </Grid>
@@ -169,7 +207,10 @@ const OrderDetailsTable = (_props: OrderDetailsTableProps) => {
                   spacing={2}
                 >
                   <Grid item>
-                   <Typography variant={variant}>
+                    <Typography
+                      variant={variant}
+                      style={isTotal && { fontWeight: 'bold' }}
+                    >
                       {columns[1][index]}
                     </Typography>
                   </Grid>
@@ -188,8 +229,15 @@ const OrderContentTable = (_props: OrderContentTableProps) => {
   const classes = useStyles();
 
   return (
-    <Grid container justify="center">
-      <TableContainer component={Paper} style={{width: '550px', padding: '15px'}}>
+    <Grid container justify="center" style={{ marginBottom: '20px' }}>
+      <TableContainer
+        component={Paper}
+        style={{
+          width: '550px',
+          padding: '15px',
+          backgroundColor: `${theme.palette.primary.light}`
+        }}
+      >
         <Table
           className={classes.table}
           size="small"

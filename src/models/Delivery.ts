@@ -10,3 +10,16 @@ export interface Delivery {
   delivery_price: number;
   delivery_description: string;
 }
+
+export interface NoSuffixDelivery {
+  id: number;
+  name: string;
+  period_from: number;
+  period_to: number;
+  period_type: string;
+  order_price_from: number;
+  order_price_to: number;
+  active: string;
+  price: number;
+  description: string;
+}

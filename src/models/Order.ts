@@ -1,6 +1,8 @@
 import { OrderProps } from './OrderProps';
 import { User } from './User';
 import { CartItem } from './CartItem';
+import { NoSuffixDelivery } from './Delivery';
+import { PaySystem } from './PaySystem';
 
 export interface Order {
   id?: number;
@@ -13,4 +15,6 @@ export interface Order {
   props?: OrderProps;
   user?: User;
   cart?: CartItem[];
+  delivery?: NoSuffixDelivery;
+  paySystem?: PaySystem;
 }
