@@ -54,14 +54,21 @@
   },
   "jest": {
     "verbose": true,
-    "testPathIgnorePatterns": [
-      "<rootDir>/build/",
-      "<rootDir>/node_modules/",
-      "<rootDir>/application/",
-      "<rootDir>/cypress/"
+    "transform": {
+      "^.+\\.js$": "babel-jest",
+      "^.+\\.(css|scss|less)$": "jest-css-modules"
+    },
+    "globals": {
+      "NODE_ENV": "test"
+    },
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
     ],
     "moduleDirectories": [
-      "<rootDir>/src/"
+      "node_modules",
+      "src/frontend",
+      "src/shared"
     ]
   }
 }
