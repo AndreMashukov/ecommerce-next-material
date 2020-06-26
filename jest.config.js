@@ -1,33 +1,19 @@
 module.exports = {
+  preset: "ts-jest/presets/js-with-ts",
+  testEnvironment: "node",
+  moduleFileExtensions: ["ts", "tsx", "js"],
+  moduleNameMapper: {
+    "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
+  },
+  transform: {
+    "^.+\\.(ts|tsx)$": "ts-jest"
+  },
+  testMatch: ["**/__tests__/*.(ts|tsx)"],
+  setupFiles: ["./jest.setup.js"],
+  testPathIgnorePatterns: ["./.next/", "./node_modules/"],
   globals: {
     "ts-jest": {
-      tsConfig: "tsconfig.test.json"
+      tsConfig: "tsconfig.jest.json"
     }
-  },
-  // The root of your source code, typically /src
-  // `<rootDir>` is a token Jest substitutes
-  roots: ["<rootDir>/src"],
-
-  // Jest transformations -- this adds support for TypeScript
-  // using ts-jest
-  transform: {
-    "\\.tsx?$": "ts-jest",
-    "\\.jsx?$": "babel-jest"
-  },
-
-  // Runs special logic, such as cleaning up components
-  // when using React Testing Library and adds special
-  // extended assertions to Jest
-  // setupFilesAfterEnv: [
-  //   "@testing-library/react/cleanup-after-each",
-  //   "@testing-library/jest-dom/extend-expect"
-  // ],
-
-  // Test spec file resolution pattern
-  // Matches parent folder `__tests__` and filename
-  // should contain `test` or `spec`.
-  testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
-
-  // Module file extensions for importing
-  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"]
+  }
 };
