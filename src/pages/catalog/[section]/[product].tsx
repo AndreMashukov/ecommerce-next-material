@@ -33,7 +33,6 @@ const ProductPage = (props: Props) => {
       ) : (
         <Page404 />
       )}
-      }
     </div>
   );
 };
