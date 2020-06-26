@@ -35,7 +35,7 @@
     "@testing-library/jest-dom": "^5.11.0",
     "@testing-library/react": "^10.4.3",
     "@types/enzyme": "^3.10.5",
-    "@types/jest": "^26.0.3",
+    "@types/jest": "^23.3.13",
     "@types/next": "^9.0.0",
     "@types/node": "^13.7.1",
     "@types/react": "^16.9.19",
@@ -48,8 +48,8 @@
     "dotenv": "^8.2.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
-    "jest": "^26.1.0",
-    "ts-jest": "^26.1.1",
+    "jest": "^23.6.0",
+    "ts-jest": "^23.10.5",
     "typescript": "^3.9.5"
   },
   "jest": {
