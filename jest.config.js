@@ -11,8 +11,8 @@ module.exports = {
   // Jest transformations -- this adds support for TypeScript
   // using ts-jest
   transform: {
-    "^.+\\.jsx?$": "<rootDir>/node_modules/babel-jest",
-    "^.+\\.tsx?$": "ts-jest"
+    "^.+\\.tsx?$": "<rootDir>/node_modules/babel-jest"
+    // "^.+\\.tsx?$": "ts-jest"
   },
 
   // Runs special logic, such as cleaning up components
