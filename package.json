@@ -6,7 +6,7 @@
     "dev": "next dev -p 8000",
     "build": "next build",
     "start": "next start",
-    "test": "jest src/",
+    "test": "jest",
     "lint": "tslint --project \"tsconfig.json\""
   },
   "dependencies": {
@@ -32,6 +32,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
+    "@testing-library/jest-dom": "^5.11.0",
+    "@testing-library/react": "^10.4.3",
     "@types/jest": "^26.0.3",
     "@types/next": "^9.0.0",
     "@types/node": "^13.7.1",
@@ -47,10 +49,15 @@
     "typescript": "^3.7.5"
   },
   "jest": {
+    "verbose": true,
     "testPathIgnorePatterns": [
       "<rootDir>/build/",
       "<rootDir>/node_modules/",
-      "<rootDir>/application/"
+      "<rootDir>/application/",
+      "<rootDir>/cypress/"
+    ],
+    "moduleDirectories": [
+      "<rootDir>/src/"
     ]
   }
 }
