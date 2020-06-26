@@ -21,7 +21,7 @@
         - 
           run: "npm install"
         - 
-          run: "npm lint"
+          run: "npm run lint"
         - 
           run: "npm test"
   version: 2.1
