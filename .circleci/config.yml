@@ -1,11 +1,32 @@
-orbs:
-  node: circleci/node:12.9.1-browsers
-
-version: 2.1
-
-workflows:
-  matrix-tests:
-    jobs:
-      - run: "yarn install"
-      - run: "yarn lint"
-      - run: "yarn test"
+--- 
+  jobs: 
+    build: 
+      docker: 
+        - 
+          image: "circleci/node:9.9.0"
+      steps: 
+        - checkout
+        - 
+          run: "echo \"npm installing\""
+        - 
+          run: "npm install"
+    test: 
+      docker: 
+        - 
+          image: "circleci/node:9.9.0"
+      steps: 
+        - checkout
+        - 
+          run: "echo \"run testing\""
+        - 
+          run: "npm install"
+        - 
+          run: "npm test"
+  version: 2.1
+  workflows: 
+    build_test_lint: 
+      jobs: 
+        - build
+        - test
+    version: 2.1
+  
