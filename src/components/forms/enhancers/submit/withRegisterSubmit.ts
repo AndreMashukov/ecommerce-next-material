@@ -13,7 +13,7 @@ const handleSubmitForm = ({
   lastNameError,
   firstNameError,
   passwordError,
-  confirmPasswordError,
+  confirmPasswordError
 }: Partial<RegisterFormProps>): Partial<RegisterFormFields> | undefined => {
   if (
     emailError
