@@ -1,19 +1,31 @@
 --- 
   jobs: 
+    lint: 
+      docker: 
+        - 
+          image: "circleci/node:current"
+      steps: 
+        - checkout
+        - 
+          run: "echo \"run linting\""
+        - 
+          run: "npm test"    
     build: 
       docker: 
         - 
-          image: "circleci/node:latest"
+          image: "circleci/node:current"
       steps: 
         - checkout
         - 
           run: "echo \"npm installing\""
         - 
           run: "npm install"
+        - 
+          run: "npm build"          
     test: 
       docker: 
         - 
-          image: "circleci/node:9.9.0"
+          image: "circleci/node:current"
       steps: 
         - checkout
         - 
@@ -26,6 +38,7 @@
   workflows: 
     build_test_lint: 
       jobs: 
+        - lint
         - build
         - test
     version: 2.1
