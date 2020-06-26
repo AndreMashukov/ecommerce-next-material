@@ -42,6 +42,7 @@
     "@types/react-text-mask": "^5.4.6",
     "@types/recompose": "^0.30.7",
     "@types/styled-jsx": "^2.2.8",
+    "babel-jest": "^26.1.0",
     "cypress": "^4.5.0",
     "dotenv": "^8.2.0",
     "jest": "^26.1.0",
