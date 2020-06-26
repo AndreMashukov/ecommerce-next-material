@@ -1,4 +1,5 @@
 {
+  "extends": "./tsconfig",
   "compilerOptions": {
     "jsx": "react",
     "allowJs": true,
@@ -6,6 +7,7 @@
     "esModuleInterop": true,
     "noImplicitAny": true,
     "sourceMap": true,
-    "target": "es5"
+    "target": "es5",
+    "module": "commonjs"
   }
 }

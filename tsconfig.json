@@ -32,5 +32,12 @@
     "**/*.ts",
     "**/*.tsx",
     "../node_modules/cypress"
-  ]
+  ],
+  "jest": {
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "./tsconfig.jest.json"
+      }
+    }
+  }
 }
