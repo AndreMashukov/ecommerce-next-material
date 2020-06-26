@@ -3,7 +3,7 @@
     build: 
       docker: 
         - 
-          image: "circleci/node:current"
+          image: "circleci/node:latest"
       steps: 
         - checkout
         - 
