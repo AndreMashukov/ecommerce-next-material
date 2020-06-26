@@ -7,6 +7,6 @@ describe('Dummy test', () => {
     //   query: { first: 'whatever' }
     // });
 
-    expect(REGIONS.MOSCOW.id).toBe(10);
+    expect(REGIONS.MOSCOW.id === 10);
   });
 });
