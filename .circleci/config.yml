@@ -29,7 +29,6 @@
     build_test_lint: 
       jobs: 
         - build
-        - lint
         - test
     version: 2.1
   
