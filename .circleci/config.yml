@@ -21,10 +21,10 @@ jobs:
       - checkout
       - run: echo "run testing"
       - restore_cache: null
-        keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          - v1-dependencies-
-      - run: yarn presetup
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run: yarn install
       - save_cache:
           paths:
             - node_modules
