@@ -1,34 +1,40 @@
---- 
-  jobs: 
-    build: 
-      docker: 
-        - 
-          image: "circleci/node:current"
-      steps: 
-        - checkout
-        - 
-          run: "echo \"npm installing\""
-        - 
-          run: "npm install"
-    test: 
-      docker: 
-        - 
-          image: "circleci/node:current"
-      steps: 
-        - checkout
-        - 
-          run: "echo \"run testing\""
-        - 
-          run: "npm install"
-        - 
-          run: "npm run lint"
-        - 
-          run: "npm test"
+jobs:
+  build:
+    docker:
+      - image: 'circleci/node:current'
+    steps:
+      - checkout
+      - run: echo "npm installing"
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+  test:
+    docker:
+      - image: 'circleci/node:current'
+    steps:
+      - checkout
+      - run: echo "run testing"
+      - restore_cache: null
+        keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-
+      - run: yarn presetup
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - run: yarn lint
+      - run: yarn test
+version: 2.1
+workflows:
+  build_test_lint:
+    jobs:
+      - build
+      - test
   version: 2.1
-  workflows: 
-    build_test_lint: 
-      jobs: 
-        - build
-        - test
-    version: 2.1
-  
