@@ -20,7 +20,7 @@ jobs:
     steps:
       - checkout
       - run: echo "run testing"
-      - restore_cache: null
+      - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
