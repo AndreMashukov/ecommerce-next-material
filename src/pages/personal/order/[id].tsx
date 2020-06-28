@@ -3,7 +3,7 @@ import '../../Layout.scss';
 import { NextPageContext } from 'next';
 import { getOrder } from '../../../services/OrderApi';
 import SessionContext from '../../../store/SessionContext/SessionContext';
-import { Order, Error } from '../../../models';
+import { OrderView, Error } from '../../../models';
 import { useRouter } from 'next/router';
 import { OrderDetails } from '../../../components/shared';
 import Typography from '@material-ui/core/Typography';
@@ -19,10 +19,10 @@ const PersonalOrderIdPage = (_props: PersonalOrderIdPageProps) => {
   const { orderId } = _props;
   const { getUser } = useContext(SessionContext);
   const [loading, setLoading] = useState(true);
-  const [orderOrError, setOrderOrError] = useState<Partial<Order & Error>>(
+  const [orderOrError, setOrderOrError] = useState<Partial<OrderView & Error>>(
     null
   );
-  const [order, setOrder] = useState<Order>(null);
+  const [order, setOrder] = useState<OrderView>(null);
   const router = useRouter();
 
   const pickOrderProperties = ({
@@ -37,8 +37,10 @@ const PersonalOrderIdPage = (_props: PersonalOrderIdPageProps) => {
     user,
     cart,
     delivery,
-    paySystem
-  }: Partial<Order & Error>): Order => ({
+    paySystem,
+    payed,
+    datePayed
+  }: Partial<OrderView & Error>): OrderView => ({
     id,
     userId,
     sessionId,
@@ -50,7 +52,9 @@ const PersonalOrderIdPage = (_props: PersonalOrderIdPageProps) => {
     user,
     cart,
     delivery,
-    paySystem
+    paySystem,
+    payed,
+    datePayed
   });
 
   useEffect(() => {

@@ -2,7 +2,7 @@ import { OrderProps } from './OrderProps';
 import { User } from './User';
 import { CartItem } from './CartItem';
 import { NoSuffixDelivery } from './Delivery';
-import { PaySystem } from './PaySystem';
+import { NoSuffixPaySystem } from './PaySystem';
 
 export interface Order {
   id?: number;
@@ -13,8 +13,12 @@ export interface Order {
   price: number;
   comment?: string;
   props?: OrderProps;
+  payed?: string;
+  datePayed?: string;
   user?: User;
   cart?: CartItem[];
   delivery?: NoSuffixDelivery;
-  paySystem?: PaySystem;
+  paySystem?: NoSuffixPaySystem;
 }
+export type OrderView = Required<Order>;
+
