@@ -101,6 +101,28 @@ export const OrderDetails = (props: Props) => {
         <Grid item>
           <Paper className={classes.paper}>
             <Grid container className={classes.border}>
+              <Typography variant="h6">Оплата и доставка</Typography>
+            </Grid>
+            <Grid container justify="center">
+              <Grid item>
+                <OrderDetailsTable
+                  variant="caption"
+                  columns={[
+                    ['Оплачен', 'Служба доставки', 'Платежная система'],
+                    [
+                      order.payed === 'Y' ? `Да ${order.datePayed}` : 'Нет',
+                      order.delivery.name,
+                      order.paySystem.name
+                    ]
+                  ]}
+                />
+              </Grid>
+            </Grid>
+          </Paper>
+        </Grid>
+        <Grid item>
+          <Paper className={classes.paper}>
+            <Grid container className={classes.border}>
               <Typography variant="h6">Состав заказа</Typography>
             </Grid>
             <OrderContentTable cart={order.cart} />
