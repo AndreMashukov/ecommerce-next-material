@@ -10,12 +10,12 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import theme from '../../theme/theme';
-import { Order, CartItem } from '../../models';
+import { OrderView, CartItem } from '../../models';
 import { REGIONS } from '../../constants';
 import { Variant } from '@material-ui/core/styles/createTypography';
 
 interface Props {
-  order: Order;
+  order: OrderView;
 }
 
 interface OrderDetailsTableProps {

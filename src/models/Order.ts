@@ -21,4 +21,5 @@ export interface Order {
   paySystem?: NoSuffixPaySystem;
 }
 export type OrderView = Required<Order>;
+export type OrderViewList = {orders: OrderView[]};
 
