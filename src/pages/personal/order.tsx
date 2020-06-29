@@ -84,14 +84,8 @@ const PersonalOrderListPage: React.FC<{}> = () => {
               Мои заказы
             </Typography>
           </Grid>
-          {!loading && !orderListOrError.status ? (
+          {!loading && !orderListOrError.status && (
             <OrderList {...orderList.orders} />
-          ) : (
-            <div style={{ margin: '20px' }}>
-              <Typography variant="h5" color="error">
-                Заказы не найден
-              </Typography>
-            </div>
           )}
         </Grid>
       </div>
@@ -101,22 +95,35 @@ const PersonalOrderListPage: React.FC<{}> = () => {
 
 const OrderList: React.FC<OrderView[]> = (orders: OrderView[]) => {
   const classes = useStyles();
+  const ordersArray = getArrayFromObject<OrderView>(orders);
 
   return (
-    <Grid container direction="column" justify="center" spacing={1}>
-      {getArrayFromObject<OrderView>(orders).map((order: OrderView) => (
-        <Grid item>
-          <Paper className={classes.paper}>
-            <Grid container className={classes.border}>
-              <Typography variant="body1">
-                Заказ №{order.id} от{' '}
-                {moment(order.dateInsert).format('DD.MM.YYYY HH:MM')}
-              </Typography>
+    <div>
+      {ordersArray.length > 0 ? (
+        <Grid container direction="column" justify="center" spacing={1}>
+          {ordersArray.map((order: OrderView) => (
+            <Grid item>
+              <Paper className={classes.paper}>
+                <Grid container className={classes.border}>
+                  <Link color="inherit" href={`/personal/order/${order.id}`}>
+                    <Typography variant="body1">
+                      Заказ №{order.id} от{' '}
+                      {moment(order.dateInsert).format('DD.MM.YYYY HH:MM')}
+                    </Typography>
+                  </Link>
+                </Grid>
+              </Paper>
             </Grid>
-          </Paper>
+          ))}
         </Grid>
-      ))}
-    </Grid>
+      ) : (
+        <div style={{ margin: '20px' }}>
+          <Typography variant="h5" color="error">
+            Заказы не найдены
+          </Typography>
+        </div>
+      )}
+    </div>
   );
 };
 
