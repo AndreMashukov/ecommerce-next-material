@@ -12,14 +12,6 @@ export const getArrayFromObject = <V>(obj: RecordNumber<V>) => {
   return array;
 };
 
-export const pickPropsFromDto = <V>(
-  dto: ResultOrError<V>,
-  ...props: [keyof V]
-): Partial<V> => {
-  const finalProps: Partial<V> = {};
-  for (const p of props) {
-    finalProps[p] = dto[p];
-  }
-
-  return finalProps;
-};
+export function pickPropsFromDto<T>(o: ResultOrError<T>, ...props: [keyof T]): Partial<T> {
+  return Object.assign({}, ...props.map(prop => ({[prop]: o[prop]})));
+}
