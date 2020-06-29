@@ -13,7 +13,7 @@ import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import { Subscription, from } from 'rxjs';
 import moment from 'moment';
-import { getArrayFromObject } from '../../utils/shared';
+import { getArrayFromObject, pickPropsFromDto } from '../../utils/shared';
 
 const useStyles = makeStyles({
   fontWeigthBold: {
@@ -38,15 +38,9 @@ const PersonalOrderListPage: React.FC<{}> = () => {
   const [orderListOrError, setOrderListOrError] = useState<
     Partial<OrderViewList & Error>
   >(null);
-  const [orderList, setOrderList] = useState<OrderViewList>(null);
+  const [orderList, setOrderList] = useState<Partial<OrderViewList>>(null);
   const router = useRouter();
   const classes = useStyles();
-
-  const pickOrderList = ({
-    orders
-  }: Partial<OrderViewList & Error>): OrderViewList => ({
-    orders
-  });
 
   useEffect(() => {
     const subscriptions = new Subscription();
@@ -57,7 +51,7 @@ const PersonalOrderListPage: React.FC<{}> = () => {
         from(getOrderList(getUser().id)).subscribe((resp) => {
           setOrderListOrError(resp);
           if (!resp.status) {
-            setOrderList(pickOrderList(resp));
+            setOrderList(pickPropsFromDto<OrderViewList>(resp, 'orders'));
           }
           setLoading(false);
         })
