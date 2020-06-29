@@ -100,7 +100,7 @@ const OrderList: React.FC<OrderView[]> = (orders: OrderView[]) => {
   return (
     <div>
       {ordersArray.length > 0 ? (
-        <Grid container direction="column" justify="center" spacing={1}>
+        <Grid container direction="column" justify="flex-start" spacing={1}>
           {ordersArray.map((order: OrderView) => (
             <Grid item>
               <Paper className={classes.paper}>
@@ -111,6 +111,45 @@ const OrderList: React.FC<OrderView[]> = (orders: OrderView[]) => {
                       {moment(order.dateInsert).format('DD.MM.YYYY HH:MM')}
                     </Typography>
                   </Link>
+                </Grid>
+                <Grid container justify="space-around">
+                  <Grid item xs={6}>
+                    <Grid container direction="column" justify="flex-start">
+                      <Grid item>Сумма к оплате:&nbsp;
+                        {parseInt(order.price.toString(), 0) +
+                          parseInt(order.delivery.price.toString(), 0)} ₽
+                      </Grid>
+                      <Grid item>
+                        Оплачен:{' '}
+                        {order.payed === 'Y' ? `Да ${order.datePayed}` : 'Нет'}
+                      </Grid>
+                      <Grid item>
+                        Способ оплаты:&nbsp;
+                        {order.paySystem.name}
+                      </Grid>
+                      <Grid item>
+                        Доставка:&nbsp;
+                        {order.delivery.name}
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Typography variant="body2" color="textSecondary">
+                      Состав заказа:
+                    </Typography>
+                    <Grid container direction="column" justify="flex-start">
+                      {order.cart.map((item, index) => (
+                        <Grid item>
+                          <Grid container>
+                            <Typography variant="body2" color="textSecondary">
+                              {`${index + 1}.`}&nbsp;
+                            </Typography>
+                            <Typography variant="body2">{item.name}</Typography>
+                          </Grid>
+                        </Grid>
+                      ))}
+                    </Grid>
+                  </Grid>
                 </Grid>
               </Paper>
             </Grid>
