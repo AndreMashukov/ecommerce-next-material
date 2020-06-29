@@ -2,15 +2,17 @@ import React, { useContext, useEffect, useState } from 'react';
 import '../Layout.scss';
 import { getOrderList } from '../../services/OrderApi';
 import SessionContext from '../../store/SessionContext/SessionContext';
-import { OrderViewList, Error } from '../../models';
+import { OrderViewList, Error, OrderView } from '../../models';
 import { useRouter } from 'next/router';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core';
 import theme from '../../theme/theme';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import { Subscription, from } from 'rxjs';
+import moment from 'moment';
 
 const useStyles = makeStyles({
   fontWeigthBold: {
@@ -29,7 +31,7 @@ const useStyles = makeStyles({
   }
 });
 
-const PersonalOrderListPage = () => {
+const PersonalOrderListPage: React.FC<{}> = () => {
   const { getUser } = useContext(SessionContext);
   const [loading, setLoading] = useState(true);
   const [orderListOrError, setOrderListOrError] = useState<
@@ -88,7 +90,7 @@ const PersonalOrderListPage = () => {
             </Typography>
           </Grid>
           {!loading && !orderListOrError.status ? (
-            JSON.stringify(orderList)
+            <OrderList {...orderList.orders} />
           ) : (
             <div style={{ margin: '20px' }}>
               <Typography variant="h5" color="error">
@@ -99,6 +101,36 @@ const PersonalOrderListPage = () => {
         </Grid>
       </div>
     </div>
+  );
+};
+
+const OrderList: React.FC<OrderView[]> = (orders: OrderView[]) => {
+  const classes = useStyles();
+
+  const getoOrdersArray = (_orders: OrderView[]) => {
+    const arrayOfOrders: OrderView[] = [];
+    // tslint:disable-next-line: no-any
+    Object.keys(_orders).forEach((key: any) => {
+      arrayOfOrders.push(_orders[key]);
+    });
+    return arrayOfOrders;
+  };
+
+  return (
+    <Grid container direction="column" justify="center" spacing={1}>
+      {getoOrdersArray(orders).map(order => (
+        <Grid item>
+          <Paper className={classes.paper}>
+            <Grid container className={classes.border}>
+              <Typography variant="body1">
+                Заказ №{order.id} от{' '}
+                {moment(order.dateInsert).format('DD.MM.YYYY HH:MM')}
+              </Typography>
+            </Grid>
+          </Paper>
+        </Grid>
+      ))}
+    </Grid>
   );
 };
 

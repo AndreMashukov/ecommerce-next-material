@@ -19,6 +19,7 @@ export interface Order {
   cart?: CartItem[];
   delivery?: NoSuffixDelivery;
   paySystem?: NoSuffixPaySystem;
+  dateInsert?: string;
 }
 export type OrderView = Required<Order>;
 export type OrderViewList = {orders: OrderView[]};

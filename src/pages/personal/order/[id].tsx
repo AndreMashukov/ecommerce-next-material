@@ -39,7 +39,8 @@ const PersonalOrderIdPage = (_props: PersonalOrderIdPageProps) => {
     delivery,
     paySystem,
     payed,
-    datePayed
+    datePayed,
+    dateInsert
   }: Partial<OrderView & Error>): OrderView => ({
     id,
     userId,
@@ -54,7 +55,8 @@ const PersonalOrderIdPage = (_props: PersonalOrderIdPageProps) => {
     delivery,
     paySystem,
     payed,
-    datePayed
+    datePayed,
+    dateInsert
   });
 
   useEffect(() => {

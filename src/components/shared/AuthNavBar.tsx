@@ -20,7 +20,11 @@ export const AuthNavBar = () => {
       {user ? (
         <Grid container direction="row" justify="flex-start" spacing={2}>
           <Grid item id="orders">
-            <Typography variant={variant}>Заказы</Typography>
+            <Typography variant={variant}>
+              <Link href="/personal/order" prefetch={false}>
+                <MatLink>Заказы</MatLink>
+              </Link>
+            </Typography>
           </Grid>
           <Grid item id="firstName">
             <Typography variant={variant}>
