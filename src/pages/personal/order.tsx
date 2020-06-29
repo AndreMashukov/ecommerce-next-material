@@ -13,6 +13,7 @@ import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import { Subscription, from } from 'rxjs';
 import moment from 'moment';
+import { getArrayFromObject } from '../../utils/shared';
 
 const useStyles = makeStyles({
   fontWeigthBold: {
@@ -107,18 +108,9 @@ const PersonalOrderListPage: React.FC<{}> = () => {
 const OrderList: React.FC<OrderView[]> = (orders: OrderView[]) => {
   const classes = useStyles();
 
-  const getoOrdersArray = (_orders: OrderView[]) => {
-    const arrayOfOrders: OrderView[] = [];
-    // tslint:disable-next-line: no-any
-    Object.keys(_orders).forEach((key: any) => {
-      arrayOfOrders.push(_orders[key]);
-    });
-    return arrayOfOrders;
-  };
-
   return (
     <Grid container direction="column" justify="center" spacing={1}>
-      {getoOrdersArray(orders).map(order => (
+      {getArrayFromObject<OrderView>(orders).map((order: OrderView) => (
         <Grid item>
           <Paper className={classes.paper}>
             <Grid container className={classes.border}>
