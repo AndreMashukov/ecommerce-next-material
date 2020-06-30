@@ -191,7 +191,7 @@ const OrderDetailsTable = (_props: OrderDetailsTableProps) => {
               direction="column"
               alignItems="flex-end"
             >
-              <Grid item>
+              <Grid item style={{whiteSpace: 'nowrap'}}>
                 <Grid
                   container
                   direction="column"
@@ -220,7 +220,7 @@ const OrderDetailsTable = (_props: OrderDetailsTableProps) => {
               direction="column"
               alignItems="flex-start"
             >
-              <Grid item xs={10}>
+              <Grid item xs={12} style={{maxWidth: '350px'}}>
                 <Grid
                   container
                   direction="column"
