@@ -7,7 +7,10 @@ import { OrderView, Error } from '../../../models';
 import { useRouter } from 'next/router';
 import { OrderDetails } from '../../../components/shared';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+// import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Link from '@material-ui/core/Link';
 import { Subscription, from } from 'rxjs';
 
@@ -40,7 +43,8 @@ const PersonalOrderIdPage = (_props: PersonalOrderIdPageProps) => {
     paySystem,
     payed,
     datePayed,
-    dateInsert
+    dateInsert,
+    status
   }: Partial<OrderView & Error>): OrderView => ({
     id,
     userId,
@@ -56,7 +60,8 @@ const PersonalOrderIdPage = (_props: PersonalOrderIdPageProps) => {
     paySystem,
     payed,
     datePayed,
-    dateInsert
+    dateInsert,
+    status
   });
 
   useEffect(() => {
@@ -65,15 +70,13 @@ const PersonalOrderIdPage = (_props: PersonalOrderIdPageProps) => {
       process.browser && router.push('/auth');
     } else {
       subscriptions.add(
-        from(getOrder(orderId, getUser().id)).subscribe(
-          (resp) => {
-            setOrderOrError(resp);
-            if (!resp.status) {
-              setOrder(pickOrderProperties(resp));
-            }
-            setLoading(false);
+        from(getOrder(orderId, getUser().id)).subscribe((resp) => {
+          setOrderOrError(resp);
+          if (!resp.status) {
+            setOrder(pickOrderProperties(resp));
           }
-        )
+          setLoading(false);
+        })
       );
     }
 
@@ -108,6 +111,14 @@ const PersonalOrderIdPage = (_props: PersonalOrderIdPageProps) => {
           )}
         </div>
       )}
+      <Grid container justify="center" style={{padding: '20px'}}>
+        <Link color="inherit" href="/personal/order">
+          <Grid container justify="space-between" alignItems="center" spacing={3}>
+            <ArrowBackIcon style={{marginRight: '10px'}}/>
+            <Typography>Вернуться</Typography>
+          </Grid>
+        </Link>
+      </Grid>
     </div>
   );
 };
