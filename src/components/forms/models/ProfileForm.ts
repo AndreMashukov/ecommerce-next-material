@@ -7,7 +7,7 @@ export interface ProfileFormFields {
   confirmPassword: TextField;
 }
 
-export interface ProfileFormHandlers{
+export interface ProfileFormHandlers {
   onLastNameChange: (event: ChangeEventType) => TextField;
   lastNameDirty: () => TextField;
   onFirstNameChange: (event: ChangeEventType) => TextField;
@@ -31,7 +31,7 @@ interface ProfileFormSubmit {
   profileSubmit: () => ProfileFormFields | undefined;
 }
 
-export type RegisterFormProps = ProfileFormFields
+export type ProfileFormProps = ProfileFormFields
   & ProfileFormHandlers
   & ProfileFormErrors
   & ProfileFormSubmit;

@@ -6,7 +6,7 @@ import Link from '@material-ui/core/Link';
 import theme from '../../theme/theme';
 import '../Layout.scss';
 import { makeStyles } from '@material-ui/styles';
-import { RegisterFormComposed } from '../../components';
+import { ProfileFormComposed } from '../../components';
 
 const useStyles = makeStyles({
   pageRootExtended: {
@@ -59,7 +59,7 @@ const PersonalProfilePage = () => {
                 alignItems="center"
                 style={{padding: '10px 0 20px 0'}}
               >
-                <RegisterFormComposed />
+                <ProfileFormComposed />
               </Grid>
             </Grid>
           </Grid>
