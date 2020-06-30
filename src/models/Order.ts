@@ -20,6 +20,7 @@ export interface Order {
   delivery?: NoSuffixDelivery;
   paySystem?: NoSuffixPaySystem;
   dateInsert?: string;
+  orderStatus?: {id: string; name: string};
 }
 export type OrderView = Required<Order>;
 export type OrderViewList = {orders: OrderView[]};

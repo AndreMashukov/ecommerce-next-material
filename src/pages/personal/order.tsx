@@ -113,11 +113,13 @@ const OrderList: React.FC<OrderView[]> = (orders: OrderView[]) => {
                   </Link>
                 </Grid>
                 <Grid container justify="space-around">
-                  <Grid item xs={6}>
+                  <Grid item xs={8}>
                     <Grid container direction="column" justify="flex-start">
-                      <Grid item>Сумма к оплате:&nbsp;
+                      <Grid item>
+                        Сумма к оплате:&nbsp;
                         {parseInt(order.price.toString(), 0) +
-                          parseInt(order.delivery.price.toString(), 0)} ₽
+                          parseInt(order.delivery.price.toString(), 0)}{' '}
+                        ₽
                       </Grid>
                       <Grid item>
                         Оплачен:{' '}
@@ -133,7 +135,17 @@ const OrderList: React.FC<OrderView[]> = (orders: OrderView[]) => {
                       </Grid>
                     </Grid>
                   </Grid>
-                  <Grid item xs={6}>
+                  <Grid item xs={4}>
+                    <Grid container direction="column" justify="flex-start">
+                      <Grid item>
+                        {moment(order.dateInsert).format('DD.MM.YYYY HH:MM')}
+                      </Grid>
+                      <Grid item>{order.orderStatus.name}</Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Grid container style={{ padding: '20px' }}>
+                  <Grid item xs={8}>
                     <Typography variant="body2" color="textSecondary">
                       Состав заказа:
                     </Typography>
@@ -141,10 +153,12 @@ const OrderList: React.FC<OrderView[]> = (orders: OrderView[]) => {
                       {order.cart.map((item, index) => (
                         <Grid item>
                           <Grid container>
-                            <Typography variant="body2" color="textSecondary">
-                              {`${index + 1}.`}&nbsp;
+                            <Typography
+                              style={{ whiteSpace: 'nowrap' }}
+                              variant="body2"
+                            >
+                              {`${index + 1}.`}&nbsp;{item.name}
                             </Typography>
-                            <Typography variant="body2">{item.name}</Typography>
                           </Grid>
                         </Grid>
                       ))}
