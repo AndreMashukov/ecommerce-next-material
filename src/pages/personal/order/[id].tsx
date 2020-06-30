@@ -9,7 +9,6 @@ import { OrderDetails } from '../../../components/shared';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
-// import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Link from '@material-ui/core/Link';
 import { Subscription, from } from 'rxjs';

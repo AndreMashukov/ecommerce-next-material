@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
+import ListAltIcon from '@material-ui/icons/ListAlt';
 import { makeStyles } from '@material-ui/core';
 import theme from '../../theme/theme';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
@@ -102,10 +103,20 @@ const OrderList: React.FC<OrderView[]> = (orders: OrderView[]) => {
               <Paper>
                 <Grid container className={classes.border}>
                   <Link color="inherit" href={`/personal/order/${order.id}`}>
-                    <Typography variant="body1" className={classes.fontWeigthBold}>
-                      Заказ №{order.id} от{' '}
-                      {moment(order.dateInsert).format('DD.MM.YYYY HH:MM')}
-                    </Typography>
+                    <Grid container alignItems="center" spacing={2}>
+                      <Grid item>
+                        <ListAltIcon />
+                      </Grid>
+                      <Grid item>
+                        <Typography
+                          variant="body1"
+                          className={classes.fontWeigthBold}
+                        >
+                          Заказ №{order.id} от{' '}
+                          {moment(order.dateInsert).format('DD.MM.YYYY HH:MM')}
+                        </Typography>
+                      </Grid>
+                    </Grid>
                   </Link>
                 </Grid>
                 <Grid container justify="space-around">
