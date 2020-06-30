@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core';
 import theme from '../../theme/theme';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
@@ -14,6 +15,7 @@ import Link from '@material-ui/core/Link';
 import { Subscription, from } from 'rxjs';
 import moment from 'moment';
 import { getArrayFromObject, pickPropsFromDto } from '../../utils/shared';
+import { colors } from '../../theme/constants';
 
 const useStyles = makeStyles({
   fontWeigthBold: {
@@ -113,7 +115,7 @@ const OrderList: React.FC<OrderView[]> = (orders: OrderView[]) => {
                   </Link>
                 </Grid>
                 <Grid container justify="space-around">
-                  <Grid item xs={8}>
+                  <Grid item xs={8} style={{ paddingLeft: '10px' }}>
                     <Grid container direction="column" justify="flex-start">
                       <Grid item>
                         Сумма к оплате:&nbsp;
@@ -140,7 +142,19 @@ const OrderList: React.FC<OrderView[]> = (orders: OrderView[]) => {
                       <Grid item>
                         {moment(order.dateInsert).format('DD.MM.YYYY HH:MM')}
                       </Grid>
-                      <Grid item>{order.orderStatus.name}</Grid>
+                      <Grid item>
+                        <Box
+                          p={1}
+                          style={{ backgroundColor: `${colors.badge.topSell}` }}
+                        >
+                          <Typography
+                            variant="body2"
+                            style={{ color: 'white' }}
+                          >
+                            {order.orderStatus.name}
+                          </Typography>
+                        </Box>
+                      </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
