@@ -21,16 +21,10 @@ const useStyles = makeStyles({
   fontWeigthBold: {
     fontWeight: 'bold'
   },
-  paper: {
-    padding: '20px'
-  },
   border: {
-    paddingLeft: '10px',
+    padding: '10px',
     borderBottom: `1px solid ${theme.palette.primary.main}`,
     marginBottom: '20px'
-  },
-  table: {
-    minWidth: 500
   }
 });
 
@@ -105,10 +99,10 @@ const OrderList: React.FC<OrderView[]> = (orders: OrderView[]) => {
         <Grid container direction="column" justify="flex-start" spacing={1}>
           {ordersArray.map((order: OrderView) => (
             <Grid item>
-              <Paper className={classes.paper}>
+              <Paper>
                 <Grid container className={classes.border}>
                   <Link color="inherit" href={`/personal/order/${order.id}`}>
-                    <Typography variant="body1">
+                    <Typography variant="body1" className={classes.fontWeigthBold}>
                       Заказ №{order.id} от{' '}
                       {moment(order.dateInsert).format('DD.MM.YYYY HH:MM')}
                     </Typography>
