@@ -28,7 +28,13 @@ export const AuthNavBar = () => {
           </Grid>
           <Grid item id="firstName">
             <Typography variant={variant}>
-              <span style={{ fontWeight: 'bold' }}>{getUser().firstName}</span>
+              <Link href="/personal/profile" prefetch={false}>
+                <MatLink>
+                  <span style={{ fontWeight: 'bold' }}>
+                    {getUser().firstName}
+                  </span>
+                </MatLink>
+              </Link>
             </Typography>
           </Grid>
           <Grid item id="logout">
