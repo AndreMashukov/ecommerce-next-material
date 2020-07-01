@@ -8,10 +8,5 @@ export type ProfileFormFields = ProfileNamesFormFields & PasswordFormFields;
 export type ProfileFormHandlers = ProfileNamesFormHandlers &
   PasswordFormHandlers;
 
-interface ProfileFormSubmit {
-  profileSubmit: () => ProfileFormFields | undefined;
-}
-
 export type ProfileFormProps = ProfileFormFields &
-  ProfileFormHandlers &
-  ProfileFormSubmit;
+  ProfileFormHandlers;

@@ -1,7 +1,7 @@
 import { ChangeEventType, TextField } from './GlobalModels';
 import {
   ProfileFormFields,
-  ProfileFormHandlers,
+  ProfileFormHandlers
 } from './ProfileForm';
 
 export interface RegisterFormFields extends ProfileFormFields {
