@@ -1,37 +1,17 @@
-import { ChangeEventType, TextField } from './GlobalModels';
+import {
+  ProfileNamesFormFields,
+  ProfileNamesFormHandlers
+} from './ProfileNamesForm';
+import { PasswordFormFields, PasswordFormHandlers } from './CreatePassword';
 
-export interface ProfileFormFields {
-  lastName: TextField;
-  firstName: TextField;
-  password: TextField;
-  confirmPassword: TextField;
-}
-
-export interface ProfileFormHandlers {
-  onLastNameChange: (event: ChangeEventType) => TextField;
-  lastNameDirty: () => TextField;
-  onFirstNameChange: (event: ChangeEventType) => TextField;
-  firstNameDirty: () => TextField;
-  onPasswordChange: (event: ChangeEventType) => TextField;
-  clearPassword: () => TextField;
-  passwordDirty: () => TextField;
-  onConfirmPasswordChange: (event: ChangeEventType) => TextField;
-  clearConfirmPassword: () => TextField;
-  confirmPasswordDirty: () => TextField;
-}
-
-export interface ProfileFormErrors {
-  lastNameError: (lastName: TextField) => boolean;
-  firstNameError: (firstName: TextField) => boolean;
-  passwordError: (password: TextField) => boolean;
-  confirmPasswordError: (confirmPassword: TextField) => boolean;
-}
+export type ProfileFormFields = ProfileNamesFormFields & PasswordFormFields;
+export type ProfileFormHandlers = ProfileNamesFormHandlers &
+  PasswordFormHandlers;
 
 interface ProfileFormSubmit {
   profileSubmit: () => ProfileFormFields | undefined;
 }
 
-export type ProfileFormProps = ProfileFormFields
-  & ProfileFormHandlers
-  & ProfileFormErrors
-  & ProfileFormSubmit;
+export type ProfileFormProps = ProfileFormFields &
+  ProfileFormHandlers &
+  ProfileFormSubmit;

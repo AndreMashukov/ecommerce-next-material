@@ -2,7 +2,6 @@ import { ChangeEventType, TextField } from './GlobalModels';
 import {
   ProfileFormFields,
   ProfileFormHandlers,
-  ProfileFormErrors
 } from './ProfileForm';
 
 export interface RegisterFormFields extends ProfileFormFields {
@@ -15,9 +14,6 @@ interface RegisterFormHandlers extends ProfileFormHandlers {
   emailDirty: () => TextField;
   onPhoneChange: (event: ChangeEventType) => TextField;
   phoneDirty: () => TextField;
-}
-
-interface RegisterFormErrors extends ProfileFormErrors {
   emailError: (email: TextField) => boolean;
   phoneError: (phone: TextField) => boolean;
 }
@@ -28,5 +24,4 @@ interface RegisterFormSubmit {
 
 export type RegisterFormProps = RegisterFormFields
   & RegisterFormHandlers
-  & RegisterFormErrors
   & RegisterFormSubmit;
