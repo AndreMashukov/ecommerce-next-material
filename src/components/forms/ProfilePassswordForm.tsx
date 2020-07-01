@@ -1,42 +1,45 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import { ProfileFormProps } from './models';
+import { CreatePasswordFormProps } from './models';
 import { compose } from 'recompose';
 import {
-  withProfileNamesState,
-  withNameError,
-  withProfileNamesSubmit
+  withCreatePasswordState,
+  withPasswordError,
+  withConfirmPasswordError,
+  withCreatePasswordSubmit
 } from './enhancers';
 import { CustomSnackBar } from '../shared';
 import { Typography } from '@material-ui/core';
-import SessionContext from '../../store/SessionContext/SessionContext';
 
 // tslint:disable-next-line: no-any
-type WithComposeProps = ProfileFormProps & any;
+type WithComposeProps = CreatePasswordFormProps & any;
 
-const ProfileNamesForm = (props: WithComposeProps) => {
+const ProfilePasswordForm = (props: WithComposeProps) => {
   const {
-    firstName,
-    firstNameError,
-    setFirstName,
-    onFirstNameChange,
-    lastName,
-    lastNameError,
-    onLastNameChange,
-    setLastName,
-    profileNamesSubmit
+    password,
+    passwordError,
+    onPasswordChange,
+    confirmPassword,
+    confirmPasswordError,
+    onConfirmPasswordChange,
+    passwordDirty,
+    confirmPasswordDirty,
+    createPasswordSubmit
   } = props;
+
+  const makeDirtyIfEmpty = () => {
+    password.value === '' && passwordDirty();
+    confirmPassword.value === '' && confirmPasswordDirty();
+  };
 
   const textVariant = 'body2';
   const fieldWidth = '220px';
   const formSpacing = 5;
   const rowDistance = '180px';
   const labelColor = 'textPrimary';
-
-  const { getUser } = useContext(SessionContext);
 
   const [snackState, setSnackState] = useState({
     open: false,
@@ -45,20 +48,14 @@ const ProfileNamesForm = (props: WithComposeProps) => {
   });
   const [submitted, setSubmitted] = useState(false);
 
-  useEffect(() => {
-    if (getUser()) {
-      setLastName(getUser().lastName);
-      setFirstName(getUser().firstName);
-    }
-  }, [getUser()]);
-
   const handleProfileNamesSubmit = async () => {
     setSubmitted(true);
-    const profileFields = profileNamesSubmit();
-    if (profileFields) {
+    const passw = createPasswordSubmit();
+    if (passw) {
       // tslint:disable-next-line: no-console
-      console.log(profileFields);
+      console.log(passw);
     } else {
+      makeDirtyIfEmpty();
       setSnackState({
         open: true,
         success: false,
@@ -91,15 +88,16 @@ const ProfileNamesForm = (props: WithComposeProps) => {
             >
               <Grid item>
                 <Typography variant={textVariant} color={labelColor}>
-                  Фамилия
+                  Пароль
                 </Typography>
                 <TextField
                   variant="outlined"
-                  placeholder="Фамилия"
-                  value={lastName.value}
-                  error={submitted && !!lastNameError}
-                  helperText={submitted && lastNameError}
-                  onChange={onLastNameChange}
+                  placeholder="Пароль"
+                  value={password.value}
+                  type="password"
+                  error={submitted && !!passwordError}
+                  helperText={submitted && passwordError}
+                  onChange={onPasswordChange}
                   margin="normal"
                   style={{ width: `${fieldWidth}` }}
                 />
@@ -115,15 +113,16 @@ const ProfileNamesForm = (props: WithComposeProps) => {
             >
               <Grid item>
                 <Typography variant={textVariant} color={labelColor}>
-                  Имя
+                  Подтверждение пароля
                 </Typography>
                 <TextField
                   variant="outlined"
-                  placeholder="Имя"
-                  value={firstName.value}
-                  error={submitted && !!firstNameError}
-                  helperText={submitted && firstNameError}
-                  onChange={onFirstNameChange}
+                  placeholder="Подтверждение пароля"
+                  value={confirmPassword.value}
+                  error={submitted && !!confirmPasswordError}
+                  type="password"
+                  helperText={submitted && confirmPasswordError}
+                  onChange={onConfirmPasswordChange}
                   margin="normal"
                   style={{ width: `${fieldWidth}` }}
                 />
@@ -149,8 +148,9 @@ const ProfileNamesForm = (props: WithComposeProps) => {
   );
 };
 
-export const ProfileNamesFormComposed = compose(
-  withProfileNamesState,
-  withNameError,
-  withProfileNamesSubmit
-)(ProfileNamesForm);
+export const ProfilePasswordFormComposed = compose(
+  withCreatePasswordState,
+  withPasswordError,
+  withConfirmPasswordError,
+  withCreatePasswordSubmit
+)(ProfilePasswordForm);

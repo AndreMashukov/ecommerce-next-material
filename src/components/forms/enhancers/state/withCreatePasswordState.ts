@@ -3,7 +3,9 @@ import {
   onPasswordChange,
   onConfirmPasswordChange,
   clearPassword,
-  clearConfirmPassword
+  clearConfirmPassword,
+  passwordDirty,
+  confirmPasswordDirty
 } from './handlers';
 
 const initialState = {
@@ -15,5 +17,7 @@ export const withCreatePasswordState = withStateHandlers(initialState, {
   onPasswordChange,
   onConfirmPasswordChange,
   clearPassword,
-  clearConfirmPassword
+  clearConfirmPassword,
+  passwordDirty,
+  confirmPasswordDirty
 });

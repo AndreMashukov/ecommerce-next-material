@@ -6,7 +6,10 @@ import Link from '@material-ui/core/Link';
 import theme from '../../theme/theme';
 import '../Layout.scss';
 import { makeStyles } from '@material-ui/styles';
-import { ProfileFormComposed } from '../../components';
+import {
+  ProfileNamesFormComposed,
+  ProfilePasswordFormComposed
+} from '../../components';
 
 const useStyles = makeStyles({
   pageRootExtended: {
@@ -46,23 +49,30 @@ const PersonalProfilePage = () => {
           </Grid>
         </div>
       </div>
-      <Grid
+      <Grid container direction="column" justify="center" alignItems="center">
+        <Grid className={classes.lightBorder} item>
+          <Grid
             container
-            direction="column"
             justify="center"
             alignItems="center"
+            style={{ padding: '10px 0 20px 0' }}
           >
-            <Grid className={classes.lightBorder} item>
-              <Grid
-                container
-                justify="center"
-                alignItems="center"
-                style={{padding: '10px 0 20px 0'}}
-              >
-                <ProfileFormComposed />
-              </Grid>
-            </Grid>
+            <ProfileNamesFormComposed />
           </Grid>
+        </Grid>
+      </Grid>
+      <Grid container direction="column" justify="center" alignItems="center">
+        <Grid className={classes.lightBorder} item>
+          <Grid
+            container
+            justify="center"
+            alignItems="center"
+            style={{ padding: '10px 0 20px 0' }}
+          >
+            <ProfilePasswordFormComposed />
+          </Grid>
+        </Grid>
+      </Grid>
     </div>
   );
 };

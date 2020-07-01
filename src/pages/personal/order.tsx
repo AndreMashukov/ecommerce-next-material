@@ -99,7 +99,7 @@ const OrderList: React.FC<OrderView[]> = (orders: OrderView[]) => {
       {ordersArray.length > 0 ? (
         <Grid container direction="column" justify="flex-start" spacing={1}>
           {ordersArray.map((order: OrderView) => (
-            <Grid item>
+            <Grid item key={`OrderList_orders_${order.id}`}>
               <Paper>
                 <Grid container className={classes.border}>
                   <Link color="inherit" href={`/personal/order/${order.id}`}>
@@ -170,7 +170,7 @@ const OrderList: React.FC<OrderView[]> = (orders: OrderView[]) => {
                     </Typography>
                     <Grid container direction="column" justify="flex-start">
                       {order.cart.map((item, index) => (
-                        <Grid item>
+                        <Grid item key={`OrderList_${item}_${index}`}>
                           <Grid container>
                             <Typography
                               style={{ whiteSpace: 'nowrap' }}
