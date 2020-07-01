@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
@@ -14,6 +14,7 @@ import {
 } from './enhancers';
 import { CustomSnackBar } from '../shared';
 import { Typography } from '@material-ui/core';
+import SessionContext from '../../store/SessionContext/SessionContext';
 
 // tslint:disable-next-line: no-any
 type WithComposeProps = ProfileFormProps & any;
@@ -22,21 +23,19 @@ const ProfileForm = (props: WithComposeProps) => {
   const {
     firstName,
     firstNameError,
-    firstNameDirty,
+    setFirstName,
     onFirstNameChange,
     lastName,
     lastNameError,
-    lastNameDirty,
     onLastNameChange,
+    setLastName,
     password,
     passwordError,
     onPasswordChange,
-    passwordDirty,
     clearPassword,
     confirmPassword,
     confirmPasswordError,
     onConfirmPasswordChange,
-    confirmPasswordDirty,
     clearConfirmPassword,
     profileSubmit
   } = props;
@@ -47,6 +46,8 @@ const ProfileForm = (props: WithComposeProps) => {
   const rowDistance = '180px';
   const labelColor = 'textPrimary';
 
+  const { getUser } = useContext(SessionContext);
+
   const [snackState, setSnackState] = useState({
     open: false,
     success: false,
@@ -54,12 +55,12 @@ const ProfileForm = (props: WithComposeProps) => {
   });
   const [submitted, setSubmitted] = useState(false);
 
-  const makeDirtyIfEmpty = () => {
-    lastName.value === '' && lastNameDirty();
-    firstName.value === '' && firstNameDirty();
-    password.value === '' && passwordDirty();
-    confirmPassword.value === '' && confirmPasswordDirty();
-  };
+  useEffect(() => {
+    if (getUser()) {
+      setLastName(getUser().lastName);
+      setFirstName(getUser().firstName);
+    }
+  }, [getUser()]);
 
   const handleProfileSubmit = async () => {
     setSubmitted(true);
@@ -68,25 +69,23 @@ const ProfileForm = (props: WithComposeProps) => {
       clearPassword();
       clearConfirmPassword();
     } else {
-      makeDirtyIfEmpty();
       setSnackState({
         open: true,
         success: false,
-        text: 'Обратите внимание на обязательные для заполнения поля'
+        text: 'Обратите внимание на правила запонения полей'
       });
     }
   };
 
   return (
     <div>
-      <Paper elevation={0} style={{ padding: '15px 35px 15px 35px' }}>
+      <Paper elevation={0} style={{ padding: '35px 35px 15px 35px' }}>
         <Grid
           container
           direction="row"
           alignItems="center"
           spacing={formSpacing}
-        >
-        </Grid>
+        ></Grid>
         <Grid
           container
           direction="row"
@@ -108,8 +107,8 @@ const ProfileForm = (props: WithComposeProps) => {
                   variant="outlined"
                   placeholder="Фамилия"
                   value={lastName.value}
-                  error={submitted && !!lastNameError}
-                  helperText={submitted && lastNameError}
+                  error={!!lastNameError}
+                  helperText={lastNameError}
                   onChange={onLastNameChange}
                   margin="normal"
                   style={{ width: `${fieldWidth}` }}
@@ -132,8 +131,8 @@ const ProfileForm = (props: WithComposeProps) => {
                   variant="outlined"
                   placeholder="Имя"
                   value={firstName.value}
-                  error={submitted && !!firstNameError}
-                  helperText={submitted && firstNameError}
+                  error={!!firstNameError}
+                  helperText={firstNameError}
                   onChange={onFirstNameChange}
                   margin="normal"
                   style={{ width: `${fieldWidth}` }}
@@ -163,8 +162,8 @@ const ProfileForm = (props: WithComposeProps) => {
                   variant="outlined"
                   placeholder="Ваш Пароль"
                   value={password.value}
-                  error={submitted && !!passwordError}
-                  helperText={submitted && passwordError}
+                  error={submitted && lastName.isDirty && !!passwordError}
+                  helperText={submitted && password.isDirty &&  passwordError}
                   type="password"
                   onChange={onPasswordChange}
                   margin="normal"
@@ -188,7 +187,7 @@ const ProfileForm = (props: WithComposeProps) => {
                   variant="outlined"
                   placeholder="Подтверждение пароля"
                   value={confirmPassword.value}
-                  error={submitted && !!confirmPasswordError}
+                  error={submitted && password.isDirty && !!confirmPasswordError}
                   helperText={submitted && confirmPasswordError}
                   type="password"
                   onChange={onConfirmPasswordChange}
