@@ -27,6 +27,8 @@ const ProfilePasswordForm = (props: WithComposeProps) => {
     onConfirmPasswordChange,
     passwordDirty,
     confirmPasswordDirty,
+    clearPassword,
+    clearConfirmPassword,
     createPasswordSubmit
   } = props;
 
@@ -54,6 +56,8 @@ const ProfilePasswordForm = (props: WithComposeProps) => {
     if (passw) {
       // tslint:disable-next-line: no-console
       console.log(passw);
+      clearPassword();
+      clearConfirmPassword();
     } else {
       makeDirtyIfEmpty();
       setSnackState({

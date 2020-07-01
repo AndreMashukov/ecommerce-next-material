@@ -36,7 +36,13 @@ const PersonalProfilePage = () => {
           </Breadcrumbs>
         </div>
         <div style={{ margin: '20px' }}>
-          <Grid container direction="column" justify="center" spacing={1}>
+          <Grid
+            container
+            direction="column"
+            justify="center"
+            alignItems="center"
+            spacing={1}
+          >
             <Grid item>
               <Typography
                 variant="h5"
@@ -57,12 +63,32 @@ const PersonalProfilePage = () => {
             alignItems="center"
             style={{ padding: '10px 0 20px 0' }}
           >
+            <Typography variant="h6" color="textPrimary">
+              Изменить персональные данные
+            </Typography>
+          </Grid>
+          <Grid
+            container
+            justify="center"
+            alignItems="center"
+            style={{ padding: '10px 0 20px 0' }}
+          >
             <ProfileNamesFormComposed />
           </Grid>
         </Grid>
       </Grid>
       <Grid container direction="column" justify="center" alignItems="center">
         <Grid className={classes.lightBorder} item>
+        <Grid
+            container
+            justify="center"
+            alignItems="center"
+            style={{ padding: '10px 0 20px 0' }}
+          >
+            <Typography variant="h6" color="textPrimary">
+              Изменить пароль
+            </Typography>
+          </Grid>
           <Grid
             container
             justify="center"
