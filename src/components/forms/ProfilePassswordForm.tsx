@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
@@ -13,6 +13,9 @@ import {
 } from './enhancers';
 import { CustomSnackBar } from '../shared';
 import { Typography } from '@material-ui/core';
+import { Subscription, from } from 'rxjs';
+import { changeUserPassword } from '../../services/ProfileApi';
+import SessionContext from '../../store/SessionContext/SessionContext';
 
 // tslint:disable-next-line: no-any
 type WithComposeProps = CreatePasswordFormProps & any;
@@ -31,6 +34,9 @@ const ProfilePasswordForm = (props: WithComposeProps) => {
     clearConfirmPassword,
     createPasswordSubmit
   } = props;
+
+  const subscriptions = new Subscription();
+  const { getUser } = useContext(SessionContext);
 
   const makeDirtyIfEmpty = () => {
     password.value === '' && passwordDirty();
@@ -54,10 +60,19 @@ const ProfilePasswordForm = (props: WithComposeProps) => {
     setSubmitted(true);
     const passw = createPasswordSubmit();
     if (passw) {
-      // tslint:disable-next-line: no-console
-      console.log(passw);
       clearPassword();
       clearConfirmPassword();
+      subscriptions.add(
+        from(changeUserPassword(getUser().id, passw.password.value)).subscribe(
+          () => {
+            setSnackState({
+              open: true,
+              success: true,
+              text: 'Успешно обновлено'
+            });
+          }
+        )
+      );
     } else {
       makeDirtyIfEmpty();
       setSnackState({
@@ -67,6 +82,12 @@ const ProfilePasswordForm = (props: WithComposeProps) => {
       });
     }
   };
+
+  useEffect(() => {
+    return () => {
+      subscriptions.unsubscribe();
+    };
+  }, []);
 
   return (
     <div>
