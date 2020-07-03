@@ -8,6 +8,7 @@ const SessionContext = React.createContext<SessionContextManager>({
   user: null,
   setUser: null,
   getUser: null,
+  updateUser: null,
   logoutUser: null
 });
 

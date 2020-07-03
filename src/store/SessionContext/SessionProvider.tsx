@@ -32,6 +32,10 @@ const SessionProvider: React.FunctionComponent<{}> = (props: any) => {
     dispatch({ type: TYPES.USER_SET, user });
   }
 
+  function updateUser(updatedUser: Partial<User>): void {
+    dispatch({ type: TYPES.USER_UPDATE, updatedUser });
+  }
+
   function getUser(): User {
     return state.user;
   }
@@ -47,6 +51,7 @@ const SessionProvider: React.FunctionComponent<{}> = (props: any) => {
         getSessionId,
         getUser,
         setUser,
+        updateUser,
         logoutUser
       }}
     >

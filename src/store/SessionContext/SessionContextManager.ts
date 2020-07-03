@@ -6,6 +6,7 @@ export default interface CartContextManager {
   getSessionId: () => string;
   user?: User;
   setUser: (user: User) => void;
+  updateUser: (user: Partial<User>) => void;
   getUser: () => User;
   logoutUser: () => void;
 }

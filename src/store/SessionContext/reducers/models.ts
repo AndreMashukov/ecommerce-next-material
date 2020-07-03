@@ -10,4 +10,5 @@ export interface SessionAction {
   type: TYPES;
   sessionId?: string;
   user?: User;
+  updatedUser?: Partial<User>;
 }

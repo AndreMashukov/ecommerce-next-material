@@ -38,7 +38,7 @@ const ProfileNamesForm = (props: WithComposeProps) => {
   const rowDistance = '180px';
   const labelColor = 'textPrimary';
 
-  const { getUser, setUser } = useContext(SessionContext);
+  const { getUser, updateUser } = useContext(SessionContext);
   const subscriptions = new Subscription();
   const [snackState, setSnackState] = useState({
     open: false,
@@ -66,7 +66,7 @@ const ProfileNamesForm = (props: WithComposeProps) => {
             fields.lastName.value
           )
         ).subscribe((user) => {
-          setUser(user);
+          updateUser(user);
           setSnackState({
             open: true,
             success: true,
@@ -85,8 +85,6 @@ const ProfileNamesForm = (props: WithComposeProps) => {
 
   useEffect(() => {
     return () => {
-      // tslint:disable-next-line: no-console
-      console.log('unsubscribe');
       subscriptions.unsubscribe();
     };
   }, []);
