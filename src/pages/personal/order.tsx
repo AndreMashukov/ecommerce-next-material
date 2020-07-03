@@ -3,7 +3,6 @@ import '../Layout.scss';
 import { getOrderList } from '../../services/OrderApi';
 import SessionContext from '../../store/SessionContext/SessionContext';
 import { OrderViewList, Error, OrderView } from '../../models';
-import { useRouter } from 'next/router';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -17,6 +16,7 @@ import { Subscription, from } from 'rxjs';
 import moment from 'moment';
 import { getArrayFromObject, pickPropsFromDto } from '../../utils/shared';
 import { colors } from '../../theme/constants';
+import useRedirectLogin from '../../hooks/useRedirectLogin';
 
 const useStyles = makeStyles({
   fontWeigthBold: {
@@ -30,20 +30,18 @@ const useStyles = makeStyles({
 });
 
 const PersonalOrderListPage: React.FC<{}> = () => {
+  useRedirectLogin();
   const { getUser } = useContext(SessionContext);
   const [loading, setLoading] = useState(true);
   const [orderListOrError, setOrderListOrError] = useState<
     Partial<OrderViewList & Error>
   >(null);
   const [orderList, setOrderList] = useState<Partial<OrderViewList>>(null);
-  const router = useRouter();
   const classes = useStyles();
 
   useEffect(() => {
     const subscriptions = new Subscription();
-    if (!getUser()) {
-      process.browser && router.push('/auth');
-    } else {
+    if (getUser()) {
       subscriptions.add(
         from(getOrderList(getUser().id)).subscribe((resp) => {
           setOrderListOrError(resp);

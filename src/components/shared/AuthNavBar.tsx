@@ -19,9 +19,9 @@ export const AuthNavBar = () => {
     <>
       {user ? (
         <Grid container direction="row" justify="flex-start" spacing={2}>
-          <Grid item id="orders">
+          <Grid item key="orders">
             <Typography variant={variant}>
-              <Link href="/personal/order" prefetch={false}>
+              <Link href="/personal/order" prefetch={false} key="ordersLink">
                 <MatLink>Заказы</MatLink>
               </Link>
             </Typography>
@@ -37,7 +37,7 @@ export const AuthNavBar = () => {
               </Link>
             </Typography>
           </Grid>
-          <Grid item id="logout">
+          <Grid item key="logout">
             <Typography variant={variant} onClick={handleLogout}>
               <Link href="/auth" prefetch={false}>
                 <MatLink>Выход</MatLink>
@@ -47,19 +47,19 @@ export const AuthNavBar = () => {
         </Grid>
       ) : (
         <Grid container direction="row" justify="flex-start" spacing={2}>
-          <Grid item id="login">
+          <Grid item key="login">
             <Typography variant={variant} style={{ fontWeight: 'bold' }}>
               <Link href="/auth" prefetch={false}>
                 <MatLink>Войти</MatLink>
               </Link>
             </Typography>
           </Grid>
-          <Grid item id="slash">
+          <Grid item key="slash">
             <Typography variant={variant} style={{ fontWeight: 'bold' }}>
               /
             </Typography>
           </Grid>
-          <Grid item id="register">
+          <Grid item key="register">
             <Typography variant={variant}>
               <Link href="/register" prefetch={false}>
                 <MatLink>Регистрация</MatLink>

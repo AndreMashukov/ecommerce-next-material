@@ -18,7 +18,7 @@ export const getOrder = async (
       `${API_BASE}/personal/orders?id=${_id}&userId=${_userId}`
     );
   } catch (err) {
-    const { status } = err.response;
+    const { status } = err!.response;
     return { status };
   }
 
