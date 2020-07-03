@@ -6,6 +6,7 @@ import Link from '@material-ui/core/Link';
 import theme from '../../theme/theme';
 import '../Layout.scss';
 import { makeStyles } from '@material-ui/styles';
+import useRedirectLogin from '../../hooks/useRedirectLogin';
 import {
   ProfileNamesFormComposed,
   ProfilePasswordFormComposed
@@ -24,6 +25,7 @@ const useStyles = makeStyles({
 
 const PersonalProfilePage = () => {
   const classes = useStyles();
+  useRedirectLogin();
   return (
     <div className={classes.pageRootExtended}>
       <div className="page-root-layout">

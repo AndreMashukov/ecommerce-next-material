@@ -13,6 +13,9 @@ import {
 import { CustomSnackBar } from '../shared';
 import { Typography } from '@material-ui/core';
 import SessionContext from '../../store/SessionContext/SessionContext';
+import { changeUserName } from '../../services/ProfileApi';
+import { Subscription, from } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 // tslint:disable-next-line: no-any
 type WithComposeProps = ProfileFormProps & any;
@@ -36,7 +39,7 @@ const ProfileNamesForm = (props: WithComposeProps) => {
   const rowDistance = '180px';
   const labelColor = 'textPrimary';
 
-  const { getUser } = useContext(SessionContext);
+  const { getUser, setUser } = useContext(SessionContext);
 
   const [snackState, setSnackState] = useState({
     open: false,
@@ -44,6 +47,10 @@ const ProfileNamesForm = (props: WithComposeProps) => {
     text: ''
   });
   const [submitted, setSubmitted] = useState(false);
+  const [profileFields, setProfileFields] = useState<{
+    firstName: string;
+    lastName: string;
+  }>(null);
 
   useEffect(() => {
     if (getUser()) {
@@ -52,12 +59,40 @@ const ProfileNamesForm = (props: WithComposeProps) => {
     }
   }, [getUser()]);
 
+  useEffect(() => {
+    const subscriptions = new Subscription();
+    // tslint:disable-next-line: no-console
+    console.log(profileFields);
+    if (profileFields) {
+      subscriptions.add(
+        from(
+          changeUserName(
+            getUser().id,
+            profileFields.firstName,
+            profileFields.lastName
+          )
+        )
+          .pipe(
+            tap((updatedUser) => {
+              setUser(updatedUser);
+            })
+          )
+          .subscribe()
+      );
+    }
+    return () => {
+      subscriptions.unsubscribe();
+    };
+  }, [profileFields]);
+
   const handleProfileNamesSubmit = async () => {
     setSubmitted(true);
-    const profileFields = profileNamesSubmit();
-    if (profileFields) {
-      // tslint:disable-next-line: no-console
-      console.log(profileFields);
+    const fields = profileNamesSubmit();
+    if (fields) {
+      setProfileFields({
+        firstName: fields.firstName.value,
+        lastName: fields.lastName.value
+      });
     } else {
       setSnackState({
         open: true,
