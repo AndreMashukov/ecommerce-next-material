@@ -29,7 +29,7 @@ const useStyles = makeStyles({
   }
 });
 
-export const NavBarCart = () => {
+export const NavBarCart: React.FC<{}>  = () => {
   const classes = useStyles();
   const divRef = React.useRef();
   const [open, setOpen] = React.useState(false);

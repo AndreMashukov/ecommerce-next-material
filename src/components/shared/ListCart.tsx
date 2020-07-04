@@ -29,7 +29,7 @@ const useStyles = makeStyles({
   }
 });
 
-export const ListCart = (props: Props) => {
+export const ListCart: React.FC<Props> = (props: Props) => {
   const { isPopup, onClose } = props;
   const { items, syncCart } = useContext(CartContext);
   const { getSessionId } = useContext(SessionContext);

@@ -12,7 +12,7 @@ interface LoginDialogProps {
   handleClose: () => void;
 }
 
-export const LoginDialog = (props: LoginDialogProps) => {
+export const LoginDialog: React.FC<LoginDialogProps> = (props: LoginDialogProps) => {
   const { isOpen, handleClose } = props;
   return (
     <div>

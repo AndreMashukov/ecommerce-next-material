@@ -16,7 +16,7 @@ const useStyles = makeStyles({
     }
 }});
 
-export const ProductDetail = (props: Props) => {
+export const ProductDetail: React.FC<Props>  = (props: Props) => {
   const { product, section } = props;
   const classes = useStyles();
 

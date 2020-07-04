@@ -5,7 +5,7 @@ type Props = {
   url: string;
 };
 
-export const ProductNotFound = (props: Props) => {
+export const ProductNotFound: React.FC<Props> = (props: Props) => {
   const { url } = props;
 
   if (process.browser) {

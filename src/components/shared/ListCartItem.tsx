@@ -41,7 +41,7 @@ const useStyles = makeStyles({
   }
 });
 
-export const ListCartItem = (props: Props) => {
+export const ListCartItem: React.FC<Props> = (props: Props) => {
   const classes = useStyles();
   const { removeItem, decrementQty, addItem } = useContext(CartContext);
   const { item, sessionId } = props;

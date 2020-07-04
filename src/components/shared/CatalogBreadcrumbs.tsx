@@ -8,7 +8,7 @@ type Props = {
   sectionName: string;
 };
 
-export const CatalogBreadcrumbs = (props: Props) => {
+export const CatalogBreadcrumbs: React.FC<Props> = (props: Props) => {
   const catalogPath = '/' + CATALOG_NAME;
   return (
     <Breadcrumbs aria-label="breadcrumb">

@@ -22,7 +22,7 @@ const useStyles = makeStyles({
   }
 });
 
-export const Stepper = (props: Props) => {
+export const Stepper: React.FC<Props> = (props: Props) => {
   const { value, onHandleNext, onHandleBack, isDisabled } = props;
   const classes = useStyles();
 

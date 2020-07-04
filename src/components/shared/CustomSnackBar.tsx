@@ -9,7 +9,7 @@ interface Props {
   handleClose: () => void;
 }
 
-export const CustomSnackBar = (props: Props) => {
+export const CustomSnackBar: React.FC<Props>  = (props: Props) => {
   const { open, success, text, handleClose } = props;
 
   return (

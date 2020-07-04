@@ -19,7 +19,7 @@ const useStyles = makeStyles({
   }
 });
 
-export const OrderStepNav = (props: OrderStepNavProps) => {
+export const OrderStepNav: React.FC<OrderStepNavProps> = (props: OrderStepNavProps) => {
   const { step } = props;
   const classes = useStyles();
   const navColor = 'textSecondary';

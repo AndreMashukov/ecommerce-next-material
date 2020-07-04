@@ -60,7 +60,9 @@ const useStyles = makeStyles({
   }
 });
 
-export const ProductList = (props: ProductListProps) => {
+export const ProductList: React.FC<ProductListProps> = (
+  props: ProductListProps
+) => {
   const { products, currentSection } = props;
   return (
     <Grid container direction="column" justify="center">
@@ -88,7 +90,9 @@ export const ProductList = (props: ProductListProps) => {
   );
 };
 
-const ProductListItem = (props: ProductListItemProps) => {
+const ProductListItem: React.FC<ProductListItemProps> = (
+  props: ProductListItemProps
+) => {
   const { product, currentSection } = props;
   const classes = useStyles();
   const router = useRouter();

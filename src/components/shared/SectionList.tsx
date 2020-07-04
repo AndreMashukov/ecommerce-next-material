@@ -22,7 +22,9 @@ const useStyles = makeStyles({
   }
 });
 
-export const SectionList = (props: SectionListProps) => {
+export const SectionList: React.FC<SectionListProps> = (
+  props: SectionListProps
+) => {
   const classes = useStyles();
   const { sections } = props;
   const categoryId =
@@ -76,7 +78,9 @@ export const SectionList = (props: SectionListProps) => {
               НАЗНАЧЕНИЕ
             </Typography>
             {sections
-              .filter((category) => category.depthLevel === SECTION_LEVELS.SUB_LEVEL)
+              .filter(
+                (category) => category.depthLevel === SECTION_LEVELS.SUB_LEVEL
+              )
               .map((category) => (
                 <a
                   key={category.code}

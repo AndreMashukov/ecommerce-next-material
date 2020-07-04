@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   }
 });
 
-export const ProductBreadcrumbs = (props: Props) => {
+export const ProductBreadcrumbs: React.FC<Props>  = (props: Props) => {
   const classes = useStyles();
   const { product, section } = props;
   const textVariant = 'body2';

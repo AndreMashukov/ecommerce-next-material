@@ -37,7 +37,7 @@ const useStyles = makeStyles({
   }
 });
 
-export const Badges = (props: Props) => {
+export const Badges: React.FC<Props> = (props: Props) => {
   const classes = useStyles();
   const { product } = props;
   const badges: React.ReactElement[] = [];

@@ -35,7 +35,7 @@ const useStyles = makeStyles({
   }
 });
 
-export const CustomTabs = (props: Props) => {
+export const CustomTabs: React.FC<Props>  = (props: Props) => {
   const classes = useStyles();
   const { tabs, activeTab, onTabChange } = props;
   const tabStyle = (tab: number) =>

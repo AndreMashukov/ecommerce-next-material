@@ -46,7 +46,7 @@ const useStyles = makeStyles({
   }
 });
 
-export const OrderDetails = (props: Props) => {
+export const OrderDetails: React.FC<Props> = (props: Props) => {
   const { order } = props;
   const classes = useStyles();
   const primaryTextColor = 'textPrimary';
@@ -161,7 +161,7 @@ export const OrderDetails = (props: Props) => {
   );
 };
 
-const OrderDetailsTable = (_props: OrderDetailsTableProps) => {
+const OrderDetailsTable: React.FC<OrderDetailsTableProps> = (_props: OrderDetailsTableProps) => {
   const { title, columns, variant, isTotal } = _props;
   const classes = useStyles();
   const gridItemJustify = 'flex-start';
@@ -246,7 +246,7 @@ const OrderDetailsTable = (_props: OrderDetailsTableProps) => {
   );
 };
 
-const OrderContentTable = (_props: OrderContentTableProps) => {
+const OrderContentTable: React.FC<OrderContentTableProps> = (_props: OrderContentTableProps) => {
   const { cart } = _props;
   const classes = useStyles();
 

@@ -289,7 +289,7 @@ const OrderMakeList: React.FC<WithComposeProps> = (props: WithComposeProps) => {
   );
 };
 
-const OrderMakeItem = (item: CartItem) => {
+const OrderMakeItem: React.FC<CartItem> = (item: CartItem) => {
   return (
     <Grid
       container
