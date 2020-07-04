@@ -6,8 +6,10 @@ import CartContext from '../../store/CartContext/CartContext';
 import Link from 'next/link';
 import MatLink from '@material-ui/core/Link';
 import '../Layout.scss';
+import { NextPage } from 'next';
+import { CATALOG_NAME } from '../../constants';
 
-const OrderMakePage = () => {
+const OrderMakePage: NextPage<{}> = () => {
   const { getItems } = React.useContext(CartContext);
   const navColor = 'textSecondary';
 
@@ -34,7 +36,7 @@ const OrderMakePage = () => {
             </Grid>
             <Grid item>
               <Typography color={navColor} variant="body1">
-                <Link href="/catalog" prefetch={false}>
+                <Link href={`\${CATALOG_NAME}`} prefetch={false}>
                   <MatLink>Перейти в Каталог</MatLink>
                 </Link>
               </Typography>

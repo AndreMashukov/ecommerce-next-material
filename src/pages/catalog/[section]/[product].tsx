@@ -8,7 +8,7 @@ import {
   ProductDetail
 } from '../../../components';
 import Page404 from '../../404';
-import { NextPageContext } from 'next';
+import { NextPage, NextPageContext } from 'next';
 import '../../Layout.scss';
 
 interface Props {
@@ -16,7 +16,7 @@ interface Props {
   section: Section;
 }
 
-const ProductPage = (props: Props) => {
+const ProductPage: NextPage<Props> = (props: Props) => {
   const { product, section } = props;
 
   return (

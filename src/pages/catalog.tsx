@@ -12,6 +12,7 @@ import Link from '@material-ui/core/Link';
 import { useRouter } from 'next/router';
 import { CustomTabs } from '../components/shared';
 import './Layout.scss';
+import { NextPage } from 'next';
 
 enum TABS {
   PURPOSE_TAB,
@@ -26,7 +27,7 @@ interface SectionGridProps {
   sections: Section[];
 }
 
-const CatalogPage = (props: Props) => {
+const CatalogPage: NextPage<Props> = (props: Props) => {
   const [activeTab, setActiveTab] = React.useState(TABS.PURPOSE_TAB);
   const { sections } = props;
 

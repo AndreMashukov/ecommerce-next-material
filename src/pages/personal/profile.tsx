@@ -11,6 +11,7 @@ import {
   ProfileNamesFormComposed,
   ProfilePasswordFormComposed
 } from '../../components';
+import { NextPage } from 'next';
 
 const useStyles = makeStyles({
   pageRootExtended: {
@@ -23,7 +24,7 @@ const useStyles = makeStyles({
   }
 });
 
-const PersonalProfilePage = () => {
+const PersonalProfilePage: NextPage<{}> = () => {
   const classes = useStyles();
   useRedirectLogin();
   return (

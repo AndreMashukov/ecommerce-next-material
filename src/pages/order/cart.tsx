@@ -10,6 +10,8 @@ import '../Layout.scss';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../theme/theme';
 import { colors } from '../../theme/constants';
+import { NextPage } from 'next';
+import { CATALOG_NAME } from '../../constants';
 
 const useStyles = makeStyles({
   root: {
@@ -32,7 +34,7 @@ const useStyles = makeStyles({
   }
 });
 
-const OrderCartPage = () => {
+const OrderCartPage: NextPage<{}> = () => {
   const { getItems } = React.useContext(CartContext);
   const classes = useStyles();
   const navColor = 'textSecondary';
@@ -60,7 +62,7 @@ const OrderCartPage = () => {
             </Grid>
             <Grid item>
               <Typography color={navColor} variant="body1">
-                <Link href="/catalog" prefetch={false}>
+                <Link href={`/${CATALOG_NAME}`} prefetch={false}>
                   <MatLink>Перейти в Каталог</MatLink>
                 </Link>
               </Typography>

@@ -17,6 +17,7 @@ import moment from 'moment';
 import { getArrayFromObject, pickPropsFromDto } from '../../utils/shared';
 import { colors } from '../../theme/constants';
 import useRedirectLogin from '../../hooks/useRedirectLogin';
+import { NextPage } from 'next';
 
 const useStyles = makeStyles({
   fontWeigthBold: {
@@ -29,7 +30,7 @@ const useStyles = makeStyles({
   }
 });
 
-const PersonalOrderListPage: React.FC<{}> = () => {
+const PersonalOrderListPage: NextPage<{}> = () => {
   useRedirectLogin();
   const { getUser } = useContext(SessionContext);
   const [loading, setLoading] = useState(true);

@@ -6,6 +6,7 @@ import Link from 'next/link';
 import MatLink from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/styles';
 import { colors } from '../../theme/constants';
+import { CATALOG_NAME } from '../../constants';
 
 interface OrderStepNavProps {
   step: number;
@@ -33,7 +34,7 @@ export const OrderStepNav: React.FC<OrderStepNavProps> = (props: OrderStepNavPro
     >
       <Grid item>
         <Typography color={navColor}>
-          <Link href="/catalog" prefetch={false}>
+          <Link href={`/${CATALOG_NAME}`} prefetch={false}>
             <MatLink>КАТАЛОГ</MatLink>
           </Link>
         </Typography>

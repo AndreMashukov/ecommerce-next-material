@@ -7,6 +7,7 @@ import { LoginFormComposed } from '../components/forms/LoginForm';
 import SessionContext from '../store/SessionContext/SessionContext';
 import { useRouter } from 'next/router';
 import './Layout.scss';
+import { NextPage } from 'next';
 
 const useStyles = makeStyles({
   pageRootExtended: {
@@ -24,7 +25,7 @@ const useStyles = makeStyles({
   }
 });
 
-const AuthPage = () => {
+const AuthPage: NextPage<{}> = () => {
   const classes = useStyles();
   const router = useRouter();
   const { getUser } = useContext(SessionContext);

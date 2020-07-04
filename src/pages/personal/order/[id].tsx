@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import '../../Layout.scss';
-import { NextPageContext } from 'next';
+import { NextPageContext, NextPage } from 'next';
 import { getOrder } from '../../../services/OrderApi';
 import SessionContext from '../../../store/SessionContext/SessionContext';
 import { OrderView, Error } from '../../../models';
@@ -17,7 +17,9 @@ interface PersonalOrderIdPageProps {
   orderId: number;
 }
 
-const PersonalOrderIdPage = (_props: PersonalOrderIdPageProps) => {
+const PersonalOrderIdPage: NextPage<PersonalOrderIdPageProps> = (
+  _props: PersonalOrderIdPageProps
+) => {
   const { orderId } = _props;
   const { getUser } = useContext(SessionContext);
   const [loading, setLoading] = useState(true);
@@ -110,10 +112,15 @@ const PersonalOrderIdPage = (_props: PersonalOrderIdPageProps) => {
           )}
         </div>
       )}
-      <Grid container justify="center" style={{padding: '20px'}}>
+      <Grid container justify="center" style={{ padding: '20px' }}>
         <Link color="inherit" href="/personal/order">
-          <Grid container justify="space-between" alignItems="center" spacing={3}>
-            <ArrowBackIcon style={{marginRight: '10px'}}/>
+          <Grid
+            container
+            justify="space-between"
+            alignItems="center"
+            spacing={3}
+          >
+            <ArrowBackIcon style={{ marginRight: '10px' }} />
             <Typography>Вернуться</Typography>
           </Grid>
         </Link>
