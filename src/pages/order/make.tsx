@@ -36,7 +36,7 @@ const OrderMakePage: NextPage<{}> = () => {
             </Grid>
             <Grid item>
               <Typography color={navColor} variant="body1">
-                <Link href={`\${CATALOG_NAME}`} prefetch={false}>
+                <Link href={`/${CATALOG_NAME}`} prefetch={false}>
                   <MatLink>Перейти в Каталог</MatLink>
                 </Link>
               </Typography>
