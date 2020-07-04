@@ -6,7 +6,7 @@ import { User } from '../../models';
 import Link from 'next/link';
 import MatLink from '@material-ui/core/Link';
 
-export const AuthNavBar = () => {
+export const AuthNavBar: React.FC<{}>  = () => {
   const { getUser, logoutUser } = useContext(SessionContext);
   const user: User = getUser();
   const variant = 'body1';

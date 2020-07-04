@@ -55,7 +55,7 @@ const filterSections = (sections: Section[], categoryId: number): Section[] => {
   return sections.filter((item) => item.categoryId === categoryId);
 };
 
-export const NavBar = (props: NavBarProps) => {
+export const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
   const classes = useStyles();
   const { categories, sections } = props;
   const [open, setOpen] = useState(false);

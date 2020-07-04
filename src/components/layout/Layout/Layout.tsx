@@ -14,7 +14,7 @@ const useStyles = makeStyles({
   }
 });
 
-export const Layout = (props: Props) => {
+export const Layout: React.FC<Props>  = (props: Props) => {
   const classes = useStyles();
 
   return (
