@@ -19,7 +19,7 @@ import { Subscription, from } from 'rxjs';
 // tslint:disable-next-line: no-any
 type WithComposeProps = ProfileFormProps & any;
 
-const ProfileNamesForm = (props: WithComposeProps) => {
+const ProfileNamesForm: React.FC<WithComposeProps> = (props: WithComposeProps) => {
   const {
     firstName,
     firstNameError,

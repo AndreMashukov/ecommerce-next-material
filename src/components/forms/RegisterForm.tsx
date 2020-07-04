@@ -25,7 +25,7 @@ import SessionContext from '../../store/SessionContext/SessionContext';
 // tslint:disable-next-line: no-any
 type WithComposeProps = RegisterFormProps & any;
 
-const RegisterForm = (props: WithComposeProps) => {
+const RegisterForm: React.FC<WithComposeProps> = (props: WithComposeProps) => {
   const {
     email,
     emailError,

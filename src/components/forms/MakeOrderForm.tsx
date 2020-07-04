@@ -24,7 +24,7 @@ const useStyles = makeStyles({
 
 type WithComposeProps = MakeOrderFormProps & { submitted: boolean };
 
-export const MakeOrderForm = (props: WithComposeProps) => {
+export const MakeOrderForm: React.FC<WithComposeProps> = (props: WithComposeProps) => {
   const classes = useStyles();
   const {
     email,

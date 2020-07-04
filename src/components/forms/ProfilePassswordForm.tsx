@@ -20,7 +20,7 @@ import SessionContext from '../../store/SessionContext/SessionContext';
 // tslint:disable-next-line: no-any
 type WithComposeProps = CreatePasswordFormProps & any;
 
-const ProfilePasswordForm = (props: WithComposeProps) => {
+const ProfilePasswordForm: React.FC<WithComposeProps> = (props: WithComposeProps) => {
   const {
     password,
     passwordError,

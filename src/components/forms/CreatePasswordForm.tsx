@@ -5,7 +5,7 @@ import { CreatePasswordFormProps } from './models';
 // tslint:disable-next-line: no-any
 type WithComposeProps = CreatePasswordFormProps & any;
 
-export const CreatePasswordrForm = (props: WithComposeProps) => {
+export const CreatePasswordrForm: React.FC<WithComposeProps> = (props: WithComposeProps) => {
   const {
     password,
     passwordError,

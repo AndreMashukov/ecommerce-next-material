@@ -22,7 +22,7 @@ import MatLink from '@material-ui/core/Link';
 // tslint:disable-next-line: no-any
 type WithComposeProps = LoginFormProps & any;
 
-const LoginForm = (props: WithComposeProps) => {
+const LoginForm: React.FC<WithComposeProps> = (props: WithComposeProps) => {
   const {
     email,
     onEmailChange,
