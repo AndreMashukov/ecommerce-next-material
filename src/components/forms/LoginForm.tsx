@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
@@ -14,10 +14,12 @@ import {
 import { loginUser } from '../../services/UserApi';
 import { CustomSnackBar } from '../shared';
 import SessionContext from '../../store/SessionContext/SessionContext';
-import { User } from '../../models';
+import { User, Error } from '../../models';
 import { Typography } from '@material-ui/core';
 import Link from 'next/link';
 import MatLink from '@material-ui/core/Link';
+import { Subscription, from } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 // tslint:disable-next-line: no-any
 type WithComposeProps = LoginFormProps & any;
@@ -34,7 +36,7 @@ const LoginForm: React.FC<WithComposeProps> = (props: WithComposeProps) => {
 
   const textVariant = 'body2';
   const labelColor = 'textPrimary';
-
+  const subscriptions = new Subscription();
   const { setUser } = useContext(SessionContext);
 
   const [snackState, setSnackState] = useState({
@@ -47,28 +49,43 @@ const LoginForm: React.FC<WithComposeProps> = (props: WithComposeProps) => {
     const login = loginSubmit();
     if (login) {
       clearPassword();
-      const response = await loginUser({
-        email: email.value,
-        password: password.value
-      });
-      if (response.name) {
+      subscriptions.add(
+        from(
+          loginUser({
+            email: email.value,
+            password: password.value
+          })
+        )
+          .pipe(
+            tap((response: User & Error) => {
+              if (response.name) {
+                setSnackState({
+                  open: true,
+                  success: false,
+                  text: 'Неверный E-Mail/пароль'
+                });
+              } else {
+                setUser(response as User);
+              }
+            })
+          )
+          .subscribe()
+      );
+      } else {
         setSnackState({
           open: true,
           success: false,
           text: 'Неверный E-Mail/пароль'
         });
-      } else {
-        setUser(response as User);
-      }
-    } else {
-      setSnackState({
-        open: true,
-        success: false,
-        text: 'Неверный E-Mail/пароль'
-      });
       clearPassword();
     }
   };
+
+  useEffect(() => {
+    return () => {
+      subscriptions.unsubscribe();
+    };
+  }, []);
 
   return (
     <div>
