@@ -1,7 +1,9 @@
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../../theme/theme';
 import './Footer.scss';
-import { Grid, Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import PhoneInTalkTwoToneIcon from '@material-ui/icons/PhoneInTalkTwoTone';
 
 const useStyles = makeStyles({
@@ -37,8 +39,14 @@ export const Footer: React.FC<{}> = () => {
                   alignItems="baseline"
                   spacing={2}
                 >
-                  <Grid item><PhoneInTalkTwoToneIcon style={{ fontSize: '120%' }} /></Grid>
-                  <Grid item><span>8 (925) 063-39-27</span></Grid>
+                  <Grid item>
+                    <Box display={{ xs: 'none', sm: 'block' }}>
+                      <PhoneInTalkTwoToneIcon style={{ fontSize: '120%' }} />
+                    </Box>
+                  </Grid>
+                  <Grid item>
+                    <span>8 (925) 063-39-27</span>
+                  </Grid>
                 </Grid>
               </Typography>
             </Grid>

@@ -3,7 +3,9 @@ import { Product } from '../../models/Product';
 import { getProducts, getSections } from '../../services/CatalogApi';
 import { PRODUCT_CATALOG_ID } from '../../constants';
 import { Section } from '../../models';
-import { Grid, Typography } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 import { NextPageContext } from 'next';
 import { ProductList, CatalogBreadcrumbs } from '../../components/shared';
 import Page404 from '../404';
@@ -53,15 +55,17 @@ const SectionPage = (props: Props) => {
               </Typography>
             </Grid>
             <Grid item xs={6}>
-              <Typography variant="h6" color="textPrimary">
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: `${
-                      getSectionByCode(sections, currentSection).description
-                    }`
-                  }}
-                />
-              </Typography>
+              <Box display={{ xs: 'none', sm: 'block' }}>
+                <Typography variant="h6" color="textPrimary">
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: `${
+                        getSectionByCode(sections, currentSection).description
+                      }`
+                    }}
+                  />
+                </Typography>
+              </Box>
             </Grid>
           </Grid>
           <Grid

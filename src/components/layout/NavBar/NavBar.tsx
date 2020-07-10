@@ -66,7 +66,7 @@ export const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
     <div>
       <div className={classes.upperSection}>
         <div className="navbar-layout">
-          <Grid container direction="row" justify="space-between">
+          <Grid container direction="row" justify="space-between" alignItems="center">
             <Grid item>
               <Box
                 display={{ xs: 'block', sm: 'none', md: 'none', lg: 'none' }}
