@@ -65,15 +65,17 @@ export const Footer: React.FC<{}> = () => {
           alignItems="center"
           className={classes.footerCopyright}
         >
-          <Grid item xs={4}>
+          <Grid item xs={12} sm={12} md={4}>
             <div className="footer-block">
               <Typography variant="body1">
                 © Интернет-Магазин MIRRA, 2020
               </Typography>
-              <Typography variant="body2" color="textSecondary">
-                Воспроизведение материалов данного сайта возможно при условии
-                обязательного размещения активной ссылки
-              </Typography>
+              <Box display={{ xs: 'none', sm: 'none', md: 'block' }}>
+                <Typography variant="body2" color="textSecondary">
+                  Воспроизведение материалов данного сайта возможно при условии
+                  обязательного размещения активной ссылки
+                </Typography>
+              </Box>
             </div>
           </Grid>
         </Grid>
