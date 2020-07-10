@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import './NavBar.scss';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../../theme/theme';
 import { NavBarCart, SectionList } from '../../shared';
@@ -67,14 +68,32 @@ export const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
         <div className="navbar-layout">
           <Grid container direction="row" justify="space-between">
             <Grid item>
-              <Grid container direction="row" justify="flex-start" spacing={2}>
-                <Grid item>
-                  <Typography variant="body1">Доставка</Typography>
+              <Box
+                display={{ xs: 'block', sm: 'none', md: 'none', lg: 'none' }}
+              >
+                <div className="container">
+                  <div className="menu-icon">
+                    <span className="line-1"></span>
+                    <span className="line-2"></span>
+                    <span className="line-3"></span>
+                  </div>
+                </div>
+              </Box>
+              <Box display={{ xs: 'none', sm: 'block' }}>
+                <Grid
+                  container
+                  direction="row"
+                  justify="flex-start"
+                  spacing={2}
+                >
+                  <Grid item>
+                    <Typography variant="body1">Доставка</Typography>
+                  </Grid>
+                  <Grid item>
+                    <Typography variant="body1">Оплата</Typography>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <Typography variant="body1">Оплата</Typography>
-                </Grid>
-              </Grid>
+              </Box>
             </Grid>
             <Grid item>
               <AuthNavBar />
@@ -134,27 +153,29 @@ export const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
             spacing={2}
           >
             <Grid item>
-              <Grid
-                container
-                direction="row"
-                justify="flex-start"
-                alignItems="center"
-                spacing={2}
-              >
-                {categories.map((category: Category) => (
-                  <Grid
-                    onMouseEnter={() => {
-                      setOpen(true);
-                      setSelection(category.categoryId);
-                    }}
-                    key={`topCategory${category.categoryId}`}
-                    className={classes.topCategory}
-                    item
-                  >
-                    {category.categoryName}
-                  </Grid>
-                ))}
-              </Grid>
+              <Box display={{ xs: 'none', sm: 'block' }}>
+                <Grid
+                  container
+                  direction="row"
+                  justify="flex-start"
+                  alignItems="center"
+                  spacing={2}
+                >
+                  {categories.map((category: Category) => (
+                    <Grid
+                      onMouseEnter={() => {
+                        setOpen(true);
+                        setSelection(category.categoryId);
+                      }}
+                      key={`topCategory${category.categoryId}`}
+                      className={classes.topCategory}
+                      item
+                    >
+                      {category.categoryName}
+                    </Grid>
+                  ))}
+                </Grid>
+              </Box>
             </Grid>
             <Grid item></Grid>
           </Grid>
