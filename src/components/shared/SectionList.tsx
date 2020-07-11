@@ -1,64 +1,21 @@
 import { Section } from '../../models';
-import { Typography, Grid } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
-import theme from '../../theme/theme';
-import grey from '@material-ui/core/colors/grey';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import MatLink from '@material-ui/core/Link';
 import {
   CATALOG_NAME,
   SECTION_LEVELS,
-  CATEGORY_BEAUTY,
-  ROW_ITEMS_NUM
+  CATEGORY_BEAUTY
 } from '../../constants';
+import { SectionColumns } from './SectionColumns';
 
 interface SectionListProps {
   sections: Section[];
 }
 
-const useStyles = makeStyles({
-  item: {
-    cursor: 'pointer',
-    color: grey[900],
-    '&:hover': {
-      color: theme.palette.secondary.main
-    }
-  }
-});
-
-const getSectionColumn = (sections: Section[], level: number) => {
-  const classes = useStyles();
-  const sectionNum = sections.filter((item) => item.depthLevel === level)
-    .length;
-  const sectionColumn = new Array(Math.ceil(sectionNum / ROW_ITEMS_NUM));
-  let index = 1;
-  for (let i = 0; i < Math.ceil(sectionNum / ROW_ITEMS_NUM); i++) {
-    sectionColumn[i] = (
-      <>
-        {sections
-          .filter((item) => item.depthLevel === level)
-          .slice(i * ROW_ITEMS_NUM, index * ROW_ITEMS_NUM)
-          .map((category) => (
-            <div key={category.code}>
-              <a
-                key={category.code}
-                href={'/' + CATALOG_NAME + '/' + category.code}
-                className={classes.item}
-              >
-                <Typography variant="body2">{category.name}</Typography>
-              </a>
-            </div>
-          ))}
-      </>
-    );
-    index++;
-  }
-
-  return sectionColumn;
-};
-
 export const SectionList: React.FC<SectionListProps> = (
   props: SectionListProps
 ) => {
-  const classes = useStyles();
   const { sections } = props;
   const categoryId =
     sections.length > 0
@@ -68,11 +25,11 @@ export const SectionList: React.FC<SectionListProps> = (
         )
       : 0;
 
-  const sectionColumnLines = getSectionColumn(
+  const sectionBeautyLines = SectionColumns(
     sections,
     SECTION_LEVELS.TOP_LEVEL
   );
-  const sectionColumnPurpose = getSectionColumn(
+  const sectionBeautyPurpose = SectionColumns(
     sections,
     SECTION_LEVELS.SUB_LEVEL
   );
@@ -98,7 +55,7 @@ export const SectionList: React.FC<SectionListProps> = (
               alignItems="flex-start"
               spacing={2}
             >
-              {sectionColumnPurpose.map((column, _index) => (
+              {sectionBeautyPurpose.map((column, _index) => (
                 <Grid key={_index} item>
                   {column}
                 </Grid>
@@ -116,7 +73,7 @@ export const SectionList: React.FC<SectionListProps> = (
               alignItems="flex-start"
               spacing={2}
             >
-              {sectionColumnLines.map((column, _index) => (
+              {sectionBeautyLines.map((column, _index) => (
                 <Grid key={_index} item>
                   {column}
                 </Grid>
@@ -129,13 +86,12 @@ export const SectionList: React.FC<SectionListProps> = (
         <>
           <Grid item>
             {sections.map((category) => (
-              <a
+              <MatLink
                 key={category.code}
                 href={'/' + CATALOG_NAME + '/' + category.code}
-                className={classes.item}
               >
                 <Typography variant="body2">{category.name}</Typography>
-              </a>
+              </MatLink>
             ))}
           </Grid>
         </>

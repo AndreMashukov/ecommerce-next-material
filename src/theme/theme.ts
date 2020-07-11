@@ -21,7 +21,10 @@ export default createMuiTheme({
     MuiLink: {
       root: {
         color: colors.primary.dark,
-        cursor: 'pointer'
+        cursor: 'pointer',
+        '&:hover': {
+          color: colors.secondary.main
+        }
       }
     },
     MuiCard: {
