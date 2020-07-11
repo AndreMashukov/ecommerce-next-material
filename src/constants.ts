@@ -53,3 +53,6 @@ export const REGIONS = {
     name: 'по России'
   }
 };
+
+export const CATEGORY_BEAUTY = 1;
+export const ROW_ITEMS_NUM = 12;
