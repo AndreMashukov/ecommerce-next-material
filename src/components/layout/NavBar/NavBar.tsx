@@ -12,6 +12,7 @@ import {
   AuthNavBar
 } from '../../shared';
 import { Section, Category } from '../../../models';
+import { filterSections } from '../../../utils/Section';
 
 interface NavBarProps {
   sections: Section[];
@@ -55,10 +56,6 @@ const useStyles = makeStyles({
     borderBottom: `1px solid ${theme.palette.primary.main}`
   }
 });
-
-const filterSections = (sections: Section[], categoryId: number): Section[] => {
-  return sections.filter((item) => item.categoryId === categoryId);
-};
 
 export const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
   const classes = useStyles();
@@ -213,6 +210,8 @@ export const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
         handleClose={() => {
           setOpenBurgerMenu(false);
         }}
+        sections={sections}
+        categories={categories}
       />
     </div>
   );

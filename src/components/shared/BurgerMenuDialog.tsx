@@ -1,15 +1,13 @@
 import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItem from '@material-ui/core/ListItem';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Grid from '@material-ui/core/Grid';
+import { Section, Category } from '../../models';
+import { BurgerMenuAccordion } from './BurgerMenuAccordion';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,10 +24,12 @@ const useStyles = makeStyles((theme: Theme) =>
 interface Props {
   isOpen: boolean;
   handleClose: () => void;
+  sections: Section[];
+  categories: Category[];
 }
 
 export const BurgerMenuDialog: React.FC<Props> = (props: Props) => {
-  const { isOpen, handleClose } = props;
+  const { isOpen, handleClose, sections, categories } = props;
   const classes = useStyles();
 
   return (
@@ -53,26 +53,15 @@ export const BurgerMenuDialog: React.FC<Props> = (props: Props) => {
                   <CloseIcon />
                 </IconButton>
               </Grid>
-              <Grid item style={{ padding: '5px 0 15px 0'}}>
-                <div style={{ height: '30px'}}>
+              <Grid item style={{ padding: '5px 0 15px 0' }}>
+                <div style={{ height: '30px' }}>
                   <img src="/img/logo.svg" alt="Logo" />
                 </div>
               </Grid>
             </Grid>
           </Toolbar>
         </AppBar>
-        <List>
-          <ListItem button>
-            <ListItemText primary="Phone ringtone" secondary="Titania" />
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <ListItemText
-              primary="Default notification ringtone"
-              secondary="Tethys"
-            />
-          </ListItem>
-        </List>
+        <BurgerMenuAccordion sections={sections} categories={categories} />
       </Dialog>
     </div>
   );

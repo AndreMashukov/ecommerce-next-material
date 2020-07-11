@@ -10,10 +10,10 @@
     "lint": "tslint --project \"tsconfig.json\""
   },
   "dependencies": {
-    "@material-ui/core": "^4.9.13",
+    "@material-ui/core": "^4.10.0",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.50",
-    "@material-ui/styles": "^4.9.13",
+    "@material-ui/styles": "^4.10.0",
     "@zeit/next-sass": "^1.0.1",
     "@zeit/next-typescript": "^1.1.1",
     "axios": "^0.19.2",
