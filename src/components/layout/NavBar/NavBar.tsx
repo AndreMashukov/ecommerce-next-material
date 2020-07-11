@@ -5,9 +5,13 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../../theme/theme';
-import { NavBarCart, SectionList } from '../../shared';
+import {
+  NavBarCart,
+  SectionList,
+  BurgerMenuDialog,
+  AuthNavBar
+} from '../../shared';
 import { Section, Category } from '../../../models';
-import { AuthNavBar } from '../../shared/AuthNavBar';
 
 interface NavBarProps {
   sections: Section[];
@@ -60,15 +64,24 @@ export const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
   const classes = useStyles();
   const { categories, sections } = props;
   const [open, setOpen] = useState(false);
+  const [openBurgerMenu, setOpenBurgerMenu] = useState(false);
   const [selection, setSelection] = useState(0);
 
   return (
     <div>
       <div className={classes.upperSection}>
         <div className="navbar-layout">
-          <Grid container direction="row" justify="space-between" alignItems="center">
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="center"
+          >
             <Grid item>
               <Box
+                onClick={() => {
+                  setOpenBurgerMenu(true);
+                }}
                 display={{ xs: 'block', sm: 'none', md: 'none', lg: 'none' }}
               >
                 <div className="container">
@@ -195,6 +208,12 @@ export const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
           <SectionList sections={filterSections(sections, selection)} />
         </div>
       </div>
+      <BurgerMenuDialog
+        isOpen={openBurgerMenu}
+        handleClose={() => {
+          setOpenBurgerMenu(false);
+        }}
+      />
     </div>
   );
 };

@@ -16,3 +16,5 @@ export * from './CustomSnackBar';
 export * from './LoginDialog';
 export * from './OrderDetails';
 export * from './OrderStepNav';
+export * from './BurgerMenuDialog';
+export * from './AuthNavBar';
