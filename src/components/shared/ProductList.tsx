@@ -77,7 +77,7 @@ export const ProductList: React.FC<ProductListProps> = (
           {products
             .filter((product) => product.active === 'Y')
             .map((product) => (
-              <Grid key={product.code} item xs={10} sm={6} md={3}>
+              <Grid key={product.code} item xs={10} sm={6} md={4} lg={3}>
                 <ProductListItem
                   product={product}
                   currentSection={currentSection}
