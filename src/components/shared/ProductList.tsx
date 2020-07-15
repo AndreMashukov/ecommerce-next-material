@@ -15,6 +15,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import { useRouter } from 'next/router';
 import { Badges } from './Badges';
+import { AWS_S3_PREFIX } from '../../constants';
 
 interface ProductListProps {
   products: Product[];
@@ -30,7 +31,7 @@ interface ProductListItemProps {
 const useStyles = makeStyles({
   card: {
     position: 'relative',
-    height: '300px',
+    height: '400px',
     '&:hover': {
       '& div': {
         opacity: '85%'
@@ -59,7 +60,7 @@ const useStyles = makeStyles({
     display: 'none'
   },
   fontWeightBold: {
-    fontWeight: 'bold'
+    fontWeight: 'bolder'
   }
 });
 
@@ -146,15 +147,35 @@ const ProductListItem: React.FC<ProductListItemProps> = (
             <div className={classes.badges}>
               <Badges product={product} />
             </div>
-            <Typography variant="h5" className={classes.fontWeightBold}>
-              {getPrice(product)} ₽
-            </Typography>
+            <Grid
+              container
+              direction="column"
+              justify="space-between"
+              spacing={2}
+            >
+              <Grid item>
+                <Grid container justify="center">
+                  {product.picture && (
+                    <img
+                      height="250"
+                      src={`${AWS_S3_PREFIX}${product.picture.subdir}/${product.picture.fileName}`}
+                    />
+                  )}
+                </Grid>
+              </Grid>
+              <Grid item>
+                <Typography variant="h5" className={classes.fontWeightBold}>
+                  {getPrice(product)} ₽
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography variant="body1" className={classes.fontWeightBold}>
+                  {product.name}
+                </Typography>
+              </Grid>
+            </Grid>
           </CardContent>
-          <CardActions>
-            <Typography variant="body1" className={classes.fontWeightBold}>
-              {product.name}
-            </Typography>
-          </CardActions>
+          <CardActions></CardActions>
         </Grid>
         <Button
           variant="outlined"

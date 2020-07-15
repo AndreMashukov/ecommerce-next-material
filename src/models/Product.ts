@@ -5,6 +5,12 @@ interface PropertyItem {
   name?: string;
 }
 
+interface Picture {
+  id: number;
+  fileName: string;
+  subdir: string;
+}
+
 export type ProductProperties = Record<
   'SPECIAL_OFFER' | 'NEW' | 'TOP_SELL' | 'RECOMMENDED' | 'PRICE',
   PropertyItem
@@ -22,4 +28,5 @@ export interface Product {
   detail: string;
   detailType: string;
   properties: ElementProperty[];
+  picture: Picture;
 }

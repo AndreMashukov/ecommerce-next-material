@@ -1,8 +1,11 @@
 import { ProductProperties } from './models';
 
+export const AWS_S3_PREFIX = 'https://m288-images.s3.eu-central-1.amazonaws.com/';
+
 export const API_BASE =
   process.env.NODE_ENV !== 'production'
     ? 'http://ec2-35-157-138-54.eu-central-1.compute.amazonaws.com:3001/api'
+    // ? 'http://localhost:3001/api'
     : 'http://localhost:3002/api';
 
 export const USER_RECORD_NAME = 'userState';
