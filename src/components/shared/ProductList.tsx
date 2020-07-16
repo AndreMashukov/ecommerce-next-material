@@ -2,7 +2,6 @@ import { useContext, useState } from 'react';
 import { Product, Section } from '../../models';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-// import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import SessionContext from '../../store/SessionContext/SessionContext';

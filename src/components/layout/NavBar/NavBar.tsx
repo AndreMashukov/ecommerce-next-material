@@ -130,9 +130,12 @@ export const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
                   spacing={5}
                 >
                   <Grid item>
-                    <div className="img-molecule">
+                    <Box
+                      className="img-molecule"
+                      display={{ xs: 'none', sm: 'block' }}
+                    >
                       <img src="/img/molecule.svg" />
-                    </div>
+                    </Box>
                   </Grid>
                   <Grid>
                     <div className="img-logo">

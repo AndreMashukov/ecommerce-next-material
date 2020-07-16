@@ -103,6 +103,7 @@ const SectionGrid = (props: SectionGridProps) => {
         <Grid key={section.code} item xs={10} sm={6} md={3}>
           <Card
             variant="outlined"
+            style={{height: '350px'}}
             onClick={() => {
               handleCardClick(section.code);
             }}
@@ -122,7 +123,15 @@ const SectionGrid = (props: SectionGridProps) => {
                   spacing={2}
                 >
                   <Grid item>
-                    <Grid container justify="center" style={{maxWidth: '120px', padding: '0 30px 0 30px', margin: 'auto'}}>
+                    <Grid
+                      container
+                      justify="center"
+                      style={{
+                        maxWidth: '120px',
+                        padding: '0 30px 0 30px',
+                        margin: 'auto'
+                      }}
+                    >
                       {section.pictureData && (
                         <img
                           height="250"
@@ -132,8 +141,8 @@ const SectionGrid = (props: SectionGridProps) => {
                     </Grid>
                   </Grid>
                   <Grid item>
-                  <Grid container justify="center">
-                    <Typography variant="h6">{section.name}</Typography>
+                    <Grid container justify="center">
+                      <Typography variant="h6">{section.name}</Typography>
                     </Grid>
                   </Grid>
                 </Grid>

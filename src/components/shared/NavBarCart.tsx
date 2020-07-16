@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import { ListCart } from './ListCart';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../theme/theme';
@@ -29,7 +30,7 @@ const useStyles = makeStyles({
   }
 });
 
-export const NavBarCart: React.FC<{}>  = () => {
+export const NavBarCart: React.FC<{}> = () => {
   const classes = useStyles();
   const divRef = React.useRef();
   const [open, setOpen] = React.useState(false);
@@ -68,9 +69,11 @@ export const NavBarCart: React.FC<{}>  = () => {
         spacing={2}
       >
         <Grid item>
-          {getItems().length === 0
-            ? cartIsEmpty
-            : `${cartIsNotEmpty}: ${getCartItemsNumber(getItems())}`}
+          <Box display={{ xs: 'none', sm: 'block' }}>
+            {getItems().length === 0
+              ? cartIsEmpty
+              : `${cartIsNotEmpty}: ${getCartItemsNumber(getItems())}`}
+          </Box>
         </Grid>
         <Grid item>
           <img src="/img/bag_full.png" />
