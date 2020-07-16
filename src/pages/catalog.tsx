@@ -1,6 +1,11 @@
 import React from 'react';
 import { getSections } from '../services/CatalogApi';
-import { PRODUCT_CATALOG_ID, SECTION_LEVELS, CATALOG_NAME } from '../constants';
+import {
+  PRODUCT_CATALOG_ID,
+  SECTION_LEVELS,
+  CATALOG_NAME,
+  AWS_S3_PREFIX
+} from '../constants';
 import { Section } from '../models';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
@@ -52,16 +57,15 @@ const CatalogPage: NextPage<Props> = (props: Props) => {
         <Typography color="textPrimary">Каталог</Typography>
       </Breadcrumbs>
       <CustomTabs
-        tabs={['НАЗНАЧЕНИЕ','ЛИНИИ']}
+        tabs={['НАЗНАЧЕНИЕ', 'ЛИНИИ']}
         activeTab={activeTab}
-        onTabChange={handleChange}/>
+        onTabChange={handleChange}
+      />
       <div>
         {activeTab === TABS.PURPOSE_TAB && (
           <SectionGrid sections={purposeSections} />
         )}
-        {activeTab === TABS.LINE_TAB && (
-          <SectionGrid sections={lineSections} />
-        )}
+        {activeTab === TABS.LINE_TAB && <SectionGrid sections={lineSections} />}
       </div>
     </div>
   );
@@ -108,14 +112,33 @@ const SectionGrid = (props: SectionGridProps) => {
               direction="column"
               justify="flex-end"
               alignItems="center"
-              style={{height: '100%'}}
+              style={{ height: '100%' }}
             >
-              <CardContent></CardContent>
-              <CardActions>
-                <Typography variant="body1">
-                  {section.name}
-                </Typography>
-              </CardActions>
+              <CardContent>
+                <Grid
+                  container
+                  direction="column"
+                  justify="space-between"
+                  spacing={2}
+                >
+                  <Grid item>
+                    <Grid container justify="center" style={{maxWidth: '120px', padding: '0 30px 0 30px', margin: 'auto'}}>
+                      {section.pictureData && (
+                        <img
+                          height="250"
+                          src={`${AWS_S3_PREFIX}${section.pictureData.subdir}/${section.pictureData.fileName}`}
+                        />
+                      )}
+                    </Grid>
+                  </Grid>
+                  <Grid item>
+                  <Grid container justify="center">
+                    <Typography variant="h6">{section.name}</Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </CardContent>
+              <CardActions></CardActions>
             </Grid>
           </Card>
         </Grid>

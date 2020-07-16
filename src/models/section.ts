@@ -1,3 +1,5 @@
+import { Picture } from './Picture';
+
 export interface Section {
   id: number;
   blockId: number;
@@ -12,6 +14,7 @@ export interface Section {
   categoryId: number;
   categoryName: string;
   descriptionType: string;
+  pictureData: Picture;
 }
 
 export interface Category {

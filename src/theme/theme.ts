@@ -39,7 +39,8 @@ export default createMuiTheme({
           cursor: 'pointer',
           '& div': {
             color: 'white',
-            fontSize: 'bolder'
+            fontSize: 'bolder',
+            opacity: '85%'
           }
         }
       }

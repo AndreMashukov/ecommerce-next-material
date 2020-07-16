@@ -1,14 +1,9 @@
 import { ElementProperty } from './ElementProperty';
+import { Picture } from './Picture';
 
 interface PropertyItem {
   id: number;
   name?: string;
-}
-
-interface Picture {
-  id: number;
-  fileName: string;
-  subdir: string;
 }
 
 export type ProductProperties = Record<

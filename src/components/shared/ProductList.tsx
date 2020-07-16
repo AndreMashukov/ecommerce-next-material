@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import { Product, Section } from '../../models';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+// import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import SessionContext from '../../store/SessionContext/SessionContext';
@@ -31,12 +32,7 @@ interface ProductListItemProps {
 const useStyles = makeStyles({
   card: {
     position: 'relative',
-    height: '400px',
-    '&:hover': {
-      '& div': {
-        opacity: '85%'
-      }
-    }
+    height: '400px'
   },
   cardGrid: {
     height: '100%'
@@ -153,8 +149,8 @@ const ProductListItem: React.FC<ProductListItemProps> = (
               justify="space-between"
               spacing={2}
             >
-              <Grid item>
-                <Grid container justify="center">
+              <Grid item style={{maxWidth: '100px', padding: '0 20px 0 20px', margin: 'auto'}}>
+                <Grid container justify="center" >
                   {product.picture && (
                     <img
                       height="250"
