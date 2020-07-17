@@ -36,9 +36,9 @@ $phone-width: 300px;
     width: $layout-min-width-small;
   }
 
-  @include phone() { 
-    width: $layout-min-width-tiny;
-  }
+  // @include phone() { 
+  //   width: $layout-min-width-small;
+  // }
 
   margin: 0 auto;  
   overflow: hidden;

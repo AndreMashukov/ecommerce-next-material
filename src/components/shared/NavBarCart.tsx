@@ -22,7 +22,7 @@ const useStyles = makeStyles({
   },
   paper: {
     padding: theme.spacing(1),
-    width: '450px',
+    width: '500px',
     position: 'absolute',
     right: '0',
     top: '0',

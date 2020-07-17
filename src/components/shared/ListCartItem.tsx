@@ -1,6 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { makeStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Snackbar from '@material-ui/core/Snackbar';
 import theme from '../../theme/theme';
@@ -9,6 +11,7 @@ import { CartItem } from '../../models';
 import { Stepper } from './Stepper';
 import CartContext from '../../store/CartContext/CartContext';
 import Alert from '@material-ui/lab/Alert';
+import { AWS_S3_PREFIX } from '../../constants';
 
 interface Props {
   item: CartItem;
@@ -17,9 +20,6 @@ interface Props {
 
 const useStyles = makeStyles({
   box: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     padding: '15px 0 15px 0',
     borderTop: `1px solid ${theme.palette.primary.main}`
   },
@@ -86,8 +86,17 @@ export const ListCartItem: React.FC<Props> = (props: Props) => {
 
   return (
     <>
-      <div className={classes.box}>
-        <div className={classes.item}>
+      <Grid container spacing={1} className={classes.box}>
+        <Grid item xs={1} sm={2}>
+          {item.picture && (
+            <Box display={{ xs: 'none', sm: 'block' }}>
+              <Grid container justify="center">
+                <img src={`${AWS_S3_PREFIX}${item.picture}`} height="60" />
+              </Grid>
+            </Box>
+          )}
+        </Grid>
+        <Grid item className={classes.item} xs={8}>
           <Typography variant="h6">
             {item.name}{' '}
             {item.packageType &&
@@ -106,19 +115,21 @@ export const ListCartItem: React.FC<Props> = (props: Props) => {
             onHandleNext={onHandleNext}
             onHandleBack={onHandleBack}
           />
-        </div>
-        <div>
-          <IconButton
-            aria-label="remove"
-            color="inherit"
-            onClick={() => {
-              removeItem(sessionId, item.productId);
-            }}
-          >
-            <ClearIcon />
-          </IconButton>
-        </div>
-      </div>
+        </Grid>
+        <Grid item xs={2}>
+          <Grid container justify="center">
+            <IconButton
+              aria-label="remove"
+              color="inherit"
+              onClick={() => {
+                removeItem(sessionId, item.productId);
+              }}
+            >
+              <ClearIcon />
+            </IconButton>
+          </Grid>
+        </Grid>
+      </Grid>
       <Snackbar
         key={`cartListSnackBar`}
         open={open}

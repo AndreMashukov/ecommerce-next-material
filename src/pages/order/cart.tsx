@@ -18,7 +18,9 @@ const useStyles = makeStyles({
     backgroundColor: theme.palette.primary.main
   },
   grid: {
-    padding: '60px 70px 60px 70px',
+    [theme.breakpoints.up('lg')]: {
+      padding: '60px 70px 60px 70px'
+    },
     backgroundColor: theme.palette.primary.main
   },
   paper: {
@@ -72,7 +74,7 @@ const OrderCartPage: NextPage<{}> = () => {
       </div>
       {getItems().length > 0 && (
         <Grid container justify="center">
-          <Grid item className={classes.grid} xs={10}>
+          <Grid item className={classes.grid} xs={12} sm={10}>
             <Paper className={classes.paper}>
               <ListCart isPopup={false} />
             </Paper>

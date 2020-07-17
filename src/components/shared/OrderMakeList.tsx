@@ -45,11 +45,13 @@ const useStyles = makeStyles({
     backgroundColor: theme.palette.primary.main
   },
   grid: {
-    padding: '60px 70px 30px 70px',
+    [theme.breakpoints.up('lg')]: {
+      padding: '60px 70px 60px 70px'
+    },
     backgroundColor: theme.palette.primary.main
   },
   paper: {
-    padding: '20px'
+    padding: '15px'
   },
   border: {
     borderTop: `1px solid ${theme.palette.primary.main}`

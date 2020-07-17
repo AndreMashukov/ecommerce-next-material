@@ -9,13 +9,12 @@ import CartContext from '../../store/CartContext/CartContext';
 import { makeStyles } from '@material-ui/styles';
 import Alert from '@material-ui/lab/Alert';
 import { getPrice } from '../../utils/Product';
-import { CATALOG_NAME } from '../../constants';
+import { AWS_S3_PREFIX, CATALOG_NAME } from '../../constants';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import { useRouter } from 'next/router';
 import { Badges } from './Badges';
-import { AWS_S3_PREFIX } from '../../constants';
 
 interface ProductListProps {
   products: Product[];
@@ -148,8 +147,16 @@ const ProductListItem: React.FC<ProductListItemProps> = (
               justify="space-between"
               spacing={2}
             >
-              <Grid item style={{maxWidth: '100px', padding: '0 20px 0 20px', margin: 'auto'}}>
-                <Grid container justify="center" >
+              <Grid
+                item
+                style={{
+                  maxWidth: '100px',
+                  padding: '0 20px 0 20px',
+                  margin: 'auto',
+                  minHeight: '250px'
+                }}
+              >
+                <Grid container justify="center">
                   {product.picture && (
                     <img
                       height="250"
@@ -184,7 +191,11 @@ const ProductListItem: React.FC<ProductListItemProps> = (
                 productId: product.id,
                 price: getPrice(product),
                 quantity: 1,
-                currency: 'RUB'
+                currency: 'RUB',
+                detailPageUrl: `${CATALOG_NAME}/${currentSection}/${product.code}`,
+                picture: product.picture
+                  ? `${product.picture.subdir}/${product.picture.fileName}`
+                  : null
               },
               (newState) => {
                 setSnackState({

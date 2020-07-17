@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Radio from '@material-ui/core/Radio';
 import Paper from '@material-ui/core/Paper';
@@ -79,7 +80,9 @@ export const DeliveryOptions = (props: DeliveryOptionsProps) => {
                 <Typography style={{ fontWeight: 'bold' }}>
                   {delivery.delivery_name}
                 </Typography>
-                <Typography>{delivery.delivery_description}</Typography>
+                <Box display={{ xs: 'none', sm: 'none', md: 'none', lg: 'block' }}>
+                  <Typography>{delivery.delivery_description}</Typography>
+                </Box>
               </Grid>
               <Grid item>
                 <Grid
@@ -88,12 +91,14 @@ export const DeliveryOptions = (props: DeliveryOptionsProps) => {
                   justify="flex-start"
                   alignItems="flex-end"
                 >
-                  <Typography>Срок доставки</Typography>
-                  <Typography>
-                    {delivery.delivery_period_from} -{' '}
-                    {delivery.delivery_period_to}{' '}
-                    {delivery.delivery_period_to > 5 ? 'дней' : 'дня'}
-                  </Typography>
+                  <Box display={{ xs: 'none', sm: 'none', md: 'none', lg: 'block' }}>
+                    <Typography>Срок доставки</Typography>
+                    <Typography>
+                      {delivery.delivery_period_from} -{' '}
+                      {delivery.delivery_period_to}{' '}
+                      {delivery.delivery_period_to > 5 ? 'дней' : 'дня'}
+                    </Typography>
+                  </Box>
                 </Grid>
               </Grid>
               <Grid item>

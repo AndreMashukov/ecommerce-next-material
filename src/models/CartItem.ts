@@ -8,4 +8,6 @@ export interface CartItem {
   currency: string;
   packageType?: string;
   skuCode?: string;
+  detailPageUrl: string;
+  picture?: string;
 }
