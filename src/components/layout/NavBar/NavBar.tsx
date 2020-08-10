@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Grid from '@material-ui/core/Grid';
 import './NavBar.scss';
 import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../../../theme/theme';
@@ -13,6 +14,9 @@ import {
 } from '../../shared';
 import { Section, Category } from '../../../models';
 import { filterSections } from '../../../utils/Section';
+import SessionContext from '../../../store/SessionContext/SessionContext';
+import blue from '@material-ui/core/colors/blue';
+import { Roles } from '../../../constants';
 
 interface NavBarProps {
   sections: Section[];
@@ -54,6 +58,12 @@ const useStyles = makeStyles({
     backgroundColor: theme.palette.primary.light,
     padding: '10px 0 0 5px',
     borderBottom: `1px solid ${theme.palette.primary.main}`
+  },
+  adminPaper: {
+    padding: '5px 15px 5px 15px',
+    color: 'white',
+    fontWeight: 'bolder',
+    backgroundColor: blue[400]
   }
 });
 
@@ -63,10 +73,29 @@ export const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
   const [open, setOpen] = useState(false);
   const [openBurgerMenu, setOpenBurgerMenu] = useState(false);
   const [selection, setSelection] = useState(0);
+  const { getUser } = useContext(SessionContext);
 
   return (
     <div>
       <div className={classes.upperSection}>
+        {getUser() && getUser().groupId === Roles.Admin && (
+          <div className="admin-panel">
+            <Grid
+              container
+              direction="row"
+              justify="space-around"
+              alignItems="center"
+            >
+              <Grid item>
+                <Paper className={classes.adminPaper}>
+                  <Typography variant="caption">
+                    Административный раздел
+                  </Typography>
+                </Paper>
+              </Grid>
+            </Grid>
+          </div>
+        )}
         <div className="navbar-layout">
           <Grid
             container
