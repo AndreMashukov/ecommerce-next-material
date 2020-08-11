@@ -57,8 +57,10 @@ class MyApp extends App<Props> {
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx);
     }
+
     return { pageProps };
   }
+  isAdminSection = false;
 
   setLoading(flag: boolean) {
     this.setState({
@@ -93,8 +95,18 @@ class MyApp extends App<Props> {
     });
   }
 
-  componentDidMount() {
-    const { router } = this.props;
+  router = this.props.router;
+
+  handleAdminRoutes() {
+    if (this.router.route.toString().match(/^\/admin/)) {
+      const user = retrieveUser();
+      if (!user || user.groupId !== 0) {
+        this.router.push('/403');
+      }
+    }
+  }
+
+  handleAxiosRequest() {
     axios.interceptors.request.use(
       async (config) => {
         this.setLoading(true);
@@ -123,7 +135,9 @@ class MyApp extends App<Props> {
         return Promise.reject(error);
       }
     );
+  }
 
+  handleAxiosResponse() {
     axios.interceptors.response.use(
       (response) => {
         this.setLoading(false);
@@ -134,12 +148,26 @@ class MyApp extends App<Props> {
         if (status && status === (403 || 401)) {
           removeUser();
           this.handleSnackOpen();
-          router.push('/auth');
+          this.router.push('/auth');
         }
         this.setLoading(false);
         return Promise.reject(error);
       }
     );
+  }
+
+  componentWillReceiveProps() {
+    if (this.router.route.toString().match(/^\/admin/)) {
+      this.isAdminSection = true;
+    } else {
+      this.isAdminSection = false;
+    }
+  }
+
+  componentDidMount() {
+    this.handleAdminRoutes();
+    this.handleAxiosRequest();
+    this.handleAxiosResponse();
 
     getSections(PRODUCT_CATALOG_ID).then((resp) => {
       this.setState({
@@ -162,7 +190,7 @@ class MyApp extends App<Props> {
 
     return (
       <Store {...pageProps}>
-        <NavBar {...navBarProps} />
+        {this.isAdminSection || <NavBar {...navBarProps} />}
         <Layout>
           <Component pageContext={pageContext} {...pageProps} />
         </Layout>
@@ -183,7 +211,7 @@ class MyApp extends App<Props> {
             <CircularProgress color="secondary" size={70} thickness={5} />
           </div>
         )}
-        <Footer />
+        {this.isAdminSection || <Footer />}
       </Store>
     );
   }
