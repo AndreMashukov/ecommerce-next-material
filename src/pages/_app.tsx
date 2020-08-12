@@ -3,7 +3,7 @@ import App from 'next/app';
 import AppComponentProps from 'next/app';
 import withMaterial, { MaterialAppComponentProps } from '../theme/withMaterial';
 import Store from '../store/Store';
-import { NavBar, Footer, Layout } from '../components';
+import { NavBar, Footer, Layout, AdminFooter } from '../components';
 import { Section, Category } from '../models/Section';
 import { getSections } from '../services/CatalogApi';
 import { PRODUCT_CATALOG_ID } from '../constants';
@@ -102,6 +102,8 @@ class MyApp extends App<Props> {
       const user = retrieveUser();
       if (!user || user.groupId !== 0) {
         this.router.push('/403');
+      } else {
+        this.isAdminSection = true;
       }
     }
   }
@@ -211,7 +213,7 @@ class MyApp extends App<Props> {
             <CircularProgress color="secondary" size={70} thickness={5} />
           </div>
         )}
-        {this.isAdminSection || <Footer />}
+        {this.isAdminSection ? <AdminFooter/> : <Footer />}
       </Store>
     );
   }
