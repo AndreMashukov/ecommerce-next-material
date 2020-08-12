@@ -1,7 +1,12 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
 import '../Layout.scss';
+import TocIcon from '@material-ui/icons/Toc';
+import { DASHBOARD_ITEMS } from '../../constants';
 
 const AdminDashboardPage = () => {
   return (
@@ -41,12 +46,54 @@ const AdminDashboardPage = () => {
                 wrap="wrap"
                 spacing={2}
               >
-                <Grid key={'orders'} item xs={10} sm={6} md={4} lg={3}>
-                    Orders
-                </Grid>
-                <Grid key={'catalog'} item xs={10} sm={6} md={4} lg={3}>
-                    Catalog
-                </Grid>
+                {DASHBOARD_ITEMS.map(item => (
+                  <Grid key={item.id} item xs={10} sm={6} md={4} lg={3}>
+                    <Card
+                      variant="outlined"
+                      style={{ height: '150px' }}
+                      onClick={() => {
+                        // handleCardClick(section.code);
+                      }}
+                    >
+                      <Grid
+                        container
+                        direction="column"
+                        justify="flex-end"
+                        alignItems="center"
+                        style={{ height: '100%' }}
+                      >
+                        <CardContent>
+                          <Grid
+                            container
+                            direction="column"
+                            justify="space-between"
+                            spacing={2}
+                          >
+                            <Grid item>
+                              <Grid
+                                container
+                                justify="center"
+                                style={{
+                                  maxWidth: '120px',
+                                  padding: '0 30px 0 30px',
+                                  margin: 'auto'
+                                }}
+                              >
+                                <TocIcon />
+                              </Grid>
+                            </Grid>
+                            <Grid item>
+                              <Grid container justify="center">
+                                <Typography variant="h6">{item.title}</Typography>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                        </CardContent>
+                        <CardActions></CardActions>
+                      </Grid>
+                    </Card>
+                  </Grid>
+                ))}
               </Grid>
             </Grid>
           </Grid>
