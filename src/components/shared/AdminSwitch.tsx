@@ -21,14 +21,23 @@ const useStyles = makeStyles({
   }
 });
 
-export const AdminSwitch: React.FC<{}> = () => {
+interface AdminSwitchProps {
+  switchTo: string;
+}
+
+export const AdminSwitch: React.FC<AdminSwitchProps> = (props: AdminSwitchProps) => {
   const classes = useStyles();
   const { getUser } = useContext(SessionContext);
   const router = useRouter();
+  const isSwitchToAdmin = props.switchTo === 'admin' ? true : false;
 
   function handleAdminPaperClick() {
     if (process.browser) {
-      router.push('/admin/dashboard');
+      if (isSwitchToAdmin) {
+        router.push('/admin/dashboard');
+      } else {
+        router.push('/');
+      }
     }
   }
   return (
@@ -47,7 +56,7 @@ export const AdminSwitch: React.FC<{}> = () => {
                 onClick={handleAdminPaperClick}
               >
                 <Typography variant="caption">
-                  Административный раздел
+                  {isSwitchToAdmin ? 'Административный раздел' : 'Сайт'}
                 </Typography>
               </Paper>
             </Grid>

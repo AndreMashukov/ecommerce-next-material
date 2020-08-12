@@ -68,7 +68,7 @@ export const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
   return (
     <div>
       <div className={classes.upperSection}>
-        <AdminSwitch/>
+        <AdminSwitch switchTo="admin"/>
         <div className="navbar-layout">
           <Grid
             container

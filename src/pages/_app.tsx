@@ -3,7 +3,7 @@ import App from 'next/app';
 import AppComponentProps from 'next/app';
 import withMaterial, { MaterialAppComponentProps } from '../theme/withMaterial';
 import Store from '../store/Store';
-import { NavBar, Footer, Layout, AdminFooter } from '../components';
+import { NavBar, Footer, Layout, AdminFooter, AdminBar } from '../components';
 import { Section, Category } from '../models/Section';
 import { getSections } from '../services/CatalogApi';
 import { PRODUCT_CATALOG_ID } from '../constants';
@@ -192,7 +192,7 @@ class MyApp extends App<Props> {
 
     return (
       <Store {...pageProps}>
-        {this.isAdminSection || <NavBar {...navBarProps} />}
+        {this.isAdminSection ? <AdminBar /> : <NavBar {...navBarProps} />}
         <Layout>
           <Component pageContext={pageContext} {...pageProps} />
         </Layout>
