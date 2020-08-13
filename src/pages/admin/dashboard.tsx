@@ -7,8 +7,15 @@ import CardActions from '@material-ui/core/CardActions';
 import '../Layout.scss';
 import TocIcon from '@material-ui/icons/Toc';
 import { DASHBOARD_ITEMS } from '../../constants';
+import { useRouter } from 'next/router';
 
 const AdminDashboardPage = () => {
+  const router = useRouter();
+  const handleCardClick = (path: string) => {
+    if (process.browser) {
+      router.push(`/admin/${path}`);
+    }
+  };
   return (
     <div className="page-root-layout">
       <Grid
@@ -52,7 +59,7 @@ const AdminDashboardPage = () => {
                       variant="outlined"
                       style={{ height: '150px' }}
                       onClick={() => {
-                        // handleCardClick(section.code);
+                        handleCardClick(item.path);
                       }}
                     >
                       <Grid

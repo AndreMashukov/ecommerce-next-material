@@ -1,6 +1,7 @@
 export * from './Home';
 export * from './SectionList';
 export * from './ProductList';
+export * from './AdminBreadcrumbs';
 export * from './CatalogBreadcrumbs';
 export * from './ProductBreadcrumbs';
 export * from './ListCart';
