@@ -43,3 +43,20 @@ $phone-width: 300px;
   margin: 0 auto;  
   overflow: hidden;
 }
+
+@mixin adminLayout {
+  @include desktop() { 
+    width: $layout-min-width-medium;
+  }
+
+  // @include tablet() { 
+  //   width: $layout-min-width-small;
+  // }
+
+  // @include phone() { 
+  //   width: $layout-min-width-small;
+  // }
+
+  margin: 0 auto;  
+  overflow: hidden;
+}

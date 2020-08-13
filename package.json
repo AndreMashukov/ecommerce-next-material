@@ -16,6 +16,8 @@
     "@material-ui/styles": "^4.10.0",
     "@zeit/next-sass": "^1.0.1",
     "@zeit/next-typescript": "^1.1.1",
+    "ag-grid-community": "^23.2.1",
+    "ag-grid-react": "^23.2.1",
     "axios": "^0.19.2",
     "clsx": "^1.1.0",
     "isomorphic-unfetch": "^3.0.0",
