@@ -2,14 +2,16 @@ import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { Subscription, from } from 'rxjs';
-import '../Layout.scss';
 import { AdminBreadcrumbs } from '../../components';
 import { getAdminOrderList } from '../../services/OrderApi';
 import { AgGridReact } from 'ag-grid-react';
-import 'ag-grid-community/dist/styles/ag-grid.css';
-import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+import { ChangeDetectionStrategyType } from 'ag-grid-react/lib/changeDetectionService'
+import moment from 'moment';
 import { OrderView } from '../../models';
 import { ADMIN_ORDER_COL_DEFS, REGIONS } from '../../constants';
+import 'ag-grid-community/dist/styles/ag-grid.css';
+import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+import '../Layout.scss';
 
 const AdminOrdersPage = () => {
   const [grid, setGrid] = useState({
@@ -25,34 +27,40 @@ const AdminOrdersPage = () => {
   });
   const [, setLoading] = useState(true);
 
+  const subscriptions = new Subscription();
+
   useEffect(() => {
-    const subscriptions = new Subscription();
-    subscriptions.add(
-      from(getAdminOrderList()).subscribe((resp) => {
-          const orderList: OrderView[] = resp;
-          if (orderList) {
-            const data = orderList.map((order: OrderView) => {
-              const row = {
-                id: order.id,
-                region: Object.entries(REGIONS).find((key) =>
-                  key[1].id === order.props.region)[1].name,
-                price: `${parseInt(order.price.toString(), 0)} ₽`,
-                address: order.props.address,
-                buyer: `${order.user.firstName} ${order.user.lastName}`
-              };
-
-              return row;
-            });
-            setGrid({ ...grid, rowData: data });
-          }
-        setLoading(false);
-      })
-    );
-
     return () => {
       subscriptions.unsubscribe();
     };
   }, []);
+
+  const onGridReady = () => {
+    subscriptions.add(
+      from(getAdminOrderList()).subscribe((resp) => {
+        const orderList: OrderView[] = resp;
+        if (orderList) {
+          const data = orderList.map((order: OrderView) => {
+            const row = {
+              id: `№${order.id} от ${moment(order.dateInsert).format(
+                'DD.MM.YYYY HH:mm'
+              )}`,
+              region: Object.entries(REGIONS).find(
+                (key) => key[1].id === order.props.region
+              )[1].name,
+              price: `${parseInt(order.price.toString(), 0)} ₽`,
+              address: order.props.address,
+              buyer: `${order.user.firstName} ${order.user.lastName}`
+            };
+
+            return row;
+          });
+          setGrid({ ...grid, rowData: data });
+        }
+        setLoading(false);
+      })
+    );
+  };
 
   return (
     <div className="page-root-admin-layout">
@@ -90,6 +98,8 @@ const AdminOrdersPage = () => {
               columnDefs={grid.columnDefs}
               rowData={grid.rowData}
               defaultColDef={grid.defaultColDef}
+              onGridReady={onGridReady}
+              rowDataChangeDetectionStrategy={ChangeDetectionStrategyType.IdentityCheck}
             ></AgGridReact>
           </div>
         </Grid>
