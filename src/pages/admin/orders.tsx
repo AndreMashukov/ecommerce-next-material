@@ -5,11 +5,10 @@ import { Subscription, from } from 'rxjs';
 import '../Layout.scss';
 import { AdminBreadcrumbs } from '../../components';
 import { getAdminOrderList } from '../../services/OrderApi';
-import { pickPropsFromDto } from '../../utils/shared';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
-import { OrderViewList } from '../../models';
+import { OrderView } from '../../models';
 import { ADMIN_ORDER_COL_DEFS, REGIONS } from '../../constants';
 
 const AdminOrdersPage = () => {
@@ -30,13 +29,13 @@ const AdminOrdersPage = () => {
     const subscriptions = new Subscription();
     subscriptions.add(
       from(getAdminOrderList()).subscribe((resp) => {
-        if (!resp.status) {
-          const orderList = pickPropsFromDto<OrderViewList>(resp, 'orders');
+          const orderList: OrderView[] = resp;
           if (orderList) {
-            const data = orderList.orders.map((order) => {
+            const data = orderList.map((order: OrderView) => {
               const row = {
                 id: order.id,
-                region: Object.entries(REGIONS).find((key) => key[1].id === order.props.region)[1].name,
+                region: Object.entries(REGIONS).find((key) =>
+                  key[1].id === order.props.region)[1].name,
                 price: `${parseInt(order.price.toString(), 0)} ₽`,
                 address: order.props.address,
                 buyer: `${order.user.firstName} ${order.user.lastName}`
@@ -46,7 +45,6 @@ const AdminOrdersPage = () => {
             });
             setGrid({ ...grid, rowData: data });
           }
-        }
         setLoading(false);
       })
     );
