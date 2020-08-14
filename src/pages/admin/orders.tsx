@@ -5,13 +5,13 @@ import { Subscription, from } from 'rxjs';
 import { AdminBreadcrumbs } from '../../components';
 import { getAdminOrderList } from '../../services/OrderApi';
 import { AgGridReact } from 'ag-grid-react';
-import { ChangeDetectionStrategyType } from 'ag-grid-react/lib/changeDetectionService'
+import { ChangeDetectionStrategyType } from 'ag-grid-react/lib/changeDetectionService';
 import moment from 'moment';
 import { OrderView } from '../../models';
 import { ADMIN_ORDER_COL_DEFS, REGIONS } from '../../constants';
+import '../Layout.scss';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
-import '../Layout.scss';
 
 const AdminOrdersPage = () => {
   const [grid, setGrid] = useState({
@@ -85,23 +85,27 @@ const AdminOrdersPage = () => {
           <AdminBreadcrumbs name="Заказы" />
         </Grid>
         <Grid item>
-          <div
-            className="ag-theme-alpine"
-            style={{
-              height: '70vh',
-              width: '80vw',
-              maxWidth: '1200px',
-              padding: '10px'
-            }}
-          >
-            <AgGridReact
-              columnDefs={grid.columnDefs}
-              rowData={grid.rowData}
-              defaultColDef={grid.defaultColDef}
-              onGridReady={onGridReady}
-              rowDataChangeDetectionStrategy={ChangeDetectionStrategyType.IdentityCheck}
-            ></AgGridReact>
-          </div>
+          {process.browser && (
+            <div
+              className="ag-theme-alpine"
+              style={{
+                height: '70vh',
+                width: '80vw',
+                maxWidth: '1200px',
+                padding: '10px'
+              }}
+            >
+              <AgGridReact
+                columnDefs={grid.columnDefs}
+                rowData={grid.rowData}
+                defaultColDef={grid.defaultColDef}
+                onGridReady={onGridReady}
+                rowDataChangeDetectionStrategy={
+                  ChangeDetectionStrategyType.IdentityCheck
+                }
+              ></AgGridReact>
+            </div>
+          )}
         </Grid>
       </Grid>
     </div>

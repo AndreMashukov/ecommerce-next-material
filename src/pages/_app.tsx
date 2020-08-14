@@ -158,7 +158,7 @@ class MyApp extends App<Props> {
     );
   }
 
-  componentWillReceiveProps() {
+  UNSAFE_componentWillReceiveProps() {
     if (this.router.route.toString().match(/^\/admin/)) {
       this.isAdminSection = true;
     } else {
