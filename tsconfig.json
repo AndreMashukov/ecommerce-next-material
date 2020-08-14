@@ -30,8 +30,7 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx",
-    "../node_modules/cypress"
+    "**/*.tsx"
   ],
   "jest": {
     "globals": {
