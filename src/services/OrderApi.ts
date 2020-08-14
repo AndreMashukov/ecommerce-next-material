@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { getAdminOrderListDto } from './dto/OrderApiDto';
+import { getAdminOrderListDto, getOrderListDto } from './dto/OrderApiDto';
 import { API_BASE } from '../constants';
 import { Order, OrderView, OrderViewList, Error } from '../models';
 import { pickPropsFromDto } from '../utils/shared';
@@ -29,31 +29,15 @@ export const getOrder = async (
 };
 
 export const getOrderList = async (
-  _userId: string
-): Promise<Partial<OrderViewList & Error>> => {
-  let res: AxiosResponse<Partial<OrderViewList & Error>>;
-  try {
-    res = await axios.get(
-      `${API_BASE}/personal/orders/list?&userId=${_userId}`
-    );
-  } catch (err) {
-    const { status } = err.response;
-    return { status };
+  userId: string
+): Promise<OrderView[] | []> => {
+  const res: Partial<OrderViewList & Error> = await getOrderListDto(userId);
+  if (!res.status) {
+    return pickPropsFromDto<OrderViewList>(res, 'orders').orders;
+  } else {
+    return [];
   }
-
-  return res.data;
 };
-
-// export const getOrderList = async (
-//   userId: string
-// ): Promise<OrderView[] | []> => {
-//   const res: Partial<OrderViewList & Error> = await getOrderListDto(userId);
-//   if (!res.status) {
-//     return pickPropsFromDto<OrderViewList>(res, 'orders').orders;
-//   } else {
-//     return [];
-//   }
-// };
 
 export const getAdminOrderList = async (): Promise<OrderView[] | []> => {
   const res: Partial<OrderViewList & Error> = await getAdminOrderListDto();

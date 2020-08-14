@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import '../Layout.scss';
 import { getOrderList } from '../../services/OrderApi';
 import SessionContext from '../../store/SessionContext/SessionContext';
-import { OrderViewList, Error, OrderView } from '../../models';
+import { OrderView } from '../../models';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -14,7 +14,7 @@ import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import { Subscription, from } from 'rxjs';
 import moment from 'moment';
-import { getArrayFromObject, pickPropsFromDto } from '../../utils/shared';
+import { getArrayFromObject } from '../../utils/shared';
 import { colors } from '../../theme/constants';
 import useRedirectLogin from '../../hooks/useRedirectLogin';
 import { NextPage } from 'next';
@@ -34,10 +34,7 @@ const PersonalOrderListPage: NextPage<{}> = () => {
   useRedirectLogin();
   const { getUser } = useContext(SessionContext);
   const [loading, setLoading] = useState(true);
-  const [orderListOrError, setOrderListOrError] = useState<
-    Partial<OrderViewList & Error>
-  >(null);
-  const [orderList, setOrderList] = useState<Partial<OrderViewList>>(null);
+  const [orderList, setOrderList] = useState<OrderView[]>(null);
   const classes = useStyles();
 
   useEffect(() => {
@@ -45,10 +42,7 @@ const PersonalOrderListPage: NextPage<{}> = () => {
     if (getUser()) {
       subscriptions.add(
         from(getOrderList(getUser().id)).subscribe((resp) => {
-          setOrderListOrError(resp);
-          if (!resp.status) {
-            setOrderList(pickPropsFromDto<OrderViewList>(resp, 'orders'));
-          }
+          setOrderList(resp);
           setLoading(false);
         })
       );
@@ -80,8 +74,8 @@ const PersonalOrderListPage: NextPage<{}> = () => {
               Мои заказы
             </Typography>
           </Grid>
-          {!loading && !orderListOrError.status && (
-            <OrderList {...orderList.orders} />
+          {!loading && (
+            <OrderList {...orderList} />
           )}
         </Grid>
       </div>
