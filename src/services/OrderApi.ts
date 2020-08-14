@@ -41,3 +41,17 @@ export const getOrderList = async (
 
   return res.data;
 };
+
+export const getAdminOrderList = async (): Promise<
+  Partial<OrderViewList & Error>
+> => {
+  let res: AxiosResponse<Partial<OrderViewList & Error>>;
+  try {
+    res = await axios.get(`${API_BASE}/admin/orders/list`);
+  } catch (err) {
+    const { status } = err.response;
+    return { status };
+  }
+
+  return res.data;
+};

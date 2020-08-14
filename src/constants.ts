@@ -78,3 +78,27 @@ export const DASHBOARD_ITEMS = [
     path: 'catalog'
   }
 ];
+
+export const ADMIN_ORDER_COL_DEFS = [
+  {
+    headerName: 'ID',
+    field: 'id',
+    checkboxSelection: true
+  },
+  {
+    headerName: 'Регион',
+    field: 'region'
+  },
+  {
+    headerName: 'Адрес доставки',
+    field: 'address'
+  },
+  {
+    headerName: 'Сумма',
+    field: 'price'
+  },
+  {
+    headerName: 'Покупатель',
+    field: 'buyer'
+  }
+];

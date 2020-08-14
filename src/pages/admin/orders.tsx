@@ -1,65 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import { Subscription, from } from 'rxjs';
 import '../Layout.scss';
 import { AdminBreadcrumbs } from '../../components';
+import { getAdminOrderList } from '../../services/OrderApi';
+import { pickPropsFromDto } from '../../utils/shared';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+import { OrderViewList } from '../../models';
+import { ADMIN_ORDER_COL_DEFS, REGIONS } from '../../constants';
 
 const AdminOrdersPage = () => {
-  const [grid] = useState({
-    columnDefs: [
-      {
-        headerName: 'ID',
-        field: 'id',
-        checkboxSelection: true
-      },
-      {
-        headerName: 'Регион',
-        field: 'region'
-      },
-      {
-        headerName: 'Адрес доставки',
-        field: 'address'
-      },
-      {
-        headerName: 'Сумма',
-        field: 'price'
-      },
-      {
-        headerName: 'Покупатель',
-        field: 'buyer'
-      }
-    ],
-    rowData: [
-      {
-        id: 'Toyota',
-        region: 'Celica',
-        address: 'Address',
-        price: 35000
-      },
-      {
-        id: 'Ford',
-        region: 'Mondeo',
-        address: 'Address',
-        price: 32000
-      },
-      {
-        id: 'Porsche',
-        region: 'Boxter',
-        address: 'Address',
-        price: 72000
-      }
-    ],
+  const [grid, setGrid] = useState({
+    columnDefs: ADMIN_ORDER_COL_DEFS,
+    rowData: [],
     defaultColDef: {
-      sortable: true,
+      // sortable: true,
       resizable: true,
-      flex: 2,
-      minWidth: 150
+      flex: 1,
+      minWidth: 120
     },
     rowSelection: 'multiple'
   });
+  const [, setLoading] = useState(true);
+
+  useEffect(() => {
+    const subscriptions = new Subscription();
+    subscriptions.add(
+      from(getAdminOrderList()).subscribe((resp) => {
+        if (!resp.status) {
+          const orderList = pickPropsFromDto<OrderViewList>(resp, 'orders');
+          if (orderList) {
+            const data = orderList.orders.map((order) => {
+              const row = {
+                id: order.id,
+                region: Object.entries(REGIONS).find((key) => key[1].id === order.props.region)[1].name,
+                price: `${parseInt(order.price.toString(), 0)} ₽`,
+                address: order.props.address,
+                buyer: `${order.user.firstName} ${order.user.lastName}`
+              };
+
+              return row;
+            });
+            setGrid({ ...grid, rowData: data });
+          }
+        }
+        setLoading(false);
+      })
+    );
+
+    return () => {
+      subscriptions.unsubscribe();
+    };
+  }, []);
+
   return (
     <div className="page-root-admin-layout">
       <Grid
@@ -88,6 +84,7 @@ const AdminOrdersPage = () => {
             style={{
               height: '70vh',
               width: '80vw',
+              maxWidth: '1200px',
               padding: '10px'
             }}
           >
