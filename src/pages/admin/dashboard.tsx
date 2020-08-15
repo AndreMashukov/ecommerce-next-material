@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
@@ -16,6 +16,13 @@ const AdminDashboardPage = () => {
       router.push(`/admin/${path}`);
     }
   };
+
+  useEffect(() => {
+    DASHBOARD_ITEMS.forEach(item => {
+      router.prefetch(`/admin/${item.path}`);
+    });
+  }, []);
+
   return (
     <div className="page-root-layout">
       <Grid

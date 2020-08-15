@@ -31,14 +31,14 @@ const AuthNavBarLogged: React.FC<{}> = () => {
       <Grid container direction="row" justify="flex-start" spacing={2}>
         <Grid item key="orders">
           <Typography variant={variant}>
-            <Link href="/personal/order" prefetch={false} key="ordersLink">
+            <Link href="/personal/order" prefetch={true} key="ordersLink">
               <MatLink>Заказы</MatLink>
             </Link>
           </Typography>
         </Grid>
         <Grid item id="firstName">
           <Typography variant={variant}>
-            <Link href="/personal/profile" prefetch={false}>
+            <Link href="/personal/profile" prefetch={true}>
               <MatLink>
                 <span style={{ fontWeight: 'bold' }}>
                   {getUser().firstName}
