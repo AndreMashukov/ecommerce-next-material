@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "test": "jest --no-cache",
-    "lint": "tslint --project \"tsconfig.json\"",
+    "lint": "tslint --project \"tsconfig.json\""
   },
   "dependencies": {
     "@material-ui/core": "^4.10.0",
