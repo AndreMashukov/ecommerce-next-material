@@ -8,10 +8,6 @@
     "start": "next start",
     "test": "jest --no-cache",
     "lint": "tslint --project \"tsconfig.json\"",
-    "docker:build": "docker build -t andreymashukov/ecommerce-next-material:latest .",
-    "docker:login": "echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin",
-    "docker:push": "docker push andreymashukov/ecommerce-backend:latest",
-    "ci:docker": "npm run docker:build && npm run docker:login && npm run docker:push"
   },
   "dependencies": {
     "@material-ui/core": "^4.10.0",
