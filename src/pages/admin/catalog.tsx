@@ -10,7 +10,7 @@ import {
 } from '../../constants';
 import { getSections } from '../../services';
 import '../Layout.scss';
-import { Section } from '../../models';
+import { Section, AdminCatalogRow } from '../../models';
 
 const AdminCatalogPage = () => {
   const [grid, setGrid] = useState({
@@ -37,9 +37,11 @@ const AdminCatalogPage = () => {
     subscriptions.add(
       from(getSections(PRODUCT_CATALOG_ID)).subscribe((resp) => {
         const data = resp.map((section: Section) => {
-          const row = {
+          const row: AdminCatalogRow = {
+            id: section.id,
             name: section.name,
-            active: section.active
+            active: section.active,
+            rowItem: section
           };
 
           return row;

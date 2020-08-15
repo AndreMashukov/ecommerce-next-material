@@ -105,9 +105,13 @@ export const ADMIN_ORDER_COL_DEFS = [
 
 export const ADMIN_CATALOG_COL_DEFS = [
   {
-    headerName: 'Название',
-    field: 'name',
+    headerName: 'ID',
+    field: 'id',
     checkboxSelection: true
+  },
+  {
+    headerName: 'Название',
+    field: 'name'
   },
   {
     headerName: 'Цена',
@@ -128,5 +132,10 @@ export const ADMIN_CATALOG_COL_DEFS = [
   {
     headerName: 'Активность',
     field: 'active'
+  },
+  {
+    headerName: 'rowItem',
+    field: 'rowItem',
+    hide: true
   }
 ];
