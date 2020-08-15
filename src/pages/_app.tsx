@@ -14,6 +14,8 @@ import { refreshToken } from '../services/TokenApi';
 import { withRouter } from 'next/router';
 import { CustomSnackBar } from '../components/shared';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import 'ag-grid-community/dist/styles/ag-grid.css';
+import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 
 const REFRESH_TOKEN_FREQ = 5;
 const REFRESH_TOKEN_FREQ_UNIT = 'days';

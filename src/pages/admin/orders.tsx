@@ -10,8 +10,6 @@ import moment from 'moment';
 import { OrderView } from '../../models';
 import { ADMIN_ORDER_COL_DEFS, REGIONS } from '../../constants';
 import '../Layout.scss';
-import 'ag-grid-community/dist/styles/ag-grid.css';
-import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 
 const AdminOrdersPage = () => {
   const [grid, setGrid] = useState({

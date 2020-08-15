@@ -102,3 +102,31 @@ export const ADMIN_ORDER_COL_DEFS = [
     field: 'buyer'
   }
 ];
+
+export const ADMIN_CATALOG_COL_DEFS = [
+  {
+    headerName: 'Название',
+    field: 'name',
+    checkboxSelection: true
+  },
+  {
+    headerName: 'Цена',
+    field: 'price'
+  },
+  {
+    headerName: 'Акция ',
+    field: 'isSpecialOffer'
+  },
+  {
+    headerName: 'Новинка',
+    field: 'isNew'
+  },
+  {
+    headerName: 'Лидер продаж',
+    field: 'isTopSell'
+  },
+  {
+    headerName: 'Активность',
+    field: 'active'
+  }
+];
