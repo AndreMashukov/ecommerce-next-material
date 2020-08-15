@@ -18,8 +18,8 @@ const AdminOrdersPage = () => {
     defaultColDef: {
       // sortable: true,
       resizable: true,
-      flex: 1,
-      minWidth: 120
+      minWidth: 120,
+      flex: 1
     },
     rowSelection: 'multiple'
   });

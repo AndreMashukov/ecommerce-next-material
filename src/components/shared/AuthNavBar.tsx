@@ -5,12 +5,13 @@ import SessionContext from '../../store/SessionContext/SessionContext';
 import { User } from '../../models';
 import Link from 'next/link';
 import MatLink from '@material-ui/core/Link';
+import { useRouter } from 'next/router';
+
 const variant = 'body1';
 
 export const AuthNavBar: React.FC<{}> = () => {
   const { getUser } = useContext(SessionContext);
   const user: User = getUser();
-  // const variant = 'body1';
 
   return (
     <>
@@ -23,6 +24,7 @@ export const AuthNavBar: React.FC<{}> = () => {
 
 const AuthNavBarLogged: React.FC<{}> = () => {
   const { getUser, logoutUser } = useContext(SessionContext);
+  const router = useRouter();
   const handleLogout = () => {
     logoutUser();
   };
@@ -36,15 +38,17 @@ const AuthNavBarLogged: React.FC<{}> = () => {
             </Link>
           </Typography>
         </Grid>
-        <Grid item id="firstName">
+        <Grid
+          item
+          id="firstName"
+          onClick={() => {
+            router.push('/personal/profile');
+          }}
+        >
           <Typography variant={variant}>
-            <Link href="/personal/profile">
-              <MatLink>
-                <span style={{ fontWeight: 'bold' }}>
-                  {getUser().firstName}
-                </span>
-              </MatLink>
-            </Link>
+            <MatLink>
+              <span style={{ fontWeight: 'bold' }}>{getUser().firstName}</span>
+            </MatLink>
           </Typography>
         </Grid>
         <Grid item key="logout">

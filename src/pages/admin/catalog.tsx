@@ -3,19 +3,24 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { AgGridReact } from 'ag-grid-react';
 import { AdminBreadcrumbs } from '../../components';
-import { Subscription } from 'rxjs';
-import { ADMIN_CATALOG_COL_DEFS } from '../../constants';
+import { Subscription, from } from 'rxjs';
+import {
+  ADMIN_CATALOG_COL_DEFS,
+  PRODUCT_CATALOG_ID
+} from '../../constants';
+import { getSections } from '../../services';
 import '../Layout.scss';
+import { Section } from '../../models';
 
 const AdminCatalogPage = () => {
-  const [grid] = useState({
+  const [grid, setGrid] = useState({
     columnDefs: ADMIN_CATALOG_COL_DEFS,
     rowData: [],
     defaultColDef: {
       sortable: true,
       resizable: true,
-      flex: 1,
-      minWidth: 120
+      minWidth: 50,
+      flex: 1
     },
     rowSelection: 'multiple'
   });
@@ -28,7 +33,21 @@ const AdminCatalogPage = () => {
     };
   }, []);
 
-  // const onGridReady = () => {};
+  const onGridReady = () => {
+    subscriptions.add(
+      from(getSections(PRODUCT_CATALOG_ID)).subscribe((resp) => {
+        const data = resp.map((section: Section) => {
+          const row = {
+            name: section.name,
+            active: section.active
+          };
+
+          return row;
+        });
+        setGrid({ ...grid, rowData: data });
+      })
+    );
+  };
 
   return (
     <div className="page-root-layout">
@@ -67,7 +86,7 @@ const AdminCatalogPage = () => {
                 columnDefs={grid.columnDefs}
                 rowData={grid.rowData}
                 defaultColDef={grid.defaultColDef}
-                // onGridReady={onGridReady}
+                onGridReady={onGridReady}
               ></AgGridReact>
             </div>
           )}
