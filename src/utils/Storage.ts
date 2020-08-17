@@ -18,3 +18,9 @@ export const storeItem = <T>(recordName: string, item: T): void => {
     localStorage.setItem(recordName, JSON.stringify(item));
   }
 };
+
+export const removeItem = (recordName: string): void => {
+  if (process.browser) {
+    localStorage.removeItem(recordName);
+  }
+};

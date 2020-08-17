@@ -19,3 +19,10 @@ export const getSubSections = (
 ): Section[] => {
   return sections.filter((item) => item.sectionId === curSection);
 };
+
+export const getParentSection = (
+  sections: Section[],
+  curSection: number
+): number => {
+  return sections.find((item) => item.id === curSection).sectionId;
+};
