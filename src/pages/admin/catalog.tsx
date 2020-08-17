@@ -4,15 +4,22 @@ import Typography from '@material-ui/core/Typography';
 import { AgGridReact } from 'ag-grid-react';
 import { AdminBreadcrumbs } from '../../components';
 import { Subscription, from } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import {
   ADMIN_CATALOG_COL_DEFS,
-  PRODUCT_CATALOG_ID
+  PRODUCT_CATALOG_ID,
+  ADMIN_CATALOG_RECORD_NAME
 } from '../../constants';
 import { getSections } from '../../services';
 import '../Layout.scss';
 import { Section, AdminCatalogRow } from '../../models';
+import { retrieveItem, storeItem } from '../../utils/Storage';
+import { getTopLevelSections, getSubSections } from '../../utils/Section';
 
 const AdminCatalogPage = () => {
+  const [curSection, setCurSection] = useState<number>(
+    retrieveItem(ADMIN_CATALOG_RECORD_NAME)
+  );
   const [grid, setGrid] = useState({
     columnDefs: ADMIN_CATALOG_COL_DEFS,
     rowData: [],
@@ -33,26 +40,56 @@ const AdminCatalogPage = () => {
     };
   }, []);
 
-  const onGridReady = () => {
-    subscriptions.add(
-      from(getSections(PRODUCT_CATALOG_ID)).subscribe((resp) => {
-        const data = resp.map((section: Section) => {
-          const row: AdminCatalogRow = {
-            id: section.id,
-            name: section.name,
-            active: section.active,
-            rowItem: section
-          };
+  // tslint:disable-next-line: no-any
+  const onRowClicked = (event: any) => {
+    const rowSelected: AdminCatalogRow = event.data;
+    // tslint:disable-next-line: no-console
+    console.log(rowSelected);
+    if (rowSelected.isSection) {
+      setCurSection(rowSelected.id);
+      storeItem(ADMIN_CATALOG_RECORD_NAME, rowSelected.id);
+      updateGrid();
+    }
+  };
 
-          return row;
-        });
-        setGrid({ ...grid, rowData: data });
-      })
+  const updateGrid = () => {
+    const obs1 = from(
+      new Promise((_resolve) =>
+        _resolve(setCurSection(retrieveItem(ADMIN_CATALOG_RECORD_NAME)))
+      )
+    );
+    const obs2 = from(getSections(PRODUCT_CATALOG_ID));
+    subscriptions.add(
+      obs1
+        .pipe(
+          switchMap(() => obs2)
+        )
+        .subscribe((resp) => {
+          const filteredSections = curSection
+            ? getSubSections(resp, curSection)
+            : getTopLevelSections(resp);
+          const data = filteredSections.map((section: Section) => {
+            const row: AdminCatalogRow = {
+              id: section.id,
+              name: section.name,
+              active: section.active,
+              isSection: true,
+              rowItem: section
+            };
+
+            return row;
+          });
+          setGrid({ ...grid, rowData: data });
+        })
     );
   };
 
+  const onGridReady = () => {
+    updateGrid();
+  };
+
   return (
-    <div className="page-root-layout">
+    <div className="page-root-admin-layout">
       <Grid
         direction="column"
         justify="flex-start"
@@ -89,6 +126,7 @@ const AdminCatalogPage = () => {
                 rowData={grid.rowData}
                 defaultColDef={grid.defaultColDef}
                 onGridReady={onGridReady}
+                onRowClicked={onRowClicked}
               ></AgGridReact>
             </div>
           )}

@@ -10,4 +10,5 @@ export interface AdminCatalogRow {
   isNew?: boolean;
   isTopSell?: boolean;
   rowItem: Section | Product;
+  isSection: boolean;
 }

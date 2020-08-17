@@ -8,7 +8,7 @@ export const retrieveUser = (): (User | undefined) => {
     try {
       const record = localStorage.getItem(USER_RECORD_NAME);
       if (record !== 'null') {
-        return JSON.parse(localStorage.getItem(USER_RECORD_NAME));
+        return JSON.parse(record);
       } else {
         return null;
       }

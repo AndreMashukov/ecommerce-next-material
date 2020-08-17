@@ -31,11 +31,15 @@ const AuthNavBarLogged: React.FC<{}> = () => {
   return (
     <>
       <Grid container direction="row" justify="flex-start" spacing={2}>
-        <Grid item key="orders">
+        <Grid
+          item
+          key="orders"
+          onClick={() => {
+            router.push('/personal/order');
+          }}
+        >
           <Typography variant={variant}>
-            <Link href="/personal/order" prefetch={false} key="ordersLink">
-              <MatLink>Заказы</MatLink>
-            </Link>
+            <MatLink>Заказы</MatLink>
           </Typography>
         </Grid>
         <Grid

@@ -10,6 +10,7 @@ export const API_BASE =
     : 'http://localhost:3002/api';
 
 export const USER_RECORD_NAME = 'userState';
+export const ADMIN_CATALOG_RECORD_NAME = 'adminCatalogState';
 export const COOKIE_EXPIRY_PERIOD = 60 * 60 * 2;
 
 export const PRODUCT_CATALOG_ID = 4;
