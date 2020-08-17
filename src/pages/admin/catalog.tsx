@@ -22,7 +22,7 @@ import {
 } from '../../utils/Section';
 
 const AdminCatalogPage = () => {
-  const [sections, setSections] = useState<Section[]>(null);
+  const [sections, setSections] = useState<Section[]>([]);
   const [curSection, setCurSection] = useState<number>(
     retrieveItem(ADMIN_CATALOG_RECORD_NAME)
   );
@@ -46,15 +46,16 @@ const AdminCatalogPage = () => {
     };
   }, []);
 
+  useEffect(() => {
+    updateGrid();
+  }, [curSection]);
+
   // tslint:disable-next-line: no-any
   const onRowClicked = (event: any) => {
     const rowSelected: AdminCatalogRow = event.data;
-    // tslint:disable-next-line: no-console
-    console.log(rowSelected);
     if (rowSelected.isSection) {
       setCurSection(rowSelected.id);
       storeItem(ADMIN_CATALOG_RECORD_NAME, rowSelected.id);
-      updateGrid();
     }
   };
 
@@ -68,7 +69,6 @@ const AdminCatalogPage = () => {
         setCurSection(null);
         removeItem(ADMIN_CATALOG_RECORD_NAME);
       }
-      updateGrid();
     }
   };
 
