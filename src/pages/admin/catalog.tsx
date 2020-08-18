@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { AgGridReact } from 'ag-grid-react';
+import { GridApi } from 'ag-grid-community';
 import { AdminBreadcrumbs } from '../../components';
 import { Subscription, from } from 'rxjs';
 import {
@@ -22,6 +23,7 @@ import {
 } from '../../utils/Section';
 
 const AdminCatalogPage = () => {
+  let gridApi: GridApi;
   const [sections, setSections] = useState<Section[]>([]);
   const [curSection, setCurSection] = useState<number>(
     retrieveItem(ADMIN_CATALOG_RECORD_NAME)
@@ -92,11 +94,15 @@ const AdminCatalogPage = () => {
           return row;
         });
         setGrid({ ...grid, rowData: data });
+        gridApi && gridApi.setRowData(data);
       })
     );
   };
 
-  const onGridReady = () => {
+  // tslint:disable-next-line: no-any
+  const onGridReady = (params: any) => {
+    // console.log(params);
+    gridApi = params.api;
     updateGrid();
   };
 
