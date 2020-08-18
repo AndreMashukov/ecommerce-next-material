@@ -136,7 +136,7 @@ const AdminCatalogPage = () => {
           </ButtonGroup>
           {process.browser && (
             <div
-              className="ag-theme-alpine"
+              className="ag-theme-material"
               style={{
                 height: '70vh',
                 width: '80vw',
