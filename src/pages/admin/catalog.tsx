@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
+import { NextPage, NextPageContext } from 'next';
 import { AgGridReact } from 'ag-grid-react';
 import { GridApi } from 'ag-grid-community';
 import { AdminBreadcrumbs } from '../../components';
@@ -16,19 +17,21 @@ import { getSections } from '../../services';
 import '../Layout.scss';
 import { Section, AdminCatalogRow } from '../../models';
 import { retrieveItem, storeItem, removeItem } from '../../utils/Storage';
+import Router from 'next/router';
 import {
   getTopLevelSections,
   getSubSections,
   getParentSection
 } from '../../utils/Section';
 
-const AdminCatalogPage = () => {
-  let gridApi: GridApi;
+let gridApi: GridApi;
+
+const AdminCatalogPage: NextPage<{}> = () => {
   const [sections, setSections] = useState<Section[]>([]);
   const [curSection, setCurSection] = useState<number>(
     retrieveItem(ADMIN_CATALOG_RECORD_NAME)
   );
-  const [grid, setGrid] = useState({
+  const [grid] = useState({
     columnDefs: ADMIN_CATALOG_COL_DEFS,
     rowData: [],
     defaultColDef: {
@@ -50,6 +53,16 @@ const AdminCatalogPage = () => {
 
   useEffect(() => {
     updateGrid();
+    if (curSection) {
+      Router.push({
+        pathname: '/admin/catalog',
+        query: { curSection }
+      });
+    } else {
+      Router.push({
+        pathname: '/admin/catalog'
+      });
+    }
   }, [curSection]);
 
   // tslint:disable-next-line: no-any
@@ -93,7 +106,6 @@ const AdminCatalogPage = () => {
 
           return row;
         });
-        setGrid({ ...grid, rowData: data });
         gridApi && gridApi.setRowData(data);
       })
     );
@@ -101,7 +113,6 @@ const AdminCatalogPage = () => {
 
   // tslint:disable-next-line: no-any
   const onGridReady = (params: any) => {
-    // console.log(params);
     gridApi = params.api;
     updateGrid();
   };
@@ -166,3 +177,12 @@ const AdminCatalogPage = () => {
 };
 
 export default AdminCatalogPage;
+
+AdminCatalogPage.getInitialProps = (ctx: NextPageContext) => {
+  const { query, pathname } = ctx;
+
+  return {
+    query,
+    pathname
+  };
+};
