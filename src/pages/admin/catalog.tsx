@@ -133,7 +133,7 @@ const AdminCatalogPage = () => {
             aria-label="small outlined button group"
             style={{ paddingLeft: '10px' }}
           >
-            <Button disabled={!curSection} onClick={() => handleLevelUp()}>
+            <Button onClick={() => handleLevelUp()}>
               На один уровень вверх
             </Button>
             <Button>Добавить товар</Button>
