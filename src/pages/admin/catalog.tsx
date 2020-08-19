@@ -3,7 +3,6 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import { NextPageContext } from 'next';
 import { AgGridReact } from 'ag-grid-react';
 import { GridApi } from 'ag-grid-community';
 import { AdminBreadcrumbs } from '../../components';
@@ -17,22 +16,15 @@ import { getSections } from '../../services';
 import '../Layout.scss';
 import { Section, AdminCatalogRow } from '../../models';
 import { retrieveItem, storeItem, removeItem } from '../../utils/Storage';
-import Router from 'next/router';
 import {
   getTopLevelSections,
   getSubSections,
   getParentSection
 } from '../../utils/Section';
 
-interface Props {
-  query: string;
-  pathname: string;
-}
-
 let gridApi: GridApi;
 
-const AdminCatalogPage = (props: Props) => {
-  const { pathname } = props;
+const AdminCatalogPage = () => {
   const [sections, setSections] = useState<Section[]>([]);
   const [curSection, setCurSection] = useState<number>(
     retrieveItem(ADMIN_CATALOG_RECORD_NAME)
@@ -59,16 +51,6 @@ const AdminCatalogPage = (props: Props) => {
 
   useEffect(() => {
     updateGrid();
-    if (curSection) {
-      Router.push({
-        pathname,
-        query: { curSection }
-      });
-    } else {
-      Router.push({
-        pathname
-      });
-    }
   }, [curSection]);
 
   // tslint:disable-next-line: no-any
@@ -183,12 +165,3 @@ const AdminCatalogPage = (props: Props) => {
 };
 
 export default AdminCatalogPage;
-
-AdminCatalogPage.getInitialProps = (ctx: NextPageContext) => {
-  const { query, pathname } = ctx;
-
-  return {
-    query,
-    pathname
-  };
-};
