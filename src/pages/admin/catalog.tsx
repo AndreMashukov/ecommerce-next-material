@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import { NextPage, NextPageContext } from 'next';
+import { NextPageContext } from 'next';
 import { AgGridReact } from 'ag-grid-react';
 import { GridApi } from 'ag-grid-community';
 import { AdminBreadcrumbs } from '../../components';
@@ -24,9 +24,15 @@ import {
   getParentSection
 } from '../../utils/Section';
 
+interface Props {
+  query: string;
+  pathname: string;
+}
+
 let gridApi: GridApi;
 
-const AdminCatalogPage: NextPage<{}> = () => {
+const AdminCatalogPage = (props: Props) => {
+  const { pathname } = props;
   const [sections, setSections] = useState<Section[]>([]);
   const [curSection, setCurSection] = useState<number>(
     retrieveItem(ADMIN_CATALOG_RECORD_NAME)
@@ -55,12 +61,12 @@ const AdminCatalogPage: NextPage<{}> = () => {
     updateGrid();
     if (curSection) {
       Router.push({
-        pathname: '/admin/catalog',
+        pathname,
         query: { curSection }
       });
     } else {
       Router.push({
-        pathname: '/admin/catalog'
+        pathname
       });
     }
   }, [curSection]);
@@ -99,7 +105,7 @@ const AdminCatalogPage: NextPage<{}> = () => {
           const row: AdminCatalogRow = {
             id: section.id,
             name: section.name,
-            active: section.active,
+            active: section.active === 'Y' ? 'Да' : 'Нет',
             isSection: true,
             rowItem: section
           };
@@ -145,7 +151,7 @@ const AdminCatalogPage: NextPage<{}> = () => {
             aria-label="small outlined button group"
             style={{ paddingLeft: '10px' }}
           >
-            <Button onClick={() => handleLevelUp()}>
+            <Button disabled={!curSection} onClick={() => handleLevelUp()}>
               На один уровень вверх
             </Button>
             <Button>Добавить товар</Button>
