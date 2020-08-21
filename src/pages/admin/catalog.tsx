@@ -7,24 +7,24 @@ import { AgGridReact } from 'ag-grid-react';
 import { GridApi } from 'ag-grid-community';
 import { AdminBreadcrumbs } from '../../components';
 import { Subscription, from } from 'rxjs';
-import {
-  ADMIN_CATALOG_COL_DEFS,
-  PRODUCT_CATALOG_ID,
-  ADMIN_CATALOG_RECORD_NAME
-} from '../../constants';
+import { PRODUCT_CATALOG_ID, ADMIN_CATALOG_RECORD_NAME } from '../../constants';
 import { getSections } from '../../services';
 import '../Layout.scss';
-import { Section, AdminCatalogRow } from '../../models';
+import { Section, AdminCatalogRow, ADMIN_CATALOG_COL_DEFS } from '../../models';
 import { retrieveItem, storeItem, removeItem } from '../../utils/Storage';
 import {
   getTopLevelSections,
   getSubSections,
   getParentSection
 } from '../../utils/Section';
+import { IconCellRenderer } from '../../components';
 
 let gridApi: GridApi;
 
 const AdminCatalogPage = () => {
+  const frameworkComponents = {
+    iconCellRender: IconCellRenderer
+  };
   const [sections, setSections] = useState<Section[]>([]);
   const [curSection, setCurSection] = useState<number>(
     retrieveItem(ADMIN_CATALOG_RECORD_NAME)
@@ -155,6 +155,7 @@ const AdminCatalogPage = () => {
                 defaultColDef={grid.defaultColDef}
                 onGridReady={onGridReady}
                 onRowClicked={onRowClicked}
+                frameworkComponents={frameworkComponents}
               ></AgGridReact>
             </div>
           )}

@@ -8,3 +8,4 @@ export * from './Error';
 export * from './Delivery';
 export * from './PaySystem';
 export * from './AdminCatalogRow';
+export * from './AgGrid';

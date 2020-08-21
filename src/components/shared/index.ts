@@ -20,3 +20,4 @@ export * from './OrderStepNav';
 export * from './BurgerMenuDialog';
 export * from './AuthNavBar';
 export * from './AdminSwitch';
+export * from './IconCellRenderer';

@@ -7,8 +7,8 @@ import { getAdminOrderList } from '../../services/OrderApi';
 import { AgGridReact } from 'ag-grid-react';
 import { ChangeDetectionStrategyType } from 'ag-grid-react/lib/changeDetectionService';
 import moment from 'moment';
-import { OrderView } from '../../models';
-import { ADMIN_ORDER_COL_DEFS, REGIONS } from '../../constants';
+import { OrderView, ADMIN_ORDER_COL_DEFS } from '../../models';
+import { REGIONS } from '../../constants';
 import '../Layout.scss';
 
 const AdminOrdersPage = () => {
