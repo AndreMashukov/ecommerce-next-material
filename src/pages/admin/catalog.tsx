@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { NextPage } from 'next';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -7,9 +8,10 @@ import { AgGridReact } from 'ag-grid-react';
 import { GridApi } from 'ag-grid-community';
 import { AdminBreadcrumbs } from '../../components';
 import { Subscription, from } from 'rxjs';
+import { tap, switchMap } from 'rxjs/operators';
 
 import { PRODUCT_CATALOG_ID, ADMIN_CATALOG_RECORD_NAME } from '../../constants';
-import { getSections, getProducts } from '../../services';
+import { getSections, getProductsShallow } from '../../services';
 import '../Layout.scss';
 import { Section, AdminCatalogRow, ADMIN_CATALOG_COL_DEFS } from '../../models';
 import { retrieveItem, storeItem, removeItem } from '../../utils/Storage';
@@ -19,15 +21,22 @@ import {
   getParentSection
 } from '../../utils/Section';
 import { IconCellRenderer } from '../../components';
+import { getPrice } from '../../utils/Product';
 
 let gridApi: GridApi;
 
-const AdminCatalogPage = () => {
+interface Props {
+  sections: Section[];
+}
+
+const subscriptions = new Subscription();
+
+const AdminCatalogPage: NextPage<Props> = (props: Props) => {
+  const { sections } = props;
   const frameworkComponents = {
     iconCellRender: IconCellRenderer
   };
   const [catalogRows, setCatalogRows] = useState<AdminCatalogRow[]>([]);
-  const [sections, setSections] = useState<Section[]>([]);
   const [curSection, setCurSection] = useState<number>(
     retrieveItem(ADMIN_CATALOG_RECORD_NAME)
   );
@@ -42,8 +51,6 @@ const AdminCatalogPage = () => {
     },
     rowSelection: 'multiple'
   });
-
-  const subscriptions = new Subscription();
 
   useEffect(() => {
     return () => {
@@ -78,33 +85,53 @@ const AdminCatalogPage = () => {
   };
 
   const updateGrid = () => {
+    setCatalogRows([]);
+    const products: AdminCatalogRow[] = [];
     const obsSections$ = from(getSections(PRODUCT_CATALOG_ID));
-    // const obsProducts$ = from(
-    //   getProducts({
-    //     blockId: PRODUCT_CATALOG_ID,
-    //     sectionCode: curSection ? curSection.toString() : '0'
-    //   })
-    // );
+    const obsProducts$ = from(
+      curSection
+        ? getProductsShallow({
+            blockId: PRODUCT_CATALOG_ID,
+            sectionId: curSection
+          })
+        : new Promise((_resolve) => _resolve([]))
+    );
     subscriptions.add(
-      obsSections$.subscribe((resp) => {
-        setSections(resp);
-        const filteredSections = curSection
-          ? getSubSections(resp, curSection)
-          : getTopLevelSections(resp);
-        const data = filteredSections.map((section: Section) => {
-          const row: AdminCatalogRow = {
-            id: section.id,
-            name: section.name,
-            active: section.active === 'Y' ? 'Да' : 'Нет',
-            isSection: true,
-            rowItem: section
-          };
+      obsProducts$
+        .pipe(
+          tap((resp) => {
+            if (Array.isArray(resp)) {
+              resp.forEach((prod) => {
+                products.push({
+                  id: prod.id,
+                  name: prod.name,
+                  price: `${getPrice(prod)} ₽`,
+                  active: prod.active === 'Y' ? 'Да' : 'Нет',
+                  isSection: false,
+                  rowItem: prod
+                });
+              });
+            }
+          }),
+          switchMap(() => obsSections$)
+        )
+        .subscribe((resp) => {
+          const filteredSections = curSection
+            ? getSubSections(resp, curSection)
+            : getTopLevelSections(resp);
+          const data = filteredSections.map((section: Section) => {
+            const row: AdminCatalogRow = {
+              id: section.id,
+              name: section.name,
+              active: section.active === 'Y' ? 'Да' : 'Нет',
+              isSection: true,
+              rowItem: section
+            };
 
-          return row;
-        });
-
-        setCatalogRows(catalogRows.concat(data));
-      })
+            return row;
+          });
+          setCatalogRows(data.concat(products));
+        })
     );
   };
 
@@ -174,6 +201,13 @@ const AdminCatalogPage = () => {
       </Grid>
     </div>
   );
+};
+
+AdminCatalogPage.getInitialProps = async () => {
+  const sections = await getSections(PRODUCT_CATALOG_ID);
+  return {
+    sections
+  };
 };
 
 export default AdminCatalogPage;

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ICellRendererParams } from 'ag-grid-community';
 // import Grid from '@material-ui/core/Grid';
 import FolderOpenTwoToneIcon from '@material-ui/icons/FolderOpenTwoTone';
+import StarsOutlinedIcon from '@material-ui/icons/StarsOutlined';
 
 interface IProps extends ICellRendererParams {
   // tslint:disable-next-line: no-any
@@ -29,7 +30,13 @@ export class IconCellRenderer extends Component<IProps> {
   render() {
     return (
       <>
-        <span style={{padding: '5px'}}><FolderOpenTwoToneIcon /></span>
+        <span style={{ padding: '5px' }}>
+          {this.props.data.isSection ? (
+            <FolderOpenTwoToneIcon />
+          ) : (
+            <StarsOutlinedIcon />
+          )}
+        </span>
         {this.props.data.name}
       </>
     );

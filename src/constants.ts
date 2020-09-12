@@ -5,8 +5,8 @@ export const AWS_S3_PREFIX =
 
 export const API_BASE =
   process.env.NODE_ENV !== 'production'
-    ? 'http://ec2-35-156-178-126.eu-central-1.compute.amazonaws.com:3001/api'
-      // 'http://localhost:3001/api'
+    // ? 'http://ec2-35-156-178-126.eu-central-1.compute.amazonaws.com:3001/api'
+    ? 'http://localhost:3001/api'
     : 'http://localhost:3002/api';
 
 export const USER_RECORD_NAME = 'userState';
