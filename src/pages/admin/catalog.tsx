@@ -7,8 +7,9 @@ import { AgGridReact } from 'ag-grid-react';
 import { GridApi } from 'ag-grid-community';
 import { AdminBreadcrumbs } from '../../components';
 import { Subscription, from } from 'rxjs';
+
 import { PRODUCT_CATALOG_ID, ADMIN_CATALOG_RECORD_NAME } from '../../constants';
-import { getSections } from '../../services';
+import { getSections, getProducts } from '../../services';
 import '../Layout.scss';
 import { Section, AdminCatalogRow, ADMIN_CATALOG_COL_DEFS } from '../../models';
 import { retrieveItem, storeItem, removeItem } from '../../utils/Storage';
@@ -25,6 +26,7 @@ const AdminCatalogPage = () => {
   const frameworkComponents = {
     iconCellRender: IconCellRenderer
   };
+  const [catalogRows, setCatalogRows] = useState<AdminCatalogRow[]>([]);
   const [sections, setSections] = useState<Section[]>([]);
   const [curSection, setCurSection] = useState<number>(
     retrieveItem(ADMIN_CATALOG_RECORD_NAME)
@@ -76,9 +78,15 @@ const AdminCatalogPage = () => {
   };
 
   const updateGrid = () => {
-    const obs = from(getSections(PRODUCT_CATALOG_ID));
+    const obsSections$ = from(getSections(PRODUCT_CATALOG_ID));
+    // const obsProducts$ = from(
+    //   getProducts({
+    //     blockId: PRODUCT_CATALOG_ID,
+    //     sectionCode: curSection ? curSection.toString() : '0'
+    //   })
+    // );
     subscriptions.add(
-      obs.subscribe((resp) => {
+      obsSections$.subscribe((resp) => {
         setSections(resp);
         const filteredSections = curSection
           ? getSubSections(resp, curSection)
@@ -94,10 +102,15 @@ const AdminCatalogPage = () => {
 
           return row;
         });
-        gridApi && gridApi.setRowData(data);
+
+        setCatalogRows(catalogRows.concat(data));
       })
     );
   };
+
+  useEffect(() => {
+    gridApi && gridApi.setRowData(catalogRows);
+  }, [catalogRows]);
 
   // tslint:disable-next-line: no-any
   const onGridReady = (params: any) => {
@@ -133,9 +146,7 @@ const AdminCatalogPage = () => {
             aria-label="small outlined button group"
             style={{ paddingLeft: '10px' }}
           >
-            <Button onClick={() => handleLevelUp()}>
-              На один уровень вверх
-            </Button>
+            <Button onClick={() => handleLevelUp()}>На уровень вверх</Button>
             <Button>Добавить товар</Button>
             <Button>Добавить раздел</Button>
           </ButtonGroup>
