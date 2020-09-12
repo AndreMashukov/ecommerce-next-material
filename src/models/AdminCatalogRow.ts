@@ -5,7 +5,7 @@ export interface AdminCatalogRow {
   id: number;
   name: string;
   active: string;
-  price?: number;
+  price?: string;
   isSpecialOffer?: boolean;
   isNew?: boolean;
   isTopSell?: boolean;

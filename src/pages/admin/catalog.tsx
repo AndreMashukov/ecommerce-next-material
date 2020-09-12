@@ -27,22 +27,46 @@ let gridApi: GridApi;
 
 interface Props {
   sections: Section[];
+  currentSection: number;
 }
 
 const subscriptions = new Subscription();
 
 const AdminCatalogPage: NextPage<Props> = (props: Props) => {
-  const { sections } = props;
+  const { sections, currentSection } = props;
   const frameworkComponents = {
     iconCellRender: IconCellRenderer
   };
   const [catalogRows, setCatalogRows] = useState<AdminCatalogRow[]>([]);
-  const [curSection, setCurSection] = useState<number>(
-    retrieveItem(ADMIN_CATALOG_RECORD_NAME)
+  const [curSection, setCurSection] = useState<number>(currentSection);
+
+  const products: AdminCatalogRow[] = [];
+  const obsProducts$ = from(
+    curSection
+      ? getProductsShallow({
+          blockId: PRODUCT_CATALOG_ID,
+          sectionId: curSection
+        })
+      : new Promise((_resolve) => _resolve([]))
   );
+  const filteredSections = curSection
+    ? getSubSections(sections, curSection)
+    : getTopLevelSections(sections);
+  const data = filteredSections.map((section: Section) => {
+    const row: AdminCatalogRow = {
+      id: section.id,
+      name: section.name,
+      active: section.active === 'Y' ? 'Да' : 'Нет',
+      isSection: true,
+      rowItem: section
+    };
+
+    return row;
+  });
+
   const [grid] = useState({
     columnDefs: ADMIN_CATALOG_COL_DEFS,
-    rowData: [],
+    rowData: data.concat(products),
     defaultColDef: {
       sortable: true,
       resizable: true,
@@ -85,17 +109,9 @@ const AdminCatalogPage: NextPage<Props> = (props: Props) => {
   };
 
   const updateGrid = () => {
-    setCatalogRows([]);
-    const products: AdminCatalogRow[] = [];
+    setCatalogRows(data);
     const obsSections$ = from(getSections(PRODUCT_CATALOG_ID));
-    const obsProducts$ = from(
-      curSection
-        ? getProductsShallow({
-            blockId: PRODUCT_CATALOG_ID,
-            sectionId: curSection
-          })
-        : new Promise((_resolve) => _resolve([]))
-    );
+
     subscriptions.add(
       obsProducts$
         .pipe(
@@ -111,27 +127,12 @@ const AdminCatalogPage: NextPage<Props> = (props: Props) => {
                   rowItem: prod
                 });
               });
+              setCatalogRows(data.concat(products));
             }
           }),
           switchMap(() => obsSections$)
         )
-        .subscribe((resp) => {
-          const filteredSections = curSection
-            ? getSubSections(resp, curSection)
-            : getTopLevelSections(resp);
-          const data = filteredSections.map((section: Section) => {
-            const row: AdminCatalogRow = {
-              id: section.id,
-              name: section.name,
-              active: section.active === 'Y' ? 'Да' : 'Нет',
-              isSection: true,
-              rowItem: section
-            };
-
-            return row;
-          });
-          setCatalogRows(data.concat(products));
-        })
+        .subscribe()
     );
   };
 
@@ -205,8 +206,11 @@ const AdminCatalogPage: NextPage<Props> = (props: Props) => {
 
 AdminCatalogPage.getInitialProps = async () => {
   const sections = await getSections(PRODUCT_CATALOG_ID);
+  const currentSection = parseInt(retrieveItem(ADMIN_CATALOG_RECORD_NAME), 0);
+  console.log(currentSection);
   return {
-    sections
+    sections,
+    currentSection
   };
 };
 
