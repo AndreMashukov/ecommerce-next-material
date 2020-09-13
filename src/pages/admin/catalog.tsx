@@ -8,12 +8,16 @@ import { AgGridReact } from 'ag-grid-react';
 import { GridApi } from 'ag-grid-community';
 import { AdminBreadcrumbs } from '../../components';
 import { Subscription, from } from 'rxjs';
-import { tap, switchMap } from 'rxjs/operators';
 
 import { PRODUCT_CATALOG_ID, ADMIN_CATALOG_RECORD_NAME } from '../../constants';
 import { getSections, getProductsShallow } from '../../services';
 import '../Layout.scss';
-import { Section, AdminCatalogRow, ADMIN_CATALOG_COL_DEFS } from '../../models';
+import {
+  Section,
+  AdminCatalogRow,
+  ADMIN_CATALOG_COL_DEFS,
+  Product
+} from '../../models';
 import { retrieveItem, storeItem, removeItem } from '../../utils/Storage';
 import {
   getTopLevelSections,
@@ -27,20 +31,34 @@ let gridApi: GridApi;
 
 interface Props {
   sections: Section[];
+  products: AdminCatalogRow[];
   currentSection: number;
 }
 
 const subscriptions = new Subscription();
 
+const getProductRows = (prods: Product[]): AdminCatalogRow[] => {
+  return prods.map((prod) => {
+    const obj = {
+      id: prod.id,
+      name: prod.name,
+      price: `${getPrice(prod)} ₽`,
+      active: prod.active === 'Y' ? 'Да' : 'Нет',
+      isSection: false,
+      rowItem: prod
+    };
+    return obj;
+  });
+};
+
 const AdminCatalogPage: NextPage<Props> = (props: Props) => {
-  const { sections, currentSection } = props;
+  const { sections, products, currentSection } = props;
   const frameworkComponents = {
     iconCellRender: IconCellRenderer
   };
-  const [catalogRows, setCatalogRows] = useState<AdminCatalogRow[]>([]);
+
   const [curSection, setCurSection] = useState<number>(currentSection);
 
-  const products: AdminCatalogRow[] = [];
   const obsProducts$ = from(
     curSection
       ? getProductsShallow({
@@ -49,20 +67,25 @@ const AdminCatalogPage: NextPage<Props> = (props: Props) => {
         })
       : new Promise((_resolve) => _resolve([]))
   );
-  const filteredSections = curSection
-    ? getSubSections(sections, curSection)
-    : getTopLevelSections(sections);
-  const data = filteredSections.map((section: Section) => {
-    const row: AdminCatalogRow = {
-      id: section.id,
-      name: section.name,
-      active: section.active === 'Y' ? 'Да' : 'Нет',
-      isSection: true,
-      rowItem: section
-    };
 
-    return row;
-  });
+  const getSectionRows = (current: number): AdminCatalogRow[] => {
+    const filteredSections = current
+      ? getSubSections(sections, current)
+      : getTopLevelSections(sections);
+
+    return filteredSections.map((section: Section) => {
+      const row: AdminCatalogRow = {
+        id: section.id,
+        name: section.name,
+        active: section.active === 'Y' ? 'Да' : 'Нет',
+        isSection: true,
+        rowItem: section
+      };
+      return row;
+    });
+  };
+
+  let data = getSectionRows(curSection);
 
   const [grid] = useState({
     columnDefs: ADMIN_CATALOG_COL_DEFS,
@@ -109,36 +132,16 @@ const AdminCatalogPage: NextPage<Props> = (props: Props) => {
   };
 
   const updateGrid = () => {
-    setCatalogRows(data);
-    const obsSections$ = from(getSections(PRODUCT_CATALOG_ID));
-
+    data = getSectionRows(curSection);
     subscriptions.add(
       obsProducts$
-        .pipe(
-          tap((resp) => {
-            if (Array.isArray(resp)) {
-              resp.forEach((prod) => {
-                products.push({
-                  id: prod.id,
-                  name: prod.name,
-                  price: `${getPrice(prod)} ₽`,
-                  active: prod.active === 'Y' ? 'Да' : 'Нет',
-                  isSection: false,
-                  rowItem: prod
-                });
-              });
-              setCatalogRows(data.concat(products));
-            }
-          }),
-          switchMap(() => obsSections$)
-        )
-        .subscribe()
+        .subscribe(resp => {
+          if (Array.isArray(resp)) {
+            gridApi && gridApi.setRowData(data.concat(getProductRows(resp)));
+          }
+        })
     );
   };
-
-  useEffect(() => {
-    gridApi && gridApi.setRowData(catalogRows);
-  }, [catalogRows]);
 
   // tslint:disable-next-line: no-any
   const onGridReady = (params: any) => {
@@ -207,9 +210,17 @@ const AdminCatalogPage: NextPage<Props> = (props: Props) => {
 AdminCatalogPage.getInitialProps = async () => {
   const sections = await getSections(PRODUCT_CATALOG_ID);
   const currentSection = parseInt(retrieveItem(ADMIN_CATALOG_RECORD_NAME), 0);
-  console.log(currentSection);
+  const products: Product[] = currentSection
+    ? await getProductsShallow({
+        blockId: PRODUCT_CATALOG_ID,
+        sectionId: currentSection
+      })
+    : [];
+  const productRows = getProductRows(products);
+
   return {
     sections,
+    products: productRows,
     currentSection
   };
 };
