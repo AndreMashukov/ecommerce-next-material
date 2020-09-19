@@ -1,3 +1,9 @@
+import { Roles } from './Roles';
+
+export interface UserMetadata {
+  roles: Roles[];
+}
+
 export interface User {
   id?: string;
   email: string;
@@ -9,4 +15,5 @@ export interface User {
   token?: string;
   refreshToken?: string;
   tokenTime?: string;
+  metadata?: UserMetadata;
 }

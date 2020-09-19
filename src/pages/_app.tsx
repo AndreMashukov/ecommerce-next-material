@@ -16,6 +16,7 @@ import { CustomSnackBar } from '../components/shared';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
+import { Roles } from '../models/Roles';
 
 const REFRESH_TOKEN_FREQ = 5;
 const REFRESH_TOKEN_FREQ_UNIT = 'days';
@@ -102,7 +103,7 @@ class MyApp extends App<Props> {
   handleAdminRoutes() {
     if (this.router.route.toString().match(/^\/admin/)) {
       const user = retrieveUser();
-      if (!user || user.groupId !== 0) {
+      if (!user || !user.metadata.roles.includes(Roles.Admin)) {
         this.router.push('/403');
       } else {
         this.isAdminSection = true;
