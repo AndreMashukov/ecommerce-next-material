@@ -5,7 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/styles';
 import SessionContext from '../../store/SessionContext/SessionContext';
 import blue from '@material-ui/core/colors/blue';
-import { Roles } from '../../constants';
+import { Roles } from '../../models';
 import { useRouter } from 'next/router';
 
 const useStyles = makeStyles({
@@ -25,7 +25,9 @@ interface AdminSwitchProps {
   switchTo: string;
 }
 
-export const AdminSwitch: React.FC<AdminSwitchProps> = (props: AdminSwitchProps) => {
+export const AdminSwitch: React.FC<AdminSwitchProps> = (
+  props: AdminSwitchProps
+) => {
   const classes = useStyles();
   const { getUser } = useContext(SessionContext);
   const router = useRouter();
@@ -42,7 +44,7 @@ export const AdminSwitch: React.FC<AdminSwitchProps> = (props: AdminSwitchProps)
   }
   return (
     <div>
-      {getUser() && getUser().groupId === Roles.Admin && (
+      {getUser() && getUser().metadata.roles.includes(Roles.Admin) && (
         <div className="admin-panel">
           <Grid
             container

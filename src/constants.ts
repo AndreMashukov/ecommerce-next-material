@@ -62,11 +62,6 @@ export const REGIONS = {
 export const CATEGORY_BEAUTY = 1;
 export const ROW_ITEMS_NUM = 12;
 
-export enum Roles {
-  Admin,
-  Customer
-}
-
 export const DASHBOARD_ITEMS = [
   {
     id: 10,
