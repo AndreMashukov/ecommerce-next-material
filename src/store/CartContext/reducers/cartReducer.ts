@@ -32,13 +32,13 @@ const cartRemoveReducer = async (
   subscriptions: Subscription
 ) => {
   subscriptions.add(
-    from(removeFromCart(action.sessionId, parseInt(action.id, 0)))
+    from(removeFromCart(action.sessionId, action.id))
       .pipe(
         switchMap(() => from(getCart(action.sessionId))),
         tap((cart) => {
           const updatedCart: CartItem[] = [];
           cart.forEach((item) => {
-            if (item.productId !== parseInt(action.id, 0)) {
+            if (item.productId !== action.id) {
               updatedCart.push(item);
             }
           });

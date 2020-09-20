@@ -4,7 +4,7 @@ import { CartItem } from '../../models';
 import cartReducer from './reducers/cartReducer';
 import TYPES from './reducers/types';
 import useAsyncReducer from '../../hooks/useAsyncReducer';
-import { CartState } from './reducers/models';
+import { CartState, CartAction } from './reducers/models';
 
 interface Cart {
   items: CartItem[];
@@ -21,11 +21,11 @@ interface CartProviderProps {
 const CartProvider: React.FunctionComponent<{}> = (
   props: CartProviderProps
 ) => {
-  const [state, dispatch] = useAsyncReducer(cartReducer, initialValues);
+  const  { state, dispatch } = useAsyncReducer<CartState, CartAction>(cartReducer, initialValues);
 
-  function getItems(): CartItem[] {
+  const getItems = (): CartItem[] => {
     return state.items;
-  }
+  };
 
   function syncCart(sessionId: string) {
     dispatch({ type: TYPES.CART_GET, sessionId });
