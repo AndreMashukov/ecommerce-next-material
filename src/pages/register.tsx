@@ -14,9 +14,7 @@ const useStyles = makeStyles({
     backgroundColor: theme.palette.primary.main
   },
   root: {
-    [theme.breakpoints.up('lg')]: {
-      padding: '20px 70px 70px 70px'
-    }
+    padding: '20px 70px 70px 70px'
   },
   innerBackground: {
     padding: '10px 0 20px 0'
@@ -40,7 +38,7 @@ const RegisterPage: NextPage<{}> = () => {
 
   return (
     <div className={classes.pageRootExtended}>
-      <div className="page-root-layout">
+      <div className="page-root-admin-layout">
         <div className={classes.root}>
           <Grid
             container

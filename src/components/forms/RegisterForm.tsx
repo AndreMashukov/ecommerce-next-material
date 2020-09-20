@@ -124,7 +124,7 @@ const RegisterForm: React.FC<WithComposeProps> = (props: WithComposeProps) => {
           alignItems="center"
           spacing={formSpacing}
         >
-          <Grid item xs={12} sm={6} style={{ height: `${rowDistance}` }}>
+          <Grid item xs={12} md={6} style={{ height: `${rowDistance}` }}>
             <Grid
               container
               direction="column"
@@ -148,7 +148,7 @@ const RegisterForm: React.FC<WithComposeProps> = (props: WithComposeProps) => {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} sm={6} style={{ height: `${rowDistance}` }}>
+          <Grid item xs={12} md={6} style={{ height: `${rowDistance}` }}>
             <Grid
               container
               direction="column"
@@ -171,7 +171,7 @@ const RegisterForm: React.FC<WithComposeProps> = (props: WithComposeProps) => {
           alignItems="center"
           spacing={formSpacing}
         >
-          <Grid item xs={12} sm={6} style={{ height: `${rowDistance}` }}>
+          <Grid item xs={12} md={6} style={{ height: `${rowDistance}` }}>
             <Grid
               container
               direction="column"
@@ -195,7 +195,7 @@ const RegisterForm: React.FC<WithComposeProps> = (props: WithComposeProps) => {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} sm={6} style={{ height: `${rowDistance}` }}>
+          <Grid item xs={12} md={6} style={{ height: `${rowDistance}` }}>
             <Grid
               container
               direction="column"
@@ -226,7 +226,7 @@ const RegisterForm: React.FC<WithComposeProps> = (props: WithComposeProps) => {
           alignItems="center"
           spacing={formSpacing}
         >
-          <Grid item xs={12} sm={6} style={{ height: `${rowDistance}` }}>
+          <Grid item xs={12} md={6} style={{ height: `${rowDistance}` }}>
             <Grid
               container
               direction="column"
@@ -251,7 +251,7 @@ const RegisterForm: React.FC<WithComposeProps> = (props: WithComposeProps) => {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} sm={6} style={{ height: `${rowDistance}` }}>
+          <Grid item xs={12} md={6} style={{ height: `${rowDistance}` }}>
             <Grid
               container
               direction="column"

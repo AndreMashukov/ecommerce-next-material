@@ -1,17 +1,14 @@
 import { useState } from 'react';
 import { Subscription } from 'rxjs';
-// import { CartState } from '../store/CartContext/reducers/models';
 // tslint:disable-next-line: no-any
 const _initialState: any = null;
 
-// tslint:disable-next-line: no-any
 const useAsyncReducer = <T, K>(
   reducer: (st: T, a: K, sb: Subscription) => Promise<T>,
   initialState = _initialState as T
 ) => {
   const [state, setState] = useState<T>(initialState);
 
-  // tslint:disable-next-line: no-any
   const dispatch = async (action: K, callback?: (state: T) => void) => {
     const subscriptions = new Subscription();
     const result = reducer(state, action, subscriptions);
@@ -30,7 +27,7 @@ const useAsyncReducer = <T, K>(
     }
     subscriptions.unsubscribe();
   };
-  return  { state, dispatch };
+  return { state, dispatch };
 };
 
 export default useAsyncReducer;

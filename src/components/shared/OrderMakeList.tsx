@@ -48,6 +48,9 @@ const useStyles = makeStyles({
     [theme.breakpoints.up('lg')]: {
       padding: '60px 70px 60px 70px'
     },
+    [theme.breakpoints.down('lg')]: {
+      padding: '60px 0 60px 0'
+    },
     backgroundColor: theme.palette.primary.main
   },
   paper: {

@@ -21,35 +21,38 @@ interface CartProviderProps {
 const CartProvider: React.FunctionComponent<{}> = (
   props: CartProviderProps
 ) => {
-  const  { state, dispatch } = useAsyncReducer<CartState, CartAction>(cartReducer, initialValues);
+  const { state, dispatch } = useAsyncReducer<CartState, CartAction>(
+    cartReducer,
+    initialValues
+  );
 
   const getItems = (): CartItem[] => {
     return state.items;
   };
 
-  function syncCart(sessionId: string) {
+  const syncCart = (sessionId: string) => {
     dispatch({ type: TYPES.CART_GET, sessionId });
-  }
+  };
 
-  function removeItem(sessionId: string, id: number = 0): void {
+  const removeItem = (sessionId: string, id: number = 0): void => {
     dispatch({ type: TYPES.CART_REMOVE, id, sessionId });
-  }
+  };
 
-  function addItem(
+  const addItem = (
     sessionId: string,
     item: CartItem,
     callback: (state: CartState) => void
-  ): void {
+  ): void => {
     dispatch({ type: TYPES.CART_ADD, item, sessionId }, callback);
-  }
+  };
 
-  function decrementQty(
+  const decrementQty = (
     sessionId: string,
     item: CartItem,
     callback: (state: CartState) => void
-  ): void {
+  ): void => {
     dispatch({ type: TYPES.CART_DECREMENT, item, sessionId }, callback);
-  }
+  };
 
   return (
     <CartContext.Provider

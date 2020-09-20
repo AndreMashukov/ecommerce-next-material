@@ -14,9 +14,7 @@ const useStyles = makeStyles({
     backgroundColor: theme.palette.primary.main
   },
   root: {
-    [theme.breakpoints.up('lg')]: {
-      padding: '20px 70px 70px 70px'
-    }
+    padding: '20px 70px 70px 70px'
   },
   innerBackground: {
     padding: '10px 0 20px 0'
