@@ -1,5 +1,6 @@
 import React from 'react';
 import { SectionProvider } from './SectionProvider';
+import { ProductProvider } from './ProductProvider';
 
 interface EntityProviderProps {
   children?: React.ReactNode;
@@ -10,7 +11,7 @@ const EntityProvider: React.FunctionComponent<{}> = (
 ) => {
   return (
     <SectionProvider>
-      {props.children}
+      <ProductProvider>{props.children}</ProductProvider>
     </SectionProvider>
   );
 };
