@@ -1,4 +1,4 @@
-import { Product } from '../models';
+import { Product, AdminCatalogRow } from '../models';
 import { ElementProperty } from '../models/ElementProperty';
 import { PRODUCT_PROPERTIES } from '../constants';
 
@@ -17,4 +17,18 @@ export const getPrice = (product: Product): number => {
       parseInt(property.propertyId, 0) === PRODUCT_PROPERTIES.PRICE.id
   );
   return parseInt(priceProperty.value, 0);
+};
+
+export const getProductRows = (prods: Product[]): AdminCatalogRow[] => {
+  return prods.map((prod) => {
+    const obj = {
+      id: prod.id,
+      name: prod.name,
+      price: `${getPrice(prod)} ₽`,
+      active: prod.active === 'Y' ? 'Да' : 'Нет',
+      isSection: false,
+      rowItem: prod
+    };
+    return obj;
+  });
 };

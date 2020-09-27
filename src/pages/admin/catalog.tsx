@@ -7,16 +7,16 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { AgGridReact } from 'ag-grid-react';
 import { GridApi } from 'ag-grid-community';
 import { AdminBreadcrumbs } from '../../components';
-import { Subscription } from 'rxjs';
 
 import { ADMIN_CATALOG_RECORD_NAME } from '../../constants';
 import '../Layout.scss';
 import { AdminCatalogRow, ADMIN_CATALOG_COL_DEFS } from '../../models';
 import { retrieveItem, storeItem, removeItem } from '../../utils/Storage';
-import { getParentSection } from '../../utils/Section';
+import { getParentSection, getSectionRows } from '../../utils/Section';
+import { getProductRows } from '../../utils/Product';
 import { IconCellRenderer } from '../../components';
-import { SectonContext } from '../../store/SectionProvider';
-import { ProductContext } from '../../store/ProductProvider';
+import { SectonContext } from '../../store/entities/SectionProvider';
+import { ProductContext } from '../../store/entities/ProductProvider';
 
 let gridApi: GridApi;
 
@@ -24,13 +24,11 @@ interface Props {
   currentSection: number;
 }
 
-const subscriptions = new Subscription();
-
 const AdminCatalogPage: NextPage<Props> = (props: Props) => {
   const { currentSection } = props;
-  const { fetchSections, getSectionRows } = useContext(SectonContext);
+  const { fetchSections } = useContext(SectonContext);
   const { result: sections, loading: sectionLoading } = fetchSections;
-  const { products, fetchProducts, getProductRows } = useContext(
+  const { products, fetchProducts } = useContext(
     ProductContext
   );
 
@@ -40,7 +38,7 @@ const AdminCatalogPage: NextPage<Props> = (props: Props) => {
 
   const [curSection, setCurSection] = useState<number>(currentSection);
 
-  let data = getSectionRows(curSection);
+  let data = getSectionRows(sections, curSection);
 
   const [grid] = useState({
     columnDefs: ADMIN_CATALOG_COL_DEFS,
@@ -53,12 +51,6 @@ const AdminCatalogPage: NextPage<Props> = (props: Props) => {
     },
     rowSelection: 'multiple'
   });
-
-  useEffect(() => {
-    return () => {
-      subscriptions.unsubscribe();
-    };
-  }, []);
 
   useEffect(() => {
     updateGrid();
@@ -88,7 +80,7 @@ const AdminCatalogPage: NextPage<Props> = (props: Props) => {
 
   const updateGrid = () => {
     fetchProducts(curSection);
-    data = getSectionRows(curSection);
+    data = getSectionRows(sections, curSection);
     gridApi && gridApi.setRowData(data.concat(getProductRows(products || [])));
   };
 

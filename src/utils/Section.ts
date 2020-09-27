@@ -1,4 +1,4 @@
-import { Section } from '../models';
+import { Section, AdminCatalogRow } from '../models';
 
 export const filterSections = (
   sections: Section[],
@@ -7,9 +7,7 @@ export const filterSections = (
   return sections.filter((item) => item.categoryId === categoryId);
 };
 
-export const getTopLevelSections = (
-  sections: Section[]
-): Section[] => {
+export const getTopLevelSections = (sections: Section[]): Section[] => {
   return sections.filter((item) => item.parentCode === null);
 };
 
@@ -25,4 +23,24 @@ export const getParentSection = (
   curSection: number
 ): number => {
   return sections.find((item) => item.id === curSection).sectionId;
+};
+
+export const getSectionRows = (
+  sections: Section[],
+  current: number
+): AdminCatalogRow[] => {
+  const filteredSections = current
+    ? getSubSections(sections, current)
+    : getTopLevelSections(sections);
+
+  return filteredSections.map((section: Section) => {
+    const row: AdminCatalogRow = {
+      id: section.id,
+      name: section.name,
+      active: section.active === 'Y' ? 'Да' : 'Нет',
+      isSection: true,
+      rowItem: section
+    };
+    return row;
+  });
 };

@@ -1,6 +1,6 @@
 import React from 'react';
-import { SectionProvider } from './SectionProvider';
-import { ProductProvider } from './ProductProvider';
+import { SectionProvider } from './entities/SectionProvider';
+import { ProductProvider } from './entities/ProductProvider';
 
 interface EntityProviderProps {
   children?: React.ReactNode;

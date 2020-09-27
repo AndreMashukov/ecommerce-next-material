@@ -1,20 +1,17 @@
 import React, { useState } from 'react';
 import { useAsync, UseAsyncReturn } from 'react-async-hook';
 
-import { getSections } from '../services';
-import { Section, AdminCatalogRow } from '../models';
-import { getSubSections, getTopLevelSections } from '../utils/Section';
-import { PRODUCT_CATALOG_ID } from '../constants';
+import { getSections } from '../../services';
+import { Section } from '../../models';
+import { PRODUCT_CATALOG_ID } from '../../constants';
 
 interface SectionContext {
   sections: Section[];
-  getSectionRows: (c: number) => AdminCatalogRow[];
   fetchSections: UseAsyncReturn<Section[], [number]>;
 }
 
 export const SectonContext = React.createContext<SectionContext>({
   sections: [],
-  getSectionRows: null,
   fetchSections: null
 });
 
@@ -33,30 +30,12 @@ export const SectionProvider: React.FunctionComponent<{}> = (
     return s;
   };
 
-  const getSectionRows = (current: number): AdminCatalogRow[] => {
-    const filteredSections = current
-      ? getSubSections(sections, current)
-      : getTopLevelSections(sections);
-
-    return filteredSections.map((section: Section) => {
-      const row: AdminCatalogRow = {
-        id: section.id,
-        name: section.name,
-        active: section.active === 'Y' ? 'Да' : 'Нет',
-        isSection: true,
-        rowItem: section
-      };
-      return row;
-    });
-  };
-
   const fetchSections = useAsync(apiFetchSections, [PRODUCT_CATALOG_ID]);
 
   return (
     <SectonContext.Provider
       value={{
         sections,
-        getSectionRows,
         fetchSections
       }}
     >

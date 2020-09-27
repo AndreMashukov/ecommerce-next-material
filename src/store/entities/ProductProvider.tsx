@@ -1,23 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useAsync } from 'react-async-hook';
 
-import { getProductsShallow } from '../services';
-import { Product, AdminCatalogRow } from '../models';
-import { PRODUCT_CATALOG_ID } from '../constants';
-import { getPrice } from '../utils/Product';
+import { getProductsShallow } from '../../services';
+import { Product } from '../../models';
+import { PRODUCT_CATALOG_ID } from '../../constants';
 
 interface ProductContext {
   products: Product[];
   loading: boolean;
   fetchProducts: (section: number) => void;
-  getProductRows: (prods: Product[]) => AdminCatalogRow[];
 }
 
 export const ProductContext = React.createContext<ProductContext>({
   products: [],
   loading: false,
-  fetchProducts: null,
-  getProductRows: null
+  fetchProducts: null
 });
 
 interface ProductProviderProps {
@@ -39,20 +36,6 @@ export const ProductProvider: React.FunctionComponent<{}> = (
     }
   };
 
-  const getProductRows = (prods: Product[]): AdminCatalogRow[] => {
-    return prods.map((prod) => {
-      const obj = {
-        id: prod.id,
-        name: prod.name,
-        price: `${getPrice(prod)} ₽`,
-        active: prod.active === 'Y' ? 'Да' : 'Нет',
-        isSection: false,
-        rowItem: prod
-      };
-      return obj;
-    });
-  };
-
   const { result, loading } = useAsync(apiFetchProducts, [sectionId]);
 
   useEffect(() => {
@@ -68,8 +51,7 @@ export const ProductProvider: React.FunctionComponent<{}> = (
       value={{
         products,
         loading,
-        fetchProducts,
-        getProductRows
+        fetchProducts
       }}
     >
       {props.children}
