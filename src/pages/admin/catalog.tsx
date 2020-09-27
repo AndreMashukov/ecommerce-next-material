@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { NextPage } from 'next';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -19,13 +19,10 @@ import {
   Product
 } from '../../models';
 import { retrieveItem, storeItem, removeItem } from '../../utils/Storage';
-import {
-  getTopLevelSections,
-  getSubSections,
-  getParentSection
-} from '../../utils/Section';
+import { getParentSection } from '../../utils/Section';
 import { IconCellRenderer } from '../../components';
 import { getPrice } from '../../utils/Product';
+import { SectonContext } from '../../store/SectionProvider';
 
 let gridApi: GridApi;
 
@@ -52,7 +49,9 @@ const getProductRows = (prods: Product[]): AdminCatalogRow[] => {
 };
 
 const AdminCatalogPage: NextPage<Props> = (props: Props) => {
-  const { sections, products, currentSection } = props;
+  const { products, currentSection } = props;
+  const { fetchSections, getSectionRows } = useContext(SectonContext);
+  const { result: sections } = fetchSections;
   const frameworkComponents = {
     iconCellRender: IconCellRenderer
   };
@@ -67,23 +66,6 @@ const AdminCatalogPage: NextPage<Props> = (props: Props) => {
         })
       : new Promise((_resolve) => _resolve([]))
   );
-
-  const getSectionRows = (current: number): AdminCatalogRow[] => {
-    const filteredSections = current
-      ? getSubSections(sections, current)
-      : getTopLevelSections(sections);
-
-    return filteredSections.map((section: Section) => {
-      const row: AdminCatalogRow = {
-        id: section.id,
-        name: section.name,
-        active: section.active === 'Y' ? 'Да' : 'Нет',
-        isSection: true,
-        rowItem: section
-      };
-      return row;
-    });
-  };
 
   let data = getSectionRows(curSection);
 
@@ -134,12 +116,11 @@ const AdminCatalogPage: NextPage<Props> = (props: Props) => {
   const updateGrid = () => {
     data = getSectionRows(curSection);
     subscriptions.add(
-      obsProducts$
-        .subscribe(resp => {
-          if (Array.isArray(resp)) {
-            gridApi && gridApi.setRowData(data.concat(getProductRows(resp)));
-          }
-        })
+      obsProducts$.subscribe((resp: Product[]) => {
+        if (Array.isArray(resp)) {
+          gridApi && gridApi.setRowData(data.concat(getProductRows(resp)));
+        }
+      })
     );
   };
 
