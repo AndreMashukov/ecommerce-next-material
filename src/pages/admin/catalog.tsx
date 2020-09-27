@@ -51,7 +51,7 @@ const getProductRows = (prods: Product[]): AdminCatalogRow[] => {
 const AdminCatalogPage: NextPage<Props> = (props: Props) => {
   const { products, currentSection } = props;
   const { fetchSections, getSectionRows } = useContext(SectonContext);
-  const { result: sections } = fetchSections;
+  const { result: sections, loading: sectionLoading } = fetchSections;
   const frameworkComponents = {
     iconCellRender: IconCellRenderer
   };
@@ -89,7 +89,7 @@ const AdminCatalogPage: NextPage<Props> = (props: Props) => {
 
   useEffect(() => {
     updateGrid();
-  }, [curSection]);
+  }, [curSection, sectionLoading]);
 
   // tslint:disable-next-line: no-any
   const onRowClicked = (event: any) => {
