@@ -38,7 +38,7 @@ const AdminCatalogPage: NextPage<Props> = (props: Props) => {
 
   const [curSection, setCurSection] = useState<number>(currentSection);
 
-  let data = getSectionRows(sections, curSection);
+  let data = getSectionRows(sections || [], curSection);
 
   const [grid] = useState({
     columnDefs: ADMIN_CATALOG_COL_DEFS,
@@ -46,7 +46,7 @@ const AdminCatalogPage: NextPage<Props> = (props: Props) => {
     defaultColDef: {
       sortable: true,
       resizable: true,
-      minWidth: 50,
+      // minWidth: 50,
       flex: 1
     },
     rowSelection: 'multiple'
@@ -67,7 +67,7 @@ const AdminCatalogPage: NextPage<Props> = (props: Props) => {
 
   const handleLevelUp = () => {
     if (curSection) {
-      const parentId = getParentSection(sections, curSection);
+      const parentId = getParentSection(sections || [], curSection);
       if (parentId) {
         setCurSection(parentId);
         storeItem(ADMIN_CATALOG_RECORD_NAME, parentId);
@@ -80,7 +80,7 @@ const AdminCatalogPage: NextPage<Props> = (props: Props) => {
 
   const updateGrid = () => {
     fetchProducts(curSection);
-    data = getSectionRows(sections, curSection);
+    data = getSectionRows(sections || [], curSection);
     gridApi && gridApi.setRowData(data.concat(getProductRows(products || [])));
   };
 
