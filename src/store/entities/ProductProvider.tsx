@@ -39,11 +39,12 @@ export const ProductProvider: React.FunctionComponent<{}> = (
   };
 
   const fetchProducts = (sId: number) => {
+    setProducts([]);
     subscriptions.add(
       from(
         apiFetchProducts(sId)
       )
-      .subscribe((p) => {
+      .subscribe(() => {
         setLoading(false);
       })
     );
