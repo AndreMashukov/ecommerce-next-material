@@ -18,7 +18,7 @@ export const getSubSections = (
   return sections.filter((item) => item.sectionId === curSection);
 };
 
-export const getParentSection = (
+export const getParentSectionId = (
   sections: Section[],
   curSection: number
 ): number => {
@@ -43,4 +43,18 @@ export const getSectionRows = (
     };
     return row;
   });
+};
+
+export const getSectionById = (
+  sections: Section[],
+  id: number
+): Section => {
+  return sections.find((item) => item.id === id);
+};
+
+export const getParentSectionById = (
+  sections: Section[],
+  id: number
+): Section => {
+  return sections.find((item) => item.sectionId === id);
 };

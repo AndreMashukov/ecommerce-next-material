@@ -12,7 +12,12 @@ import { ADMIN_CATALOG_RECORD_NAME } from '../../constants';
 import '../Layout.scss';
 import { AdminCatalogRow, ADMIN_CATALOG_COL_DEFS } from '../../models';
 import { retrieveItem, storeItem, removeItem } from '../../utils/Storage';
-import { getParentSection, getSectionRows } from '../../utils/Section';
+import {
+  getParentSectionId,
+  getSectionRows,
+  getSectionById,
+  getParentSectionById
+} from '../../utils/Section';
 import { getProductRows } from '../../utils/Product';
 import { IconCellRenderer } from '../../components';
 import { SectonContext } from '../../store/entities/SectionProvider';
@@ -29,7 +34,9 @@ const AdminCatalogPage: NextPage<Props> = memo((props: Props) => {
   const { sections, loading: sectionLoading, fetchSections } = useContext(
     SectonContext
   );
-  const { products, loading: productsLoading, fetchProducts } = useContext(ProductContext);
+  const { products, loading: productsLoading, fetchProducts } = useContext(
+    ProductContext
+  );
 
   const frameworkComponents = {
     iconCellRender: IconCellRenderer
@@ -63,7 +70,6 @@ const AdminCatalogPage: NextPage<Props> = memo((props: Props) => {
     fetchProducts(curSection);
   }, [curSection]);
 
-
   // tslint:disable-next-line: no-any
   const onRowClicked = (event: any) => {
     const rowSelected: AdminCatalogRow = event.data;
@@ -75,7 +81,7 @@ const AdminCatalogPage: NextPage<Props> = memo((props: Props) => {
 
   const handleLevelUp = () => {
     if (curSection) {
-      const parentId = getParentSection(sections || [], curSection);
+      const parentId = getParentSectionId(sections || [], curSection);
       if (parentId) {
         setCurSection(parentId);
         storeItem(ADMIN_CATALOG_RECORD_NAME, parentId);
@@ -117,7 +123,23 @@ const AdminCatalogPage: NextPage<Props> = memo((props: Props) => {
           </Typography>
         </Grid>
         <Grid item>
-          <AdminBreadcrumbs name="Каталог" />
+          <AdminBreadcrumbs name="Каталог">
+            {curSection && getSectionById(sections, curSection).sectionId && (
+              <Typography>
+                {
+                  getSectionById(
+                    sections,
+                    getSectionById(sections, curSection).sectionId
+                  ).name
+                }
+              </Typography>
+            )}
+            {curSection && (
+              <Typography>
+                {getSectionById(sections, curSection).name}
+              </Typography>
+            )}
+          </AdminBreadcrumbs>
         </Grid>
         <Grid item>
           <ButtonGroup
