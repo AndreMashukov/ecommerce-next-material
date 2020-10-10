@@ -26,11 +26,10 @@ interface Props {
 
 const AdminCatalogPage: NextPage<Props> = (props: Props) => {
   const { currentSection } = props;
-  const { fetchSections } = useContext(SectonContext);
-  const { result: sections, loading: sectionLoading } = fetchSections;
-  const { products, fetchProducts } = useContext(
-    ProductContext
+  const { sections, loading: sectionLoading, fetchSections } = useContext(
+    SectonContext
   );
+  const { products, fetchProducts } = useContext(ProductContext);
 
   const frameworkComponents = {
     iconCellRender: IconCellRenderer
@@ -46,11 +45,15 @@ const AdminCatalogPage: NextPage<Props> = (props: Props) => {
     defaultColDef: {
       sortable: true,
       resizable: true,
-      // minWidth: 50,
+      minWidth: 150,
       flex: 1
     },
     rowSelection: 'multiple'
   });
+
+  useEffect(() => {
+    fetchSections();
+  }, []);
 
   useEffect(() => {
     updateGrid();

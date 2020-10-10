@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useAsync, UseAsyncReturn } from 'react-async-hook';
+import React, { useState, useEffect } from 'react';
+import { Subscription, from } from 'rxjs';
 
 import { getSections } from '../../services';
 import { Section } from '../../models';
@@ -7,11 +7,13 @@ import { PRODUCT_CATALOG_ID } from '../../constants';
 
 interface SectionContext {
   sections: Section[];
-  fetchSections: UseAsyncReturn<Section[], [number]>;
+  loading: boolean;
+  fetchSections: () => void;
 }
 
 export const SectonContext = React.createContext<SectionContext>({
   sections: [],
+  loading: false,
   fetchSections: null
 });
 
@@ -23,6 +25,8 @@ export const SectionProvider: React.FunctionComponent<{}> = (
   props: SectionProviderProps
 ) => {
   const [sections, setSections] = useState<Section[]>([]);
+  const [loading, setLoading] = useState(false);
+  const subscriptions = new Subscription();
 
   const apiFetchSections = async (blockId: number) => {
     const s = await getSections(blockId);
@@ -30,12 +34,29 @@ export const SectionProvider: React.FunctionComponent<{}> = (
     return s;
   };
 
-  const fetchSections = useAsync(apiFetchSections, [PRODUCT_CATALOG_ID]);
+  const fetchSections = () => {
+      setLoading(true);
+      subscriptions.add(
+        from(
+          apiFetchSections(PRODUCT_CATALOG_ID)
+        )
+        .subscribe(() => {
+          setLoading(false);
+        })
+      );
+  };
+
+  useEffect(() => {
+    return () => {
+      subscriptions.unsubscribe();
+    };
+  }, []);
 
   return (
     <SectonContext.Provider
       value={{
         sections,
+        loading,
         fetchSections
       }}
     >
