@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useAsync } from 'react-async-hook';
+import React, { useState } from 'react';
+import { Subscription, from } from 'rxjs';
 
 import { getProductsShallow } from '../../services';
 import { Product } from '../../models';
@@ -25,25 +25,28 @@ export const ProductProvider: React.FunctionComponent<{}> = (
   props: ProductProviderProps
 ) => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [sectionId, setSectionId] = useState<number>(null);
+  const [loading, setLoading] = useState(false);
+
+  const subscriptions = new Subscription();
 
   const apiFetchProducts = async (sId: number) => {
     if (sId) {
       const p = await getProductsShallow({blockId: PRODUCT_CATALOG_ID, sectionId: sId});
-      return p;
+      setProducts(p);
     } else {
-      return [];
+      setProducts([]);
     }
   };
 
-  const { result, loading } = useAsync(apiFetchProducts, [sectionId]);
-
-  useEffect(() => {
-    setProducts(result);
-  }, [loading]);
-
   const fetchProducts = (sId: number) => {
-    setSectionId(sId);
+    subscriptions.add(
+      from(
+        apiFetchProducts(sId)
+      )
+      .subscribe((p) => {
+        setLoading(false);
+      })
+    );
   };
 
   return (

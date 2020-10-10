@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, memo } from 'react';
 import { NextPage } from 'next';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -24,12 +24,12 @@ interface Props {
   currentSection: number;
 }
 
-const AdminCatalogPage: NextPage<Props> = (props: Props) => {
+const AdminCatalogPage: NextPage<Props> = memo((props: Props) => {
   const { currentSection } = props;
   const { sections, loading: sectionLoading, fetchSections } = useContext(
     SectonContext
   );
-  const { products, fetchProducts } = useContext(ProductContext);
+  const { products, loading: productsLoading, fetchProducts } = useContext(ProductContext);
 
   const frameworkComponents = {
     iconCellRender: IconCellRenderer
@@ -59,6 +59,11 @@ const AdminCatalogPage: NextPage<Props> = (props: Props) => {
     updateGrid();
   }, [curSection, sectionLoading, products]);
 
+  useEffect(() => {
+    fetchProducts(curSection);
+  }, [curSection]);
+
+
   // tslint:disable-next-line: no-any
   const onRowClicked = (event: any) => {
     const rowSelected: AdminCatalogRow = event.data;
@@ -82,7 +87,6 @@ const AdminCatalogPage: NextPage<Props> = (props: Props) => {
   };
 
   const updateGrid = () => {
-    fetchProducts(curSection);
     data = getSectionRows(sections || [], curSection);
     gridApi && gridApi.setRowData(data.concat(getProductRows(products || [])));
   };
@@ -125,7 +129,7 @@ const AdminCatalogPage: NextPage<Props> = (props: Props) => {
             <Button>Добавить товар</Button>
             <Button>Добавить раздел</Button>
           </ButtonGroup>
-          {process.browser && (
+          {!sectionLoading && !productsLoading && (
             <div
               className="ag-theme-material"
               style={{
@@ -149,7 +153,7 @@ const AdminCatalogPage: NextPage<Props> = (props: Props) => {
       </Grid>
     </div>
   );
-};
+});
 
 AdminCatalogPage.getInitialProps = async () => {
   const currentSection = parseInt(retrieveItem(ADMIN_CATALOG_RECORD_NAME), 0);
