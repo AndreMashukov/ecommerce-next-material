@@ -124,17 +124,22 @@ const AdminCatalogPage: NextPage<Props> = memo((props: Props) => {
         </Grid>
         <Grid item>
           <AdminBreadcrumbs name="Каталог">
-            {curSection && getSectionById(sections, curSection).sectionId && (
-              <Typography>
-                {
-                  getSectionById(
-                    sections,
-                    getSectionById(sections, curSection).sectionId
-                  ).name
-                }
-              </Typography>
-            )}
-            {curSection && (
+            {curSection &&
+              getSectionById(sections, curSection) &&
+              getSectionById(
+                sections,
+                getSectionById(sections, curSection).sectionId
+              ) && (
+                <Typography>
+                  {
+                    getSectionById(
+                      sections,
+                      getSectionById(sections, curSection).sectionId
+                    ).name
+                  }
+                </Typography>
+              )}
+            {curSection && getSectionById(sections, curSection) && (
               <Typography>
                 {getSectionById(sections, curSection).name}
               </Typography>

@@ -5,7 +5,7 @@ export const AWS_S3_PREFIX =
 
 export const API_BASE =
   process.env.NODE_ENV !== 'production'
-    ? 'http://ec2-18-185-117-154.eu-central-1.compute.amazonaws.com:3001/api'
+    ? 'http://ec2-18-192-6-212.eu-central-1.compute.amazonaws.com:3001/api'
     // ? 'http://localhost:3001/api'
     : 'http://localhost:3002/api';
 
