@@ -17,6 +17,8 @@ jobs:
   test:
     docker:
       - image: 'circleci/node:current'
+    orbs:
+      cypress: cypress-io/cypress@1.26.0
     steps:
       - checkout
       - run: echo "run testing"
@@ -31,6 +33,14 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: yarn lint
       - run: yarn test
+      - cypress/run:
+        start: npm run dev
+        wait-on: 'http://localhost:8000'
+        # there are no jobs to follow this one
+        # so no need to save the workspace files (saves time)
+        no-workspace: true
+        post-steps:
+          - run: npm run e2e      
 version: 2.1
 workflows:
   build_test_lint:
@@ -39,19 +49,4 @@ workflows:
       - build:
           requires:
             - test
-version: 2.1
-orbs:
-  cypress: cypress-io/cypress@1.26.0
-workflows:
-  build:
-    jobs:
-      - cypress/run:
-          start: npm run dev
-          wait-on: 'http://localhost:8000'
-          # there are no jobs to follow this one
-          # so no need to save the workspace files (saves time)
-          no-workspace: true
-          post-steps:
-            - run: npm run e2e
-
 
