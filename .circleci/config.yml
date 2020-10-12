@@ -44,8 +44,8 @@ workflows:
       - cypress/install:
           pre-steps:
             - checkout
-            run: yarn install
-            build: 'npm run build'
+            - run: yarn install
+            - run: 'npm run build'
       - cypress/run:    
           requires:
             - cypress/install
