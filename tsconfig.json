@@ -16,7 +16,7 @@
     "removeComments": false,
     "skipLibCheck": true,
     "strictNullChecks": false,
-    "sourceMap": true,
+    "sourceMap": false,
     "strict": true,
     "target": "esnext",
     "forceConsistentCasingInFileNames": true,
@@ -30,7 +30,7 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx", "cypress/integration/spec.js"
   ],
   "jest": {
     "globals": {

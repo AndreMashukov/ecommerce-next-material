@@ -15,8 +15,7 @@ import { retrieveItem, storeItem, removeItem } from '../../utils/Storage';
 import {
   getParentSectionId,
   getSectionRows,
-  getSectionById,
-  getParentSectionById
+  getSectionById
 } from '../../utils/Section';
 import { getProductRows } from '../../utils/Product';
 import { IconCellRenderer } from '../../components';

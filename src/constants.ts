@@ -1,13 +1,14 @@
 import { ProductProperties } from './models';
+import * as globals from '../global-definitions.json';
 
 export const AWS_S3_PREFIX =
   'https://m288-images.s3.eu-central-1.amazonaws.com/';
 
 export const API_BASE =
   process.env.NODE_ENV !== 'production'
-    ? 'http://ec2-18-192-6-212.eu-central-1.compute.amazonaws.com:3001/api'
+    ? globals.dev.baseUrl
     // ? 'http://localhost:3001/api'
-    : 'http://localhost:3002/api';
+    : 'http://production';
 
 export const USER_RECORD_NAME = 'userState';
 export const ADMIN_CATALOG_RECORD_NAME = 'adminCatalogState';
