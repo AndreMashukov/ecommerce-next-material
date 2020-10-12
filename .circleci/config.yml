@@ -37,6 +37,10 @@ version: 2.1
 workflows:
   build_test_lint:
     jobs:
+      - test
+      - build:
+          requires:
+            - test      
       - cypress/install:
           pre-steps:
             - checkout
@@ -44,14 +48,8 @@ workflows:
           requires:
             - cypress/install
           install-command: 'yarn install --frozen-lockfile'
-          verify-command: yarn cypress verify
           start: npm run dev
           wait-on: 'http://localhost:8000'
           # there are no jobs to follow this one
           # so no need to save the workspace files (saves time)
           no-workspace: true
-      - test
-      - build:
-          requires:
-            - test
-
