@@ -19,8 +19,6 @@ jobs:
   test:
     docker:
       - image: 'circleci/node:current'
-    orbs:
-      cypress: cypress-io/cypress@1.26.0
     steps:
       - checkout
       - run: echo "run testing"
@@ -35,8 +33,6 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: yarn lint
       - run: yarn test
-      - cypress/run:
-        verify-command: yarn cypress verify    
 version: 2.1
 workflows:
   build_test_lint:
@@ -45,4 +41,5 @@ workflows:
       - build:
           requires:
             - test
-
+      - cypress/run:
+          verify-command: yarn cypress verify
