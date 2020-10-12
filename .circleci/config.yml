@@ -43,7 +43,7 @@ workflows:
       - cypress/run:    
           requires:
             - cypress/install
-          install-command: 'npm install node-sass && yarn install --frozen-lockfile'
+          install-command: 'yarn install --frozen-lockfile'
           verify-command: yarn cypress verify
           command: yarn e2e
       - test
