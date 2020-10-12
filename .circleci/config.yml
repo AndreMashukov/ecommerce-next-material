@@ -1,3 +1,5 @@
+orbs:
+  cypress: cypress-io/cypress@1.26.0
 jobs:
   build:
     docker:
@@ -17,8 +19,6 @@ jobs:
   test:
     docker:
       - image: 'circleci/node:current'
-    orbs:
-      cypress: cypress-io/cypress@1.26.0
     steps:
       - checkout
       - run: echo "run testing"
