@@ -37,19 +37,12 @@ version: 2.1
 workflows:
   build_test_lint:
     jobs:
-      - cypress/run:
-          steps:
-            - checkout
-            - run: echo "run testing"
-            - restore_cache:
-                keys:
-                  - v1-dependencies-{{ checksum "package.json" }}
-                  - v1-dependencies-
-            - run: yarn install
-            - save_cache:
-                paths:
-                  - node_modules
-                key: v1-dependencies-{{ checksum "package.json" }}        
+      - cypress/install:
+        pre-steps:
+          - run: 'yarn install'
+      - cypress/run:    
+          requires:
+            - cypress/install
           verify-command: yarn cypress verify      
       - test
       - build:
