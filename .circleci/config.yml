@@ -49,8 +49,7 @@ workflows:
       - cypress/run:    
           requires:
             - cypress/install
-          install-command: 'yarn install --frozen-lockfile'
-          start: npm run dev
+          start: npm e2e
           wait-on: 'http://localhost:8000'
           # there are no jobs to follow this one
           # so no need to save the workspace files (saves time)
