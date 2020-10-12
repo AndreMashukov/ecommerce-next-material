@@ -33,13 +33,27 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: yarn lint
       - run: yarn test
+  cypress/run:
+    steps:
+      - checkout
+      - run: echo "npm installing"
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run: yarn install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - verify-command: yarn cypress verify
 version: 2.1
 workflows:
   build_test_lint:
     jobs:
       - test
+      - cypress/run
       - build:
           requires:
             - test
-      - cypress/run:
-          verify-command: yarn cypress verify
+
