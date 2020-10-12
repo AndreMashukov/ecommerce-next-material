@@ -44,7 +44,8 @@ workflows:
           requires:
             - cypress/install
           install-command: yarn install --frozen-lockfile
-          verify-command: yarn cypress verify      
+          verify-command: yarn cypress verify
+          command: yarn e2e
       - test
       - build:
           requires:
