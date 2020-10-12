@@ -38,8 +38,8 @@ workflows:
   build_test_lint:
     jobs:
       - cypress/install:
-        pre-steps:
-          - run: 'yarn install'
+          pre-steps:
+            - run: 'yarn install'
       - cypress/run:    
           requires:
             - cypress/install
