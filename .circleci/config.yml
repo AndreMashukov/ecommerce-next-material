@@ -39,4 +39,19 @@ workflows:
       - build:
           requires:
             - test
-  version: 2.1
+            version: 2.1
+            orbs:
+              cypress: cypress-io/cypress@1.26.0
+            workflows:
+              build:
+                jobs:
+                  - cypress/run:
+                      start: npm run dev
+                      wait-on: 'http://localhost:8000'
+                      # there are no jobs to follow this one
+                      # so no need to save the workspace files (saves time)
+                      no-workspace: true
+                      post-steps:
+                        - run: npm run e2e
+            
+            
