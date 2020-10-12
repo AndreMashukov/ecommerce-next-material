@@ -15,10 +15,10 @@ module.exports = withCSS(
           }
         }
       });
-      config.resolve = {
-        ...config.resolve, // this line will fixed
-        modules: ['node_modules', './src']
-      };
+      // config.resolve = {
+      //   ...config.resolve, // this line will fixed
+      //   modules: ['node_modules', './src']
+      // };
 
       return config;
     }

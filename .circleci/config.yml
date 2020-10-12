@@ -48,8 +48,8 @@ workflows:
       - cypress/run:    
           requires:
             - cypress/install
-          start: npm e2e
-          wait-on: 'http://localhost:8000'
+          start: npm run e2e
+          # wait-on: 'http://localhost:8000'
           # there are no jobs to follow this one
           # so no need to save the workspace files (saves time)
           no-workspace: true
