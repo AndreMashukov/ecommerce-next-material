@@ -33,11 +33,12 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: yarn lint
       - run: yarn test
-      - run: yarn cypress verify
 version: 2.1
 workflows:
   build_test_lint:
     jobs:
+      - cypress/run:
+        verify-command: yarn cypress verify      
       - test
       - build:
           requires:
