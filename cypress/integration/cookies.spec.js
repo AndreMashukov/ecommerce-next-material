@@ -4,8 +4,8 @@ context('Cookies', () => {
   beforeEach(() => {
     Cypress.Cookies.debug(true);
 
-    cy.visit('/');
-    cy.clearCookies();
+    // cy.visit('/');
+    // cy.clearCookies();
   });
 
   it('get a sessionId from browser cookie', () => {
