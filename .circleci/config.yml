@@ -49,7 +49,7 @@ workflows:
           requires:
             - cypress/install
           yarn: true
-          install-command: 'yarn install'
+          install-command: 'yarn build'
           start: yarn start
           wait-on: 'http://localhost:8000'
           post-steps:
