@@ -45,11 +45,12 @@ workflows:
           pre-steps:
             - checkout
             - run: yarn install
-      - cypress/run:    
-          requires:
-            - cypress/install
+      - cypress/run:
+          start: npm run dev
+          parallel: true
+          parallelism: 2
+      - cypress/run:
           start: npm run e2e
           wait-on: 'http://localhost:8000'
-          # there are no jobs to follow this one
-          # so no need to save the workspace files (saves time)
-          no-workspace: true
+          parallel: true
+          parallelism: 2
