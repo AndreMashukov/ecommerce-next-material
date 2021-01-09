@@ -48,8 +48,8 @@ workflows:
       - cypress/run:
           requires:
             - cypress/install
+            - build
           yarn: true
-          install-command: 'yarn build'
           start: yarn start
           wait-on: 'http://localhost:8000'
           post-steps:
