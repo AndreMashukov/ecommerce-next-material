@@ -46,6 +46,8 @@ workflows:
             - checkout
             - run: yarn install
       - cypress/run:
+           requires:
+            - cypress/install
           yarn: true
           install-command: 'yarn install'
           start: yarn start
