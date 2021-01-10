@@ -51,6 +51,8 @@ workflows:
             - build
           yarn: true
           pre-steps:
+            - checkout
+            - run: yarn install
             - run: yarn build
           start: npm run dev
           wait-on: 'http://localhost:8000'
