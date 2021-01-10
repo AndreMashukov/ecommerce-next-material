@@ -33,22 +33,9 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: yarn lint
       - run: yarn test
-      - cypress/install:
-          pre-steps:
-            - checkout
-            - run: yarn install
-      - cypress/run:
-          requires:
-            - cypress/install
-          yarn: true
-          pre-steps:
-            - checkout
-            - run: yarn install
-            # - run: yarn build
-          start: npm run dev
-          wait-on: 'http://localhost:8000'
-          post-steps:
-            - run: 'yarn cypress open'
+      - run: npm run dev
+      wait-on: 'http://localhost:8000'
+      - run: 'yarn cypress open'
 version: 2.1
 workflows:
   build_test_lint:
