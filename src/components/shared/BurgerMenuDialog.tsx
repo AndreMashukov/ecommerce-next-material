@@ -6,7 +6,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Grid from '@material-ui/core/Grid';
-import { Section, Category } from '../../models';
+import { Section, Category } from 'models';
 import { BurgerMenuAccordion } from './BurgerMenuAccordion';
 
 const useStyles = makeStyles((theme: Theme) =>

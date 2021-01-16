@@ -4,7 +4,7 @@ import AppComponentProps from 'next/app';
 import withMaterial, { MaterialAppComponentProps } from '../theme/withMaterial';
 import Store from '../store/Store';
 import { NavBar, Footer, Layout, AdminFooter, AdminBar } from '../components';
-import { Section, Category } from '../models/Section';
+import { Section, Category } from 'models';
 import { getSections } from '../services/CatalogApi';
 import { PRODUCT_CATALOG_ID } from '../constants';
 import axios, { AxiosError } from 'axios';

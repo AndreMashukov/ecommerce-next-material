@@ -1,6 +1,6 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import { Section, Product } from '../../models';
+import { Section, Product } from 'models';
 import { makeStyles } from '@material-ui/styles';
 
 type Props = {

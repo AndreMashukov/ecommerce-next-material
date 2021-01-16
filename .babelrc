@@ -1,15 +1,35 @@
-
 {
-  "presets": [ "next/babel", "@zeit/next-typescript/babel" ],
+  "presets": [
+    "next/babel",
+    "@zeit/next-typescript/babel"
+  ],
   "plugins": [
-    ["module-resolver", {
-      "root": ["./src"],
-      "alias": {
-        "@components": "./components",
-        "@models": "./models",
-        "@icons": "./assets/icons",
-        "@views": "./views"
+    [
+      "module-resolver",
+      {
+        "root": ["."],
+        "extensions": [
+          ".ios.ts",
+          ".android.ts",
+          ".ts",
+          ".ios.tsx",
+          ".android.tsx",
+          ".tsx",
+          ".jsx",
+          ".js",
+          ".json"
+        ],
+        "alias": {
+          "@src/config": "./src/config",
+          "@src/context": "./src/context",
+          "@src/models": "./src/models",
+          "@src/layout": "./src/layout",
+          "@src/navigation": "./src/navigation",
+          "@src/screens": "./app/screens",
+          "@src/theme": "./app/theme",
+          "@src/utils": "./app/utils"
+        }
       }
-    }]
+    ]
   ]
 }

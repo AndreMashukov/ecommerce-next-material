@@ -12,7 +12,7 @@ import {
   AuthNavBar,
   AdminSwitch
 } from '../../shared';
-import { Section, Category } from '@models';
+import { Section, Category } from 'models';
 import { filterSections } from '../../../utils/Section';
 
 interface NavBarProps {

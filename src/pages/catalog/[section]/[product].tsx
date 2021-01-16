@@ -1,7 +1,7 @@
 import React from 'react';
 import { getSections, getProductByCode } from '../../../services';
 import { PRODUCT_CATALOG_ID, CATALOG_NAME } from '../../../constants';
-import { Section, Product } from '../../../models';
+import { Section, Product } from 'models';
 import {
   ProductBreadcrumbs,
   ProductNotFound,

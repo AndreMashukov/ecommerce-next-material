@@ -1,4 +1,4 @@
-import { Section, AdminCatalogRow } from '../models';
+import { Section, AdminCatalogRow } from 'models';
 
 export const filterSections = (
   sections: Section[],

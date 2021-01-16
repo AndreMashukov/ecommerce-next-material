@@ -10,11 +10,12 @@
     "module": "esnext",
     "moduleResolution": "node",
     "noEmit": true,
-    "baseUrl": "src",
+    "baseUrl": ".",
     "paths": {
-      "@components/*": [
-        "components/*"
-      ]
+      "*": ["./src/*"],
+      "@app/utils": ["./utils/*"],
+      "@components": ["./components/*"],
+      "@src/models": ["./models/*"],
     },
     "noUnusedLocals": true,
     "noUnusedParameters": true,

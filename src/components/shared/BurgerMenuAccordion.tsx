@@ -4,7 +4,7 @@ import MuiAccordion from '@material-ui/core/Accordion';
 import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
 import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
-import { Section, Category } from '../../models';
+import { Section, Category } from 'models';
 import { SectionList } from './SectionList';
 import { filterSections } from '../../utils/Section';
 
