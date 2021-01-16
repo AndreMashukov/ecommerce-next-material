@@ -16,7 +16,6 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-      - run: yarn build
   test:
     docker:
       - image: 'circleci/node:current'
@@ -38,11 +37,18 @@ version: 2.1
 workflows:
   build_test_lint:
     jobs:
-      - build:   
+      # - test
+      - build:
+          # requires:
+          #   - test      
       - cypress/run:
           requires:
             - build   
           yarn: true
+          # pre-steps:
+          #   - checkout
+          #   - run: npm install
+          #   # - run: yarn build
           start: npm run dev
           wait-on: 'http://localhost:8000'
           post-steps:
