@@ -102,6 +102,7 @@ const LoginForm: React.FC<WithComposeProps> = (props: WithComposeProps) => {
               E-Mail
             </Typography>
             <TextField
+              data-cy="login-email"
               style={{ width: '300px' }}
               variant="outlined"
               placeholder="Ваш E-Mail"
@@ -115,6 +116,7 @@ const LoginForm: React.FC<WithComposeProps> = (props: WithComposeProps) => {
               Пароль
             </Typography>
             <TextField
+              data-cy="login-password"
               style={{ width: '300px' }}
               variant="outlined"
               placeholder="Ваш Пароль"
@@ -127,6 +129,7 @@ const LoginForm: React.FC<WithComposeProps> = (props: WithComposeProps) => {
           <Grid item>
             <Grid container justify="center">
               <Button
+                data-cy="login-submit"
                 variant="contained"
                 disableElevation
                 onClick={handleLoginSubmit}
