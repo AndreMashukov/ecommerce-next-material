@@ -3,7 +3,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: 'circleci/node:current'
+      - image: 'circleci/node:12'
     steps:
       - checkout
       - run: echo "npm installing"
@@ -38,8 +38,6 @@ workflows:
   build_test_lint:
     jobs:
       - cypress/run:
-          docker:
-            - image: 'circleci/node:12'
           pre-steps:
             - checkout
             - run: npm install
