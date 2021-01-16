@@ -38,6 +38,8 @@ workflows:
   build_test_lint:
     jobs:
       - cypress/run:
+          docker:
+            - image: 'circleci/node:12'
           pre-steps:
             - checkout
             - run: npm install
