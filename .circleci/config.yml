@@ -12,6 +12,7 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
       - run: yarn install
+      - run: yarn build
       - save_cache:
           paths:
             - node_modules
@@ -37,10 +38,10 @@ version: 2.1
 workflows:
   build_test_lint:
     jobs:
-      - test
+      # - test
       - build:
-          requires:
-            - test      
+          # requires:
+          #   - test      
       - cypress/run:
           requires:
             - build   
