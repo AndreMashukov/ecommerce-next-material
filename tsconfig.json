@@ -12,7 +12,9 @@
     "noEmit": true,
     "baseUrl": "src",
     "paths": {
-      "@components/*": ["components/*"]
+      "@components/*": [
+        "components/*"
+      ]
     },
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -26,7 +28,7 @@
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "isolatedModules": false
+    "isolatedModules": true
   },
   "exclude": [
     "node_modules"
@@ -34,7 +36,8 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx", "cypress/integration/spec.js"
+    "**/*.tsx",
+    "cypress/integration/spec.js"
   ],
   "jest": {
     "globals": {
