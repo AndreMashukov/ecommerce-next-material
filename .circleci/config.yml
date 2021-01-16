@@ -45,6 +45,7 @@ workflows:
           yarn: true
           pre-steps:
             - checkout
+            - run: npm run build
             - run: npm install
             # - run: yarn build
           start: npm run dev

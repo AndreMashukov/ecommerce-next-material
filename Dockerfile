@@ -16,7 +16,7 @@ RUN npm install
 # start app
 RUN npm run build
 EXPOSE 3000
-CMD npm run start
+CMD [ "npm", "run", "dev" ]
 
 # # stage1 as builder
 # FROM node:10-alpine as builder
