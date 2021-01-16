@@ -9,5 +9,6 @@ export * from './PaySystem';
 export * from './AdminCatalogRow';
 export * from './AgGrid';
 export * from './Roles';
-export * from './Section';
+export * from './section';
+export * from './Category';
 

@@ -16,8 +16,3 @@ export interface Section {
   descriptionType: string;
   pictureData: Picture;
 }
-
-export interface Category {
-  categoryId: number;
-  categoryName: string;
-}
