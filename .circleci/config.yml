@@ -37,18 +37,16 @@ version: 2.1
 workflows:
   build_test_lint:
     jobs:
-      # - test
+      - test
       - build:
-          # requires:
-          #   - test      
-      - cypress/run:
           requires:
-            - build   
+            - test      
+      - cypress/run:
           yarn: true
-          # pre-steps:
-          #   - checkout
-          #   - run: npm install
-          #   # - run: yarn build
+          pre-steps:
+            - checkout
+            - run: npm install
+            # - run: yarn build
           start: npm run dev
           wait-on: 'http://localhost:8000'
           post-steps:
