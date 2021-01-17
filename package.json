@@ -56,13 +56,11 @@
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "eslint-plugin-import": "^2.22.1",
-    "html-webpack-plugin": "^4.5.1",
     "jest": "^23.6.0",
     "start-server-and-test": "^1.11.5",
     "ts-jest": "^23.10.5",
     "typescript": "^3.9.5",
     "webpack": "^4.44.2",
-    "webpack-dev-server": "^3.11.2"
   },
   "jest": {
     "transform": {
