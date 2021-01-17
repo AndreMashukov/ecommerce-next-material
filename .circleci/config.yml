@@ -41,9 +41,8 @@ workflows:
           pre-steps:
             - checkout
             - run: npm install
-            # - run: npm run build
           yarn: true
           start: npm run dev
           wait-on: 'http://localhost:8000'
-          post-steps:
-            - run: 'yarn cypress open'
+          # post-steps:
+          #   - run: 'yarn cypress open'
