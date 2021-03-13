@@ -5,8 +5,11 @@
 import { login } from "../support/login";
 
 describe('User Profile', () => {
-  it('logs user in', async () => {
+  before(() => {
     login();
+  });
+
+  it('Navigates to /profile page after login', async () => {
     cy.url().should('contain', '/profile');
   });
 });
